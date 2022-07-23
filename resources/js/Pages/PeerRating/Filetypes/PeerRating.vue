@@ -24,7 +24,10 @@ th {
           @click="history_back()"
           label="Back"
         ></Button>
-        <span>Peer Rating:</span>
+        <span class="uppercase"
+          >RATER: {{ `${peer.name}` }}
+          <i class="text-gray-500">({{ department.name }} - {{ office.name }})</i></span
+        >
       </template>
       <template #content>
         <table border="1" style="border-collapse: collapse">
@@ -85,15 +88,19 @@ th {
 import AuthLayout from "@/Layouts/Authenticated";
 
 export default {
-  props: {},
+  props: {
+    peer: Object,
+    department: Object,
+    office: Object,
+  },
   components: {
     AuthLayout,
   },
   data() {
     return {
-      form: this.$inertia.form({
-        department: "",
-      }),
+      // form: this.$inertia.form({
+
+      // }),
       measures: [
         "Outstanding",
         "Very Satisfactory",
@@ -110,21 +117,25 @@ export default {
       ],
       employee_id_ratee: {
         id: 123,
+        employee_id: 2786,
         name: "Franz Joshua A. Valencia",
       },
       employees: [
         {
           id: 123,
+          employee_id: 3564,
           name: "Franz Joshua A. Valencia",
           scores: [],
         },
         {
           id: 163,
+          employee_id: 8954,
           name: "Juan dela Cruz",
           scores: [],
         },
         {
           id: 987,
+          employee_id: 7025,
           name: "Jane Doe",
           scores: [],
         },

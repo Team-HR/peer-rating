@@ -3,7 +3,7 @@
     <Card class="w-full h-30rem">
       <template #title>
       <Button class="p-button-text p-button-sm mr-5" icon="pi pi-arrow-left" label="Back" @click="history_back()"></Button>
-        <span>Peer Rating <i style="color: grey">(Jan-June 2022)</i>:: {{ department }}</span>
+        <span class="uppercase">Peer Rating <i style="color: grey">(Jan-June 2022)</i>:: {{ department }}</span>
       </template>
       <template #content>
         <div class="grid">
@@ -74,7 +74,7 @@ export default {
         {
           name: "Peer Rating",
           description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!",
-          link: "/peer-rating-2022/"+this.department_id+"/peer-rating"
+          link: "/peer-rating-2022/"+this.department_id+"/peer-ratings"
         },
         {
           name: "Section Head Rating",

@@ -19,7 +19,7 @@ class CreateEmployeesTable extends Migration
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('ext')->nullable();
-            $table->string('gender');
+            $table->string('gender')->nullable();
             $table->timestamps();
         });
     }

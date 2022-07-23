@@ -2,7 +2,7 @@
   <auth-layout>
     <Card class="w-full h-30rem">
       <template #title>
-        <span>Peer Rating Jan-June 2022</span>
+        <span class="uppercase">Peer Rating Jan-June 2022</span>
       </template>
       <template #content>
         Departments:
