@@ -10,11 +10,14 @@ class Employee extends Model
     use HasFactory;
 
 
+    protected $appends = ['full_name'];
+
     /**
      * Get the employees's full name.
      *
      * @return string
      */
+
     public function getFullNameAttribute()
     {
         $last_name = $this->last_name;

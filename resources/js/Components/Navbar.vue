@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex justify-content-between flex-wrap bg-primary py-1">
+  <nav class="flex justify-content-between flex-wrap bg-primary py-1" style="z-index: 100;">
     <div class="flex align-items-center justify-content-center">
       <!-- logo -->
       <Button

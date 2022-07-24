@@ -10,6 +10,8 @@ class PeerRatingOfficePeer extends Model
 {
     use HasFactory;
 
+    protected $appends = ['full_name'];
+
     public function getFullNameAttribute()
     {
 

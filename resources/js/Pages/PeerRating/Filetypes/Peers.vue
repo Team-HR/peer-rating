@@ -1,4 +1,11 @@
 <style scoped>
+table,
+th,
+td {
+  padding: 5px;
+  border: 0.5px solid black;
+  border-collapse: collapse;
+}
 </style>
 
 
@@ -13,7 +20,7 @@
           label="Back"
         ></Button>
         <span class="uppercase"
-          >Peers: {{ department.name }} - {{ office.name }}</span
+          >Peer Rating: {{ department.name }} - {{ office.name }}</span
         >
       </template>
       <template #content>
@@ -23,22 +30,40 @@
             v-model="form.employee"
             :options="employees"
             optionLabel="full_name"
-            placeholder="Select a personnel"
+            placeholder="Add a personnel"
             :filter="true"
-            filterPlaceholder="Find Car"
+            filterPlaceholder="Search name"
           />
-
-          <button type="submit">Add</button>
+          <Button :disabled="!form.employee" class="ml-2" type="submit"
+            >Add</Button
+          >
         </form>
-        <ol>
-          <li v-for="peer in peers" :key="peer.id">
-            <inertia-link
-              :href="`/peer-rating-2022/${department.id}/peer-rating/${office.id}/peer/${peer.id}`"
-              >open</inertia-link
-            >
-            {{ peer.full_name }}
-          </li>
-        </ol>
+        <table class="my-2">
+          <tr>
+            <th>#</th>
+            <th>NAME</th>
+            <th>RATING</th>
+            <th colspan="2">OPTIONS</th>
+          </tr>
+          <tr>
+            <td class="text-center" colspan="4" v-if="peers.length == 0">
+              Please add the list of personnel same from the form...
+            </td>
+          </tr>
+          <tr v-for="(peer, i) in peers" :key="peer.id">
+            <td>{{ i + 1 }}</td>
+            <td>{{ peer.full_name }}</td>
+            <td class="text-center">{{ peer.rating }}</td>
+            <td>
+              <inertia-link :href="`${current_url}/${peer.id}`"
+                >open</inertia-link
+              >
+            </td>
+            <td>
+              <a href="#" @click.prevent="remove_peer(peer.id)">delete</a>
+            </td>
+          </tr>
+        </table>
       </template>
     </Card>
   </auth-layout>
@@ -47,7 +72,7 @@
 
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
-
+import { Inertia } from "@inertiajs/inertia";
 export default {
   props: {
     employees: Array,
@@ -60,10 +85,11 @@ export default {
   },
   data() {
     return {
+      current_url: document.location.pathname,
       form: this.$inertia.form({
         department: this.department,
         office: this.office,
-        employee: "",
+        employee: null,
       }),
     };
   },
@@ -74,10 +100,18 @@ export default {
         onSuccess: () => this.form.reset(),
       });
     },
+    remove_peer(id) {
+      const url = this.current_url;
+      this.$inertia.delete(`${url}/${id}`, {
+        onBefore: () => confirm("Are you sure you want to delete this user?"),
+      });
+    },
     history_back() {
       history.back();
     },
   },
-  mounted() {},
+  mounted() {
+    Inertia.reload({ only: ["peers"] });
+  },
 };
 </script>

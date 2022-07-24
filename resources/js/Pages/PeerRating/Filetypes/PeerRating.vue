@@ -1,17 +1,27 @@
 <style scoped>
+table,
+th,
 td {
-  padding: 5px;
+  padding: 2px;
+  border: 0.5px solid black;
+  border-collapse: collapse;
 }
 
-th {
-  padding: 5px;
+.table-divider {
+  border-right: 3px solid black;
 }
 
 .verticalTableHeader {
   writing-mode: vertical-lr;
   transform: rotate(180deg);
 }
+
+.check:hover {
+  background-color: rgb(197, 227, 247);
+}
 </style>
+
+
 
 
 <template>
@@ -25,17 +35,20 @@ th {
           label="Back"
         ></Button>
         <span class="uppercase"
-          >RATER: {{ `${peer.name}` }}
-          <i class="text-gray-500">({{ department.name }} - {{ office.name }})</i></span
+          >RATER: {{ `${rater.full_name}` }}
+          <i class="text-gray-500"
+            >({{ department.name }} - {{ office.name }})</i
+          ></span
         >
       </template>
       <template #content>
-        <table border="1" style="border-collapse: collapse">
+        <!-- ############################   TABLE START   ############################# -->
+        <table>
           <tr>
             <th>#</th>
-            <th style="border-right: 2px solid black">Name</th>
+            <th class="table-divider">Name</th>
             <th
-              style="border-right: 2px solid black"
+              class="table-divider"
               colspan="5"
               v-for="(num, i) in 4"
               :key="i"
@@ -45,39 +58,96 @@ th {
           </tr>
           <tr>
             <th></th>
-            <th style="border-right: 2px solid black"></th>
+            <th class="table-divider"></th>
             <template v-for="(num, i) in 4" :key="i">
               <td
                 class="verticalTableHeader"
                 v-for="(measure, s) in measures"
                 :key="s"
-                :style="s == 4 ? 'border-right: 2px solid black' : ''"
+                :class="s == 4 ? 'table-divider' : ''"
               >
                 {{ measure }}
               </td>
             </template>
           </tr>
-          <tr v-for="employee in employees" :key="employee.id">
-            <td>{{ employee.id }}</td>
-            <td style="border-right: 2px solid black">{{ employee.name }}</td>
-            <template v-for="(num, i) in 4" :key="i">
+          <!-- ################    ratees    ################### -->
+          <tr
+            v-for="(ratee, index) in ratees"
+            :key="ratee.id"
+            :class="rater.id == ratee.id ? 'bg-gray-300' : ''"
+          >
+            <td>{{ index + 1 }}</td>
+            <td class="table-divider">
+              {{ ratee.full_name }}
+            </td>
+            <template v-for="(no, i) in 4" :key="i">
               <td
                 v-for="(value, s) in radio_values"
                 :key="s"
-                :style="s == 4 ? 'border-right: 2px solid black' : ''"
+                :class="s == 4 ? 'table-divider ' : ''"
               >
-                <RadioButton
-                  :name="`check_${employee.id}_${i}_${value}`"
-                  :value="25 - s * 5"
-                  v-model="employee.scores[i]"
-                />
-                <!-- :value="{ criteria: i, score: value }" -->
+                <div
+                  v-if="rater.id != ratee.id && (is_updating || !is_complete)"
+                  @click="checked_box(index, i, 25 - s * 5)"
+                  class="w-full"
+                  :class="
+                    rater.id != ratee.id && (is_updating || !is_complete)
+                      ? 'check'
+                      : ''
+                  "
+                  style="height: 20px; text-align: center"
+                >
+                  <i
+                    v-if="25 - s * 5 == ratee[`criteria_${i}`]"
+                    class="pi pi-check text-primary-500"
+                  ></i>
+                </div>
+                <div
+                  v-else
+                  class="w-full"
+                  style="height: 20px; text-align: center"
+                >
+                  <i
+                    v-if="25 - s * 5 == ratee[`criteria_${i}`]"
+                    class="pi pi-check"
+                  ></i>
+                </div>
               </td>
             </template>
           </tr>
         </table>
+        <!-- ############################   TABLE END   ############################# -->
 
-        <Button class="m-2" @click="submit()">Submit</Button>
+        <!-- v-if="!is_complete && ratees.length > 1" -->
+        <Button
+          v-if="!is_updating && is_complete"
+          class="m-2"
+          @click="is_updating = true"
+          icon="pi pi-key"
+          label="Unlock"
+        ></Button>
+        <Button
+          v-if="is_updating && is_complete"
+          class="p-button-danger m-2"
+          @click="is_updating = false"
+          icon="pi pi-times"
+          label="Cancel"
+        ></Button>
+        <Button
+          v-if="(!is_complete && ratees.length > 1) || is_updating"
+          class="m-2"
+          @click="submit()"
+          icon="pi pi-save"
+          label="Save"
+        ></Button>
+
+        <Button
+          v-if="!is_updating"
+          class="m-2"
+          @click="history_back()"
+          icon="pi pi-arrow-left"
+          label="Back"
+        ></Button>
       </template>
     </Card>
   </auth-layout>
@@ -89,7 +159,9 @@ import AuthLayout from "@/Layouts/Authenticated";
 
 export default {
   props: {
-    peer: Object,
+    is_complete: Boolean,
+    rater: Object,
+    ratees: Array,
     department: Object,
     office: Object,
   },
@@ -98,9 +170,8 @@ export default {
   },
   data() {
     return {
-      // form: this.$inertia.form({
-
-      // }),
+      is_updating: false,
+      current_url: document.location.pathname,
       measures: [
         "Outstanding",
         "Very Satisfactory",
@@ -115,38 +186,19 @@ export default {
         "needs_improvement",
         "poor",
       ],
-      employee_id_ratee: {
-        id: 123,
-        employee_id: 2786,
-        name: "Franz Joshua A. Valencia",
-      },
-      employees: [
-        {
-          id: 123,
-          employee_id: 3564,
-          name: "Franz Joshua A. Valencia",
-          scores: [],
-        },
-        {
-          id: 163,
-          employee_id: 8954,
-          name: "Juan dela Cruz",
-          scores: [],
-        },
-        {
-          id: 987,
-          employee_id: 7025,
-          name: "Jane Doe",
-          scores: [],
-        },
-      ],
     };
   },
   methods: {
     submit() {
-      console.log(JSON.stringify(this.employees));
+      // console.log(this.current_url);
+      this.$inertia.post(this.current_url, this.ratees);
+      this.is_updating = false;
     },
-
+    checked_box(index, i, val) {
+      if (this.ratees[index][`criteria_${i}`]) {
+        this.ratees[index][`criteria_${i}`] = 0;
+      } else this.ratees[index][`criteria_${i}`] = val;
+    },
     history_back() {
       history.back();
     },

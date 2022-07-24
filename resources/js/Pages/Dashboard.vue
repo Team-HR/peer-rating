@@ -2,7 +2,10 @@
   <auth-layout>
     <Card class="w-full h-30rem">
       <template #content>
-        <Button @click="$inertia.get('/peer-rating-2022')">Peer Rating 2022</Button>
+        <Button
+          @click="$inertia.get('/peer-rating-2022')"
+          >Peer Rating 2022</Button
+        >
       </template>
     </Card>
   </auth-layout>
@@ -15,8 +18,8 @@ export default {
   components: {
     AuthLayout,
   },
-  mounted(){
+  mounted() {
     // console.log(this.$inertia.page.url);
-  }
+  },
 };
 </script>
