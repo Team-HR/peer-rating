@@ -69,7 +69,6 @@ class PeerRatingController extends Controller
 
     public function file_peer_ratings_create_office(Request $request)
     {
-
         $office = new PeerRatingOffice();
         $office->peer_rating_department_id = $request->department["id"];
         $office->name = $request->name;
@@ -81,11 +80,8 @@ class PeerRatingController extends Controller
 
     public function file_peers($department_id, $office_id)
     {
-
         $employees = Employee::orderBy('last_name')->get()->toArray();
-
         $peers = PeerRatingOfficePeer::where("office_id", "=", $office_id)->orderBy('index')->get();
-
         foreach ($peers as $index => $peer) {
             # getting peer rating scores     
             $scores = PeerRatingPeerForm::where('peer_rating_office_peer_id', $peer["id"])->get(['criteria_0', 'criteria_1', 'criteria_2', 'criteria_3']);
@@ -107,7 +103,6 @@ class PeerRatingController extends Controller
                 }
             }
         }
-
         $department = PeerRatingDepartment::find($department_id);
         $office = PeerRatingOffice::find($office_id);
         return Inertia::render("PeerRating/Filetypes/Peers", ['employees' => $employees, 'department' => $department, 'office' => $office, "peers" => $peers]);

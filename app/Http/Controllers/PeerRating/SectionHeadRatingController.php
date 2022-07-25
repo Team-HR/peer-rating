@@ -72,8 +72,6 @@ class SectionHeadRatingController extends Controller
 
     public function section_head_rating_add_peer($department_id, $section_id, Request $request)
     {
-
-
         $index = 0;
         $peers = PeerRatingSectionPeer::where('section_id', $section_id)->get();
 
@@ -104,11 +102,8 @@ class SectionHeadRatingController extends Controller
 
     public function section_head_rating_save($department_id, $section_id, Request $request)
     {
-        // return $request;
         $ratees = $request->toArray();
-        // return $ratees;
         foreach ($ratees as $ratee) {
-            // return $ratee;
             $peer = PeerRatingSectionPeer::find($ratee["id"]);
             $peer->criteria_0 = $ratee["criteria_0"];
             $peer->criteria_1 = $ratee["criteria_1"];

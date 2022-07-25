@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\PeerRating\PeerRatingController;
 use App\Http\Controllers\PeerRating\SectionHeadRatingController;
+use App\Http\Controllers\PeerRating\ShToShRatingController;
 
 
 Route::get('/peer-rating-2022', [PeerRatingController::class, 'index']);
@@ -31,3 +32,11 @@ Route::get('/peer-rating-2022/{department_id}/section-head-rating/{section_id}',
 Route::post('/peer-rating-2022/{department_id}/section-head-rating/{section_id}', [SectionHeadRatingController::class, 'section_head_rating_add_peer']);
 Route::delete('/peer-rating-2022/{department_id}/section-head-rating/{section_id}/{id}', [SectionHeadRatingController::class, 'section_head_rating_remove_peer']);
 Route::patch('/peer-rating-2022/{department_id}/section-head-rating/{section_id}', [SectionHeadRatingController::class, 'section_head_rating_save']);
+
+# Section Head to Section Head Rating
+Route::get('/peer-rating-2022/{department_id}/sh2sh-rating', [ShToShRatingController::class, 'index']);
+Route::post('/peer-rating-2022/{department_id}/sh2sh-rating', [ShToShRatingController::class, 'create']);
+Route::delete('/peer-rating-2022/{department_id}/sh2sh-rating/{id}', [ShToShRatingController::class, 'destroy']);
+
+Route::get('/peer-rating-2022/{department_id}/sh2sh-rating/{id}', [ShToShRatingController::class, 'section_head_to_section_head_rating']);
+Route::post('/peer-rating-2022/{department_id}/sh2sh-rating/{id}', [ShToShRatingController::class, 'section_head_to_section_head_rating_save']);

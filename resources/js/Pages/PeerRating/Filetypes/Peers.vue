@@ -2,12 +2,11 @@
 table,
 th,
 td {
-  padding: 5px;
+  padding: 5px; 
   border: 0.5px solid black;
   border-collapse: collapse;
 }
 </style>
-
 
 <template>
   <auth-layout>

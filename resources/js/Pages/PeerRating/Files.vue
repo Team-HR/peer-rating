@@ -16,17 +16,17 @@
       <template #content>
         <div class="grid">
           <div class="col" v-for="(filetype, i) in filetypes" :key="i">
-            <Card style="min-height: 201px">
+            <Card>
               <!-- <template #header>
                 <img alt="user header" src="demo/images/usercard.png" />
               </template> -->
               <template #title>
-                <span class="uppercase">{{ filetype.name }}</span>
+                <div style="height: 65px">
+                  <span class="uppercase text-primary">{{ filetype.name }}</span>
+                </div>
               </template>
               <template #content>
-                <div style="min-height: 74px">{{ filetype.description }}</div>
-              </template>
-              <template #footer>
+                <div style="height: 100px">{{ filetype.description }}</div>
                 <Button
                   class="p-button-text p-button-raised"
                   icon="pi pi-folder"
@@ -34,6 +34,7 @@
                   @click="$inertia.get(filetype.link)"
                 />
               </template>
+              <template #footer> </template>
             </Card>
           </div>
         </div>
