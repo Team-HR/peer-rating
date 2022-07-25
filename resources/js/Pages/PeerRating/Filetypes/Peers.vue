@@ -51,7 +51,7 @@ td {
           </tr>
           <tr v-for="(peer, i) in peers" :key="peer.id">
             <td>{{ i + 1 }}</td>
-            <td>{{ peer.full_name }}</td>
+            <td :class="peer.is_complete? 'text-primary-700 font-bold':'text-gray-700'">{{ peer.full_name }}</td>
             <td class="text-center">{{ peer.rating }}</td>
             <td>
               <inertia-link :href="`${current_url}/${peer.id}`"

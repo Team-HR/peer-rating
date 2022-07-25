@@ -21,9 +21,6 @@ td {
 }
 </style>
 
-
-
-
 <template>
   <auth-layout>
     <Card class="w-full">

@@ -102,6 +102,15 @@ class PeerRatingController extends Controller
                     array_splice($employees, $i, 1);
                 }
             }
+
+            # check if rater completed rating
+            $is_complete = false;
+            $count_rated = PeerRatingPeerForm::where('peer_rating_office_peer_id_rater', $peer["id"])->count();
+            $count_peers = PeerRatingOfficePeer::where('office_id', $office_id)->count();
+            if ($count_peers - 1 == $count_rated) {
+                $is_complete = true;
+            }
+            $peers[$index]["is_complete"] = $is_complete;
         }
         $department = PeerRatingDepartment::find($department_id);
         $office = PeerRatingOffice::find($office_id);
