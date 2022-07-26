@@ -22,6 +22,7 @@
           />
 
           <Dropdown
+            showClear
             v-model="form.supervisor"
             :options="employees"
             optionLabel="full_name"
@@ -32,17 +33,16 @@
           />
 
           <Dropdown
+            showClear
             v-model="form.office"
             :options="offices"
             optionLabel="name"
-            placeholder="Link to Office"
+            placeholder="Link to Office (required)"
             :filter="true"
             filterPlaceholder="Search office"
-          />
+          /> 
 
-          <Button :disabled="!form.name" class="ml-2" type="submit"
-            >Add</Button
-          >
+          <Button :disabled="!form.name || !form.office" class="ml-2" type="submit">Add</Button>
         </form>
 
         <template v-for="(section, i) in sections" :key="section.id">
@@ -81,8 +81,8 @@ export default {
       current_url: document.location.pathname,
       form: this.$inertia.form({
         name: "",
-        supervisor: {},
-        office: {},
+        supervisor: null,
+        office: null,
       }),
     };
   },

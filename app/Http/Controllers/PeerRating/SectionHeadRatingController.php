@@ -39,11 +39,14 @@ class SectionHeadRatingController extends Controller
     public function create($department_id, Request $request)
     {
         // return $request;
+
+        if (!isset($request->office["id"])) return $this->index($department_id);
+
         $section = new PeerRatingSection;
         $section->department_id = $department_id;
         $section->name = $request->name;
-        $section->employee_id_supervisor = $request->supervisor["id"];
-        $section->office_id = $request->office["id"];
+        $section->employee_id_supervisor = isset($request->supervisor["id"]) ? $request->supervisor["id"] : null;
+        $section->office_id = isset($request->office["id"]) ? $request->office["id"] : null;
         $section->save();
 
         return $this->index($department_id);
