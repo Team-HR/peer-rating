@@ -53,7 +53,7 @@ td {
           </tr>
           <tr v-for="(ratee, i) in ratees" :key="ratee.id">
             <td>{{ i + 1 }}</td>
-            <td>{{ ratee.full_name }}</td>
+            <td :class="ratee.is_complete? 'text-primary-700 font-bold':'text-gray-700'">{{ ratee.full_name }}</td>
             <td class="text-center">{{ ratee.rating }}</td>
             <td>
               <inertia-link :href="`${current_url}/${ratee.id}`"

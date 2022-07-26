@@ -21,7 +21,7 @@ class ShToShRatingController extends Controller
         $employees = Employee::orderBy('last_name')->get()->toArray();
         $ratees = PeerRatingSectionHead::where('department_id', $department_id)->get();
 
-        foreach ($ratees as $key => $peer) {
+        foreach ($ratees as $index => $peer) {
             # getting peer rating scores     
             $scores = PeerRatingSectionHeadForm::where('peer_rating_section_head_id', $peer["id"])->get(['criteria_0', 'criteria_1', 'criteria_2', 'criteria_3']);
             $total_scores = 0;
@@ -35,7 +35,17 @@ class ShToShRatingController extends Controller
             if (count($ratees) > 1) {
                 $peer_rating = $total_scores / (count($ratees) - 1);
             }
-            $ratees[$key]["rating"] = $peer_rating;
+            $ratees[$index]["rating"] = $peer_rating;
+
+
+            # check if rater completed rating
+            $is_complete = false;
+            $count_rated = PeerRatingSectionHeadForm::where('peer_rating_section_head_id_rater', $peer["id"])->count();
+            $count_peers = PeerRatingSectionHead::where('department_id', $department_id)->count();
+            if ($count_peers - 1 == $count_rated) {
+                $is_complete = true;
+            }
+            $ratees[$index]["is_complete"] = $is_complete;
 
 
             foreach ($employees as $e => $employee) {
