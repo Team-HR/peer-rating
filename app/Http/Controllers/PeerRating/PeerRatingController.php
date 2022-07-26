@@ -9,9 +9,13 @@ use App\Models\PeerRatingDepartment;
 use App\Models\PeerRatingOffice;
 use App\Models\PeerRatingOfficePeer;
 use App\Models\PeerRatingPeerForm;
+use App\Models\PeerRatingSection;
+use App\Models\PeerRatingSectionHead;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Types\Null_;
 
 class PeerRatingController extends Controller
 {
@@ -57,8 +61,148 @@ class PeerRatingController extends Controller
         $department = PeerRatingDepartment::find($department_id);
         $department = $department->name;
         $offices = PeerRatingOffice::where('peer_rating_department_id', '=', $department_id)->get();
-        return Inertia::render("PeerRating/Files", ['department_id' => $department_id, 'department' => $department, 'offices' => $offices]);
+
+
+        # get all reports
+        $reports = [
+            /*
+            [
+                "id" => 1,
+                "office" => "CBO",
+                "peers" => [
+                    [
+                        "name" => "Franz Joshua Valencia",
+                        "peer_rating" => 98,
+                        "section_head_rating" => 89,
+                        "section_head_to_section_head_rating" => 97,
+                        "total_rating" => 78
+                    ],
+                    [
+                        "name" => "Jane Doe",
+                        "peer_rating" => 99,
+                        "section_head_rating" => 88,
+                        "section_head_to_section_head_rating" => 96,
+                        "total_rating" => 78
+                    ]
+                ]
+            ]
+            */];
+
+
+
+        $offices = PeerRatingOffice::where('peer_rating_department_id', $department_id)->get();
+
+        foreach ($offices as $key => $office) {
+            $reports[] = [
+                'id' => $office['id'],
+                'office' => $office['name'],
+                'peers' => $this->get_peers($department_id, $office['id'])
+            ];
+        }
+
+        return Inertia::render("PeerRating/Files", ['reports' => $reports, 'department_id' => $department_id, 'department' => $department, 'offices' => $offices]);
     }
+
+    # get list of peers for report
+    private function get_peers($department_id, $office_id)
+    {
+
+        $peers = PeerRatingOfficePeer::where('office_id', $office_id)->get();
+
+        $data = [];
+        foreach ($peers as $key => $peer) {
+            $data[] = [
+                "name" => $peer->full_name,
+                "peer_rating" => $this->get_peer_rating($office_id, $peer->id),
+                "section_head_rating" => $this->get_section_head_rating($office_id, $peer->employee_id),
+                "section_head_to_section_head_rating" => $this->get_section_head_to_section_head_rating($department_id, $peer->employee_id),
+                "total_rating" => NULL
+            ];
+        }
+        return $data;
+    }
+
+    # get individual's peer rating
+    private function get_peer_rating($office_id, $peer_rating_office_peer_id)
+    {
+        $count_peers = PeerRatingOfficePeer::where('office_id', $office_id)->count();
+        if ($count_peers == 0) return NULL;
+        $count_peers = $count_peers - 1;
+        $peer_rating_peer_forms = PeerRatingPeerForm::where('peer_rating_office_peer_id', $peer_rating_office_peer_id)->get(['criteria_0', 'criteria_1', 'criteria_2', 'criteria_3']);
+
+        $total_rating = 0;
+        foreach ($peer_rating_peer_forms as $form) {
+            $total_rating += $form->criteria_0;
+            $total_rating += $form->criteria_1;
+            $total_rating += $form->criteria_2;
+            $total_rating += $form->criteria_3;
+        }
+
+        return $total_rating / $count_peers;
+    }
+
+    # get individual's section head rating
+    private function get_section_head_rating($office_id, $employee_id)
+    {
+        // $office_id = 1;
+        $data = DB::table('peer_rating_sections')
+            // ->leftJoin('peer_rating_section_peers', 'peer_rating_sections.id', '=', 'peer_rating_section_peers.section_id')
+            ->join('peer_rating_section_peers', function ($join) use ($office_id, $employee_id) {
+                $join->on('peer_rating_sections.id', '=', 'peer_rating_section_peers.section_id')
+                    ->where('peer_rating_sections.office_id', '=', $office_id)
+                    ->where('peer_rating_section_peers.employee_id', '=', $employee_id);
+            })
+            ->get(['criteria_0', 'criteria_1', 'criteria_2', 'criteria_3']);
+
+        $total_rating = 0;
+        if (count($data) < 1) {
+            $total_rating = NULL;
+        }
+
+        foreach ($data as $datum) {
+            $total_rating += $datum->criteria_0;
+            $total_rating += $datum->criteria_1;
+            $total_rating += $datum->criteria_2;
+            $total_rating += $datum->criteria_3;
+        }
+
+        return $total_rating;
+    }
+
+    # get individual's section head to section head rating
+    private function get_section_head_to_section_head_rating($department_id, $employee_id)
+    {
+        $data = DB::table('peer_rating_section_heads')
+            // ->leftJoin('peer_rating_section_peers', 'peer_rating_sections.id', '=', 'peer_rating_section_peers.section_id')
+            ->join('peer_rating_section_head_forms', function ($join) use ($department_id, $employee_id) {
+                $join->on('peer_rating_section_heads.id', '=', 'peer_rating_section_head_forms.peer_rating_section_head_id')
+                    ->where('peer_rating_section_heads.department_id', '=', $department_id)
+                    ->where('peer_rating_section_heads.employee_id', '=', $employee_id);
+            })
+            // ->count();
+            ->get(['criteria_0', 'criteria_1', 'criteria_2', 'criteria_3']);
+
+
+        $total_rating = 0;
+
+        $count_peers = PeerRatingSectionHead::where('department_id', $department_id)->count();
+        if ($count_peers == 0) return NULL;
+        $count_peers = $count_peers - 1;
+
+        if (count($data) < 1) {
+            return NUll;
+        }
+
+        foreach ($data as $datum) {
+            $total_rating += $datum->criteria_0;
+            $total_rating += $datum->criteria_1;
+            $total_rating += $datum->criteria_2;
+            $total_rating += $datum->criteria_3;
+        }
+
+        return $total_rating / $count_peers;
+    }
+
 
     public function file_peer_ratings($department_id)
     {

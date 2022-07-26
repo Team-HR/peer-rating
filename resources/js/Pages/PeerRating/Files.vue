@@ -1,6 +1,12 @@
+<style scoped>
+.verticalTableHeader {
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+}
+</style>
 <template>
   <auth-layout>
-    <Card class="w-full h-30rem">
+    <Card class="w-full">
       <template #title>
         <Button
           class="p-button-text p-button-sm mr-5"
@@ -22,7 +28,9 @@
               </template> -->
               <template #title>
                 <div style="height: 65px">
-                  <span class="uppercase text-primary">{{ filetype.name }}</span>
+                  <span class="uppercase text-primary">{{
+                    filetype.name
+                  }}</span>
                 </div>
               </template>
               <template #content>
@@ -38,6 +46,61 @@
             </Card>
           </div>
         </div>
+
+        <Card class="mt-2">
+          <template #title>
+            <span class="text-primary uppercase">Reports:</span>
+          </template>
+          <template #content>
+            <!-- {{ reports }} -->
+            <div v-for="(report, i) in reports" :key="i">
+              <DataTable
+                class="p-datatable-sm"
+                :value="report.peers"
+                showGridlines
+                responsiveLayout="scroll"
+                autoLayout
+              >
+                <template #header>
+                  <div class="w-full text-center">
+                    <span class="text-lg font-bold"
+                      >OFFICE: {{ report.office }}</span
+                    >
+                  </div>
+                </template>
+
+                <Column class="uppercase" header="#">
+                  <template #body="slotProps">
+                    {{ slotProps.index + 1 }}
+                  </template></Column
+                >
+                <Column class="uppercase" field="name" header="Name"></Column>
+                <Column
+                  class="uppercase"
+                  field="peer_rating"
+                  header="Peer Rating (%)"
+                ></Column>
+                <Column
+                  class="uppercase"
+                  field="section_head_rating"
+                  header="Section Head (%)"
+                ></Column>
+                <Column
+                  headerStyle="width: 16em" 
+                  class="uppercase"
+                  field="section_head_to_section_head_rating"
+                  header="Section Head to Section Head Rating (%)"
+                ></Column>
+                <Column
+                  class="uppercase"
+                  field="total_rating"
+                  header="Total Rating (%)"
+                ></Column>
+                <!-- <template #footer> Footer </template> -->
+              </DataTable>
+            </div>
+          </template>
+        </Card>
       </template>
     </Card>
   </auth-layout>
@@ -48,6 +111,7 @@ import AuthLayout from "@/Layouts/Authenticated";
 
 export default {
   props: {
+    reports: Array,
     department_id: "",
     department: String,
     offices: Array,
