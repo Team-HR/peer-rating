@@ -55,7 +55,7 @@
             <!-- {{ reports }} -->
             <div v-for="(report, i) in reports" :key="i">
               <DataTable
-                class="p-datatable-sm"
+                class="p-datatable-sm mt-3"
                 :value="report.peers"
                 showGridlines
                 responsiveLayout="scroll"
@@ -63,9 +63,7 @@
               >
                 <template #header>
                   <div class="w-full text-center">
-                    <span class="text-lg font-bold"
-                      >{{ report.office }}</span
-                    >
+                    <span class="text-lg font-bold">{{ report.office }}</span>
                   </div>
                 </template>
 
@@ -86,7 +84,7 @@
                   header="Section Head (%)"
                 ></Column>
                 <Column
-                  headerStyle="width: 16em" 
+                  headerStyle="width: 16em"
                   class="uppercase"
                   field="section_head_to_section_head_rating"
                   header="Section Head to Section Head Rating (%)"
