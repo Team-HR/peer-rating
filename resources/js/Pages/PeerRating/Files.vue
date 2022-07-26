@@ -64,7 +64,7 @@
                 <template #header>
                   <div class="w-full text-center">
                     <span class="text-lg font-bold"
-                      >OFFICE: {{ report.office }}</span
+                      >{{ report.office }}</span
                     >
                   </div>
                 </template>

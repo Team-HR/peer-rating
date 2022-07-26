@@ -64,32 +64,7 @@ class PeerRatingController extends Controller
 
 
         # get all reports
-        $reports = [
-            /*
-            [
-                "id" => 1,
-                "office" => "CBO",
-                "peers" => [
-                    [
-                        "name" => "Franz Joshua Valencia",
-                        "peer_rating" => 98,
-                        "section_head_rating" => 89,
-                        "section_head_to_section_head_rating" => 97,
-                        "total_rating" => 78
-                    ],
-                    [
-                        "name" => "Jane Doe",
-                        "peer_rating" => 99,
-                        "section_head_rating" => 88,
-                        "section_head_to_section_head_rating" => 96,
-                        "total_rating" => 78
-                    ]
-                ]
-            ]
-            */];
-
-
-
+        $reports = [];
         $offices = PeerRatingOffice::where('peer_rating_department_id', $department_id)->get();
 
         foreach ($offices as $key => $office) {
