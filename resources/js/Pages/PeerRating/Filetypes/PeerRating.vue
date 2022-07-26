@@ -118,7 +118,7 @@ td {
         <!-- v-if="!is_complete && ratees.length > 1" -->
         <Button
           v-if="!is_updating && is_complete"
-          class="m-2"
+          class="m-2 p-button-warning"
           @click="is_updating = true"
           icon="pi pi-key"
           label="Unlock"
@@ -140,7 +140,7 @@ td {
 
         <Button
           v-if="!is_updating"
-          class="m-2"
+          class="m-2 p-button-text"
           @click="history_back()"
           icon="pi pi-arrow-left"
           label="Back"

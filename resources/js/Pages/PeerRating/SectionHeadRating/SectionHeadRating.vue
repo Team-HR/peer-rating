@@ -129,7 +129,7 @@ td {
         <!-- #####################################    TABLE END   ############################################ -->
         <Button
           v-if="!is_updating && is_complete"
-          class="m-2"
+          class="m-2 p-button p-button-warning"
           @click="is_updating = true"
           icon="pi pi-key"
           label="Unlock"
@@ -151,7 +151,7 @@ td {
 
         <Button
           v-if="!is_updating"
-          class="m-2"
+          class="m-2 p-button-text"
           @click="history_back()"
           icon="pi pi-arrow-left"
           label="Back"
@@ -167,6 +167,7 @@ import AuthLayout from "@/Layouts/Authenticated";
 import { Inertia } from "@inertiajs/inertia";
 export default {
   props: {
+    is_complete: Boolean,
     employees: Array,
     department: Object,
     office: Object,
@@ -178,7 +179,6 @@ export default {
   },
   data() {
     return {
-      is_complete: false,
       is_updating: false,
       current_url: document.location.pathname,
       form: this.$inertia.form({

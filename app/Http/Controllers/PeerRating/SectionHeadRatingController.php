@@ -19,7 +19,6 @@ class SectionHeadRatingController extends Controller
     public function index($department_id)
     {
         $employees = Employee::orderBy('last_name')->get()->toArray();
-
         $sections = PeerRatingSection::where('department_id', $department_id)->get();
 
         $depts = PeerRatingDepartment::all();
@@ -39,9 +38,7 @@ class SectionHeadRatingController extends Controller
     public function create($department_id, Request $request)
     {
         // return $request;
-
         if (!isset($request->office["id"])) return $this->index($department_id);
-
         $section = new PeerRatingSection;
         $section->department_id = $department_id;
         $section->name = $request->name;
@@ -54,11 +51,16 @@ class SectionHeadRatingController extends Controller
 
     public function section_head_rating($department_id, $section_id)
     {
+        $is_complete = false;
 
         $employees = Employee::orderBy('last_name')->get()->toArray();
-
         $department = PeerRatingDepartment::find($department_id);
         $section = PeerRatingSection::find($section_id);
+
+        if ($section["is_complete"]) {
+            $is_complete = true;
+        }
+
         $office = PeerRatingOffice::find($section->office_id);
         $ratees = PeerRatingSectionPeer::where('section_id', $section->id)->orderBy('index')->get();
         foreach ($ratees as $index => $ratee) {
@@ -70,7 +72,9 @@ class SectionHeadRatingController extends Controller
         }
         // return $ratees;
 
-        return Inertia::render('PeerRating/SectionHeadRating/SectionHeadRating', ['employees' => $employees, '$department' => $department, 'office' => $office, 'section' => $section, 'ratees' => $ratees]);
+
+
+        return Inertia::render('PeerRating/SectionHeadRating/SectionHeadRating', ['is_complete' => $is_complete, 'employees' => $employees, '$department' => $department, 'office' => $office, 'section' => $section, 'ratees' => $ratees]);
     }
 
     public function section_head_rating_add_peer($department_id, $section_id, Request $request)
@@ -114,6 +118,11 @@ class SectionHeadRatingController extends Controller
             $peer->criteria_3 = $ratee["criteria_3"];
             $peer->save();
         }
+
+        $section = PeerRatingSection::find($section_id);
+        $section->is_complete = true;
+        $section->save();
+
         return $this->section_head_rating($department_id, $section_id);
     }
 }
