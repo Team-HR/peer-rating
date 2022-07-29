@@ -156,6 +156,8 @@ export default {
       });
     },
   },
-  mounted() {},
+  mounted() {
+    Inertia.reload({ only: ["reports"] });
+  },
 };
 </script>
