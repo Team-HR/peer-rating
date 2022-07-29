@@ -7,12 +7,12 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
 
-use App\Models\PeerRatingDepartment;
-use App\Models\PeerRatingOffice;
 use App\Models\Employee;
-use App\Models\PeerRatingOfficePeer;
-use App\Models\PeerRatingSection;
-use App\Models\PeerRatingSectionPeer;
+use App\Models\PeerRating\PeerRatingDepartment;
+use App\Models\PeerRating\PeerRatingOffice;
+use App\Models\PeerRating\PeerRatingOfficePeer;
+use App\Models\PeerRating\PeerRatingSection;
+use App\Models\PeerRating\PeerRatingSectionPeer;
 
 class SectionHeadRatingController extends Controller
 {

@@ -5,12 +5,12 @@ namespace App\Http\Controllers\PeerRating;
 use App\Http\Controllers\Controller;
 
 use App\Models\Employee;
-use App\Models\PeerRatingDepartment;
-use App\Models\PeerRatingOffice;
-use App\Models\PeerRatingOfficePeer;
-use App\Models\PeerRatingPeerForm;
-use App\Models\PeerRatingSection;
-use App\Models\PeerRatingSectionHead;
+use App\Models\PeerRating\PeerRatingDepartment;
+use App\Models\PeerRating\PeerRatingOffice;
+use App\Models\PeerRating\PeerRatingOfficePeer;
+use App\Models\PeerRating\PeerRatingPeerForm;
+use App\Models\PeerRating\PeerRatingSection;
+use App\Models\PeerRating\PeerRatingSectionHead;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;

@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
 
-use App\Models\PeerRatingDepartment;
-use App\Models\PeerRatingSectionHead;
-use App\Models\PeerRatingSectionHeadForm;
+use App\Models\PeerRating\PeerRatingDepartment;
+use App\Models\PeerRating\PeerRatingSectionHead;
+use App\Models\PeerRating\PeerRatingSectionHeadForm;
 
 class ShToShRatingController extends Controller
 {
