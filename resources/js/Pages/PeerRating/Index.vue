@@ -19,7 +19,7 @@
             >Add</Button
           >
         </form>
-        <template v-for="(department, i) in departments" :key="department.id">
+        <!-- <template v-for="(department, i) in departments" :key="department.id">
           <Button
             class="p-button-text p-button-raised uppercase m-2"
             icon="pi pi-folder"
@@ -29,8 +29,7 @@
             :label="`${i + 1}. ${department.name}`"
           >
           </Button>
-        </template>
-
+        </template> -->
         <DataTable
           :value="departments"
           responsiveLayout="scroll"
