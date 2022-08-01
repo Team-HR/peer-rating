@@ -21,6 +21,13 @@ class SectionHeadRatingController extends Controller
         $employees = Employee::orderBy('last_name')->get()->toArray();
         $sections = PeerRatingSection::where('department_id', $department_id)->get();
 
+
+        foreach ($sections as $sec_key => $section) {
+            $sections[$sec_key]['supervisor'] = Employee::find($section->employee_id_supervisor);
+            $sections[$sec_key]['office'] = PeerRatingOffice::find($section->office_id);
+        }
+
+
         $depts = PeerRatingDepartment::all();
         $departments = [];
         foreach ($depts as $department) {
@@ -47,6 +54,25 @@ class SectionHeadRatingController extends Controller
         $section->save();
 
         return $this->index($department_id);
+    }
+
+    public function update($department_id, Request $request)
+    {
+        // return $request;
+        $peer_rating_section = PeerRatingSection::find($request->id);
+        $peer_rating_section->name = $request->name;
+        $peer_rating_section->employee_id_supervisor = $request->supervisor["id"];
+        $peer_rating_section->office_id = $request->office["id"];
+        $peer_rating_section->save();
+        return Redirect::route('section_head_ratings', [$department_id], 303);
+    }
+
+    public function destroy($department_id, $id)
+    {
+        // return $request;
+        $peer_rating_section = PeerRatingSection::find($id);
+        $peer_rating_section->delete();
+        return Redirect::route('section_head_ratings', [$department_id], 303);
     }
 
     public function section_head_rating($department_id, $section_id)

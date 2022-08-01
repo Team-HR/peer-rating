@@ -197,6 +197,22 @@ class PeerRatingController extends Controller
         return $this->file_peer_ratings($request->department["id"]);
     }
 
+    public function file_peer_ratings_rename_office($department_id, Request $request)
+    {
+        $office = PeerRatingOffice::find($request->id);
+        $office->name = $request->name;
+        $office->save();
+        return Redirect::route('files', [$department_id], 303);
+    }
+
+    public function file_peer_ratings_delete_office($department_id, $id)
+    {
+        $office = PeerRatingOffice::find($id);
+        $office->delete();
+        return Redirect::route('files', [$department_id], 303);
+    }
+
+
     public function file_peers($department_id, $office_id)
     {
         $employees = Employee::orderBy('last_name')->get()->toArray();

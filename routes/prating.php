@@ -13,8 +13,12 @@ Route::post('/peer-rating-2022', [PeerRatingController::class, 'create_departmen
 Route::get('/peer-rating-2022/{department_id}/files', [PeerRatingController::class, 'files']);
 
 # Peer Rating
-Route::get('/peer-rating-2022/{department_id}/peer-ratings', [PeerRatingController::class, 'file_peer_ratings'])->middleware(['auth']);
+Route::get('/peer-rating-2022/{department_id}/peer-ratings', [PeerRatingController::class, 'file_peer_ratings'])->middleware(['auth'])->name('files');
 Route::post('/peer-rating-2022/{department_id}/peer-ratings', [PeerRatingController::class, 'file_peer_ratings_create_office'])->middleware(['auth']);
+Route::patch('/peer-rating-2022/{department_id}/peer-ratings', [PeerRatingController::class, 'file_peer_ratings_rename_office'])->middleware(['auth']);
+Route::delete('/peer-rating-2022/{department_id}/peer-ratings/{id}', [PeerRatingController::class, 'file_peer_ratings_delete_office'])->middleware(['auth']);
+
+
 
 Route::get('/peer-rating-2022/{department_id}/peer-rating/{office_id}/peers', [PeerRatingController::class, 'file_peers'])->middleware(['auth'])->name('peers');
 Route::post('/peer-rating-2022/{department_id}/peer-rating/{office_id}/peers', [PeerRatingController::class, 'file_peers_add_peer'])->middleware(['auth']);
@@ -25,8 +29,11 @@ Route::post('/peer-rating-2022/{department_id}/peer-rating/{office_id}/peers/{pe
 
 
 # Section Head Rating
-Route::get('/peer-rating-2022/{department_id}/section-head-ratings', [SectionHeadRatingController::class, 'index']);
+Route::get('/peer-rating-2022/{department_id}/section-head-ratings', [SectionHeadRatingController::class, 'index'])->name('section_head_ratings');
 Route::post('/peer-rating-2022/{department_id}/section-head-ratings', [SectionHeadRatingController::class, 'create']);
+Route::patch('/peer-rating-2022/{department_id}/section-head-ratings', [SectionHeadRatingController::class, 'update']);
+Route::delete('/peer-rating-2022/{department_id}/section-head-ratings/{id}', [SectionHeadRatingController::class, 'destroy']);
+
 
 Route::get('/peer-rating-2022/{department_id}/section-head-rating/{section_id}', [SectionHeadRatingController::class, 'section_head_rating'])->name('section_head_rating');
 Route::post('/peer-rating-2022/{department_id}/section-head-rating/{section_id}', [SectionHeadRatingController::class, 'section_head_rating_add_peer']);
