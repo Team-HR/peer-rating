@@ -6,9 +6,13 @@ use App\Http\Controllers\PeerRating\PeerRatingController;
 use App\Http\Controllers\PeerRating\SectionHeadRatingController;
 use App\Http\Controllers\PeerRating\ShToShRatingController;
 
-
-Route::get('/peer-rating-2022', [PeerRatingController::class, 'index']);
+# Peer Rating Departments
+Route::get('/peer-rating-2022', [PeerRatingController::class, 'index'])->name('peer_rating_departments');
 Route::post('/peer-rating-2022', [PeerRatingController::class, 'create_department']);
+Route::patch('/peer-rating-2022', [PeerRatingController::class, 'update_department']);
+Route::delete('/peer-rating-2022/{id}', [PeerRatingController::class, 'delete_department']);
+
+
 
 Route::get('/peer-rating-2022/{department_id}/files', [PeerRatingController::class, 'files']);
 

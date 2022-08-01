@@ -22,7 +22,7 @@ class PeerRatingController extends Controller
     public function index()
     {
 
-        $depts = PeerRatingDepartment::all();
+        $depts = PeerRatingDepartment::all()->sortByDesc('id');
         $departments = [];
         foreach ($depts as $department) {
             $departments[] = [
@@ -54,6 +54,20 @@ class PeerRatingController extends Controller
         return $this->index();
     }
 
+    public function delete_department($id)
+    {
+        $peer_rating_department = PeerRatingDepartment::find($id);
+        $peer_rating_department->delete();
+        return Redirect::back(303);
+    }
+
+    public function update_department(Request $request)
+    {
+        $peer_rating_department = PeerRatingDepartment::find($request->id);
+        $peer_rating_department->name = $request->name;
+        $peer_rating_department->save();
+        return Redirect::back(303);
+    }
     public function files($department_id)
     {
         // $offices = PeerRatingOffice::where('peer_rating_department_id', '=', $department_id)->orderByDesc('id')->get();

@@ -74,7 +74,7 @@
               <Button
                 class="p-button-text p-button-danger"
                 label="Delete"
-                @click="confirm2(slotProps.data.id)"
+                @click="delete_record(slotProps.data.id)"
               ></Button>
             </template>
           </Column>
@@ -148,7 +148,7 @@ export default {
     };
   },
   methods: {
-    confirm2(id) {
+    delete_record(id) {
       this.$confirm.require({
         message: "Do you want to delete this record?",
         header: "Delete Confirmation",
@@ -158,8 +158,8 @@ export default {
           this.$inertia.delete(this.current_url + "/" + id, {
             onSuccess: (page) => {
               this.$toast.add({
-                severity: "info",
-                summary: "Confirmed",
+                severity: "success",
+                summary: "Deleted",
                 detail: "Record deleted",
                 life: 3000,
               });
@@ -202,7 +202,7 @@ export default {
           Inertia.reload({ only: ["offices"] });
           this.$toast.add({
             severity: "success",
-            summary: "Confirmed",
+            summary: "Updated",
             detail: "Record updated",
             life: 3000,
           });
@@ -212,6 +212,7 @@ export default {
   },
   mounted() {
     // console.log(this.offices);
+    Inertia.reload({ only: ["offices"] });
   },
 };
 </script>

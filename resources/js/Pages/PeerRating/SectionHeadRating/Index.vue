@@ -219,8 +219,8 @@ export default {
           this.$inertia.delete(this.current_url + "/" + id, {
             onSuccess: (page) => {
               this.$toast.add({
-                severity: "info",
-                summary: "Confirmed",
+                severity: "success",
+                summary: "Deleted",
                 detail: "Record deleted",
                 life: 3000,
               });
@@ -244,7 +244,7 @@ export default {
         onSuccess: () => {
           this.$toast.add({
             severity: "success",
-            summary: "Success",
+            summary: "Updated",
             detail: "Record updated",
             life: 3000,
           });
