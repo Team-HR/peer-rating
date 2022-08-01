@@ -2,8 +2,7 @@
   <auth-layout>
     <Card class="w-full h-30rem">
       <template #content>
-        <Button
-          @click="$inertia.get('/peer-rating-2022')"
+        <Button @click="$inertia.get('/peer-rating-2022')"
           >Peer Rating 2022</Button
         >
       </template>

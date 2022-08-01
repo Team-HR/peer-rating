@@ -12,7 +12,9 @@
       </Button>
     </template>
     <template #right-items>
-      <span class="mr-5 text-white">{{ `${$page.props.auth.user.username} (${$page.props.auth.user.roles})` }}</span>
+      <span class="mr-5 text-white">{{
+        `${$page.props.auth.user.username} (${$page.props.auth.user.roles})`
+      }}</span>
       <Button @click="$inertia.post(route('logout'))" class="p-button-danger">
         Logout
       </Button>
@@ -38,6 +40,11 @@ export default {
           icon: "",
           label: "Dashboard",
           to: "/dashboard",
+        },
+        {
+          icon: "",
+          label: "Employees",
+          to: "/employees",
         },
       ],
     };
