@@ -67,13 +67,17 @@
           </Button>
         </template> -->
 
-        <DataTable :value="sections" responsiveLayout="scroll" class="mt-2">
+        <DataTable
+          :value="sections"
+          responsiveLayout="scroll"
+          class="mt-2 p-datatable-sm"
+        >
           <Column field="id" header="ID" style="width: 20px"></Column>
           <Column header="OPTION" style="width: 350px">
             <template #body="slotProps">
               <!-- {{ slotProps.data }} -->
               <Button
-                class="p-button-text mr-2"
+                class="p-button-text p-button-sm mr-2"
                 label="Open"
                 @click="
                   $inertia.get(
@@ -82,13 +86,13 @@
                 "
               ></Button>
               <Button
-                class="p-button-text p-button-success"
+                class="p-button-text p-button-sm p-button-success mr-2"
                 label="Rename"
                 @click="edit_section(slotProps.data)"
               ></Button>
 
               <Button
-                class="p-button-text p-button-danger"
+                class="p-button-text p-button-sm p-button-danger"
                 label="Delete"
                 @click="delete_record(slotProps.data.id)"
               ></Button>

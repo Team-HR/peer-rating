@@ -33,7 +33,7 @@
         <DataTable
           :value="departments"
           responsiveLayout="scroll"
-          class="mt-2"
+          class="mt-2 p-datatable-sm"
           selectionMode="single"
         >
           <Column field="id" header="ID" style="width: 20px"></Column>
@@ -45,7 +45,7 @@
             <template #body="slotProps">
               <!-- {{slotProps}} -->
               <Button
-                class="p-button-text mr-2"
+                class="p-button-text p-button-sm mr-2"
                 label="Open"
                 @click="
                   $inertia.get(
@@ -54,12 +54,12 @@
                 "
               ></Button>
               <Button
-                class="p-button-text p-button-success"
+                class="p-button-text p-button-sm p-button-success mr-2"
                 label="Rename"
                 @click="edit_record(slotProps.data)"
               ></Button>
               <Button
-                class="p-button-text p-button-danger"
+                class="p-button-text p-button-sm p-button-danger"
                 label="Delete"
                 @click="delete_record(slotProps.data.id)"
               ></Button>
