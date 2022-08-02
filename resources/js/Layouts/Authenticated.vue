@@ -41,11 +41,11 @@ export default {
           label: "Dashboard",
           to: "/dashboard",
         },
-        {
-          icon: "",
-          label: "Employees",
-          to: "/employees",
-        },
+        // {
+        //   icon: "",
+        //   label: "Employees",
+        //   to: "/employees",
+        // },
       ],
     };
   },
