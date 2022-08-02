@@ -33,6 +33,7 @@ Route::delete('/peer-rating-2022/{department_id}/peer-ratings/{id}', [PeerRating
 
 Route::get('/peer-rating-2022/{department_id}/peer-rating/{office_id}/peers', [PeerRatingController::class, 'file_peers'])->middleware(['auth'])->name('peers');
 Route::post('/peer-rating-2022/{department_id}/peer-rating/{office_id}/peers', [PeerRatingController::class, 'file_peers_add_peer'])->middleware(['auth']);
+Route::post('/peer-rating-2022/{department_id}/peer-rating/{office_id}/peers/other', [PeerRatingController::class, 'add_other_personnel'])->middleware(['auth']);
 Route::delete('/peer-rating-2022/{department_id}/peer-rating/{office_id}/peers/{id}', [PeerRatingController::class, 'file_peers_remove_peer'])->middleware(['auth'])->name('peer.destroy');
 
 Route::get('/peer-rating-2022/{department_id}/peer-rating/{office_id}/peers/{peer_id}', [PeerRatingController::class, 'file_peer_rating'])->middleware(['auth']);

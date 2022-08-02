@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Employee;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class EmployeeController extends Controller
@@ -15,4 +16,5 @@ class EmployeeController extends Controller
         // return $employees;
         return Inertia::render('Employees', ['employees' => $employees]);
     }
+
 }

@@ -127,7 +127,7 @@ class PeerRatingController extends Controller
             $total_rating += $form->criteria_3;
         }
 
-        return $total_rating / $count_peers;
+        return $count_peers > 0 ? $total_rating / $count_peers : 0;
     }
 
     # get individual's section head rating
@@ -266,6 +266,8 @@ class PeerRatingController extends Controller
         return Inertia::render("PeerRating/Filetypes/Peers", ['employees' => $employees, 'department' => $department, 'office' => $office, "peers" => $peers]);
     }
 
+
+    # add peers lgu employees
     public function file_peers_add_peer(Request $request)
     {
         $index = 0;
@@ -285,6 +287,50 @@ class PeerRatingController extends Controller
         $peer->save();
 
         return Redirect::route('peers', [$request->department["id"], $request->office["id"]], 303);
+    }
+
+    # add peers non lgu employees
+    public function add_other_personnel($department_id, $office_id, Request $request)
+    {
+        // return $request;
+        $employee = new Employee;
+        $employee->last_name = mb_convert_case($request->last_name, MB_CASE_UPPER);
+        $employee->first_name =  mb_convert_case($request->first_name, MB_CASE_UPPER);
+        $employee->middle_name = $request->middle_name ? mb_convert_case($request->middle_name, MB_CASE_UPPER) : null;
+        $employee->ext = $request->ext ? mb_convert_case($request->ext, MB_CASE_UPPER) : null;
+
+        # check first if personnel is already in the list
+        $is_exists  = Employee::where('last_name', $request->last_name)
+            ->where('first_name', $request->first_name)
+            ->where('middle_name', $request->middle_name)
+            ->where('ext', $request->ext)
+            ->count();
+
+        if ($is_exists > 0) {
+            return "Personnel already existing, please add using the dropdown menu.";
+        }
+
+        $employee->is_employee = 0;
+        $employee->remarks = $request->remarks;
+        $employee->save();
+        $employee_id = $employee->id;
+
+        $index = 0;
+        $peers = PeerRatingOfficePeer::where('office_id', '=', $office_id)->get();
+
+        $count = count($peers);
+        if ($count > 0) {
+            $peer = PeerRatingOfficePeer::where('office_id', '=', $office_id)->orderByDesc('index')->first();
+            $index = $peer->index + 1;
+        }
+
+        $peer = new PeerRatingOfficePeer();
+        $peer->office_id = $office_id;
+        $peer->employee_id = $employee_id;
+        $peer->index = $index;
+        $peer->save();
+
+        return Redirect::back(303);
     }
 
     public function file_peers_remove_peer($department_id, $office_id, $id)

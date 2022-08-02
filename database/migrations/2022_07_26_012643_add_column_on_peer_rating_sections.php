@@ -25,6 +25,8 @@ class AddColumnOnPeerRatingSections extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('peer_rating_sections', function (Blueprint $table) {
+            $table->dropColumn('is_complete');
+        });
     }
 }
