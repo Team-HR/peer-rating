@@ -1,16 +1,10 @@
 <?php
 
-use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\PeerRating\PeerRatingController;
 use App\Http\Controllers\PeerRating\SectionHeadRatingController;
 use App\Http\Controllers\PeerRating\ShToShRatingController;
-
-# employees
-Route::get('/employees', [EmployeeController::class, 'index'])->name('employees');
-Route::post('/employees', [EmployeeController::class, 'create'])->name('employee.create');
-
 
 # Peer Rating Departments
 Route::get('/peer-rating-2022', [PeerRatingController::class, 'index'])->name('peer_rating_departments');

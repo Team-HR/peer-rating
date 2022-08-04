@@ -19,9 +19,15 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 });
 
+# employees
+use App\Http\Controllers\EmployeeController;
+Route::get('/employees', [EmployeeController::class, 'index'])->name('employees');
+Route::post('/employees', [EmployeeController::class, 'create'])->name('employee.create');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 require __DIR__.'/prating.php';
+require __DIR__.'/pms.php';
