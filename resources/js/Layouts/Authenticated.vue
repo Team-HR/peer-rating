@@ -7,9 +7,10 @@
         @click="$inertia.get(item.to)"
         class="mx-1"
         :class="is_active_url(item.to) ? 'shadow-2' : ''"
-      >
-        {{ item.label }}
-      </Button>
+        v-tooltip="item.description"
+        :icon="item.icon"
+        :label="item.label"
+      />
     </template>
     <template #right-items>
       <span class="mr-5 text-white">{{
@@ -37,15 +38,22 @@ export default {
       active_url: this.$inertia.page.url,
       items: [
         {
-          icon: "",
           label: "Dashboard",
           to: "/dashboard",
+          icon: "bi bi-house-heart",
         },
-        // {
-        //   icon: "",
-        //   label: "Employees",
-        //   to: "/employees",
-        // },
+        {
+          label: "Employees",
+          to: "/employees",
+          icon: "bi bi-people",
+        },
+        {
+          icon: "",
+          label: "PMS",
+          to: "/pms",
+          description: "Performance Management System",
+          icon: "bi bi-graph-up-arrow",
+        },
       ],
     };
   },

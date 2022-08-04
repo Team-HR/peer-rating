@@ -993,7 +993,6 @@
 
 <script>
 import "../../css/welcome.min.css";
-// import "https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js";
 import GuestNav from "@/Layouts/Guest.vue";
 import AuthedNav from "@/Layouts/Authenticated.vue";
 

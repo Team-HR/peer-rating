@@ -9,7 +9,6 @@
     </Card>
   </auth-layout>
 </template>
-
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
 
@@ -17,8 +16,8 @@ export default {
   components: {
     AuthLayout,
   },
-  mounted() {
-    // console.log(this.$inertia.page.url);
-  },
+  mounted() {},
 };
 </script>
+
+
