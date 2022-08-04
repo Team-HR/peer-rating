@@ -3,23 +3,32 @@
     <PmsToolbar />
     <Card class="w-full">
       <template #title
-        ><span class="uppercase">Rating Scale Matrix</span></template
+        ><span class="uppercase"
+          ><i class="bi bi-book mr-2"></i> Rating Scale Matrix</span
+        ></template
       >
       <template #subtitle
-        >Create or Review the Matrix of your Department</template
+        >Edit or review your Department/Section's Rating Scale Matrix</template
       >
       <template #content>
-        <form @submit.prevent="">
-          <label class="mr-2"> SELECT PERIOD:</label>
+        <form @submit.prevent="$inertia.get('/pms/rsm/' + period_id)">
+          <label class="mr-2">Selected Period:</label>
           <Dropdown
+            autofocus
             class="mr-2"
-            v-model="selected_period"
+            v-model="period_id"
             :options="periods"
             optionLabel="period"
             optionValue="id"
-            placeholder="Select a Period"
+            placeholder="Please select a period"
           />
-          <Button class="p-button-text" icon="bi bi-folder" label="Go" />
+          <Button
+            :disabled="!period_id"
+            type="submit"
+            class="p-button-text"
+            :icon="!period_id ? 'bi bi-arrow-left' : 'bi bi-folder'"
+            :label="!period_id ? 'Select a period first' : 'Open'"
+          />
         </form>
       </template>
     </Card>
@@ -35,7 +44,7 @@ export default {
   },
   data() {
     return {
-      selected_period: null,
+      period_id: null,
       periods: [
         {
           id: 2,
