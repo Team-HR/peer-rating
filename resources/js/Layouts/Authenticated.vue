@@ -6,7 +6,7 @@
         :key="i"
         @click="$inertia.get(item.to)"
         class="mx-1"
-        :class="is_active_url(item.to) ? 'shadow-2' : ''"
+        :class="is_active_url(item.to) ? 'p-button-raised' : ''"
         v-tooltip="item.description"
         :icon="item.icon"
         :label="item.label"
@@ -21,8 +21,7 @@
       </Button>
     </template>
   </navbar>
-  <div class="mt-7">
-    <!-- {{ roles }} -->
+  <div class="mx-auto mt-7">
     <slot />
   </div>
 </template>
