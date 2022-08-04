@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnOnEmployeesTable extends Migration
+class AddIsActiveColumnOnEmployeesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class AddColumnOnEmployeesTable extends Migration
     public function up()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->boolean('is_employee')->after('gender')->default(1);
-            $table->string('remarks')->after('is_employee')->nullable();
+            $table->boolean('is_active')->after('id')->default(1);
         });
     }
 
@@ -27,7 +26,7 @@ class AddColumnOnEmployeesTable extends Migration
     public function down()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->dropColumn(['is_employee', 'remarks']);
+            $table->dropColumn(['is_active']);
         });
     }
 }

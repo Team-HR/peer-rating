@@ -9,8 +9,7 @@ use App\Http\Controllers\PeerRating\ShToShRatingController;
 
 # employees
 Route::get('/employees', [EmployeeController::class, 'index'])->name('employees');
-
-
+Route::post('/employees', [EmployeeController::class, 'create'])->name('employee.create');
 
 
 # Peer Rating Departments
