@@ -162,7 +162,7 @@
             :sortable="true"
             style="width: 5px"
           >
-          </Column> 
+          </Column>
         </DataTable>
       </template>
     </Card>

@@ -5,18 +5,17 @@
         <i class="bi bi-graph-up-arrow mr-2"></i> Performance Management System
       </h3>
 
-      <Button
-        v-for="(item, i) in items"
-        :key="i"
-        class="mr-2"
-        :class="is_active_url(item.href) ? 'p-button-raised' : 'p-button-text '"
-        :icon="item.icon"
-        :label="item.title"
-        @click="$inertia.get(item.href)"
-      >
-        <!-- <i class="pi pi-check mr-2"></i>
-          <span>{{ tool.title }}</span> -->
-      </Button>
+      <template v-for="(item, i) in items" :key="i">
+        <Button
+          class="mr-2"
+          :class="
+            is_active_url(item.href) ? 'p-button-raised' : 'p-button-text '
+          "
+          :icon="item.icon"
+          :label="item.title"
+          @click="$inertia.get(item.href)"
+        />
+      </template>
     </template>
 
     <template #end>
@@ -28,10 +27,18 @@
 </template>
 <script>
 export default {
+  props: {
+    auth: null,
+  },
   data() {
     return {
       active_url: this.$inertia.page.url,
-      items: [
+      items: null,
+    };
+  },
+  methods: {
+    initialize_items() {
+      var items = [
         {
           title: "PCR",
           href: "/pms/pcr",
@@ -56,16 +63,23 @@ export default {
           description: "",
           icon: "bi bi-braces-asterisk",
         },
-        {
+      ];
+
+      if (this.$page.props.auth.user.roles) {
+        const rsm = {
           title: "Matrix",
           href: "/pms/rsm",
           description: "",
           icon: "bi bi-book",
-        },
-      ],
-    };
-  },
-  methods: {
+        };
+        if (this.$page.props.auth.user.roles.includes("rsm")) {
+          items.push(rsm);
+        }
+      }
+
+      this.items = items;
+    },
+
     is_active_url(url) {
       const navlink = this.active_url.split("/")[2];
       if (navlink === url.split("/")[2]) {
@@ -73,6 +87,9 @@ export default {
       }
       return false;
     },
+  },
+  created() {
+    this.initialize_items();
   },
 };
 </script>

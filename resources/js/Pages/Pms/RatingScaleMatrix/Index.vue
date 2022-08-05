@@ -18,14 +18,14 @@
             class="mr-2"
             v-model="period_id"
             :options="periods"
-            optionLabel="period"
+            optionLabel="text"
             optionValue="id"
             placeholder="Please select a period"
           />
           <Button
             :disabled="!period_id"
             type="submit"
-            class="p-button-text"
+            :class="!period_id ? 'p-button-text' : 'p-button-primary'"
             :icon="!period_id ? 'bi bi-arrow-left' : 'bi bi-folder'"
             :label="!period_id ? 'Select a period first' : 'Open'"
           />
@@ -38,6 +38,9 @@
 import AuthLayout from "@/Layouts/Authenticated";
 import PmsToolbar from "@/Layouts/PmsToolbar";
 export default {
+  props: {
+    periods: null,
+  },
   components: {
     AuthLayout,
     PmsToolbar,
@@ -45,12 +48,6 @@ export default {
   data() {
     return {
       period_id: null,
-      periods: [
-        {
-          id: 2,
-          period: "January - June, 2022",
-        },
-      ],
     };
   },
   mounted() {},
