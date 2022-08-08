@@ -992,7 +992,7 @@
 </template>
 
 <script>
-import "../../css/welcome.min.css";
+// import "../../css/welcome.min.css";
 import GuestNav from "@/Layouts/Guest.vue";
 import AuthedNav from "@/Layouts/Authenticated.vue";
 
