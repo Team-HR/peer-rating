@@ -24,9 +24,7 @@ td {
       <template #content>
         {{ auth.user }}
         <Toast />
-
         <!-- ####################### Table Start########################### -->
-
         <table class="w-full">
           <thead>
             <tr>
@@ -44,16 +42,23 @@ td {
           <template v-for="row in rows" :key="row.index">
             <!-- if  -->
             <tr v-if="row.rowspan == 0 && row.si_only == false">
-              <td>
-                <!-- <p>test {{ row.rowspan }}</p> -->
-                <!-- <Menu :model="get_menus(row)" /> -->
-                <!-- <Button type="button" label="Toggle" @click="toggle()" /> -->
-                <Menu :ref="`menu${row.id}`" :model="get_menu_items(row)" />
-              </td>
+              <td></td>
               <td :colspan="row.mfo_only ? 9 : 1">
-                <span :style="indent(row.level)">
-                  {{ `${row.code}) ${row.title}` }}
-                </span>
+                <div :style="indent(row.level)">
+                  <Button
+                    type="button"
+                    class="p-button-tex p-button-text py-0 px-2 m-0 mr-2"
+                    @click="toggle($event, row.id)"
+                  >
+                    <i class="bi bi-gear"></i>
+                  </Button>
+                  <Menu
+                    :ref="`menu${row.id}`"
+                    :model="get_menu_items()"
+                    :popup="true"
+                  />
+                  <span>{{ `${row.code}) ${row.title}` }}</span>
+                </div>
               </td>
               <template v-if="!row.mfo_only">
                 <td>{{ row.success_indicator }}</td>
@@ -100,6 +105,70 @@ td {
             </td>
           </tr>
         </table>
+        <Button
+          class="my-5"
+          icon="pi pi-plus"
+          label="Add New MFO/PAP"
+          @click="add_modal = !add_modal"
+        ></Button>
+        <!-- ############################       Add Modal Start        ############################# -->
+        <Dialog header="ADD NEW MFO/PAP" v-model:visible="add_modal" :modal="true">
+          <form id="add_new_form" class="card" @submit.prevent="submit_add()">
+            <div class="formgrid grid">
+              <div class="field col-12">
+                <label class="mr-2">Parent MFO/PAP:</label>
+                <br />
+                <Dropdown
+                  showClear
+                  v-model="form.parent_id"
+                  :options="parents"
+                  optionLabel="label"
+                  optionValue="id"
+                  placeholder="Select parent if available (Leave blank if none)"
+                />
+              </div>
+              <div class="field col-4">
+                <label>Code:</label>
+                <InputText
+                  class="w-full uppercase"
+                  type="text"
+                  v-model="form.code"
+                  placeholder="e.g. A., A.1., B.,B.1"
+                  required
+                />
+                <small class="ml-2">*Required</small>
+              </div>
+              <div class="field col-8">
+                <label>MFO/PAP Title:</label>
+                <InputText
+                  class="w-full uppercase"
+                  type="text"
+                  v-model="form.title"
+                  placeholder="e.g. Recruitment Services"
+                  required
+                />
+                <small class="ml-2">*Required</small>
+              </div>
+            </div>
+          </form>
+
+          <template #footer>
+            <Button
+              type="button"
+              label="No"
+              icon="pi pi-times"
+              class="p-button-text"
+              @click="add_modal = false"
+            />
+            <Button
+              form="add_new_form"
+              type="submit"
+              label="Yes"
+              icon="pi pi-check"
+            />
+          </template>
+        </Dialog>
+        <!-- ############################       Add Modal End        ############################# -->
 
         <!-- ####################### Table End ########################### -->
       </template>
@@ -114,26 +183,58 @@ export default {
     auth: null,
     period_id: null,
     rows: null,
+    parents: null,
   },
   components: {
     AuthLayout,
     PmsToolbar,
   },
   data() {
-    return {};
+    return {
+      current_url: document.location.pathname,
+      add_modal: false,
+      menu: [],
+      form: this.$inertia.form({
+        parent_id: null,
+        code: null,
+        title: null,
+      }),
+    };
+  },
+  watch: {
+    add_modal(newValue, oldValue) {
+      if (!newValue) {
+        this.clear_form();
+      }
+    },
   },
   methods: {
-    // toggle(event) {
-    //   this.$refs["menu1"].toggle(event);
-    // },
-    get_menu_items(row) {
+    submit_add() {
+      console.log(this.form);
+      this.form.post(this.current_url, {
+        onSuccess: () => {
+          this.add_modal = false;
+          this.clear_form();
+        },
+      });
+    },
+    clear_form() {
+      this.form.parent_id = null;
+      this.form.code = null;
+      this.form.title = null;
+    },
+    toggle(event, id) {
+      const menu = `menu${id}`;
+      this.$refs[menu][0].toggle(event);
+    },
+    get_menu_items() {
       var items = [
         {
-          label: "Options",
+          label: "MFO/PAP",
           items: [
             {
-              label: "Update",
-              // icon: "pi pi-refresh",
+              label: "Edit",
+              icon: "bi bi-input-cursor-text",
               command: () => {
                 this.$toast.add({
                   severity: "success",
@@ -144,16 +245,42 @@ export default {
               },
             },
             {
-              label: "Delete",
-              // icon: "pi pi-times",
+              label: "Change Parent",
+              icon: "bi bi-arrow-down-up",
               command: () => {
                 this.$toast.add({
                   severity: "warn",
-                  summary: "Delete",
+                  summary: "Deleted",
                   detail: "Data Deleted",
                   life: 3000,
                 });
               },
+            },
+          ],
+        },
+        {
+          label: "SUCCESS INDICATOR",
+          items: [
+            {
+              label: "Add New",
+              icon: "pi pi-plus",
+              command: () => {
+                this.$toast.add({
+                  severity: "success",
+                  summary: "Updated",
+                  detail: "Data Updated",
+                  life: 3000,
+                });
+              },
+            },
+          ],
+        },
+        {
+          label: "SUB-FUNCTION",
+          items: [
+            {
+              label: "Add Sub",
+              icon: "bi bi-arrow-return-right",
             },
           ],
         },
@@ -194,7 +321,7 @@ export default {
     },
   },
   mounted() {
-    console.log();
+    console.log(this.parents);
   },
 };
 </script>

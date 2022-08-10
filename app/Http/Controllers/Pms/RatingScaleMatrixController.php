@@ -8,6 +8,7 @@ use App\Models\PmsRatingScaleMatrix;
 use App\Models\PmsRatingScaleMatrixSuccessIndicator;
 use App\Models\SysEmployee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class RatingScaleMatrixController extends Controller
@@ -18,6 +19,9 @@ class RatingScaleMatrixController extends Controller
         foreach ($periods as $key => $period) {
             $periods[$key]['text'] = $period['period'] . ", " . $period['year'];
         }
+
+        $parents = [];
+
         return Inertia::render('Pms/RatingScaleMatrix/Index', ['periods' => $periods]);
     }
     public function show($period_id)
@@ -221,7 +225,48 @@ class RatingScaleMatrixController extends Controller
             }
         }
 
-        return Inertia::render('Pms/RatingScaleMatrix/RatingScaleMatrix', ['period_id' => $period_id, 'rows' => $rows]);
+        $parents = [];
+        $parents = PmsRatingScaleMatrix::where("period_id", $period_id)->where('sys_department_id', $sys_department_id)->orderBy('index')->get()->toArray();
+
+
+        foreach ($parents as $key => $parent) {
+            $parents[$key]["label"] = $parent["code"] . ")  " . $parent["title"];
+        }
+
+        // array_unshift($parents, ["id" => "", "label" => "No Parent"]);
+
+        return Inertia::render('Pms/RatingScaleMatrix/RatingScaleMatrix', ['period_id' => $period_id, 'rows' => $rows, 'parents' => $parents]);
+    }
+
+    public function create($period_id, Request $request)
+    {
+        $sys_department_id = auth()->user()->sys_department_id;
+        if (!$sys_department_id) return "error: no assigned department!";
+
+        # if parent_id is indicated get the index of parent and insert new after the parent
+        $index = 0;
+        $parent_id = null;
+        if ($request->parent_id) {
+            $parent_id = $request->parent_id;
+        }
+        # else if no parent_id indicated get first the last index
+        else {
+            $rsm = PmsRatingScaleMatrix::where("period_id", $period_id)->where("sys_department_id", $sys_department_id)->orderByDesc("index")->get(['index'])->first();
+            $index = $rsm ? ($rsm->index + 1) : 0;
+        }
+        // return $index;
+        // $mfo = PmsRatingScaleMatrix::where("period_id", $period_id)->where("sys_department_id");
+
+        $mfo = new PmsRatingScaleMatrix;
+        $mfo->period_id = $period_id;
+        $mfo->parent_id = $parent_id;
+        $mfo->sys_department_id = $sys_department_id;
+        $mfo->index = $index;
+        $mfo->code = $request->code;
+        $mfo->title = $request->title;
+        $mfo->save();
+
+        return Redirect::back();
     }
 }
 
