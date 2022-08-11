@@ -26,155 +26,55 @@ class RatingScaleMatrixController extends Controller
     }
     public function show($period_id)
     {
-        $rows =  [
-            [
-                "id" => 2,
-                "level" => 0,
-                "index" => 0,
-                "rowspan" => 0,
-                "si_only" => false,
-                "code" => "A.",
-                "title" => "IHRIS Development",
-                "success_indicator" => "100% of computer software and hardware maintained every month.",
-                "performance_measure" => [
-                    "Efficiency",
-                    "Timeliness"
-                ],
-                "quality" => [],
-                "efficiency" => [
-                    [
-                        "score" => 5,
-                        "description" => "100%"
-                    ],
-                    [
-                        "score" => 3,
-                        "description" => "99%-90%"
-                    ],
-                    [
-                        "score" => 1,
-                        "description" => "Less than 90%"
-                    ]
-                ],
-                "timeliness" => [
-                    [
-                        "score" => 5,
-                        "description" => "Every month"
-                    ],
-                    [
-                        "score" => 2,
-                        "description" => "Not maintained every month"
-                    ]
-                ],
-                "in_charges" => [
-                    [
-                        "id" => 9,
-                        "fu_name" => "Franz Joshua A. Valencia"
-                    ]
-                ]
-            ],
-            [
-                "id" => 8,
-                "level" => 1,
-                "index" => 1,
-                "rowspan" => 2,
-                "si_only" => false,
-                "code" => "A.1",
-                "title" => "Database Management",
-                "success_indicator" => "Database accurately updated everyday.",
-                "performance_measure" => [
-                    "Quality",
-                    "Timeliness"
-                ],
-                "quality" => [
-                    [
-                        "score" => 5,
-                        "description" => "Accurately"
-                    ],
-                    [
-                        "score" => 2,
-                        "description" => "Not updated"
-                    ]
-                ],
-                "efficiency" => [],
-                "timeliness" => [
-                    [
-                        "score" => 5,
-                        "description" => "Every day"
-                    ],
-                    [
-                        "score" => 2,
-                        "description" => "Not maintained everyday"
-                    ]
-                ],
-                "in_charges" => [
-                    [
-                        "id" => 9,
-                        "fu_name" => "Franz Joshua A. Valencia"
-                    ]
-                ]
-            ],
-            [
-                "id" => 11,
-                "level" => 1,
-                "index" => 3,
-                "rowspan" => 0,
-                "si_only" => true,
-                "code" => "A.1",
-                "title" => "Database Management si_only",
-                "success_indicator" => "100% of database accurately developed everyday.",
-                "performance_measure" => [
-                    "Quality",
-                    "Timeliness"
-                ],
-                "quality" => [
-                    [
-                        "score" => 5,
-                        "description" => "Accurately"
-                    ],
-                    [
-                        "score" => 2,
-                        "description" => "Not developed"
-                    ]
-                ],
-                "efficiency" => [],
-                "timeliness" => [
-                    [
-                        "score" => 5,
-                        "description" => "Every day"
-                    ],
-                    [
-                        "score" => 2,
-                        "description" => "Not maintained everyday"
-                    ]
-                ],
-                "in_charges" => [
-                    [
-                        "id" => 9,
-                        "fu_name" => "Franz Joshua A. Valencia"
-                    ]
-                ]
-            ]
-        ];
 
         $sys_department_id = auth()->user()->sys_department_id;
-
-        if (!$sys_department_id) {
-            $rows = [];
-        }
         $rows = [];
-        $pms_rating_scale_matrices = PmsRatingScaleMatrix::where('period_id', $period_id)->where('sys_department_id', $sys_department_id)->orderBy('index')->get();
 
-        foreach ($pms_rating_scale_matrices as $row) {
+        $pms_rating_scale_matrices = PmsRatingScaleMatrix::where('period_id', $period_id)
+            ->where('sys_department_id', $sys_department_id)
+            ->where('parent_id', null)
+            ->orderBy('code')
+            ->get();
+
+
+        # sort parents first start -- according to the alphanumeric code
+        $sorted_codes = [];
+        foreach ($pms_rating_scale_matrices as $key => $mfo) {
+            $sorted_codes[] = $mfo["code"];
+        }
+        natsort($sorted_codes);
+        $sorted_pms_rating_scale_matrices = [];
+        foreach ($sorted_codes as $code) {
+            foreach ($pms_rating_scale_matrices as $mfo) {
+                if ($mfo["code"] == $code) {
+                    $sorted_pms_rating_scale_matrices[] = $mfo;
+                    continue;
+                }
+            }
+        }
+        # sort end
+
+        // return $sorted_pms_rating_scale_matrices;
+
+
+
+        $matrices = [];
+        foreach ($pms_rating_scale_matrices as $key => $mfo) {
+            $matrices[] = $mfo;
+            # check if mfo has children
+            $matrices = get_mfo_children($matrices, $mfo["id"]);
+        }
+
+        foreach ($matrices as $row) {
             $level = get_level(0, $row["parent_id"]);
             $rowspan = 0;
             $si_only = false;
             $success_indicators = get_success_indicators($row["id"]);
             $success_indicators_count = count($success_indicators);
             $rowspan = $success_indicators_count > 1 ? $success_indicators_count : 0;
-
-
             $datum = [
                 "id" => $row["id"],
+                "parent_id" => $row["parent_id"],
                 "level" => $level,
                 "index" => $row["index"],
                 "rowspan" => $rowspan,
@@ -182,7 +82,6 @@ class RatingScaleMatrixController extends Controller
                 "si_only" => $si_only,
                 "code" => $row["code"],
                 "title" => $row["title"],
-
             ];
 
             # if no success indicators
@@ -225,15 +124,11 @@ class RatingScaleMatrixController extends Controller
             }
         }
 
-        $parents = [];
-        $parents = PmsRatingScaleMatrix::where("period_id", $period_id)->where('sys_department_id', $sys_department_id)->orderBy('index')->get()->toArray();
-
-
+        // return $rows;
+        $parents = $matrices;
         foreach ($parents as $key => $parent) {
             $parents[$key]["label"] = $parent["code"] . ")  " . $parent["title"];
         }
-
-        // array_unshift($parents, ["id" => "", "label" => "No Parent"]);
 
         return Inertia::render('Pms/RatingScaleMatrix/RatingScaleMatrix', ['period_id' => $period_id, 'rows' => $rows, 'parents' => $parents]);
     }
@@ -242,77 +137,55 @@ class RatingScaleMatrixController extends Controller
     {
         $sys_department_id = auth()->user()->sys_department_id;
         if (!$sys_department_id) return "error: no assigned department!";
+        $mfo = new PmsRatingScaleMatrix;
+        $mfo->period_id = $period_id;
+        $mfo->parent_id = $request->parent_id;
+        $mfo->sys_department_id = $sys_department_id;
+        $mfo->code = $request->code;
+        $mfo->title = $request->title;
+        $mfo->save();
+        return Redirect::back();
+    }
 
-        # if parent_id is indicated get the index of parent and insert new after the parent
-        $index = 0;
-        $parent_id = null;
-        if ($request->parent_id) {
-            $parent_id = $request->parent_id;
-
-            # get last index of parent's children
-            $last_child = PmsRatingScaleMatrix::where("period_id", $period_id)
-                ->where("sys_department_id", $sys_department_id)
-                ->where("parent_id", $parent_id)
-                ->orderByDesc("index")
-                ->first();
-            if ($last_child) {
-                # if child/children exists
-                $last_index = $last_child->index;
-            } else {
-                # if no children  get index of the parent
-                $parent = PmsRatingScaleMatrix::find($parent_id);
-                $last_index = $parent->index;
-            }
-
-            $index = $last_index + 1;
-
-            # get all rsm with period_id and sys_department_id
-            $rsm = PmsRatingScaleMatrix::where("period_id", $period_id)
-                ->where("sys_department_id", $sys_department_id)
-                ->orderBy("index")
-                ->get();
-
-            # remove all values starting from 0 to < index
-            foreach ($rsm as $key => $value) {
-                if ($key < $index) {
-                    unset($rsm[$key]);
-                }
-            }
-
-            # update by incrementing indices from index from index to up
-            foreach ($rsm as $key => $value) {
-                $rsm = PmsRatingScaleMatrix::find($value["id"]);
-                $rsm->index = $value["index"] + 1;
-                $rsm->save();
-            }
-
-            # create new mfo/pap
-            $mfo = new PmsRatingScaleMatrix;
-            $mfo->period_id = $period_id;
-            $mfo->parent_id = $parent_id;
-            $mfo->sys_department_id = $sys_department_id;
-            $mfo->index = $index;
-            $mfo->code = $request->code;
-            $mfo->title = $request->title;
-            $mfo->save();
-        }
-        # else if no parent_id indicated get first the last index
-        else {
-            $rsm = PmsRatingScaleMatrix::where("period_id", $period_id)->where("sys_department_id", $sys_department_id)->orderByDesc("index")->get(['index'])->first();
-            $index = $rsm ? ($rsm->index + 1) : 0;
-
-            $mfo = new PmsRatingScaleMatrix;
-            $mfo->period_id = $period_id;
-            $mfo->parent_id = $parent_id;
-            $mfo->sys_department_id = $sys_department_id;
-            $mfo->index = $index;
-            $mfo->code = $request->code;
-            $mfo->title = $request->title;
-            $mfo->save();
-        }
+    public function update($period_id, Request $request)
+    {
+        $mfo = PmsRatingScaleMatrix::find($request->id);
+        $mfo->parent_id = $request->parent_id;
+        $mfo->code = $request->code;
+        $mfo->title = $request->title;
+        $mfo->save();
 
         return Redirect::back();
     }
+}
+
+
+# get mfo children
+function get_mfo_children($matrices, $parent_id)
+{
+    $children = PmsRatingScaleMatrix::where("parent_id", $parent_id)->orderBy("code")->get()->toArray();
+
+    # sort parents first start -- according to the alphanumeric code
+    $sorted_codes = [];
+    foreach ($children as $key => $mfo) {
+        $sorted_codes[] = $mfo["code"];
+    }
+    natsort($sorted_codes);
+    $sorted_children = [];
+    foreach ($sorted_codes as $code) {
+        foreach ($children as $mfo) {
+            if ($mfo["code"] == $code) {
+                $sorted_children[] = $mfo;
+                continue;
+            }
+        }
+    }
+    # sort end
+    foreach ($sorted_children as $key => $child) {
+        $matrices[] =  $child;
+        $matrices = get_mfo_children($matrices, $child["id"]);
+    }
+    return $matrices;
 }
 
 # get level iterator

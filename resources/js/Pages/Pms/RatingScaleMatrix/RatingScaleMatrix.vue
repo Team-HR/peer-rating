@@ -2,8 +2,9 @@
 table,
 th,
 td {
+  font-size: 12px;
   padding: 5px;
-  border: 0.5px solid black;
+  border: 0.5px solid rgb(185, 185, 185);
   border-collapse: collapse;
 }
 </style>
@@ -28,7 +29,6 @@ td {
         <table class="w-full">
           <thead>
             <tr>
-              <th></th>
               <th>MFO/PAP</th>
               <th>Success Indicator</th>
               <th>Performance Measure</th>
@@ -39,11 +39,13 @@ td {
               <th>Options</th>
             </tr>
           </thead>
-          <template v-for="row in rows" :key="row.index">
+          <template v-for="(row, r) in rows" :key="r">
             <!-- if  -->
-            <tr v-if="row.rowspan == 0 && row.si_only == false" :class="row.mfo_only ? 'bg-primary-50': ''">
-              <td></td>
-              <td :colspan="row.mfo_only ? 9 : 1">
+            <tr
+              v-if="row.rowspan == 0 && row.si_only == false"
+              :class="row.mfo_only ? 'bg-primary-50' : ''"
+            >
+              <td :colspan="row.mfo_only ? 8 : 1">
                 <div :style="indent(row.level)">
                   <Button
                     type="button"
@@ -54,7 +56,7 @@ td {
                   </Button>
                   <Menu
                     :ref="`menu${row.id}`"
-                    :model="get_menu_items()"
+                    :model="get_menu_items(row)"
                     :popup="true"
                   />
                   <span>
@@ -77,9 +79,6 @@ td {
             </tr>
             <tr v-else-if="row.rowspan > 0 && row.si_only == false">
               <td :rowspan="row.rowspan">
-                <p>id: {{ row.id }}</p>
-              </td>
-              <td :rowspan="row.rowspan">
                 <div :style="indent(row.level)">
                   <Button
                     type="button"
@@ -90,7 +89,7 @@ td {
                   </Button>
                   <Menu
                     :ref="`menu${row.id}`"
-                    :model="get_menu_items()"
+                    :model="get_menu_items(row)"
                     :popup="true"
                   />
                   <span>
@@ -118,7 +117,7 @@ td {
             </tr>
           </template>
           <tr v-if="rows.length < 1">
-            <td class="p-5 bg-gray-300" colspan="9" style="text-align: center">
+            <td class="p-5 bg-gray-300" colspan="8" style="text-align: center">
               No records found!
             </td>
           </tr>
@@ -127,15 +126,19 @@ td {
           class="my-5"
           icon="pi pi-plus"
           label="Add New MFO/PAP"
-          @click="add_modal = !add_modal"
+          @click="add_edit_modal = !add_edit_modal"
         ></Button>
-        <!-- ############################       Add Modal Start        ############################# -->
+        <!-- ############################       AddEdit Modal Start        ############################# -->
         <Dialog
-          header="ADD NEW MFO/PAP"
-          v-model:visible="add_modal"
+          :header="form.id ? 'EDIT MFO/PAP' : 'ADD NEW MFO/PAP'"
+          v-model:visible="add_edit_modal"
           :modal="true"
         >
-          <form id="add_new_form" class="card" @submit.prevent="submit_add()">
+          <form
+            id="add_new_form"
+            class="card"
+            @submit.prevent="add_edit_submit()"
+          >
             <div class="formgrid grid">
               <div class="field col-12">
                 <label class="mr-2">Parent MFO/PAP:</label>
@@ -180,7 +183,7 @@ td {
               label="No"
               icon="pi pi-times"
               class="p-button-text"
-              @click="add_modal = false"
+              @click="add_edit_modal = false"
             />
             <Button
               form="add_new_form"
@@ -190,7 +193,7 @@ td {
             />
           </template>
         </Dialog>
-        <!-- ############################       Add Modal End        ############################# -->
+        <!-- ############################       AddEdit Modal End        ############################# -->
 
         <!-- ####################### Table End ########################### -->
       </template>
@@ -214,9 +217,10 @@ export default {
   data() {
     return {
       current_url: document.location.pathname,
-      add_modal: false,
+      add_edit_modal: false,
       menu: [],
       form: this.$inertia.form({
+        id: null,
         parent_id: null,
         code: null,
         title: null,
@@ -224,23 +228,58 @@ export default {
     };
   },
   watch: {
-    add_modal(newValue, oldValue) {
+    add_edit_modal(newValue, oldValue) {
       if (!newValue) {
         this.clear_form();
       }
     },
   },
   methods: {
-    submit_add() {
-      console.log(this.form);
+    add_edit_submit() {
+      // if form.id is null, create new
+      if (!this.form.id) {
+        this.create();
+      }
+      // else form.id has value edit current
+      else {
+        this.update();
+      }
+    },
+
+    create() {
       this.form.post(this.current_url, {
+        preserveScroll: true,
         onSuccess: () => {
-          this.add_modal = false;
+          this.add_edit_modal = false;
           this.clear_form();
+          this.$toast.add({
+            severity: "success",
+            summary: "Added",
+            detail: "New MFO/PAP added successfully!",
+            life: 3000,
+          });
         },
       });
     },
+
+    update() {
+      this.form.patch(this.current_url, {
+        preserveScroll: true,
+        onSuccess: () => {
+          this.add_edit_modal = false;
+          this.clear_form();
+          this.$toast.add({
+            severity: "success",
+            summary: "Updated",
+            detail: "MFO/PAP updated successfully!",
+            life: 3000,
+          });
+        },
+      });
+    },
+
     clear_form() {
+      this.form.id = null;
       this.form.parent_id = null;
       this.form.code = null;
       this.form.title = null;
@@ -249,7 +288,7 @@ export default {
       const menu = `menu${id}`;
       this.$refs[menu][0].toggle(event);
     },
-    get_menu_items() {
+    get_menu_items(row) {
       var items = [
         {
           label: "MFO/PAP",
@@ -258,17 +297,17 @@ export default {
               label: "Edit",
               icon: "bi bi-input-cursor-text",
               command: () => {
-                this.$toast.add({
-                  severity: "success",
-                  summary: "Updated",
-                  detail: "Data Updated",
-                  life: 3000,
-                });
+                console.log(row);
+                this.form.id = row.id;
+                this.form.parent_id = row.parent_id;
+                this.form.code = row.code;
+                this.form.title = row.title;
+                this.add_edit_modal = true;
               },
             },
             {
-              label: "Change Parent",
-              icon: "bi bi-arrow-down-up",
+              label: "Delete",
+              icon: "bi bi-trash",
               command: () => {
                 this.$toast.add({
                   severity: "warn",
@@ -284,8 +323,8 @@ export default {
           label: "SUCCESS INDICATOR",
           items: [
             {
-              label: "Add New",
-              icon: "pi pi-plus",
+              label: "Add New SI",
+              icon: "bi bi-rulers",
               command: () => {
                 this.$toast.add({
                   severity: "success",
@@ -301,7 +340,7 @@ export default {
           label: "SUB-FUNCTION",
           items: [
             {
-              label: "Add Sub",
+              label: "Add New Sub",
               icon: "bi bi-arrow-return-right",
             },
           ],

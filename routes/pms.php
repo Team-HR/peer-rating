@@ -12,5 +12,7 @@ Route::get('/pms', function () {
 use App\Http\Controllers\Pms\RatingScaleMatrixController;
 # rating scale matrix
 Route::get('/pms/rsm', [RatingScaleMatrixController::class, "index"])->middleware('auth');
+
 Route::get('/pms/rsm/{period_id}', [RatingScaleMatrixController::class, "show"]);
 Route::post('/pms/rsm/{period_id}', [RatingScaleMatrixController::class, "create"]);
+Route::patch('/pms/rsm/{period_id}', [RatingScaleMatrixController::class, "update"]);
