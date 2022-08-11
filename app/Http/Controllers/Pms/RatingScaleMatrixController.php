@@ -248,23 +248,68 @@ class RatingScaleMatrixController extends Controller
         $parent_id = null;
         if ($request->parent_id) {
             $parent_id = $request->parent_id;
+
+            # get last index of parent's children
+            $last_child = PmsRatingScaleMatrix::where("period_id", $period_id)
+                ->where("sys_department_id", $sys_department_id)
+                ->where("parent_id", $parent_id)
+                ->orderByDesc("index")
+                ->first();
+            if ($last_child) {
+                # if child/children exists
+                $last_index = $last_child->index;
+            } else {
+                # if no children  get index of the parent
+                $parent = PmsRatingScaleMatrix::find($parent_id);
+                $last_index = $parent->index;
+            }
+
+            $index = $last_index + 1;
+
+            # get all rsm with period_id and sys_department_id
+            $rsm = PmsRatingScaleMatrix::where("period_id", $period_id)
+                ->where("sys_department_id", $sys_department_id)
+                ->orderBy("index")
+                ->get();
+
+            # remove all values starting from 0 to < index
+            foreach ($rsm as $key => $value) {
+                if ($key < $index) {
+                    unset($rsm[$key]);
+                }
+            }
+
+            # update by incrementing indices from index from index to up
+            foreach ($rsm as $key => $value) {
+                $rsm = PmsRatingScaleMatrix::find($value["id"]);
+                $rsm->index = $value["index"] + 1;
+                $rsm->save();
+            }
+
+            # create new mfo/pap
+            $mfo = new PmsRatingScaleMatrix;
+            $mfo->period_id = $period_id;
+            $mfo->parent_id = $parent_id;
+            $mfo->sys_department_id = $sys_department_id;
+            $mfo->index = $index;
+            $mfo->code = $request->code;
+            $mfo->title = $request->title;
+            $mfo->save();
         }
         # else if no parent_id indicated get first the last index
         else {
             $rsm = PmsRatingScaleMatrix::where("period_id", $period_id)->where("sys_department_id", $sys_department_id)->orderByDesc("index")->get(['index'])->first();
             $index = $rsm ? ($rsm->index + 1) : 0;
-        }
-        // return $index;
-        // $mfo = PmsRatingScaleMatrix::where("period_id", $period_id)->where("sys_department_id");
 
-        $mfo = new PmsRatingScaleMatrix;
-        $mfo->period_id = $period_id;
-        $mfo->parent_id = $parent_id;
-        $mfo->sys_department_id = $sys_department_id;
-        $mfo->index = $index;
-        $mfo->code = $request->code;
-        $mfo->title = $request->title;
-        $mfo->save();
+            $mfo = new PmsRatingScaleMatrix;
+            $mfo->period_id = $period_id;
+            $mfo->parent_id = $parent_id;
+            $mfo->sys_department_id = $sys_department_id;
+            $mfo->index = $index;
+            $mfo->code = $request->code;
+            $mfo->title = $request->title;
+            $mfo->save();
+        }
 
         return Redirect::back();
     }

@@ -41,7 +41,7 @@ td {
           </thead>
           <template v-for="row in rows" :key="row.index">
             <!-- if  -->
-            <tr v-if="row.rowspan == 0 && row.si_only == false">
+            <tr v-if="row.rowspan == 0 && row.si_only == false" :class="row.mfo_only ? 'bg-primary-50': ''">
               <td></td>
               <td :colspan="row.mfo_only ? 9 : 1">
                 <div :style="indent(row.level)">
@@ -57,7 +57,10 @@ td {
                     :model="get_menu_items()"
                     :popup="true"
                   />
-                  <span>{{ `${row.code}) ${row.title}` }}</span>
+                  <span>
+                    <strong class="mr-2">{{ row.code }}</strong>
+                    {{ row.title }}
+                  </span>
                 </div>
               </td>
               <template v-if="!row.mfo_only">
@@ -77,9 +80,24 @@ td {
                 <p>id: {{ row.id }}</p>
               </td>
               <td :rowspan="row.rowspan">
-                <span :style="indent(row.level)">
-                  {{ `${row.code}) ${row.title}` }}
-                </span>
+                <div :style="indent(row.level)">
+                  <Button
+                    type="button"
+                    class="p-button-tex p-button-text py-0 px-2 m-0 mr-2"
+                    @click="toggle($event, row.id)"
+                  >
+                    <i class="bi bi-gear"></i>
+                  </Button>
+                  <Menu
+                    :ref="`menu${row.id}`"
+                    :model="get_menu_items()"
+                    :popup="true"
+                  />
+                  <span>
+                    <strong class="mr-2">{{ row.code }}</strong>
+                    {{ row.title }}
+                  </span>
+                </div>
               </td>
               <td>{{ row.success_indicator }}</td>
               <td v-html="performance_measures(row.performance_measures)"></td>
@@ -112,7 +130,11 @@ td {
           @click="add_modal = !add_modal"
         ></Button>
         <!-- ############################       Add Modal Start        ############################# -->
-        <Dialog header="ADD NEW MFO/PAP" v-model:visible="add_modal" :modal="true">
+        <Dialog
+          header="ADD NEW MFO/PAP"
+          v-model:visible="add_modal"
+          :modal="true"
+        >
           <form id="add_new_form" class="card" @submit.prevent="submit_add()">
             <div class="formgrid grid">
               <div class="field col-12">
@@ -130,7 +152,7 @@ td {
               <div class="field col-4">
                 <label>Code:</label>
                 <InputText
-                  class="w-full uppercase"
+                  class="w-full"
                   type="text"
                   v-model="form.code"
                   placeholder="e.g. A., A.1., B.,B.1"
@@ -141,7 +163,7 @@ td {
               <div class="field col-8">
                 <label>MFO/PAP Title:</label>
                 <InputText
-                  class="w-full uppercase"
+                  class="w-full"
                   type="text"
                   v-model="form.title"
                   placeholder="e.g. Recruitment Services"
