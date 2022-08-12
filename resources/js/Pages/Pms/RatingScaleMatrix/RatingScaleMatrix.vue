@@ -2,7 +2,7 @@
 table,
 th,
 td {
-  font-size: 12px;
+  font-size: 14px;
   padding: 5px;
   border: 0.5px solid rgb(185, 185, 185);
   border-collapse: collapse;
@@ -15,17 +15,22 @@ td {
     <Card class="w-full">
       <template #title
         ><span class="uppercase"
-          ><i class="bi bi-book mr-2"></i> Rating Scale Matrix |
-          {{ period_id }}</span
+          ><i class="bi bi-book mr-2"></i> Rating Scale Matrix</span
         ></template
       >
       <template #subtitle
         >Edit or review your Department/Section's Rating Scale Matrix</template
       >
       <template #content>
-        {{ auth.user }}
-        <Toast />
         <!-- ####################### Table Start########################### -->
+        <div class="w-full mb-3">
+          <div class="text-center text-4xl">
+            {{ $page.props.auth.user.sys_department_name }}
+          </div>
+          <div class="text-center">
+            {{ `${$page.props.period.period}, ${$page.props.period.year}` }}
+          </div>
+        </div>
         <table class="w-full">
           <thead>
             <tr>
@@ -122,6 +127,9 @@ td {
             </td>
           </tr>
         </table>
+
+        <!-- ####################### Table End ########################### -->
+
         <Button
           class="my-5"
           icon="pi pi-plus"
@@ -194,8 +202,8 @@ td {
           </template>
         </Dialog>
         <!-- ############################       AddEdit Modal End        ############################# -->
-
-        <!-- ####################### Table End ########################### -->
+        <Toast />
+        <ConfirmDialog></ConfirmDialog>
       </template>
     </Card>
   </auth-layout>
@@ -206,6 +214,7 @@ import PmsToolbar from "@/Layouts/PmsToolbar";
 export default {
   props: {
     auth: null,
+    period: null,
     period_id: null,
     rows: null,
     parents: null,
@@ -278,6 +287,21 @@ export default {
       });
     },
 
+    destroy(id) {
+      this.$inertia.delete(this.current_url + "/" + id, {
+        preserveScroll: true,
+        onSuccess: () => {
+          this.clear_form();
+          this.$toast.add({
+            severity: "success",
+            summary: "Deleted",
+            detail: "Successfully Deleteed!",
+            life: 3000,
+          });
+        },
+      });
+    },
+
     clear_form() {
       this.form.id = null;
       this.form.parent_id = null;
@@ -297,7 +321,7 @@ export default {
               label: "Edit",
               icon: "bi bi-input-cursor-text",
               command: () => {
-                console.log(row);
+                // console.log(row);
                 this.form.id = row.id;
                 this.form.parent_id = row.parent_id;
                 this.form.code = row.code;
@@ -308,13 +332,9 @@ export default {
             {
               label: "Delete",
               icon: "bi bi-trash",
+              class: "p-menuitem-text text-red-700",
               command: () => {
-                this.$toast.add({
-                  severity: "warn",
-                  summary: "Deleted",
-                  detail: "Data Deleted",
-                  life: 3000,
-                });
+                this.confirm_delete(row.id);
               },
             },
           ],
@@ -326,12 +346,7 @@ export default {
               label: "Add New SI",
               icon: "bi bi-rulers",
               command: () => {
-                this.$toast.add({
-                  severity: "success",
-                  summary: "Updated",
-                  detail: "Data Updated",
-                  life: 3000,
-                });
+                this.$inertia.get(`${this.current_url}/mfo/${row.id}/si`);
               },
             },
           ],
@@ -342,6 +357,13 @@ export default {
             {
               label: "Add New Sub",
               icon: "bi bi-arrow-return-right",
+              command: () => {
+                this.form.id = null;
+                this.form.parent_id = row.id;
+                this.form.code = null;
+                this.form.title = null;
+                this.add_edit_modal = true;
+              },
             },
           ],
         },
@@ -349,6 +371,20 @@ export default {
 
       return items;
     },
+    confirm_delete(id) {
+      this.$confirm.require({
+        message:
+          "Do you want to delete this record? Success Indicators will also be deleted, if has.",
+        header: "Delete Confirmation",
+        icon: "pi pi-info-circle",
+        acceptClass: "p-button-danger",
+        accept: () => {
+          this.destroy(id);
+        },
+        // reject: () => {},
+      });
+    },
+
     performance_measures(arr) {
       var html = "";
       if (!arr) return html;
