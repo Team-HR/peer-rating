@@ -79,7 +79,28 @@ td {
                 <td v-html="performance_measure_criteria(row.efficiency)"></td>
                 <td v-html="performance_measure_criteria(row.timeliness)"></td>
                 <td v-html="in_charge(row.in_charges)"></td>
-                <td>Edit Delete</td>
+                <td>
+                  <Button
+                    class="
+                      p-button-sm p-button-text p-button-success
+                      flex
+                      w-full
+                    "
+                    icon="bi bi-pencil"
+                    label="Edit"
+                    @click="edit_success_indicator(row)"
+                  ></Button>
+                  <Button
+                    class="
+                      p-button-sm p-button-text p-button-danger
+                      flex
+                      w-full
+                    "
+                    icon="bi bi-trash"
+                    label="Delete"
+                    @click="delete_success_indicator(row)"
+                  ></Button>
+                </td>
               </template>
             </tr>
             <tr v-else-if="row.rowspan > 0 && row.si_only == false">
@@ -109,7 +130,20 @@ td {
               <td v-html="performance_measure_criteria(row.efficiency)"></td>
               <td v-html="performance_measure_criteria(row.timeliness)"></td>
               <td v-html="in_charge(row.in_charges)"></td>
-              <td>Edit Delete</td>
+              <td>
+                <Button
+                  class="p-button-sm p-button-text p-button-success flex w-full"
+                  icon="bi bi-pencil"
+                  label="Edit"
+                  @click="edit_success_indicator(row)"
+                ></Button>
+                <Button
+                  class="p-button-sm p-button-text p-button-danger flex w-full"
+                  icon="bi bi-trash"
+                  label="Delete"
+                  @click="delete_success_indicator(row)"
+                ></Button>
+              </td>
             </tr>
             <tr v-else>
               <td>{{ row.success_indicator }}</td>
@@ -118,7 +152,20 @@ td {
               <td v-html="performance_measure_criteria(row.efficiency)"></td>
               <td v-html="performance_measure_criteria(row.timeliness)"></td>
               <td v-html="in_charge(row.in_charges)"></td>
-              <td>Edit Delete</td>
+              <td>
+                <Button
+                  class="p-button-sm p-button-text p-button-success flex w-full"
+                  icon="bi bi-pencil"
+                  label="Edit"
+                  @click="edit_success_indicator(row)"
+                ></Button>
+                <Button
+                  class="p-button-sm p-button-text p-button-danger flex w-full"
+                  icon="bi bi-trash"
+                  label="Delete"
+                  @click="delete_success_indicator(row)"
+                ></Button>
+              </td>
             </tr>
           </template>
           <tr v-if="rows.length < 1">
@@ -244,6 +291,45 @@ export default {
     },
   },
   methods: {
+    edit_success_indicator(row) {
+      // console.log(
+      //   "/pms/rsm/" + this.period_id + "/mfo/" + row.id + "/si/" + row.success_indicator_id
+      // );
+      this.$inertia.get(
+        "/pms/rsm/" + this.period_id + "/mfo/" + row.id + "/si/" + row.success_indicator_id
+      );
+    },
+    delete_success_indicator(row) {
+      this.$confirm.require({
+        message: "Do you want to delete this Success Indicator?",
+        header: "Delete Confirmation",
+        icon: "pi pi-info-circle",
+        acceptClass: "p-button-danger",
+        accept: () => {
+          // console.log(id);
+          this.$inertia.delete(
+            "/pms/rsm/" +
+              this.period_id +
+              "/mfo/" +
+              row.id +
+              "/si/" +
+              row.success_indicator_id,
+            {
+              preserveScroll: true,
+              onSuccess: () => {
+                this.$toast.add({
+                  severity: "success",
+                  summary: "Deleted",
+                  detail: "Success Indicator deleted!",
+                  life: 3000,
+                });
+              },
+            }
+          );
+        },
+        // reject: () => {},
+      });
+    },
     add_edit_submit() {
       // if form.id is null, create new
       if (!this.form.id) {
@@ -397,7 +483,9 @@ export default {
       var html = "";
       if (!arr) return html;
       for (let index = 0; index < arr.length; index++) {
-        html += `${arr[index].score} - ${arr[index].description}` + "<br/>";
+        if (arr[index]) {
+          html += `${5 - index} - ${arr[index]}` + "<br/>";
+        }
       }
       return html;
     },
@@ -419,6 +507,7 @@ export default {
   },
   mounted() {
     console.log(this.parents);
+    this.$inertia.reload({ only: ["rows", "parents"] });
   },
 };
 </script>

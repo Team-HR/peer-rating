@@ -20,7 +20,7 @@
         <Button
           label="Save"
           icon="bi bi-save"
-          class="p-button-primary p-button-sm p-button-text p-button-raised"
+          class="p-button-success p-button-sm p-button-raised"
           @click="save_form()"
         ></Button>
 
@@ -89,12 +89,7 @@
                       <span class="p-inputgroup-addon">
                         {{ 5 - i + 1 }}
                       </span>
-                      <InputText
-                        :value="form.quality[k].description"
-                        @input="
-                          update('quality', k, 5 - i + 1, $event.target.value)
-                        "
-                      />
+                      <InputText v-model="form.quality[k]" />
                     </div>
                   </div>
                   <div class="field col" :hidden="!has_efficiency">
@@ -103,16 +98,7 @@
                       <span class="p-inputgroup-addon">
                         {{ 5 - i + 1 }}
                       </span>
-                      <InputText
-                        @input="
-                          update(
-                            'efficiency',
-                            k,
-                            5 - i + 1,
-                            $event.target.value
-                          )
-                        "
-                      />
+                      <InputText v-model="form.efficiency[k]" />
                     </div>
                   </div>
                   <div class="field col" :hidden="!has_timeliness">
@@ -121,16 +107,7 @@
                       <span class="p-inputgroup-addon">
                         {{ 5 - i + 1 }}
                       </span>
-                      <InputText
-                        @input="
-                          update(
-                            'timeliness',
-                            k,
-                            5 - i + 1,
-                            $event.target.value
-                          )
-                        "
-                      />
+                      <InputText v-model="form.timeliness[k]" />
                     </div>
                   </div>
                 </div>
@@ -161,6 +138,7 @@ export default {
   props: {
     periods: null,
     employees: null,
+    success_indicator: null
   },
   components: {
     AuthLayout,
@@ -169,6 +147,7 @@ export default {
   },
   data() {
     return {
+      current_url: document.location.pathname,
       period_id: null,
       has_quality: false,
       has_efficiency: false,
@@ -176,7 +155,8 @@ export default {
       in_charge: null,
       form: this.$inertia.form({
         id: null,
-        success_indicator: null,
+        success_indicator:
+          "100% (_/_) of applicant requirements prepared in a day.",
         quality: [],
         efficiency: [],
         timeliness: [],
@@ -185,21 +165,28 @@ export default {
     };
   },
   methods: {
-    update(type, i, score, val) {
-      this.form[type][i] = { score: score, description: val };
-    },
     getEmployeePicks(value) {
+      // console.log(this.form);
       this.form.in_charges = value;
-      console.log(this.form);
     },
     go_back() {
       window.history.back();
     },
     save_form() {
-      console.log(this.form);
+      // console.log(this.form);
+      this.form.post(this.current_url, {
+        onSuccess: () => {
+          this.go_back();
+        },
+      });
     },
   },
-  mounted() {},
+  mounted() {
+    if (this.success_indicator) {
+      this.form.success_indicator = this.success_indicator.success_indicator
+      console.log(this.success_indicator);
+    }
+  },
 };
 </script>
 

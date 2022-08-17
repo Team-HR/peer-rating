@@ -111,6 +111,7 @@ class RatingScaleMatrixController extends Controller
                     }
 
                     $success_indicator_datum = [
+                        "success_indicator_id" => $success_indicator["id"],
                         "success_indicator" => $success_indicator["success_indicator"],
                         "performance_measures" => $performance_measures,
                         "quality" => $quality,
@@ -244,7 +245,6 @@ function get_incharges($sys_employee_ids)
 {
     $data = [];
     if (!$sys_employee_ids) return $data;
-
     foreach ($sys_employee_ids as $key => $sys_employee_id) {
         $sys_employee = SysEmployee::find($sys_employee_id);
         // $datum = 
