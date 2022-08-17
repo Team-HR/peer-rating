@@ -22,7 +22,6 @@ class SuccessIndicatorController extends Controller
         // $parents = [];
         $mfo = PmsRatingScaleMatrix::find($rsm_id);
         $sys_employees = SysEmployee::orderBy('last_name')->get();
-
         $success_indicators = [];
         return Inertia::render("Pms/RatingScaleMatrix/SuccessIndicator", ["employees" => $sys_employees, "mfo" => $mfo, "success_indicators" => $success_indicators]);
     }
@@ -46,16 +45,56 @@ class SuccessIndicatorController extends Controller
             $success_indicator->in_charges = NULL;
         }
         $success_indicator->save();
-        return Redirect::back();
+        return Redirect::route("rsm.show", ["period_id" => $period]);
     }
 
-    public function update($period_id, $rsm_id, $id)
+    public function edit($period_id, $rsm_id, $id)
     {
         $mfo = PmsRatingScaleMatrix::find($rsm_id);
-        $sys_employees = SysEmployee::orderBy('last_name')->get();
         $success_indicator = PmsRatingScaleMatrixSuccessIndicator::find($id);
-        // return $success_indicator;
+
+        $in_charges = [];
+        if ($success_indicator->in_charges) {
+            foreach ($success_indicator->in_charges as $employee_id) {
+                $employee = SysEmployee::find($employee_id);
+                $in_charges[]  = $employee;
+            }
+        }
+
+        $success_indicator["in_charges"] = $in_charges;
+        $sys_employees = SysEmployee::orderBy('last_name')->get()->toArray();
+        // return $sys_employees;
+        foreach ($in_charges as $in_charge) {
+            foreach ($sys_employees as $key => $sys_employee) {
+                if ($sys_employee["id"] == $in_charge["id"]) {
+                    array_splice($sys_employees, $key, 1);
+                }
+            }
+        }
+
         return Inertia::render("Pms/RatingScaleMatrix/SuccessIndicator", ["employees" => $sys_employees, "mfo" => $mfo, "success_indicator" => $success_indicator]);
+    }
+
+    public function update($period_id, $rsm_id, $id, Request $request)
+    {
+        $success_indicator = PmsRatingScaleMatrixSuccessIndicator::find($request->id);
+        $success_indicator->success_indicator = $request->success_indicator;
+        $success_indicator->quality = $request->quality;
+        $success_indicator->efficiency = $request->efficiency;
+        $success_indicator->timeliness = $request->timeliness;
+        // $success_indicator->in_charges = $request->in_charges;
+        $in_charges = [];
+
+        if (count($request->in_charges) > 0) {
+            foreach ($request->in_charges as $emp) {
+                $in_charges[] = $emp["id"];
+            }
+            $success_indicator->in_charges = $in_charges;
+        } else {
+            $success_indicator->in_charges = NULL;
+        }
+        $success_indicator->save();
+        return Redirect::route("rsm.show", ["period_id" => $period_id]);
     }
 
     public function destroy($period_id, $rsm_id, $id)

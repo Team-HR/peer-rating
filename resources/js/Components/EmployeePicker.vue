@@ -37,6 +37,7 @@
 <script>
 export default {
   props: {
+    initSelections: null,
     options: null,
   },
   data() {
@@ -82,6 +83,10 @@ export default {
   },
   created() {
     this.items = JSON.parse(JSON.stringify(this.options));
+    this.selected_employees = this.initSelections;
+  },
+  mounted() {
+    console.log("initSelections:", this.initSelections);
   },
 };
 </script>

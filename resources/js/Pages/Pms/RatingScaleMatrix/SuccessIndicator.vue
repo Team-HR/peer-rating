@@ -21,6 +21,7 @@
           label="Save"
           icon="bi bi-save"
           class="p-button-success p-button-sm p-button-raised"
+          :disabled="!form.success_indicator"
           @click="save_form()"
         ></Button>
 
@@ -40,7 +41,6 @@
               <div class="field col-12">
                 <label>Success Indicator:</label>
                 <small class="ml-2">*Required</small>
-
                 <br />
                 <Textarea
                   class="w-full"
@@ -48,7 +48,6 @@
                   rows="5"
                   :autoResize="true"
                   placeholder="Example: 100% (_/_) of applicant requirements prepared..."
-                  required
                 />
               </div>
               <div class="field col-12">
@@ -117,6 +116,7 @@
                 <label>In-Charge:</label> <small class="ml-2">*Required</small>
                 <br />
                 <EmployeePicker
+                  :initSelections="form.in_charges"
                   :options="employees"
                   @changed="getEmployeePicks"
                 />
@@ -138,7 +138,7 @@ export default {
   props: {
     periods: null,
     employees: null,
-    success_indicator: null
+    success_indicator: null,
   },
   components: {
     AuthLayout,
@@ -155,8 +155,7 @@ export default {
       in_charge: null,
       form: this.$inertia.form({
         id: null,
-        success_indicator:
-          "100% (_/_) of applicant requirements prepared in a day.",
+        success_indicator: null,
         quality: [],
         efficiency: [],
         timeliness: [],
@@ -173,20 +172,55 @@ export default {
       window.history.back();
     },
     save_form() {
-      // console.log(this.form);
-      this.form.post(this.current_url, {
-        onSuccess: () => {
-          this.go_back();
-        },
-      });
+      if (!this.form.id) {
+        this.form.post(this.current_url, {
+          onSuccess: () => {
+            this.$toast.add({
+              severity: "success",
+              summary: "Added",
+              detail: "New success indicator added successfully!",
+              life: 3000,
+            });
+            // this.go_back();
+          },
+        });
+      } else {
+        this.form.patch(this.current_url, {
+          onSuccess: () => {
+            this.$toast.add({
+              severity: "success",
+              summary: "Updated",
+              detail: "Updated success indicator successfully!",
+              life: 3000,
+            });
+            // this.go_back();
+          },
+        });
+      }
     },
   },
-  mounted() {
+  created() {
     if (this.success_indicator) {
-      this.form.success_indicator = this.success_indicator.success_indicator
-      console.log(this.success_indicator);
+      this.form.id = this.success_indicator.id;
+      this.form.success_indicator = this.success_indicator.success_indicator;
+
+      if (this.success_indicator.quality.length > 0) {
+        this.has_quality = true;
+        this.form.quality = this.success_indicator.quality;
+      }
+      if (this.success_indicator.efficiency.length > 0) {
+        this.has_efficiency = true;
+        this.form.efficiency = this.success_indicator.efficiency;
+      }
+      if (this.success_indicator.timeliness.length > 0) {
+        this.has_timeliness = true;
+        this.form.timeliness = this.success_indicator.timeliness;
+      }
+
+      this.form.in_charges = this.success_indicator.in_charges;
     }
   },
+  mounted() {},
 };
 </script>
 

@@ -15,7 +15,7 @@ use App\Http\Controllers\Pms\Rsm\SuccessIndicatorController;
 # rating scale matrix
 Route::get('/pms/rsm', [RatingScaleMatrixController::class, "index"])->middleware('auth');
 
-Route::get('/pms/rsm/{period_id}', [RatingScaleMatrixController::class, "show"]);
+Route::get('/pms/rsm/{period_id}', [RatingScaleMatrixController::class, "show"])->name("rsm.show");
 Route::post('/pms/rsm/{period_id}', [RatingScaleMatrixController::class, "create"]);
 Route::patch('/pms/rsm/{period_id}', [RatingScaleMatrixController::class, "update"]);
 Route::delete('/pms/rsm/{period_id}/{id}', [RatingScaleMatrixController::class, "destroy"]);
@@ -23,5 +23,6 @@ Route::delete('/pms/rsm/{period_id}/{id}', [RatingScaleMatrixController::class, 
 # success indicator
 Route::get('/pms/rsm/{period_id}/mfo/{id}/si', [SuccessIndicatorController::class, "index"]);
 Route::post('/pms/rsm/{period_id}/mfo/{id}/si', [SuccessIndicatorController::class, "create"]);
-Route::get('/pms/rsm/{period_id}/mfo/{rsm_id}/si/{id}', [SuccessIndicatorController::class, "update"]);
+Route::get('/pms/rsm/{period_id}/mfo/{rsm_id}/si/{id}', [SuccessIndicatorController::class, "edit"]);
+Route::patch('/pms/rsm/{period_id}/mfo/{rsm_id}/si/{id}', [SuccessIndicatorController::class, "update"]);
 Route::delete('/pms/rsm/{period_id}/mfo/{rsm_id}/si/{id}', [SuccessIndicatorController::class, "destroy"]);
