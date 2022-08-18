@@ -249,6 +249,7 @@ td {
           </template>
         </Dialog>
         <!-- ############################       AddEdit Modal End        ############################# -->
+
         <Toast />
         <ConfirmDialog></ConfirmDialog>
       </template>
@@ -292,11 +293,15 @@ export default {
   },
   methods: {
     edit_success_indicator(row) {
-      // console.log(
-      //   "/pms/rsm/" + this.period_id + "/mfo/" + row.id + "/si/" + row.success_indicator_id
-      // );
       this.$inertia.get(
-        "/pms/rsm/" + this.period_id + "/mfo/" + row.id + "/si/" + row.success_indicator_id
+        "/pms/rsm/" +
+          this.period_id +
+          "/mfo/" +
+          row.id +
+          "/si/" +
+          row.success_indicator_id,
+        {},
+        { replace: true }
       );
     },
     delete_success_indicator(row) {
@@ -432,7 +437,11 @@ export default {
               label: "Add New SI",
               icon: "bi bi-rulers",
               command: () => {
-                this.$inertia.get(`${this.current_url}/mfo/${row.id}/si`);
+                this.$inertia.get(
+                  `${this.current_url}/mfo/${row.id}/si`,
+                  {},
+                  { replace: true }
+                );
               },
             },
           ],

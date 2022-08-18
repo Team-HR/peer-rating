@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pms\Rsm;
 use App\Http\Controllers\Controller;
 use App\Models\PmsPeriod;
 use App\Models\PmsRatingScaleMatrix;
+use App\Models\PmsRatingScaleMatrixAssignment;
 use App\Models\PmsRatingScaleMatrixSuccessIndicator;
 use App\Models\SysEmployee;
 use Illuminate\Http\Request;
@@ -55,8 +56,6 @@ class RatingScaleMatrixController extends Controller
         # sort end
 
         // return $sorted_pms_rating_scale_matrices;
-
-
 
         $matrices = [];
         foreach ($pms_rating_scale_matrices as $key => $mfo) {
@@ -110,6 +109,9 @@ class RatingScaleMatrixController extends Controller
                         $performance_measures[] = "Timeliness";
                     }
 
+
+                    $in_charges = PmsRatingScaleMatrixAssignment::where("pms_rating_scale_matrix_success_indicator_id", $success_indicator["id"])->get();
+
                     $success_indicator_datum = [
                         "success_indicator_id" => $success_indicator["id"],
                         "success_indicator" => $success_indicator["success_indicator"],
@@ -117,7 +119,7 @@ class RatingScaleMatrixController extends Controller
                         "quality" => $quality,
                         "efficiency" => $efficiency,
                         "timeliness" => $timeliness,
-                        "in_charges" => get_incharges($success_indicator["in_charges"])
+                        "in_charges" => get_incharges($in_charges)
                     ];
                     $rows[] = array_merge($datum, $success_indicator_datum);
                 }
@@ -241,12 +243,12 @@ function get_success_indicators($id)
 }
 
 # get in-charge employees
-function get_incharges($sys_employee_ids)
+function get_incharges($assignments)
 {
     $data = [];
-    if (!$sys_employee_ids) return $data;
-    foreach ($sys_employee_ids as $key => $sys_employee_id) {
-        $sys_employee = SysEmployee::find($sys_employee_id);
+    if (!$assignments) return $data;
+    foreach ($assignments as $key => $assignment) {
+        $sys_employee = SysEmployee::find($assignment->sys_employee_id);
         // $datum = 
         $data[] = [
             "id" => $sys_employee->id,

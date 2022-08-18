@@ -169,7 +169,16 @@ export default {
       this.form.in_charges = value;
     },
     go_back() {
-      window.history.back();
+      var pathname = document.location.pathname;
+      pathname = pathname.split("/");
+      pathname = `/${pathname[1]}/${pathname[2]}/${pathname[3]}`;
+      this.$inertia.get(
+        pathname,
+        {},
+        {
+          replace: true,
+        }
+      );
     },
     save_form() {
       if (!this.form.id) {
@@ -181,7 +190,8 @@ export default {
               detail: "New success indicator added successfully!",
               life: 3000,
             });
-            // this.go_back();
+
+            this.go_back();
           },
         });
       } else {
@@ -193,7 +203,7 @@ export default {
               detail: "Updated success indicator successfully!",
               life: 3000,
             });
-            // this.go_back();
+            this.go_back();
           },
         });
       }

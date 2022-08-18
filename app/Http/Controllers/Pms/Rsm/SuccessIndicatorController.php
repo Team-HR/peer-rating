@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Pms\Rsm;
 
 use App\Http\Controllers\Controller;
 use App\Models\PmsRatingScaleMatrix;
+use App\Models\PmsRatingScaleMatrixAssignment;
 use App\Models\PmsRatingScaleMatrixSuccessIndicator;
 use App\Models\SysEmployee;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class SuccessIndicatorController extends Controller
         return Inertia::render("Pms/RatingScaleMatrix/SuccessIndicator", ["employees" => $sys_employees, "mfo" => $mfo, "success_indicators" => $success_indicators]);
     }
 
-    public function create($period, $rsm_id, Request $request)
+    public function create($period_id, $rsm_id, Request $request)
     {
         $success_indicator = new PmsRatingScaleMatrixSuccessIndicator;
         $success_indicator->pms_rating_scale_matrix_id = $rsm_id;
@@ -35,33 +36,38 @@ class SuccessIndicatorController extends Controller
         $success_indicator->quality = $request->quality;
         $success_indicator->efficiency = $request->efficiency;
         $success_indicator->timeliness = $request->timeliness;
-        $in_charges = [];
-        foreach ($request->in_charges as $emp) {
-            $in_charges[] = $emp["id"];
-        }
-        if (count($request->in_charges) > 0) {
-            $success_indicator->in_charges = $in_charges;
-        } else {
-            $success_indicator->in_charges = NULL;
-        }
         $success_indicator->save();
-        return Redirect::route("rsm.show", ["period_id" => $period]);
+        $pms_rating_scale_matrix_success_indicator_id = $success_indicator->id;
+        if (isset($request->in_charges)) {
+            foreach ($request->in_charges as $emp) {
+                $assignment = new PmsRatingScaleMatrixAssignment;
+                $assignment->period_id = $period_id;
+                $assignment->pms_rating_scale_matrix_success_indicator_id = $pms_rating_scale_matrix_success_indicator_id;
+                $assignment->sys_employee_id = $emp["id"];
+                $assignment->save();
+            }
+        }
+
+        return Redirect::back(303);
     }
 
     public function edit($period_id, $rsm_id, $id)
     {
         $mfo = PmsRatingScaleMatrix::find($rsm_id);
         $success_indicator = PmsRatingScaleMatrixSuccessIndicator::find($id);
+        # get list of incharges
+        $assignments = PmsRatingScaleMatrixAssignment::where("pms_rating_scale_matrix_success_indicator_id", $success_indicator->id)->get();
 
         $in_charges = [];
-        if ($success_indicator->in_charges) {
-            foreach ($success_indicator->in_charges as $employee_id) {
-                $employee = SysEmployee::find($employee_id);
+        if ($assignments) {
+            foreach ($assignments as $assignment) {
+                $employee = SysEmployee::find($assignment["sys_employee_id"]);
                 $in_charges[]  = $employee;
             }
         }
 
         $success_indicator["in_charges"] = $in_charges;
+
         $sys_employees = SysEmployee::orderBy('last_name')->get()->toArray();
         // return $sys_employees;
         foreach ($in_charges as $in_charge) {
@@ -82,19 +88,24 @@ class SuccessIndicatorController extends Controller
         $success_indicator->quality = $request->quality;
         $success_indicator->efficiency = $request->efficiency;
         $success_indicator->timeliness = $request->timeliness;
-        // $success_indicator->in_charges = $request->in_charges;
-        $in_charges = [];
-
-        if (count($request->in_charges) > 0) {
-            foreach ($request->in_charges as $emp) {
-                $in_charges[] = $emp["id"];
-            }
-            $success_indicator->in_charges = $in_charges;
-        } else {
-            $success_indicator->in_charges = NULL;
-        }
         $success_indicator->save();
-        return Redirect::route("rsm.show", ["period_id" => $period_id]);
+
+        # delete all existing assignments of the success indicator
+        $assignments = PmsRatingScaleMatrixAssignment::where("pms_rating_scale_matrix_success_indicator_id", $request->id);
+        $assignments->delete();
+
+        if (isset($request->in_charges)) {
+            foreach ($request->in_charges as $emp) {
+                $assignment = new PmsRatingScaleMatrixAssignment;
+                $assignment->period_id = $period_id;
+                $assignment->pms_rating_scale_matrix_success_indicator_id = $request->id;
+                $assignment->sys_employee_id = $emp["id"];
+                $assignment->save();
+            }
+        }
+
+        // return Redirect::route("rsm.show", ["period_id" => $period_id]);
+        return Redirect::back(303);
     }
 
     public function destroy($period_id, $rsm_id, $id)
