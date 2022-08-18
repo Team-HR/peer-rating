@@ -14,12 +14,16 @@ td {
     <PmsToolbar />
     <Card class="w-full">
       <template #title
-        ><span class="uppercase"
-          ><i class="bi bi-book mr-2"></i> Rating Scale Matrix</span
+        >
+        <Button label="Back" class="p-button-sm p-button-raised p-button-text mb-3" icon="bi bi-arrow-left" @click="go_back()"></Button> <br>
+        <div class="uppercase w-full"
+          ><i class="bi bi-book mr-2"></i> Rating Scale Matrix</div
         ></template
       >
       <template #subtitle
-        >Edit or review your Department/Section's Rating Scale Matrix</template
+        >
+        <div>Edit or review your Department/Section's Rating Scale Matrix</div>
+        </template
       >
       <template #content>
         <!-- ####################### Table Start########################### -->
@@ -292,6 +296,12 @@ export default {
     },
   },
   methods: {
+
+    go_back(){
+      // console.log("test");
+      window.history.back();
+    },
+
     edit_success_indicator(row) {
       this.$inertia.get(
         "/pms/rsm/" +
@@ -466,6 +476,7 @@ export default {
 
       return items;
     },
+
     confirm_delete(id) {
       this.$confirm.require({
         message:
@@ -478,6 +489,15 @@ export default {
         },
         // reject: () => {},
       });
+    },
+
+    in_charge(arr) {
+      var html = "";
+      if (!arr) return html;
+      for (let index = 0; index < arr.length; index++) {
+        html += `${arr[index].full_name}` + "<br/>";
+      }
+      return html;
     },
 
     performance_measures(arr) {
@@ -495,14 +515,6 @@ export default {
         if (arr[index]) {
           html += `${5 - index} - ${arr[index]}` + "<br/>";
         }
-      }
-      return html;
-    },
-    in_charge(arr) {
-      var html = "";
-      if (!arr) return html;
-      for (let index = 0; index < arr.length; index++) {
-        html += `${arr[index].full_name}` + "<br/>";
       }
       return html;
     },

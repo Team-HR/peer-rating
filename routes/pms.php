@@ -5,7 +5,7 @@ use Inertia\Inertia;
 
 use App\Http\Controllers\Pms\Rsm\RatingScaleMatrixController;
 use App\Http\Controllers\Pms\Rsm\SuccessIndicatorController;
-use App\Http\Controllers\IndividualRatingScaleMatrixController;
+use App\Http\Controllers\Pms\Irsm\IndividualRatingScaleMatrixController;
 
 # pms dashboard
 Route::get('/pms', function () {

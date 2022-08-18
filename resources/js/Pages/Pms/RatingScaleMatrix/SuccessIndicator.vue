@@ -168,7 +168,7 @@ export default {
       // console.log(this.form);
       this.form.in_charges = value;
     },
-    go_back() {
+    go_back(toast) {
       var pathname = document.location.pathname;
       pathname = pathname.split("/");
       pathname = `/${pathname[1]}/${pathname[2]}/${pathname[3]}`;
@@ -177,6 +177,11 @@ export default {
         {},
         {
           replace: true,
+          onSuccess: () => {
+            if (toast) {
+              this.$toast.add(toast);
+            }
+          },
         }
       );
     },
@@ -184,26 +189,23 @@ export default {
       if (!this.form.id) {
         this.form.post(this.current_url, {
           onSuccess: () => {
-            this.$toast.add({
+            this.go_back({
               severity: "success",
               summary: "Added",
               detail: "New success indicator added successfully!",
               life: 3000,
             });
-
-            this.go_back();
           },
         });
       } else {
         this.form.patch(this.current_url, {
           onSuccess: () => {
-            this.$toast.add({
+            this.go_back({
               severity: "success",
               summary: "Updated",
               detail: "Updated success indicator successfully!",
               life: 3000,
             });
-            this.go_back();
           },
         });
       }
