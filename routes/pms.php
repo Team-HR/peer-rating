@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Pms\Rsm\RatingScaleMatrixController;
 use App\Http\Controllers\Pms\Rsm\SuccessIndicatorController;
 use App\Http\Controllers\Pms\Irsm\IndividualRatingScaleMatrixController;
+use App\Http\Controllers\Pms\Pcr\PcrController;
 
 # pms dashboard
 Route::get('/pms', function () {
@@ -30,3 +31,7 @@ Route::delete('/pms/rsm/{period_id}/mfo/{rsm_id}/si/{id}', [SuccessIndicatorCont
 # individual rating scale matrix
 Route::get("/pms/irsm", [IndividualRatingScaleMatrixController::class, "index"]);
 Route::get("/pms/irsm/{period_id}", [IndividualRatingScaleMatrixController::class, "show"]);
+
+# pcr
+Route::get("/pms/pcr", [PcrController::class, "index"]);
+Route::get("/pms/pcr/{period_id}", [PcrController::class, "show"]);
