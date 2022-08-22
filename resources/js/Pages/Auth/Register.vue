@@ -47,9 +47,9 @@
       </button>
     </div>
   </form> -->
-
+<br>
   <form @submit.prevent="submit">
-    <Card class="mx-auto w-3 mt-8">
+    <Card class="w-max mx-auto bg-blue-100 mt-8">
       <template #title> REGISTER </template>
       <template #content>
         <div class="field w-full">

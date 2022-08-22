@@ -1,5 +1,5 @@
-<template>
-  <navbar class="fixed top-0 left-0 w-full">
+<template class="topnav">
+  <navbar class="fixed top-0 left-0 w-full ">
     <template #links>
       <Button
         v-for="(item, i) in items"

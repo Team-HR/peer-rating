@@ -4,9 +4,9 @@
   <div v-if="status" class="alert alert-success mb-4">
     {{ status }}
   </div>
-
+<br>
   <form @submit.prevent="submit">
-    <Card class="mx-auto w-3 mt-8">
+    <Card class=" w-max  mx-auto mt-8 bg-blue-100">
       <template #title> LOGIN </template>
       <template #content>
         <div class="field w-full">
