@@ -35,30 +35,71 @@ td {
         Set form type</template
       >
       <template #content>
-        <form @submit.prevent="">
-          <div class="w-full">
-            <h3>Agency:</h3>
+        <form @submit.prevent="submit_form()" class="w-full ml-5">
+          <div class="field">
+            <h3>EMPLOYEER:</h3>
             <div class="field-radiobutton">
-              <input
-                id="agency1"
-                type="radio"
+              <RadioButton
+                inputId="agency1"
                 name="employee_from"
                 value="lgu"
-                v-model="form.employee_from"
+                v-model="form.agency"
               />
               <label for="agency1">(LGU) Local Government Unit</label>
             </div>
             <div class="field-radiobutton">
-              <input
-                id="agency2"
-                type="radio"
+              <RadioButton
+                inputId="agency2"
                 name="employee_from"
                 value="nga"
-                v-model="form.employee_from"
+                v-model="form.agency"
               />
               <label for="agency2">(NGA) National Government Agency</label>
             </div>
           </div>
+          <div class="field">
+            <h3>PCR TYPE:</h3>
+            <div class="field-radiobutton">
+              <RadioButton
+                inputId="type1"
+                name="form_type"
+                value="ipcr"
+                v-model="form.type"
+              />
+              <label for="type1">IPCR</label>
+            </div>
+
+            <div v-if="form.agency != 'nga'">
+              <div class="field-radiobutton">
+                <RadioButton
+                  inputId="type2"
+                  name="form_type"
+                  value="spcr"
+                  v-model="form.type"
+                />
+                <label for="type2">SPCR</label>
+              </div>
+              <div class="field-radiobutton">
+                <RadioButton
+                  inputId="type3"
+                  name="form_type"
+                  value="dspcr"
+                  v-model="form.type"
+                />
+                <label for="type3">DIVISION SPCR</label>
+              </div>
+              <div class="field-radiobutton">
+                <RadioButton
+                  inputId="type4"
+                  name="form_type"
+                  value="dpcr"
+                  v-model="form.type"
+                />
+                <label for="type4">DPCR</label>
+              </div>
+            </div>
+          </div>
+          <Button icon="bi bi-save" label="Save" type="submit"></Button>
         </form>
       </template>
     </Card>
@@ -80,11 +121,25 @@ export default {
     return {
       current_url: document.location.pathname,
       form: this.$inertia.form({
-        employee_from: null,
+        agency: null,
+        type: null,
       }),
     };
   },
+  watch: {
+    "form.agency"(newValue, oldValue) {
+      // console.log(newValue);
+      if (newValue == "nga") {
+        this.form.type = "ipcr";
+      } else {
+        this.form.type = null;
+      }
+    },
+  },
   methods: {
+    submit_form() {
+      console.log(this.form);
+    },
     go_back() {
       window.history.back();
     },
