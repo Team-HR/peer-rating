@@ -35,3 +35,6 @@ Route::get("/pms/irsm/{period_id}", [IndividualRatingScaleMatrixController::clas
 # pcr
 Route::get("/pms/pcr", [PcrController::class, "index"]);
 Route::get("/pms/pcr/{period_id}", [PcrController::class, "show"]);
+
+
+Route::get("/pms/pcr/{period_id}/form_type", [PcrController::class, "show_form_type"]);

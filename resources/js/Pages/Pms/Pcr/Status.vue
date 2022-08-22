@@ -1,3 +1,15 @@
+<style scoped>
+table,
+th,
+td {
+  font-size: 14px;
+  padding: 5px;
+  border: 0.5px solid rgb(185, 185, 185);
+  border-collapse: collapse;
+}
+</style>
+
+
 <template>
   <auth-layout>
     <PmsToolbar />
@@ -23,13 +35,24 @@
         Accomplish/Review your Performance Commitments</template
       >
       <template #content>
-        <ol>
-          <li v-for="(item, i) in items" :key="i">
-            <inertia-link href="#"><i class="bi bi-gear"></i> <span>Setup</span></inertia-link>
-            <span class="mx-3">Status: Not configured! </span>
-            <span class="text-lg mL-3 uppercase">{{ item.label }} </span>
-          </li>
-        </ol>
+        <table>
+          <tr>
+            <th>Option</th>
+            <th>Form</th>
+            <th>Status</th>
+          </tr>
+          <tr v-for="(item, i) in items" :key="i">
+            <td>
+              <Button
+                @click="$inertia.get(item.href)"
+                label="Open"
+                class="p-button-sm"
+              ></Button>
+            </td>
+            <td>{{ item.label }}</td>
+            <td>Done!</td>
+          </tr>
+        </table>
       </template>
     </Card>
   </auth-layout>
@@ -48,30 +71,37 @@ export default {
   },
   data() {
     return {
+      current_url: document.location.pathname,
       items: [
         {
           no: 1,
+          href: document.location.pathname + "/form_type",
           label: "Form Type",
         },
         {
           no: 2,
+          href: document.location.pathname + "/signatories",
           label: "Signatories",
         },
         {
           no: 3,
+          href: document.location.pathname + "/core_functions",
           label: "Core Functions",
         },
         {
           no: 4,
+          href: document.location.pathname + "/strategic_functions",
           label: "Strategic Function",
         },
         {
           no: 5,
+          href: document.location.pathname + "/support_functions",
           label: "Support Function",
         },
         {
           no: 6,
-          label: "Finalize",
+          href: document.location.pathname + "/submit",
+          label: "Submit",
         },
       ],
     };
@@ -81,7 +111,9 @@ export default {
       window.history.back();
     },
   },
-  mounted() {},
+  mounted() {
+    // console.log(this.current_url);
+  },
 };
 </script>
 
