@@ -9,7 +9,6 @@ td {
 }
 </style>
 
-
 <template>
   <auth-layout>
     <PmsToolbar />
@@ -28,8 +27,8 @@ td {
       >
       <template #subtitle>
         <span class="text-xl"
-          >{{ $page.props.auth.user.sys_department_name }} (
-          {{ period.period }}, {{ period.year }})</span
+          >{{ $page.props.auth.user.sys_department_name }} ( {{ period.period }},
+          {{ period.year }})</span
         >
         <br />
         Accomplish/Review your Performance Commitments</template
@@ -44,13 +43,13 @@ td {
           <tr v-for="(item, i) in items" :key="i">
             <td>
               <Button
-                @click="$inertia.get(item.href)"
+                @click="$inertia.get(item.href, {}, { replace: true })"
                 label="Open"
                 class="p-button-sm"
               ></Button>
             </td>
             <td>{{ item.label }}</td>
-            <td>Done!</td>
+            <td class="uppercase" v-html="item.status"></td>
           </tr>
         </table>
       </template>
@@ -64,6 +63,7 @@ import PmsToolbar from "@/Layouts/PmsToolbar";
 export default {
   props: {
     period: null,
+    form_status: null,
   },
   components: {
     AuthLayout,
@@ -72,38 +72,7 @@ export default {
   data() {
     return {
       current_url: document.location.pathname,
-      items: [
-        {
-          no: 1,
-          href: document.location.pathname + "/form_type",
-          label: "Form Type",
-        },
-        {
-          no: 2,
-          href: document.location.pathname + "/signatories",
-          label: "Signatories",
-        },
-        {
-          no: 3,
-          href: document.location.pathname + "/core_functions",
-          label: "Core Functions",
-        },
-        {
-          no: 4,
-          href: document.location.pathname + "/strategic_functions",
-          label: "Strategic Function",
-        },
-        {
-          no: 5,
-          href: document.location.pathname + "/support_functions",
-          label: "Support Function",
-        },
-        {
-          no: 6,
-          href: document.location.pathname + "/submit",
-          label: "Submit",
-        },
-      ],
+      items: [],
     };
   },
   methods: {
@@ -111,10 +80,45 @@ export default {
       window.history.back();
     },
   },
+  created() {
+    var items = [
+      {
+        no: 1,
+        href: this.current_url + "/form_type/" + this.form_status.id,
+        label: "Form Type",
+        status: `${this.form_status.agency} - ${this.form_status.form_type}`,
+      },
+      {
+        no: 2,
+        href: this.current_url + "/signatories/" + this.form_status.id,
+        label: "Signatories",
+      },
+      {
+        no: 3,
+        href: this.current_url + "/core_functions",
+        label: "Core Functions",
+      },
+      {
+        no: 4,
+        href: this.current_url + "/strategic_functions",
+        label: "Strategic Function",
+      },
+      {
+        no: 5,
+        href: this.current_url + "/support_functions",
+        label: "Support Function",
+      },
+      {
+        no: 6,
+        href: this.current_url + "/submit",
+        label: "Submit",
+      },
+    ];
+
+    this.items = items;
+  },
   mounted() {
-    // console.log(this.current_url);
+    // console.log(this.form_status);
   },
 };
 </script>
-
-

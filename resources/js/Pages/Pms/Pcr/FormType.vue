@@ -22,14 +22,14 @@ td {
         ></Button>
         <br />
         <span class="uppercase"
-          ><i class="bi bi-book mr-2"></i> Performance Commitment Review | Set
-          Form Type</span
+          ><i class="bi bi-book mr-2"></i> Performance Commitment Review | Set Form
+          Type</span
         ></template
       >
       <template #subtitle>
         <span class="text-xl"
-          >{{ $page.props.auth.user.sys_department_name }} (
-          {{ period.period }}, {{ period.year }})</span
+          >{{ $page.props.auth.user.sys_department_name }} ( {{ period.period }},
+          {{ period.year }})</span
         >
         <br />
         Set form type</template
@@ -56,6 +56,9 @@ td {
               />
               <label for="agency2">(NGA) National Government Agency</label>
             </div>
+            <Message severity="error" v-if="error.agency && !form.agency">
+              {{ error.agency }}
+            </Message>
           </div>
           <div class="field">
             <h3>PCR TYPE:</h3>
@@ -64,7 +67,7 @@ td {
                 inputId="type1"
                 name="form_type"
                 value="ipcr"
-                v-model="form.type"
+                v-model="form.form_type"
               />
               <label for="type1">IPCR</label>
             </div>
@@ -75,7 +78,7 @@ td {
                   inputId="type2"
                   name="form_type"
                   value="spcr"
-                  v-model="form.type"
+                  v-model="form.form_type"
                 />
                 <label for="type2">SPCR</label>
               </div>
@@ -84,7 +87,7 @@ td {
                   inputId="type3"
                   name="form_type"
                   value="dspcr"
-                  v-model="form.type"
+                  v-model="form.form_type"
                 />
                 <label for="type3">DIVISION SPCR</label>
               </div>
@@ -93,11 +96,14 @@ td {
                   inputId="type4"
                   name="form_type"
                   value="dpcr"
-                  v-model="form.type"
+                  v-model="form.form_type"
                 />
                 <label for="type4">DPCR</label>
               </div>
             </div>
+            <Message severity="error" v-if="error.form_type && !form.form_type">
+              {{ error.form_type }}
+            </Message>
           </div>
           <Button icon="bi bi-save" label="Save" type="submit"></Button>
         </form>
@@ -111,6 +117,7 @@ import PmsToolbar from "@/Layouts/PmsToolbar";
 
 export default {
   props: {
+    form_type: null,
     period: null,
   },
   components: {
@@ -120,32 +127,60 @@ export default {
   data() {
     return {
       current_url: document.location.pathname,
+      error: {
+        agency: "",
+        form_type: "",
+      },
       form: this.$inertia.form({
         agency: null,
-        type: null,
+        form_type: null,
       }),
     };
   },
-  watch: {
-    "form.agency"(newValue, oldValue) {
-      // console.log(newValue);
-      if (newValue == "nga") {
-        this.form.type = "ipcr";
-      } else {
-        this.form.type = null;
+  methods: {
+    validate() {
+      this.error.agency = !this.form.agency ? "Please select the agency." : null;
+      this.error.form_type = !this.form.form_type ? "Please select the form type." : null;
+      return this.error.agency || this.error.form_type ? false : true;
+    },
+    submit_form() {
+      if (this.form.agency == "nga") {
+        this.form.form_type = "ipcr";
+      }
+      if (this.validate()) {
+        this.form.post(this.current_url, {
+          onSuccess: () => {
+            this.go_back();
+          },
+        });
       }
     },
-  },
-  methods: {
-    submit_form() {
-      console.log(this.form);
-    },
     go_back() {
-      window.history.back();
+      // window.history.back();
+      var pathname = document.location.pathname;
+      pathname = pathname.split("/");
+      pathname = `/${pathname[1]}/${pathname[2]}/${pathname[3]}`;
+      // console.log(pathname);
+      this.$inertia.get(
+        pathname,
+        {},
+        {
+          replace: true,
+          onSuccess: () => {
+            // if (toast) {
+            //   this.$toast.add(toast);
+            // }
+          },
+        }
+      );
     },
+  },
+  created() {
+    if (this.form_type) {
+      this.form.agency = this.form_type.agency;
+      this.form.form_type = this.form_type.form_type;
+    }
   },
   mounted() {},
 };
 </script>
-
-
