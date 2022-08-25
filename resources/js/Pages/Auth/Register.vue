@@ -49,7 +49,7 @@
   </form> -->
 <br>
   <form @submit.prevent="submit">
-    <Card class="w-max mx-auto bg-blue-100 mt-8">
+    <Card class="w-max mx-auto mr-8 bg-blue-100 mt-8">
       <template #title> REGISTER </template>
       <template #content>
         <div class="field w-full">

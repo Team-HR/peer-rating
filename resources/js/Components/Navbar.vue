@@ -1,15 +1,11 @@
-<template>
-  <nav class="flex justify-content-between flex-wrap bg-primary py-1" style="z-index: 100;">
-    <div class="flex align-items-center justify-content-center">
+<template >
+  <nav class="flex justify-content-between flex-wrap bg-primary fixed top-0 left-0">
+    <div class="flex-1">
       <!-- logo -->
-      <Button
-        class="p-button p-button-lg text-white p-button-text ml-2 mr-5 font-bold"
-        @click="$inertia.get('/')"
-        ><img src="/favicon.ico" alt="Icon" class="mr-2" width="40"> {{`INTEGRATED HRIS`}}</Button
-      >
+      <a class="p-button p-button-lg text-white p-button-text  font-bold" @click="$inertia.get('/')"><img
+          src="/favicon.ico" alt="Icon" class="mr-2" width="40"> {{ `INTEGRATED HRIS` }}</a>
       <slot name="links" />
     </div>
-
     <div class="flex align-items-center justify-content-center mx-2">
       <slot name="right-items" />
     </div>

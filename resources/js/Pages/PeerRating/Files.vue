@@ -21,8 +21,8 @@
       </template>
       <template #content>
         <div class="grid">
-          <div class="col" v-for="(filetype, i) in filetypes" :key="i">
-            <Card>
+          <div class="col-12 md:col-6 lg:col-3" v-for="(filetype, i) in filetypes" :key="i">
+            <Card >
               <!-- <template #header>
                 <img alt="user header" src="demo/images/usercard.png" />
               </template> -->
