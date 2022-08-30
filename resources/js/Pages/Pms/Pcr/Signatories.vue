@@ -38,15 +38,49 @@ td {
         <form @submit.prevent="submit_form()" class="w-full ml-5">
           <div class="field">
             <h3>SUPERVISOR:</h3>
-            <InputText placeholder="Name of your supervisor" />
+            <Dropdown
+              v-if="this.form_type.agency == 'lgu'"
+              v-model="form.immediate_supervisor"
+              :options="employees"
+              optionLabel="full_name"
+              placeholder="Select the supervisor"
+              :filter="true"
+              filterPlaceholder="Search name"
+              class="mr-2 w-4"
+            />
+            <InputText
+              v-else
+              placeholder="Name of your supervisor"
+              class="w-4"
+              v-model="form.immediate_supervisor"
+            />
           </div>
           <div class="field">
             <h3>DEPARTMENT HEAD:</h3>
-            <InputText placeholder="Name of your department head" />
+            <Dropdown
+              v-if="this.form_type.agency == 'lgu'"
+              v-model="form.department_head"
+              :options="employees"
+              optionLabel="full_name"
+              placeholder="Select your department head"
+              :filter="true"
+              filterPlaceholder="Search name"
+              class="mr-2 w-4"
+            />
+            <InputText
+              v-else
+              placeholder="Name of your department head"
+              class="w-4"
+              v-model="form.department_head"
+            />
           </div>
           <div class="field">
             <h3>HEAD OF AGENCY:</h3>
-            <InputText placeholder="Name of your agency head" />
+            <InputText
+              placeholder="Name of your agency head"
+              class="w-4"
+              v-model="form.head_of_agency"
+            />
           </div>
           <Button icon="bi bi-save" label="Save" type="submit"></Button>
         </form>
@@ -60,6 +94,7 @@ import PmsToolbar from "@/Layouts/PmsToolbar";
 
 export default {
   props: {
+    employees: null,
     form_type: null,
     period: null,
   },
@@ -75,28 +110,21 @@ export default {
         form_type: "",
       },
       form: this.$inertia.form({
-        agency: null,
-        form_type: null,
+        immediate_supervisor: null,
+        department_head: null,
+        head_of_agency: null,
       }),
     };
   },
   methods: {
-    validate() {
-      this.error.agency = !this.form.agency ? "Please select the agency." : null;
-      this.error.form_type = !this.form.form_type ? "Please select the form type." : null;
-      return this.error.agency || this.error.form_type ? false : true;
-    },
+    validate() {},
     submit_form() {
-      if (this.form.agency == "nga") {
-        this.form.form_type = "ipcr";
-      }
-      if (this.validate()) {
-        this.form.post(this.current_url, {
-          onSuccess: () => {
-            this.go_back();
-          },
-        });
-      }
+      // console.log(this.form);
+      this.form.post(this.current_url, {
+        onSuccess: () => {
+          this.go_back();
+        },
+      });
     },
     go_back() {
       // window.history.back();
@@ -119,9 +147,12 @@ export default {
     },
   },
   created() {
-    if (this.form_type) {
-      this.form.agency = this.form_type.agency;
-      this.form.form_type = this.form_type.form_type;
+    // console.log(this.form_type.signatories_inputs);
+    this.form.immediate_supervisor = this.form_type.signatories_inputs.immediate_supervisor;
+    this.form.department_head = this.form_type.signatories_inputs.department_head;
+    this.form.head_of_agency = this.form_type.signatories_inputs.head_of_agency;
+    if (this.form_type.agency == "lgu") {
+      this.form.head_of_agency = "JOHN T. RAYMOND, JR.";
     }
   },
   mounted() {},

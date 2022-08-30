@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pms\Pcr;
 
 use App\Http\Controllers\Controller;
+use App\Models\SysEmployee;
 use App\Models\PmsPerformanceCommitmentReviewStatus;
 use App\Models\PmsPeriod;
 use Illuminate\Http\Request;
@@ -51,8 +52,16 @@ class PcrController extends Controller
     {
         $period = PmsPeriod::find($period_id);
         $form = PmsPerformanceCommitmentReviewStatus::find($id);
+        $agency_current =  $form->agency;
+        $agency_new =  $request->agency;
         $form->agency = $request->agency;
         $form->form_type = $request->form_type;
+
+        if ($agency_current != $agency_new) {
+            $form->immediate_supervisor = null;
+            $form->department_head = null;
+            $form->head_of_agency = null;
+        }
         $form->save();
         return Redirect::back();
     }
@@ -60,7 +69,24 @@ class PcrController extends Controller
     public function show_signatories($period_id, $id)
     {
         $period = PmsPeriod::find($period_id);
+        $employees = SysEmployee::orderBy('last_name')->get()->toArray();
         $form_type = PmsPerformanceCommitmentReviewStatus::find($id);
-        return Inertia::render("Pms/Pcr/Signatories", ["period" => $period, "form_type" => $form_type]);
+        return Inertia::render("Pms/Pcr/Signatories", ["period" => $period, "form_type" => $form_type, "employees" => $employees]);
+    }
+
+    public function set_signatories($period_id, $id, Request $request)
+    {
+        $period = PmsPeriod::find($period_id);
+        $form = PmsPerformanceCommitmentReviewStatus::find($id);
+
+        if (isset($request->immediate_supervisor)) {
+            $form->immediate_supervisor = $form->agency == "nga" ? mb_convert_case($request->immediate_supervisor, MB_CASE_UPPER) : $request->immediate_supervisor["id"];
+        }
+        if (isset($request->department_head)) {
+            $form->department_head = $form->agency == "nga" ? mb_convert_case($request->department_head, MB_CASE_UPPER) : $request->department_head["id"];
+        }
+        $form->head_of_agency = isset($request->head_of_agency) ? mb_convert_case($request->head_of_agency, MB_CASE_UPPER) : NULL;
+        $form->save();
+        return Redirect::back();
     }
 }
