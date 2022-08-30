@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Pms\Rsm\RatingScaleMatrixController;
 use App\Http\Controllers\Pms\Rsm\SuccessIndicatorController;
 use App\Http\Controllers\Pms\Irsm\IndividualRatingScaleMatrixController;
+use App\Http\Controllers\Pms\Pcr\CoreFunctionController;
 use App\Http\Controllers\Pms\Pcr\PcrController;
 
 # pms dashboard
@@ -42,3 +43,5 @@ Route::post("/pms/pcr/{period_id}/form_type/{id}", [PcrController::class, "set_f
 # pcr - signatories
 Route::get("/pms/pcr/{period_id}/signatories/{id}", [PcrController::class, "show_signatories"]);
 Route::post("/pms/pcr/{period_id}/signatories/{id}", [PcrController::class, "set_signatories"]);
+# pcr - core_functions
+Route::get("/pms/pcr/{period_id}/core_functions/{id}", [CoreFunctionController::class, "show"]);

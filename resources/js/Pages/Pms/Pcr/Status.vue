@@ -143,7 +143,7 @@ export default {
       },
       {
         no: 3,
-        href: this.current_url + "/core_functions",
+        href: this.current_url + "/core_functions/" + this.form_status.id,
         label: "Core Functions",
       },
       {
