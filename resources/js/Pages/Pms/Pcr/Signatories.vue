@@ -40,6 +40,7 @@ td {
             <h3>SUPERVISOR:</h3>
             <Dropdown
               v-if="this.form_type.agency == 'lgu'"
+              showClear
               v-model="form.immediate_supervisor"
               :options="employees"
               optionLabel="full_name"
@@ -59,6 +60,7 @@ td {
             <h3>DEPARTMENT HEAD:</h3>
             <Dropdown
               v-if="this.form_type.agency == 'lgu'"
+              showClear
               v-model="form.department_head"
               :options="employees"
               optionLabel="full_name"
@@ -119,7 +121,7 @@ export default {
   methods: {
     validate() {},
     submit_form() {
-      // console.log(this.form);
+      console.log(this.form);
       this.form.post(this.current_url, {
         onSuccess: () => {
           this.go_back();

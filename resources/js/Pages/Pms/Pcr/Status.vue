@@ -122,7 +122,7 @@ export default {
               ? this.form_status.signatories_inputs.immediate_supervisor.full_name
               : "_________";
             department_head = this.form_status.signatories_inputs.department_head
-              ? this.form_status.signatories_inputs.immediate_supervisor.full_name
+              ? this.form_status.signatories_inputs.department_head.full_name
               : "_________";
           } else {
             immediate_supervisor = this.form_status.signatories_inputs
@@ -168,7 +168,7 @@ export default {
     this.items = items;
   },
   mounted() {
-    // console.log(this.form_status);
+    console.log(this.form_status);
   },
 };
 </script>

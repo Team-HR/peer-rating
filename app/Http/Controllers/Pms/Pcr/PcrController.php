@@ -79,11 +79,17 @@ class PcrController extends Controller
         $period = PmsPeriod::find($period_id);
         $form = PmsPerformanceCommitmentReviewStatus::find($id);
 
-        if (isset($request->immediate_supervisor)) {
-            $form->immediate_supervisor = $form->agency == "nga" ? mb_convert_case($request->immediate_supervisor, MB_CASE_UPPER) : $request->immediate_supervisor["id"];
-        }
-        if (isset($request->department_head)) {
-            $form->department_head = $form->agency == "nga" ? mb_convert_case($request->department_head, MB_CASE_UPPER) : $request->department_head["id"];
+        // if (isset($request->immediate_supervisor)) {
+        // }
+
+        if ($form->agency == "nga") {
+            $form->immediate_supervisor = mb_convert_case($request->immediate_supervisor, MB_CASE_UPPER);
+            $form->department_head = mb_convert_case($request->department_head, MB_CASE_UPPER);
+        } else {
+            $id = isset($request->immediate_supervisor) ? $request->immediate_supervisor["id"] : null;
+            $form->immediate_supervisor = $id;
+            $id = isset($request->department_head) ? $request->department_head["id"] : null;
+            $form->department_head = $id;
         }
         $form->head_of_agency = isset($request->head_of_agency) ? mb_convert_case($request->head_of_agency, MB_CASE_UPPER) : NULL;
         $form->save();
