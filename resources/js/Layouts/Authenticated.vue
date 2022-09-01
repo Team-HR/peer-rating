@@ -1,18 +1,18 @@
 <template>
-  <navbar class="fixed top-0 left-0 w-full topnav" id="myTopnav">
+  <navbar class="w-full topnav" id="myTopnav">
     <template #links>
       <Button v-for="(item, i) in items" :key="i" @click="$inertia.get(item.to)" class="mx-1"
         :class="is_active_url(item.to) ? 'p-button-raised' : ''" v-tooltip="item.description" :icon="item.icon"
         :label="item.label" />
 
-      <Button href="javascript:void(0);" class="icon" @click="nav_func()" id="buttonNav">
+         <Button href="javascript:void(0);" class="icon" @click="nav_func()" id="buttonNav">
         <i class="pi pi-bars"></i>
       </Button>
-    </template>
+    </template> 
     <template #right-items>
-      <Button class="mr-5 text-white">{{
+      <span class="mr-5 text-white">{{
           `${$page.props.auth.user.username} (${$page.props.auth.user.roles})`
-      }}</Button>
+      }}</span>
       <Button @click="$inertia.post(route('logout'))" class="p-button-danger">
         Logout
       </Button>
