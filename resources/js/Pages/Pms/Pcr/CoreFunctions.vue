@@ -35,8 +35,7 @@ td {
         Accomplish Core Functions</template
       >
       <template #content>
-        <!-- <div v-for="(row, o) in rows" : key="o">{{ row }}</div> -->
-
+        <!-- table start -->
         <table class="w-full">
           <thead>
             <tr>
@@ -60,7 +59,12 @@ td {
               v-if="row.rowspan == 0 && row.si_only == false"
               :class="row.mfo_only ? 'bg-primary-50' : ''"
             >
-              <td v-if="!row.mfo_only"></td>
+              <td v-if="!row.mfo_only" class="text-center">
+                <Button
+                  label="-- %"
+                  class="p-button-sm p-button-secondary p-button-raised p-1"
+                ></Button>
+              </td>
               <!-- if  mfo has no success indicator (title) conditioned colspan if has multiple success indicator -->
               <td :colspan="row.mfo_only ? 10 : 1">
                 <div :style="indent(row.level)">
@@ -84,7 +88,12 @@ td {
             </tr>
             <!-- sub mfo with initial success indicator  -->
             <tr v-else-if="row.rowspan > 0 && row.si_only == false">
-              <td><a href="javascript::void(0)">--%</a></td>
+              <td class="text-center">
+                <Button
+                  label="-- %"
+                  class="p-button-sm p-button-secondary p-button-raised p-1"
+                ></Button>
+              </td>
               <td :rowspan="row.rowspan">
                 <div :style="indent(row.level)">
                   <span>
@@ -94,17 +103,38 @@ td {
                 </div>
               </td>
               <td>{{ row.success_indicator }}</td>
-              <td>acc</td>
-              <td>q</td>
-              <td>e</td>
-              <td>starting si</td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <template v-if="false">
+                <td>acc</td>
+                <td>q</td>
+                <td>e</td>
+                <td>starting si</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </template>
+              <template v-else>
+                <td colspan="7" class="text-center">
+                  <Button
+                    label="Add Accomplishment"
+                    class="p-button-text p-button-small p-button-raised w-4 p-1"
+                    @click="add_accomplishment(row)"
+                  ></Button>
+
+                  <Button
+                    label="Not Applicable"
+                    class="p-button-danger p-button-small p-button-raised w-4 mt-2 ml-3 p-1"
+                  ></Button>
+                </td>
+              </template>
             </tr>
             <!-- succeding success indicator from above -->
             <tr v-else>
-              <td></td>
+              <td class="text-center">
+                <Button
+                  label="-- %"
+                  class="p-button-sm p-button-secondary p-button-raised p-1"
+                ></Button>
+              </td>
               <td>{{ row.success_indicator }}</td>
               <td></td>
               <td></td>
@@ -120,6 +150,122 @@ td {
             </td>
           </tr>
         </table>
+        <!-- table end -->
+        <!-- add accomplishment modal start -->
+        <Dialog
+          header="Edit Accomplishment"
+          v-model:visible="edit_accomplishment_modal"
+          :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
+          :style="{ width: '50vw' }"
+          :modal="true"
+        >
+          <form @submit.prevent="submit_accomplishment()" id="accomplishment_form">
+            <div class="field">
+              <div class="font-bold">Success Indicator:</div>
+              <span>{{ core_function.success_indicator }}</span>
+            </div>
+            <div class="field">
+              <div class="font-bold">Actual Accomplishment:</div>
+              <Textarea
+                v-model="accomplishment.actual"
+                :autoResize="true"
+                rows="5"
+                class="w-full"
+                placeholder="Enter your actual accomplishment here based on the success indicator above."
+                required
+              />
+            </div>
+            <!-- <div class="field">
+              {{ core_function }}
+            </div> -->
+            <div class="field">
+              <div class="font-bold">Quality:</div>
+              <template v-for="(quality, i) in core_function.quality" :key="i">
+                <div v-if="quality">
+                  <input
+                    type="radio"
+                    name="quality"
+                    :value="5 - i"
+                    :id="`quality${i}`"
+                    v-model="accomplishment.quality"
+                    required
+                  />
+                  <label :for="`quality${i}`">{{ `${5 - i} - ${quality}` }}</label>
+                </div>
+              </template>
+            </div>
+            <div class="field">
+              <div class="font-bold">Efficiency:</div>
+              <template v-for="(efficiency, i) in core_function.efficiency" :key="i">
+                <div v-if="efficiency">
+                  <input
+                    type="radio"
+                    name="efficiency"
+                    :value="5 - i"
+                    :id="`efficiency${i}`"
+                    v-model="accomplishment.efficiency"
+                    required
+                  />
+                  <label :for="`efficiency${i}`">{{ `${5 - i} - ${efficiency}` }}</label>
+                </div>
+              </template>
+            </div>
+            <div class="field">
+              <div class="font-bold">Timeliness:</div>
+              <template v-for="(timeliness, i) in core_function.timeliness" :key="i">
+                <div v-if="timeliness">
+                  <input
+                    type="radio"
+                    name="timeliness"
+                    :value="5 - i"
+                    :id="`timeliness${i}`"
+                    v-model="accomplishment.timeliness"
+                    required
+                  />
+                  <label :for="`timeliness${i}`">{{ `${5 - i} - ${timeliness}` }}</label>
+                </div>
+              </template>
+            </div>
+            <div class="field">
+              <div class="font-bold">Percentage Weight:</div>
+              <!-- <InputNumber placeholder="-- % " /> -->
+              <InputNumber
+                inputId="percent"
+                v-model="accomplishment.percent"
+                suffix="%"
+                placeholder="--%"
+                required
+              />
+            </div>
+            <div class="field">
+              <div class="font-bold">Remarks:</div>
+              <Textarea
+                :autoResize="true"
+                rows="5"
+                class="w-full"
+                placeholder="Enter remarks here."
+                v-model="accomplishment.remarks"
+              />
+            </div>
+          </form>
+
+          <template #footer>
+            <Button
+              label="No"
+              icon="pi pi-times"
+              @click="edit_accomplishment_modal = false"
+              class="p-button-text"
+            />
+            <Button
+              label="Yes"
+              icon="pi pi-check"
+              autofocus
+              type="submit"
+              form="accomplishment_form"
+            />
+          </template>
+        </Dialog>
+        <!-- add accomplishment modal end -->
       </template>
     </Card>
   </auth-layout>
@@ -143,10 +289,37 @@ export default {
     return {
       current_url: document.location.pathname,
       error: {},
-      form: this.$inertia.form({}),
+      edit_accomplishment_modal: false,
+      core_function: null,
+      accomplishment: this.$inertia.form({
+        id: null,
+        pms_rating_scale_matrix_success_indicator_id: null,
+        actual: null,
+        quality: null,
+        efficiency: null,
+        timeliness: null,
+        percent: null,
+        remarks: null,
+        not_applicable: false,
+      }),
     };
   },
   methods: {
+    submit_accomplishment() {
+      // console.log(this.accomplishment);
+      this.accomplishment.post(this.current_url + "/accomplishment", {
+        onSuccess: () => {
+          this.edit_accomplishment_modal = false;
+        },
+      });
+    },
+    add_accomplishment(row) {
+      this.core_function = row;
+      this.accomplishment.pms_rating_scale_matrix_success_indicator_id =
+        row.pms_rating_scale_matrix_success_indicator_id;
+      this.edit_accomplishment_modal = true;
+    },
+    clear_accomplishment() {},
     indent(level) {
       var margin = "";
       if (level > 0) {

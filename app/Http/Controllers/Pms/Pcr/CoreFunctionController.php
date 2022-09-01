@@ -10,6 +10,7 @@ use App\Models\PmsRatingScaleMatrixAssignment;
 use App\Models\PmsRatingScaleMatrixSuccessIndicator;
 use App\Models\SysEmployee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class CoreFunctionController extends Controller
@@ -141,6 +142,14 @@ class CoreFunctionController extends Controller
 
         return Inertia::render("Pms/Pcr/CoreFunctions", ["period" => $period, "form_status" => $form_status, "rows" => $rows]);
     }
+
+
+    public function create_accomplishment($period_id, $id, Request $request) {
+        return $request;
+        return Redirect::back();
+    }
+
+
 }
 
 function get_parent($mfos, $parent_id)

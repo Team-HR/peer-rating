@@ -45,3 +45,4 @@ Route::get("/pms/pcr/{period_id}/signatories/{id}", [PcrController::class, "show
 Route::post("/pms/pcr/{period_id}/signatories/{id}", [PcrController::class, "set_signatories"]);
 # pcr - core_functions
 Route::get("/pms/pcr/{period_id}/core_functions/{id}", [CoreFunctionController::class, "show"]);
+Route::post("/pms/pcr/{period_id}/core_functions/{id}/accomplishment", [CoreFunctionController::class, "create_accomplishment"]);
