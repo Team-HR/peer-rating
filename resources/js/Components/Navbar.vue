@@ -1,24 +1,32 @@
 <template>
-   <nav class="flex  flex-wrap bg-primary fixed top-0 left-0">
-    <!-- <div class="flex-1"> -->
+  <nav class="flex bg-primary fixed top-0 left-0 topnav" id="myTopnav"> 
       <!-- logo -->
-      <a class="active p-button p-button-lg text-white p-button-text  font-bold" @click="$inertia.get('/')"><img
+      <a class="active p-button p-button-lg text-white p-button-text font-bold" @click="$inertia.get('/')"><img
           src="/favicon.ico" alt="Icon" class="mr-2" width="40"> {{ `INTEGRATED HRIS` }}</a>
       <slot name="links" />
-    <!-- </div> -->
-    <div class="flex align-items-center flex-wrap justify-content-end mx-2">
+    <div class="flex flex-1 align-items-center justify-content-end mx-2">
+      <Button href="javascript:void(0);" class="icon" @click="nav_func()" id="buttonNav">
+        <i class="pi pi-bars"></i>
+      </Button>
       <slot name="right-items" />
     </div>
   </nav>
 </template>
-
 <script>
 export default {
   props: {
     title: "",
   },
-  methods:{
-
+  methods: {
+    nav_func() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+        console.log(x);
+      }
+    }
   },
 };
 </script> 
