@@ -39,7 +39,7 @@ td {
         <table class="w-full">
           <thead>
             <tr>
-              <th>%</th>
+              <th style="width: 15px">%</th>
               <th class="w-3">MFO/PAP</th>
               <th class="w-3">Success <br />Indicator</th>
               <th>Actual <br />Accomplishments</th>
@@ -49,9 +49,9 @@ td {
               <th>A</th>
               <th>Remarks</th>
               <th>
-                <!-- Documentation -->
-                <i class="bi bi-folder"></i>
+                <!-- <i class="bi bi-folder"></i> -->
               </th>
+              <th>Options</th>
             </tr>
           </thead>
           <template v-for="(row, r) in rows" :key="r">
@@ -60,13 +60,13 @@ td {
               :class="row.mfo_only ? 'bg-primary-50' : ''"
             >
               <td v-if="!row.mfo_only" class="text-center">
-                <Button
+                <!-- <Button
                   label="-- %"
                   class="p-button-sm p-button-secondary p-button-raised p-1"
-                ></Button>
+                ></Button> -->
               </td>
               <!-- if  mfo has no success indicator (title) conditioned colspan if has multiple success indicator -->
-              <td :colspan="row.mfo_only ? 10 : 1">
+              <td :colspan="row.mfo_only ? 11 : 1">
                 <div :style="indent(row.level)">
                   <span>
                     <strong class="mr-2">{{ row.code }}</strong>
@@ -80,7 +80,8 @@ td {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td>only one si</td>
+                <td>5</td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -88,11 +89,17 @@ td {
             </tr>
             <!-- sub mfo with initial success indicator  -->
             <tr v-else-if="row.rowspan > 0 && row.si_only == false">
-              <td class="text-center">
-                <Button
-                  label="-- %"
-                  class="p-button-sm p-button-secondary p-button-raised p-1"
-                ></Button>
+              <td class="text-center text-center">
+                <template v-if="row.pms_performance_commitment_review_core_function_data">
+                  <span
+                    v-if="
+                      row.pms_performance_commitment_review_core_function_data.percent
+                    "
+                    >{{
+                      row.pms_performance_commitment_review_core_function_data.percent
+                    }}%</span
+                  >
+                </template>
               </td>
               <td :rowspan="row.rowspan">
                 <div :style="indent(row.level)">
@@ -103,49 +110,102 @@ td {
                 </div>
               </td>
               <td>{{ row.success_indicator }}</td>
-              <template v-if="false">
-                <td>acc</td>
-                <td>q</td>
-                <td>e</td>
-                <td>starting si</td>
+              <!-- accomplish interface start -->
+              <template v-if="row.pms_performance_commitment_review_core_function_data">
+                <template
+                  v-if="
+                    !row.pms_performance_commitment_review_core_function_data
+                      .not_applicable
+                  "
+                >
+                  <td>
+                    {{ row.pms_performance_commitment_review_core_function_data.actual }}
+                  </td>
+                  <td class="text-center">
+                    {{ row.pms_performance_commitment_review_core_function_data.quality }}
+                  </td>
+                  <td class="text-center">
+                    {{
+                      row.pms_performance_commitment_review_core_function_data.efficiency
+                    }}
+                  </td>
+                  <td class="text-center">
+                    {{
+                      row.pms_performance_commitment_review_core_function_data.timeliness
+                    }}
+                  </td>
+                  <td class="text-center text-yellow-700">
+                    {{ row.pms_performance_commitment_review_core_function_data.average }}
+                  </td>
+                  <td class="text-center">
+                    {{ row.pms_performance_commitment_review_core_function_data.remarks }}
+                  </td>
+                </template>
+                <template v-else>
+                  <td colspan="6" class="text-center text-blue-700">
+                    {{ row.pms_performance_commitment_review_core_function_data.actual }}
+                  </td></template
+                >
                 <td></td>
-                <td></td>
-                <td></td>
+                <td class="text-center">
+                  <Button
+                    v-if="
+                      !row.pms_performance_commitment_review_core_function_data
+                        .not_applicable
+                    "
+                    label="Edit"
+                    icon="bi bi-pencil"
+                    class="p-button-sm p-button-text p-2 m-1"
+                    @click="edit_accomplishment(row)"
+                  />
+                  <Button
+                    v-else
+                    label="Edit"
+                    icon="bi bi-pencil"
+                    class="p-button-sm p-button-text p-2 m-1"
+                    @click="edit_not_applicable(row)"
+                  />
+                  <Button
+                    label="Clear"
+                    icon="bi bi-arrow-counterclockwise"
+                    class="p-button-sm p-button-text p-button-warning p-2 m-1"
+                    @click="confirm_accomplishment_reset(row)"
+                  />
+                </td>
               </template>
               <template v-else>
-                <td colspan="7" class="text-center">
+                <td colspan="8" class="text-center">
                   <Button
                     label="Add Accomplishment"
                     class="p-button-text p-button-small p-button-raised w-4 p-1"
                     @click="add_accomplishment(row)"
                   ></Button>
-
                   <Button
                     label="Not Applicable"
                     class="p-button-danger p-button-small p-button-raised w-4 mt-2 ml-3 p-1"
+                    @click="not_applicable(row)"
                   ></Button>
                 </td>
               </template>
+              <!-- accomplish interface end -->
             </tr>
             <!-- succeding success indicator from above -->
             <tr v-else>
               <td class="text-center">
-                <Button
-                  label="-- %"
-                  class="p-button-sm p-button-secondary p-button-raised p-1"
-                ></Button>
+                <!-- percentage weight  -->
               </td>
               <td>{{ row.success_indicator }}</td>
               <td></td>
               <td></td>
               <td></td>
-              <td>another si</td>
+              <td>5</td>
+              <td></td>
               <td></td>
               <td></td>
             </tr>
           </template>
           <tr v-if="rows.length < 1">
-            <td class="p-5 bg-gray-300" colspan="10" style="text-align: center">
+            <td class="p-5 bg-gray-300" colspan="11" style="text-align: center">
               No records found!
             </td>
           </tr>
@@ -248,16 +308,15 @@ td {
               />
             </div>
           </form>
-
           <template #footer>
             <Button
-              label="No"
+              label="Cancel"
               icon="pi pi-times"
-              @click="edit_accomplishment_modal = false"
+              @click="cancel_accomplishment()"
               class="p-button-text"
             />
             <Button
-              label="Yes"
+              label="Save"
               icon="pi pi-check"
               autofocus
               type="submit"
@@ -266,6 +325,53 @@ td {
           </template>
         </Dialog>
         <!-- add accomplishment modal end -->
+
+        <!-- not applicable modal start -->
+        <Dialog
+          header="Not Applicable"
+          v-model:visible="not_applicable_modal"
+          :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
+          :style="{ width: '50vw' }"
+          :modal="true"
+        >
+          <form @submit.prevent="submit_not_applicable()" id="not_applicable_form">
+            <!-- <div class="field">
+              <div class="font-bold">Success Indicator:</div>
+              <span>{{ core_function.success_indicator }}</span>
+            </div> -->
+            <div class="field">
+              <div class="font-bold mb-2">Reason:</div>
+              <Textarea
+                v-model="accomplishment.actual"
+                :autoResize="true"
+                rows="5"
+                class="w-full"
+                placeholder="Enter the reason why the success indicator is not applicable for accomplishment."
+                required
+              />
+            </div>
+          </form>
+
+          <template #footer>
+            <Button
+              label="Cancel"
+              icon="pi pi-times"
+              @click="cancel_not_applicable()"
+              class="p-button-text"
+            />
+            <Button
+              label="Save"
+              icon="pi pi-check"
+              autofocus
+              type="submit"
+              form="not_applicable_form"
+            />
+          </template>
+        </Dialog>
+        <!-- not applicable modal end -->
+
+        <ConfirmDialog></ConfirmDialog>
+        <Toast />
       </template>
     </Card>
   </auth-layout>
@@ -290,6 +396,7 @@ export default {
       current_url: document.location.pathname,
       error: {},
       edit_accomplishment_modal: false,
+      not_applicable_modal: false,
       core_function: null,
       accomplishment: this.$inertia.form({
         id: null,
@@ -300,26 +407,161 @@ export default {
         timeliness: null,
         percent: null,
         remarks: null,
-        not_applicable: false,
+        not_applicable: null,
       }),
     };
   },
   methods: {
-    submit_accomplishment() {
-      // console.log(this.accomplishment);
+    not_applicable(row) {
+      this.accomplishment.id = null;
+      this.accomplishment.pms_rating_scale_matrix_success_indicator_id =
+        row.pms_rating_scale_matrix_success_indicator_id;
+      this.accomplishment.not_applicable = true;
+      this.not_applicable_modal = true;
+    },
+    cancel_not_applicable() {
+      this.not_applicable_modal = false;
+      this.clear_accomplishment();
+    },
+    edit_not_applicable(row) {
+      console.log(row);
+      this.accomplishment.id =
+        row.pms_performance_commitment_review_core_function_data.id;
+      this.accomplishment.pms_rating_scale_matrix_success_indicator_id =
+        row.pms_rating_scale_matrix_success_indicator_id;
+      this.accomplishment.actual =
+        row.pms_performance_commitment_review_core_function_data.actual;
+      this.accomplishment.not_applicable = true;
+      this.not_applicable_modal = true;
+    },
+    submit_not_applicable() {
+      console.log(this.accomplishment);
       this.accomplishment.post(this.current_url + "/accomplishment", {
+        preserveScroll: true,
         onSuccess: () => {
+          if (!this.accomplishment.id) {
+            this.$toast.add({
+              severity: "info",
+              summary: "Note!",
+              detail: "Success indicator marked as not applicable!",
+              life: 3000,
+            });
+          } else {
+            this.$toast.add({
+              severity: "info",
+              summary: "Updated!",
+              detail: "Reason updated!",
+              life: 3000,
+            });
+          }
+          this.not_applicable_modal = false;
+          this.clear_accomplishment();
+        },
+      });
+    },
+    submit_accomplishment() {
+      this.accomplishment.post(this.current_url + "/accomplishment", {
+        preserveScroll: true,
+        onSuccess: () => {
+          if (!this.accomplishment.id) {
+            this.$toast.add({
+              severity: "success",
+              summary: "Accomplished!",
+              detail: "Accomplishment saved!",
+              life: 3000,
+            });
+          } else {
+            this.$toast.add({
+              severity: "success",
+              summary: "Updated!",
+              detail: "Accomplishment updated!",
+              life: 3000,
+            });
+          }
           this.edit_accomplishment_modal = false;
+          this.clear_accomplishment();
         },
       });
     },
     add_accomplishment(row) {
       this.core_function = row;
+      this.accomplishment.id = null;
       this.accomplishment.pms_rating_scale_matrix_success_indicator_id =
         row.pms_rating_scale_matrix_success_indicator_id;
       this.edit_accomplishment_modal = true;
     },
-    clear_accomplishment() {},
+    cancel_accomplishment() {
+      this.edit_accomplishment_modal = false;
+      this.clear_accomplishment();
+    },
+    edit_accomplishment(row) {
+      this.core_function = row;
+      this.accomplishment.id =
+        row.pms_performance_commitment_review_core_function_data.id;
+      this.accomplishment.pms_rating_scale_matrix_success_indicator_id =
+        row.pms_rating_scale_matrix_success_indicator_id;
+      this.accomplishment.actual =
+        row.pms_performance_commitment_review_core_function_data.actual;
+      this.accomplishment.quality =
+        row.pms_performance_commitment_review_core_function_data.quality;
+      console.log(row.pms_performance_commitment_review_core_function_data.quality);
+      this.accomplishment.efficiency =
+        row.pms_performance_commitment_review_core_function_data.efficiency;
+      this.accomplishment.timeliness =
+        row.pms_performance_commitment_review_core_function_data.timeliness;
+      this.accomplishment.percent =
+        row.pms_performance_commitment_review_core_function_data.percent;
+      this.accomplishment.remarks =
+        row.pms_performance_commitment_review_core_function_data.remarks;
+      this.edit_accomplishment_modal = true;
+    },
+    clear_accomplishment() {
+      this.accomplishment.id = null;
+      this.accomplishment.pms_rating_scale_matrix_success_indicator_id = null;
+      this.accomplishment.actual = null;
+      this.accomplishment.quality = null;
+      this.accomplishment.efficiency = null;
+      this.accomplishment.timeliness = null;
+      this.accomplishment.percent = null;
+      this.accomplishment.remarks = null;
+      this.accomplishment.not_applicable = null;
+    },
+    confirm_accomplishment_reset(row) {
+      // console.log(row.pms_performance_commitment_review_core_function_data.id);
+      this.$confirm.require({
+        message: "Resetting this accomplishment will empty its values, proceed?",
+        header: "Reset Confirmation",
+        icon: "pi pi-info-circle",
+        acceptClass: "p-button-danger",
+        accept: () => {
+          // console.log();
+          this.$inertia.delete(
+            this.current_url +
+              "/accomplishment/" +
+              row.pms_performance_commitment_review_core_function_data.id,
+            {
+              preserveScroll: true,
+              onSuccess: () => {
+                this.$toast.add({
+                  severity: "info",
+                  summary: "Confirmed",
+                  detail: "Accomplishment resetted",
+                  life: 3000,
+                });
+              },
+            }
+          );
+        },
+        reject: () => {
+          // this.$toast.add({
+          //   severity: "error",
+          //   summary: "Rejected",
+          //   detail: "You have rejected",
+          //   life: 3000,
+          // });
+        },
+      });
+    },
     indent(level) {
       var margin = "";
       if (level > 0) {
@@ -327,6 +569,7 @@ export default {
       }
       return margin;
     },
+
     validate() {},
     submit_form() {},
     go_back() {
@@ -349,7 +592,9 @@ export default {
       );
     },
   },
-  created() {},
+  created() {
+    this.$inertia.reload({ only: ["rows"] });
+  },
   mounted() {},
 };
 </script>
