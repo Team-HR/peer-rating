@@ -40,7 +40,9 @@ class IndividualRatingScaleMatrixController extends Controller
         foreach ($success_indicator_ids as $success_indicator_id) {
             $mfo = PmsRatingScaleMatrixSuccessIndicator::find($success_indicator_id);
             $mfo_id = $mfo->pms_rating_scale_matrix_id;
-            $mfo_ids[] = $mfo_id;
+            if (!in_array($mfo_id, $mfo_ids)) {
+                $mfo_ids[] = $mfo_id;
+            }
         }
 
         // return $mfo_ids;
@@ -52,7 +54,7 @@ class IndividualRatingScaleMatrixController extends Controller
             $mfos = get_parent($mfos, $mfo->parent_id);
         }
 
-
+        // return $mfos;
         # get oredered rows
         $rows = [];
 
@@ -62,6 +64,7 @@ class IndividualRatingScaleMatrixController extends Controller
             $sorted_codes[] = $mfo["code"];
         }
         natsort($sorted_codes);
+        // return $mfos;
         $sorted_pms_rating_scale_matrices = [];
         foreach ($sorted_codes as $code) {
             foreach ($mfos as $mfo) {
@@ -73,7 +76,7 @@ class IndividualRatingScaleMatrixController extends Controller
         }
         # sort end
 
-
+        // return $sorted_pms_rating_scale_matrices;
         foreach ($sorted_pms_rating_scale_matrices as $row) {
             $level = get_level(0, $row["parent_id"]);
             $rowspan = 0;
