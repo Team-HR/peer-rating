@@ -145,6 +145,15 @@ export default {
         no: 3,
         href: this.current_url + "/core_functions/" + this.form_status.id,
         label: "Core Functions",
+        status: (() => {
+          var total_percentage_weight = this.form_status.total_percentage_weight
+            ? this.form_status.total_percentage_weight
+            : "_________";
+          var total_average_rating = this.form_status.total_average_rating
+            ? this.form_status.total_average_rating
+            : "_________";
+          return `Total Percentage Allocated (%): <b class="text-green-700 mr-3">${total_percentage_weight}</b>Total Average Rating: <b class="text-green-700 mr-3">${total_average_rating}</b>`;
+        })(),
       },
       {
         no: 4,

@@ -39,14 +39,16 @@ td {
         <table class="w-full">
           <thead>
             <tr>
-              <th style="width: 15px">%</th>
+              <th style="width: 15px">{{ total_percentage_weight }}%</th>
               <th class="w-3">MFO/PAP</th>
               <th class="w-3">Success <br />Indicator</th>
               <th>Actual <br />Accomplishments</th>
               <th>Q</th>
               <th>E</th>
               <th>T</th>
-              <th>A</th>
+              <th>
+                A <i class="text-gray-700">({{ total_average_rating }})</i>
+              </th>
               <th>Remarks</th>
               <th>
                 <!-- <i class="bi bi-folder"></i> -->
@@ -60,10 +62,16 @@ td {
               :class="row.mfo_only ? 'bg-primary-50' : ''"
             >
               <td v-if="!row.mfo_only" class="text-center">
-                <!-- <Button
-                  label="-- %"
-                  class="p-button-sm p-button-secondary p-button-raised p-1"
-                ></Button> -->
+                <template v-if="row.pms_performance_commitment_review_core_function_data">
+                  <span
+                    v-if="
+                      row.pms_performance_commitment_review_core_function_data.percent
+                    "
+                    >{{
+                      row.pms_performance_commitment_review_core_function_data.percent
+                    }}%</span
+                  >
+                </template>
               </td>
               <!-- if  mfo has no success indicator (title) conditioned colspan if has multiple success indicator -->
               <td :colspan="row.mfo_only ? 11 : 1">
@@ -77,14 +85,94 @@ td {
               <!-- if mfo with only one success indicator -->
               <template v-if="!row.mfo_only">
                 <td>{{ row.success_indicator }}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>5</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <template v-if="row.pms_performance_commitment_review_core_function_data">
+                  <template
+                    v-if="
+                      !row.pms_performance_commitment_review_core_function_data
+                        .not_applicable
+                    "
+                  >
+                    <td>
+                      {{
+                        row.pms_performance_commitment_review_core_function_data.actual
+                      }}
+                    </td>
+                    <td class="text-center">
+                      {{
+                        row.pms_performance_commitment_review_core_function_data.quality
+                      }}
+                    </td>
+                    <td class="text-center">
+                      {{
+                        row.pms_performance_commitment_review_core_function_data
+                          .efficiency
+                      }}
+                    </td>
+                    <td class="text-center">
+                      {{
+                        row.pms_performance_commitment_review_core_function_data
+                          .timeliness
+                      }}
+                    </td>
+                    <td class="text-center text-yellow-700">
+                      {{
+                        row.pms_performance_commitment_review_core_function_data.average
+                      }}
+                    </td>
+                    <td class="text-center">
+                      {{
+                        row.pms_performance_commitment_review_core_function_data.remarks
+                      }}
+                    </td>
+                  </template>
+                  <template v-else>
+                    <td colspan="6" class="text-center text-blue-700">
+                      {{
+                        row.pms_performance_commitment_review_core_function_data.actual
+                      }}
+                    </td></template
+                  >
+                  <td></td>
+                  <td class="text-center">
+                    <Button
+                      v-if="
+                        !row.pms_performance_commitment_review_core_function_data
+                          .not_applicable
+                      "
+                      label="Edit"
+                      icon="bi bi-pencil"
+                      class="p-button-sm p-button-text p-2 m-1"
+                      @click="edit_accomplishment(row)"
+                    />
+                    <Button
+                      v-else
+                      label="Edit"
+                      icon="bi bi-pencil"
+                      class="p-button-sm p-button-text p-2 m-1"
+                      @click="edit_not_applicable(row)"
+                    />
+                    <Button
+                      label="Clear"
+                      icon="bi bi-arrow-counterclockwise"
+                      class="p-button-sm p-button-text p-button-warning p-2 m-1"
+                      @click="confirm_accomplishment_reset(row)"
+                    />
+                  </td>
+                </template>
+                <template v-else>
+                  <td colspan="8" class="text-center">
+                    <Button
+                      label="Add Accomplishment"
+                      class="p-button-text p-button-small p-button-raised w-4 p-1"
+                      @click="add_accomplishment(row)"
+                    ></Button>
+                    <Button
+                      label="Not Applicable"
+                      class="p-button-danger p-button-small p-button-raised w-4 mt-2 ml-3 p-1"
+                      @click="not_applicable(row)"
+                    ></Button>
+                  </td>
+                </template>
               </template>
             </tr>
             <!-- sub mfo with initial success indicator  -->
@@ -192,16 +280,94 @@ td {
             <!-- succeding success indicator from above -->
             <tr v-else>
               <td class="text-center">
-                <!-- percentage weight  -->
+                <template v-if="row.pms_performance_commitment_review_core_function_data">
+                  <span
+                    v-if="
+                      row.pms_performance_commitment_review_core_function_data.percent
+                    "
+                    >{{
+                      row.pms_performance_commitment_review_core_function_data.percent
+                    }}%</span
+                  >
+                </template>
               </td>
               <td>{{ row.success_indicator }}</td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>5</td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <template v-if="row.pms_performance_commitment_review_core_function_data">
+                <template
+                  v-if="
+                    !row.pms_performance_commitment_review_core_function_data
+                      .not_applicable
+                  "
+                >
+                  <td>
+                    {{ row.pms_performance_commitment_review_core_function_data.actual }}
+                  </td>
+                  <td class="text-center">
+                    {{ row.pms_performance_commitment_review_core_function_data.quality }}
+                  </td>
+                  <td class="text-center">
+                    {{
+                      row.pms_performance_commitment_review_core_function_data.efficiency
+                    }}
+                  </td>
+                  <td class="text-center">
+                    {{
+                      row.pms_performance_commitment_review_core_function_data.timeliness
+                    }}
+                  </td>
+                  <td class="text-center text-yellow-700">
+                    {{ row.pms_performance_commitment_review_core_function_data.average }}
+                  </td>
+                  <td class="text-center">
+                    {{ row.pms_performance_commitment_review_core_function_data.remarks }}
+                  </td>
+                </template>
+                <template v-else>
+                  <td colspan="6" class="text-center text-blue-700">
+                    {{ row.pms_performance_commitment_review_core_function_data.actual }}
+                  </td></template
+                >
+                <td></td>
+                <td class="text-center">
+                  <Button
+                    v-if="
+                      !row.pms_performance_commitment_review_core_function_data
+                        .not_applicable
+                    "
+                    label="Edit"
+                    icon="bi bi-pencil"
+                    class="p-button-sm p-button-text p-2 m-1"
+                    @click="edit_accomplishment(row)"
+                  />
+                  <Button
+                    v-else
+                    label="Edit"
+                    icon="bi bi-pencil"
+                    class="p-button-sm p-button-text p-2 m-1"
+                    @click="edit_not_applicable(row)"
+                  />
+                  <Button
+                    label="Clear"
+                    icon="bi bi-arrow-counterclockwise"
+                    class="p-button-sm p-button-text p-button-warning p-2 m-1"
+                    @click="confirm_accomplishment_reset(row)"
+                  />
+                </td>
+              </template>
+              <template v-else>
+                <td colspan="8" class="text-center">
+                  <Button
+                    label="Add Accomplishment"
+                    class="p-button-text p-button-small p-button-raised w-4 p-1"
+                    @click="add_accomplishment(row)"
+                  ></Button>
+                  <Button
+                    label="Not Applicable"
+                    class="p-button-danger p-button-small p-button-raised w-4 mt-2 ml-3 p-1"
+                    @click="not_applicable(row)"
+                  ></Button>
+                </td>
+              </template>
             </tr>
           </template>
           <tr v-if="rows.length < 1">
@@ -238,7 +404,7 @@ td {
             <!-- <div class="field">
               {{ core_function }}
             </div> -->
-            <div class="field">
+            <div class="field" v-if="core_function.quality.length > 0">
               <div class="font-bold">Quality:</div>
               <template v-for="(quality, i) in core_function.quality" :key="i">
                 <div v-if="quality">
@@ -254,7 +420,7 @@ td {
                 </div>
               </template>
             </div>
-            <div class="field">
+            <div class="field" v-if="core_function.efficiency.length > 0">
               <div class="font-bold">Efficiency:</div>
               <template v-for="(efficiency, i) in core_function.efficiency" :key="i">
                 <div v-if="efficiency">
@@ -270,7 +436,7 @@ td {
                 </div>
               </template>
             </div>
-            <div class="field">
+            <div class="field" v-if="core_function.timeliness.length > 0">
               <div class="font-bold">Timeliness:</div>
               <template v-for="(timeliness, i) in core_function.timeliness" :key="i">
                 <div v-if="timeliness">
@@ -382,10 +548,11 @@ import PmsToolbar from "@/Layouts/PmsToolbar";
 
 export default {
   props: {
-    employees: null,
     form_status: null,
     period: null,
     rows: null,
+    total_percentage_weight: null,
+    total_average_rating: null,
   },
   components: {
     AuthLayout,
@@ -398,6 +565,7 @@ export default {
       edit_accomplishment_modal: false,
       not_applicable_modal: false,
       core_function: null,
+      // percentage_weight_remaining: null,
       accomplishment: this.$inertia.form({
         id: null,
         pms_rating_scale_matrix_success_indicator_id: null,

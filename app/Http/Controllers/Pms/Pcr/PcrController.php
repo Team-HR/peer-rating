@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pms\Pcr;
 
 use App\Http\Controllers\Controller;
+// use App\Http\Controllers\Pms\Pcr\CoreFunctionController;
 use App\Models\SysEmployee;
 use App\Models\PmsPerformanceCommitmentReviewStatus;
 use App\Models\PmsPeriod;
@@ -38,6 +39,12 @@ class PcrController extends Controller
             $form->save();
             $form_status = PmsPerformanceCommitmentReviewStatus::find($form->id);
         }
+
+        $core_function = new CoreFunctionController;
+        $data = $core_function->get_row_data($period_id, $form_status->id);
+        $form_status["total_percentage_weight"] = $data["total_percentage_weight"];
+        $form_status["total_average_rating"] = $data["total_average_rating"];
+
         return Inertia::render("Pms/Pcr/Status", ["period" => $period, "form_status" => $form_status]);
     }
 
@@ -45,6 +52,7 @@ class PcrController extends Controller
     {
         $period = PmsPeriod::find($period_id);
         $form_type = PmsPerformanceCommitmentReviewStatus::find($id);
+
         return Inertia::render("Pms/Pcr/FormType", ["period" => $period, "form_type" => $form_type]);
     }
 
@@ -95,6 +103,4 @@ class PcrController extends Controller
         $form->save();
         return Redirect::back();
     }
-
-
 }

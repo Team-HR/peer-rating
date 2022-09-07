@@ -16,20 +16,22 @@ use Inertia\Inertia;
 
 class CoreFunctionController extends Controller
 {
-
     public function show($period_id, $id)
+    {
+        $data = $this->get_row_data($period_id, $id);
+        return Inertia::render("Pms/Pcr/CoreFunctions", ["period" => $data["period"], "form_status" => $data["form_status"], "rows" => $data["rows"], "total_percentage_weight" => $data["total_percentage_weight"], "total_average_rating" => $data["total_average_rating"]]);
+    }
+
+    public function get_row_data($period_id, $id)
     {
         $period = PmsPeriod::find($period_id);
         $sys_employee_id = auth()->user()->sys_employee_id;
-
         $assignments = PmsRatingScaleMatrixAssignment::where("period_id", $period_id)->where("sys_employee_id", $sys_employee_id)->get();
-
         # get the success indicator ids
         $success_indicator_ids = [];
         foreach ($assignments as $assignment) {
             $success_indicator_ids[] = $assignment->pms_rating_scale_matrix_success_indicator_id;
         }
-
         # get mfo ids
         $mfo_ids = [];
         foreach ($success_indicator_ids as $success_indicator_id) {
@@ -39,8 +41,6 @@ class CoreFunctionController extends Controller
                 $mfo_ids[] = $mfo_id;
             }
         }
-
-        // return $mfo_ids;
         # get mfo data and parents as well
         $mfos = [];
         foreach ($mfo_ids as $key => $mfo_id) {
@@ -48,11 +48,8 @@ class CoreFunctionController extends Controller
             $mfos[] = $mfo;
             $mfos = get_parent($mfos, $mfo->parent_id);
         }
-
-
         # get oredered rows
         $rows = [];
-
         # sort parents first start -- according to the alphanumeric code
         $sorted_codes = [];
         foreach ($mfos as $key => $mfo) {
@@ -130,16 +127,15 @@ class CoreFunctionController extends Controller
                 }
             }
         }
-
         $period = PmsPeriod::find($period_id);
-        // $employees = SysEmployee::orderBy('last_name')->get()->toArray();
         $form_status = PmsPerformanceCommitmentReviewStatus::find($id);
-        return Inertia::render("Pms/Pcr/CoreFunctions", ["period" => $period, "form_status" => $form_status, "rows" => $rows]);
+        $total_percentage_weight = get_total_percentage_weight($rows);
+        $total_average_rating = get_total_average_rating($rows);
+        return ["period" => $period, "form_status" => $form_status, "rows" => $rows, "total_percentage_weight" => $total_percentage_weight, "total_average_rating" => $total_average_rating];
     }
 
     public function create_accomplishment($period_id, $id, Request $request)
     {
-        // return $request;
         if (!$request->id) {
             $accomplishment_data = new PmsPerformanceCommitmentReviewCoreFunctionData();
             $accomplishment_data->pms_rating_scale_matrix_success_indicator_id = $request->pms_rating_scale_matrix_success_indicator_id;
@@ -181,7 +177,6 @@ function get_pms_performance_commitment_review_core_function_data($pms_rating_sc
 {
     $pms_performance_commitment_review_core_function_data = PmsPerformanceCommitmentReviewCoreFunctionData::where("pms_rating_scale_matrix_success_indicator_id", $pms_rating_scale_matrix_success_indicator_id)->first();
     if (!$pms_performance_commitment_review_core_function_data) return null;
-    // $pms_performance_commitment_review_core_function_data = $pms_performance_commitment_review_core_function_data->toArray();
     $scores = [
         $pms_performance_commitment_review_core_function_data["quality"],
         $pms_performance_commitment_review_core_function_data["efficiency"],
@@ -198,6 +193,8 @@ function get_pms_performance_commitment_review_core_function_data($pms_rating_sc
     // to avoid division by zero
     if ($count > 0) {
         $average = $total / $count;
+        $percent = $pms_performance_commitment_review_core_function_data["percent"] / 100;
+        $average = $average * $percent;
         $average = number_format($average, 2);
         $pms_performance_commitment_review_core_function_data["average"] = $average;
     }
@@ -238,4 +235,30 @@ function get_success_indicators($id)
 {
     $pms_rating_scale_matrix_success_indicators = PmsRatingScaleMatrixSuccessIndicator::where("pms_rating_scale_matrix_id", $id)->get();
     return $pms_rating_scale_matrix_success_indicators;
+}
+
+function get_total_percentage_weight($rows)
+{
+    $total_percentage_weight = 0;
+
+    foreach ($rows as $row) {
+        if (isset($row["pms_performance_commitment_review_core_function_data"])) {
+            $total_percentage_weight += $row["pms_performance_commitment_review_core_function_data"]["percent"];
+        }
+    }
+
+    return $total_percentage_weight;
+}
+
+function get_total_average_rating($rows)
+{
+    $total_average_rating = 0;
+
+    foreach ($rows as $row) {
+        if (isset($row["pms_performance_commitment_review_core_function_data"])) {
+            $total_average_rating += $row["pms_performance_commitment_review_core_function_data"]["average"];
+        }
+    }
+
+    return number_format($total_average_rating, 2);
 }
