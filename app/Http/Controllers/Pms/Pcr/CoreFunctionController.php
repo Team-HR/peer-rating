@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Pms\Pcr;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pms\Pcr\PmsPerformanceCommitmentReviewCoreFunctionData;
+use App\Models\Pms\Pcr\PmsPerformanceCommitmentReviewStrategicFunctionData;
 use App\Models\PmsPerformanceCommitmentReviewStatus;
 use App\Models\PmsPeriod;
 use App\Models\PmsRatingScaleMatrix;
@@ -131,7 +132,11 @@ class CoreFunctionController extends Controller
         $form_status = PmsPerformanceCommitmentReviewStatus::find($id);
         $total_percentage_weight = get_total_percentage_weight($rows);
         $total_average_rating = get_total_average_rating($rows);
-        return ["period" => $period, "form_status" => $form_status, "rows" => $rows, "total_percentage_weight" => $total_percentage_weight, "total_average_rating" => $total_average_rating];
+
+        $strat = get_strat_data($period_id, $sys_employee_id);
+
+
+        return ["period" => $period, "form_status" => $form_status, "rows" => $rows, "total_percentage_weight" => $total_percentage_weight, "total_average_rating" => $total_average_rating, "strat_total_percentage_weight" => $strat["total_percentage_weight"], "strat_total_average_rating" => $strat["total_average_rating"]];
     }
 
     public function create_accomplishment($period_id, $id, Request $request)
@@ -261,4 +266,23 @@ function get_total_average_rating($rows)
     }
 
     return number_format($total_average_rating, 2);
+}
+
+function get_strat_data($period_id, $sys_employee_id)
+{
+    $strat = PmsPerformanceCommitmentReviewStrategicFunctionData::where("pms_period_id", $period_id)->where("sys_employee_id", $sys_employee_id)->first();
+
+    if (isset($strat->percent) && isset($strat->final_numerical_rating)) {
+        $data = [
+            "total_percentage_weight" => $strat->percent,
+            "total_average_rating" => number_format($strat->final_numerical_rating * ($strat->percent / 100), 2)
+        ];
+    } else {
+        $data = [
+            "total_percentage_weight" => null,
+            "total_average_rating" => null
+        ];
+    }
+
+    return $data;
 }

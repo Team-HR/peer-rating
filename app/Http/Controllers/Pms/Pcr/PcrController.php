@@ -44,7 +44,8 @@ class PcrController extends Controller
         $data = $core_function->get_row_data($period_id, $form_status->id);
         $form_status["total_percentage_weight"] = $data["total_percentage_weight"];
         $form_status["total_average_rating"] = $data["total_average_rating"];
-
+        $form_status["strat_total_percentage_weight"] = $data["strat_total_percentage_weight"];
+        $form_status["strat_total_average_rating"] = $data["strat_total_average_rating"];
         return Inertia::render("Pms/Pcr/Status", ["period" => $period, "form_status" => $form_status]);
     }
 

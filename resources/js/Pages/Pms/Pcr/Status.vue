@@ -157,8 +157,17 @@ export default {
       },
       {
         no: 4,
-        href: this.current_url + "/strategic_functions",
+        href: this.current_url + "/strategic_function/" + this.form_status.id,
         label: "Strategic Function",
+        status: (() => {
+          var total_percentage_weight = this.form_status.strat_total_percentage_weight
+            ? this.form_status.strat_total_percentage_weight
+            : "_________";
+          var total_average_rating = this.form_status.strat_total_average_rating
+            ? this.form_status.strat_total_average_rating
+            : "_________";
+          return `Total Percentage Allocated (%): <b class="text-green-700 mr-3">${total_percentage_weight}</b>Total Average Rating: <b class="text-green-700 mr-3">${total_average_rating}</b>`;
+        })(),
       },
       {
         no: 5,
@@ -177,7 +186,7 @@ export default {
     this.items = items;
   },
   mounted() {
-    console.log(this.form_status);
+    // console.log(this.form_status);
   },
 };
 </script>
