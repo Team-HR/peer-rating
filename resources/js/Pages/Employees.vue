@@ -11,7 +11,7 @@
         >
           <form id="add_new_form" class="card" @submit.prevent="add_employee()">
             <div class="formgrid grid">
-              <div class="field col-4">
+              <div class="field col-12 md:col-4">
                 <label for="last_name">Last Name:</label>
                 <InputText
                   class="w-full uppercase"
@@ -24,7 +24,7 @@
                 />
                 <small class="ml-2">*Required</small>
               </div>
-              <div class="field col-4">
+              <div class="field col-12 md:col-4">
                 <label for="first_name">First Name:</label>
                 <InputText
                   class="w-full uppercase"
@@ -36,7 +36,7 @@
                 />
                 <small class="ml-2">*Required</small>
               </div>
-              <div class="field col-4">
+              <div class="field col-12 md:col-4">
                 <label for="middle_name">Middle Name:</label>
                 <InputText
                   class="w-full uppercase"
@@ -46,7 +46,7 @@
                   placeholder="e.g. Rizal"
                 />
               </div>
-              <div class="field col-4">
+              <div class="field col-12 md:col-4">
                 <label for="ext_name">Name Extension:</label>
                 <InputText
                   class="w-full uppercase"

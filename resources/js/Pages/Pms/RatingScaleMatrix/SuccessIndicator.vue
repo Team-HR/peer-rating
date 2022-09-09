@@ -3,34 +3,23 @@
     <PmsToolbar />
     <Card class="w-full">
       <template #title>
-        <span class="uppercase"
-          ><i class="bi bi-book mr-2"></i> Rating Scale Matrix | Success
-          Indicator</span
-        >
+        <span class="uppercase"><i class="bi bi-book mr-2"></i> Rating Scale Matrix | Success
+          Indicator</span>
       </template>
       <template #subtitle>Add/Edit/Delete Success Indicator/s</template>
       <template #content>
-        <Button
-          label="Cancel"
-          icon="bi bi-arrow-left"
-          class="p-button-danger p-button-sm p-button-text p-button-raised mx-3"
-          @click="go_back()"
-        ></Button>
+        <Button label="Cancel" icon="bi bi-arrow-left"
+          class="p-button-danger p-button-sm p-button-text p-button-raised mx-3" @click="go_back()"></Button>
 
-        <Button
-          label="Save"
-          icon="bi bi-save"
-          class="p-button-success p-button-sm p-button-raised"
-          :disabled="!form.success_indicator"
-          @click="save_form()"
-        ></Button>
+        <Button label="Save" icon="bi bi-save" class="p-button-success p-button-sm p-button-raised"
+          :disabled="!form.success_indicator" @click="save_form()"></Button>
 
         <div class="m-5">
           <div class="text-xl w-full mb-2">
             <span class="mr-3">MFO/PAP:</span>
-            <span>{{ $page.props.mfo.code }})</span>
-            {{ ` ` }}
-            <span>{{ $page.props.mfo.title }}</span>
+            <span>{{  $page.props.mfo.code  }})</span>
+            {{  ` `  }}
+            <span>{{  $page.props.mfo.title  }}</span>
             <br />
           </div>
 
@@ -42,84 +31,60 @@
                 <label>Success Indicator:</label>
                 <small class="ml-2">*Required</small>
                 <br />
-                <Textarea
-                  class="w-full"
-                  v-model="form.success_indicator"
-                  rows="5"
-                  :autoResize="true"
-                  placeholder="Example: 100% (_/_) of applicant requirements prepared..."
-                />
+                <Textarea class="w-full" v-model="form.success_indicator" rows="5" :autoResize="true"
+                  placeholder="Example: 100% (_/_) of applicant requirements prepared..." />
               </div>
               <div class="field col-12">
                 <label>Measures:</label> <small class="ml-2">*Required</small>
 
                 <div class="field-checkbox">
-                  <Checkbox
-                    id="quality"
-                    name="quality"
-                    binary
-                    v-model="has_quality"
-                  />
+                  <Checkbox id="quality" name="quality" binary v-model="has_quality" />
                   <label for="quality">Quality</label>
                 </div>
                 <div class="field-checkbox">
-                  <Checkbox
-                    id="efficiency"
-                    name="efficiency"
-                    binary
-                    v-model="has_efficiency"
-                  />
+                  <Checkbox id="efficiency" name="efficiency" binary v-model="has_efficiency" />
                   <label for="efficiency">Efficiency</label>
                 </div>
                 <div class="field-checkbox">
-                  <Checkbox
-                    id="timeliness"
-                    name="timeliness"
-                    binary
-                    v-model="has_timeliness"
-                  />
+                  <Checkbox id="timeliness" name="timeliness" binary v-model="has_timeliness" />
                   <label for="timeliness">Timeliness</label>
                 </div>
 
                 <div class="formgrid grid">
-                  <div class="field col" :hidden="!has_quality">
-                    <label>Quality:</label>
-                    <div class="p-inputgroup mb-1" v-for="(i, k) in 5" :key="k">
-                      <span class="p-inputgroup-addon">
-                        {{ 5 - i + 1 }}
-                      </span>
-                      <InputText v-model="form.quality[k]" />
+                    <div class="ffield col-12 md:col-4" :hidden="!has_quality">
+                      <label>Quality:</label>
+                      <div class="p-inputgroup mb-1" v-for="(i, k) in 5" :key="k">
+                        <span class="p-inputgroup-addon">
+                          {{  5 - i + 1  }}
+                        </span>
+                        <InputText v-model="form.quality[k]" />
+                      </div>
+                    </div>
+                    <div class="field col-12 md:col-4" :hidden="!has_efficiency">
+                      <label>Efficiency:</label>
+                      <div class="p-inputgroup mb-1" v-for="(i, k) in 5" :key="k">
+                        <span class="p-inputgroup-addon">
+                          {{  5 - i + 1  }}
+                        </span>
+                        <InputText v-model="form.efficiency[k]" />
+                      </div>
+                    </div>
+                    <div class="field col-12 md:col-4" :hidden="!has_timeliness">
+                      <label>Timeliness:</label>
+                      <div class="p-inputgroup mb-1" v-for="(i, k) in 5" :key="k">
+                        <span class="p-inputgroup-addon">
+                          {{  5 - i + 1  }}
+                        </span>
+                        <InputText v-model="form.timeliness[k]" />
+                      </div>
                     </div>
                   </div>
-                  <div class="field col" :hidden="!has_efficiency">
-                    <label>Efficiency:</label>
-                    <div class="p-inputgroup mb-1" v-for="(i, k) in 5" :key="k">
-                      <span class="p-inputgroup-addon">
-                        {{ 5 - i + 1 }}
-                      </span>
-                      <InputText v-model="form.efficiency[k]" />
-                    </div>
-                  </div>
-                  <div class="field col" :hidden="!has_timeliness">
-                    <label>Timeliness:</label>
-                    <div class="p-inputgroup mb-1" v-for="(i, k) in 5" :key="k">
-                      <span class="p-inputgroup-addon">
-                        {{ 5 - i + 1 }}
-                      </span>
-                      <InputText v-model="form.timeliness[k]" />
-                    </div>
-                  </div>
-                </div>
               </div>
 
               <div class="field col-12">
                 <label>In-Charge:</label> <small class="ml-2">*Required</small>
                 <br />
-                <EmployeePicker
-                  :initSelections="form.in_charges"
-                  :options="employees"
-                  @changed="getEmployeePicks"
-                />
+                <EmployeePicker :initSelections="form.in_charges" :options="employees" @changed="getEmployeePicks" />
               </div>
             </div>
           </form>
@@ -232,7 +197,7 @@ export default {
       this.form.in_charges = this.success_indicator.in_charges;
     }
   },
-  mounted() {},
+  mounted() { },
 };
 </script>
 

@@ -1,21 +1,16 @@
 <template>
-  <Toolbar class="mb-3 bg-blue-50">
+  <Toolbar class="mb-3 bg-blue-50 w-full">
     <template #start>
-      <h3 class="mr-3 uppercase">
+      <h3 class="mr-3 uppercase ">
         <i class="bi bi-graph-up-arrow mr-2"></i> Performance Management System
       </h3>
-
-      <template v-for="(item, i) in items" :key="i">
-        <Button
-          class="mr-2"
-          :class="
+      <div class="pl-4 grid">
+        <template v-for="(item, i) in items" :key="i">
+          <Button class="mr-2" :class="
             is_active_url(item.href) ? 'p-button-raised' : 'p-button-text '
-          "
-          :icon="item.icon"
-          :label="item.title"
-          @click="$inertia.get(item.href)"
-        />
-      </template>
+          " :icon="item.icon" :label="item.title" @click="$inertia.get(item.href)" />
+        </template>
+      </div>
     </template>
 
     <template #end>
@@ -28,7 +23,7 @@
 <script>
 export default {
   props: {
-    auth: null,
+    auth: null, 
   },
   data() {
     return {

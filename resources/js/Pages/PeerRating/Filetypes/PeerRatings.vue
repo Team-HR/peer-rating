@@ -6,26 +6,16 @@
   <auth-layout>
     <Card class="w-full">
       <template #title>
-        <Button
-          class="mr-5 p-button-text p-button-sm"
-          icon="pi pi-arrow-left"
-          @click="history_back()"
-          label="Back"
-        ></Button>
-        <span class="uppercase"
-          >Peer Rating | Offices in {{ department.name }}</span
-        >
+        <Button class="mr-5 p-button-text p-button-sm" icon="pi pi-arrow-left" @click="history_back()"
+          label="Back"></Button>
+        <span class="uppercase">Peer Rating | Offices in {{ department.name }}</span>
       </template>
       <template #content>
         <Toast />
         <ConfirmDialog></ConfirmDialog>
         <form class="mb-5" action="post" @submit.prevent="add_new_office()">
           <!-- <input type="text" v-model="form.name" /> -->
-          <InputText
-            type="text"
-            v-model="form.name"
-            placeholder="Add an office"
-          />
+          <InputText type="text" v-model="form.name" placeholder="Add an office" />
           <Button :disabled="!form.name" class="ml-2" type="submit">Add</Button>
         </form>
         <!-- 
@@ -43,75 +33,41 @@
           </Button>
         </template> -->
         <!-- {{ offices }} -->
-        <DataTable
-          :value="offices"
-          responsiveLayout="scroll"
-          class="mt-2 p-datatable-sm"
-          selectionMode="single"
-        >
+        <DataTable :value="offices" responsiveLayout="scroll" class="mt-2 p-datatable-sm" selectionMode="single">
           <Column field="id" header="ID" style="width: 20px"></Column>
-          <Column
-            header="OPTIONS"
-            headerStyle="text-align: center;"
-            style="width: 350px; text-align: center"
-          >
+          <Column header="OPTIONS" headerStyle="text-align: center;" style="width: 350px; text-align: center">
             <template #body="slotProps">
               <!-- {{slotProps}} -->
-              <Button
-                class="p-button-text p-button-sm mr-2"
-                label="Open"
-                @click="
-                  $inertia.get(
-                    `/peer-rating-2022/${department.id}/peer-rating/${slotProps.data.id}/peers`
-                  )
-                "
-              ></Button>
-              <Button
-                class="p-button-text p-button-sm p-button-success mr-2"
-                label="Rename"
-                @click="rename_office(slotProps.data)"
-              ></Button>
-              <Button
-                class="p-button-text p-button-sm p-button-danger"
-                label="Delete"
-                @click="delete_record(slotProps.data.id)"
-              ></Button>
+              <Button class="p-button-text p-button-sm mr-2" label="Open" @click="
+                $inertia.get(
+                  `/peer-rating-2022/${department.id}/peer-rating/${slotProps.data.id}/peers`
+                )
+              "></Button>
+              <Button class="p-button-text p-button-sm p-button-success mr-2" label="Rename"
+                @click="rename_office(slotProps.data)"></Button>
+              <Button class="p-button-text p-button-sm p-button-danger" label="Delete"
+                @click="delete_record(slotProps.data.id)"></Button>
             </template>
           </Column>
           <Column field="name" header="OFFICE"></Column>
         </DataTable>
         <!-- rename modal start -->
-        <Dialog v-model:visible="rename_modal" :style="{ width: '25vw' }">
-          <template #header>
+        <Dialog v-model:visible="rename_modal" modal :style="{ width: '25vw' }"
+          :breakpoints="{ '960px': '75vw', '640px': '90vw' }">
+          <template #header>  
             <h3>Rename Office</h3>
           </template>
 
           <form id="rename_form" @submit.prevent="rename_save()">
             <div class="field">
               <label for="office_name_input">Name of Office:</label><br />
-              <InputText
-                class="w-full"
-                id="office_name_input"
-                type="text"
-                v-model="edit_form.name"
-              />
+              <InputText class="w-full" id="office_name_input" type="text" v-model="edit_form.name" />
             </div>
           </form>
 
           <template #footer>
-            <Button
-              label="No"
-              icon="pi pi-times"
-              class="p-button-text"
-              @click="rename_modal = false"
-            />
-            <Button
-              form="rename_form"
-              label="Save"
-              icon="pi pi-save"
-              autofocus
-              type="submit"
-            />
+            <Button label="No" icon="pi pi-times" class="p-button-text" @click="rename_modal = false" />
+            <Button form="rename_form" label="Save" icon="pi pi-save" autofocus type="submit" />
           </template>
         </Dialog>
         <!-- rename modal end -->
