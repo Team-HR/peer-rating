@@ -9,6 +9,7 @@ use App\Http\Controllers\Pms\Irsm\IndividualRatingScaleMatrixController;
 use App\Http\Controllers\Pms\Pcr\CoreFunctionController;
 use App\Http\Controllers\Pms\Pcr\PcrController;
 use App\Http\Controllers\Pms\Pcr\StrategicFunctionController;
+use App\Http\Controllers\Pms\Pcr\SupportFunctionController;
 
 # pms dashboard
 Route::get('/pms', function () {
@@ -48,7 +49,9 @@ Route::post("/pms/pcr/{period_id}/signatories/{id}", [PcrController::class, "set
 Route::get("/pms/pcr/{period_id}/core_functions/{id}", [CoreFunctionController::class, "show"]);
 Route::post("/pms/pcr/{period_id}/core_functions/{id}/accomplishment", [CoreFunctionController::class, "create_accomplishment"]);
 Route::delete("/pms/pcr/{period_id}/core_functions/{id}/accomplishment/{accomplishment_id}", [CoreFunctionController::class, "delete_accomplishment"]);
-#pcr - strategic_function
+# pcr - strategic_function
 Route::get("/pms/pcr/{period_id}/strategic_function/{status_id}", [StrategicFunctionController::class, "show"]);
 Route::post("/pms/pcr/{period_id}/strategic_function/{status_id}", [StrategicFunctionController::class, "create_update"]);
 Route::delete("/pms/pcr/{period_id}/strategic_function/{status_id}/delete/{strat_id}", [StrategicFunctionController::class, "delete"]);
+# pcr - support functions
+Route::get("/pms/pcr/{period_id}/support_functions", [SupportFunctionController::class, "show"]);
