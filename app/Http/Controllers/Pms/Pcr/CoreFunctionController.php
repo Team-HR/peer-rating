@@ -20,6 +20,7 @@ class CoreFunctionController extends Controller
     public function show($period_id, $id)
     {
         $data = $this->get_row_data($period_id, $id);
+        // return $data["rows"];
         return Inertia::render("Pms/Pcr/CoreFunctions", ["period" => $data["period"], "form_status" => $data["form_status"], "rows" => $data["rows"], "total_percentage_weight" => $data["total_percentage_weight"], "total_average_rating" => $data["total_average_rating"]]);
     }
 
@@ -44,26 +45,42 @@ class CoreFunctionController extends Controller
         }
         # get mfo data and parents as well
         $mfos = [];
+
         foreach ($mfo_ids as $key => $mfo_id) {
             $mfo = PmsRatingScaleMatrix::find($mfo_id);
+            // if (!in_array($mfo->id, $mfo_ids)) {
             $mfos[] = $mfo;
             $mfos = get_parent($mfos, $mfo->parent_id);
+            // }
         }
+
+        // return $mfos;
+
         # get oredered rows
         $rows = [];
         # sort parents first start -- according to the alphanumeric code
+
         $sorted_codes = [];
         foreach ($mfos as $key => $mfo) {
+            // if (!in_array($mfo["code"], $sorted_codes)) {
             $sorted_codes[] = $mfo["code"];
+            // }
         }
+
+
         natsort($sorted_codes);
+
+        // return $sorted_codes;
+
         $sorted_pms_rating_scale_matrices = [];
         foreach ($sorted_codes as $code) {
             foreach ($mfos as $mfo) {
+                // if (isset($mfo["code"])) {
                 if ($mfo["code"] == $code) {
                     $sorted_pms_rating_scale_matrices[] = $mfo;
                     continue;
                 }
+                // }
             }
         }
         # sort end
@@ -128,13 +145,12 @@ class CoreFunctionController extends Controller
                 }
             }
         }
+
         $period = PmsPeriod::find($period_id);
         $form_status = PmsPerformanceCommitmentReviewStatus::find($id);
         $total_percentage_weight = get_total_percentage_weight($rows);
         $total_average_rating = get_total_average_rating($rows);
-
         $strat = get_strat_data($period_id, $sys_employee_id);
-
 
         return ["period" => $period, "form_status" => $form_status, "rows" => $rows, "total_percentage_weight" => $total_percentage_weight, "total_average_rating" => $total_average_rating, "strat_total_percentage_weight" => $strat["total_percentage_weight"], "strat_total_average_rating" => $strat["total_average_rating"]];
     }
@@ -210,10 +226,19 @@ function get_pms_performance_commitment_review_core_function_data($pms_rating_sc
 function get_parent($mfos, $parent_id)
 {
     $mfo = PmsRatingScaleMatrix::find($parent_id);
+
+    // check if parent already exists
+    foreach ($mfos as $value) {
+        if ($value["id"] === $mfo->id) {
+            return $mfos;
+        }
+    }
+
     $mfos[] = $mfo;
     if ($mfo->parent_id) {
         $mfos[] = get_parent($mfos, $mfo->parent_id);
     }
+
     return $mfos;
 }
 

@@ -42,10 +42,14 @@ class PcrController extends Controller
 
         $core_function = new CoreFunctionController;
         $data = $core_function->get_row_data($period_id, $form_status->id);
-        $form_status["total_percentage_weight"] = $data["total_percentage_weight"];
-        $form_status["total_average_rating"] = $data["total_average_rating"];
-        $form_status["strat_total_percentage_weight"] = $data["strat_total_percentage_weight"];
-        $form_status["strat_total_average_rating"] = $data["strat_total_average_rating"];
+        $form_status["total_percentage_weight"] = isset($data["total_percentage_weight"]) ? $data["total_percentage_weight"] : 0;
+        $form_status["total_average_rating"] = isset($data["total_average_rating"]) ? $data["total_average_rating"] : 0;
+        $form_status["strat_total_percentage_weight"] = isset($data["strat_total_percentage_weight"]) ? $data["strat_total_percentage_weight"] : 0;
+        $form_status["strat_total_average_rating"] = isset($data["strat_total_average_rating"]) ? $data["strat_total_average_rating"] : 0;
+        // $form_status["total_percentage_weight"] = 0;
+        // $form_status["total_average_rating"] = 0;
+        // $form_status["strat_total_percentage_weight"] = 0;
+        // $form_status["strat_total_average_rating"] = 0;
         return Inertia::render("Pms/Pcr/Status", ["period" => $period, "form_status" => $form_status]);
     }
 
