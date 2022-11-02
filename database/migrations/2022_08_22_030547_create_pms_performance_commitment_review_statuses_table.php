@@ -28,6 +28,13 @@ class CreatePmsPerformanceCommitmentReviewStatusesTable extends Migration
             $table->date('date_panel_approved')->nullable();
             $table->string('agency');
             $table->string('form_type');
+            /**
+             * Form Types: 
+             * ipcr
+             * spcr
+             * dspcr
+             * dpcr
+             */
             $table->unsignedBigInteger('sys_department_id');
             $table->timestamps();
         });
