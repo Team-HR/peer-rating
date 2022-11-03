@@ -18,6 +18,13 @@ class SectionHeadRatingController extends Controller
 {
     public function index($department_id)
     {
+        ####################### Forbid Page ###########################
+        if ($department_id == 22) {
+            return Inertia::render("PeerRating/Unauthorized");
+        }
+        ###############################################################
+
+
         $employees = Employee::orderBy('last_name')->get()->toArray();
         $sections = PeerRatingSection::where('department_id', $department_id)->get();
 
@@ -77,6 +84,15 @@ class SectionHeadRatingController extends Controller
 
     public function section_head_rating($department_id, $section_id)
     {
+
+
+        ####################### Forbid Page ###########################
+        if ($department_id == 22) {
+            return Inertia::render("PeerRating/Unauthorized");
+        }
+        ###############################################################
+
+
         $is_complete = false;
 
         $employees = Employee::orderBy('last_name')->get()->toArray();

@@ -14,9 +14,6 @@
           label="Back"
           @click="history_back()"
         ></Button>
-        <span class="uppercase"
-          >Peer Rating <i style="color: grey">(Jan-June 2022)</i>:: {{ department }}</span
-        >
       </template>
       <template #content>
         <h1 class="text-center text-red-400 text-8xl">Access Temporarily Forbidden</h1>
@@ -31,9 +28,7 @@ import { Inertia } from "@inertiajs/inertia";
 
 export default {
   props: {
-    department_id: "",
-    department: String,
-    offices: Array,
+
   },
   components: {
     AuthLayout,
