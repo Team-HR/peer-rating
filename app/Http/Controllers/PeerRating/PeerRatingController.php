@@ -70,12 +70,18 @@ class PeerRatingController extends Controller
     }
     public function files($department_id)
     {
+
+
+
         // $offices = PeerRatingOffice::where('peer_rating_department_id', '=', $department_id)->orderByDesc('id')->get();
         // return Inertia::render("PeerRating/Files", ['department_id' => $department_id, 'office_id' => $office_id]);
         $department = PeerRatingDepartment::find($department_id);
         $department = $department->name;
         $offices = PeerRatingOffice::where('peer_rating_department_id', '=', $department_id)->get();
 
+        if ($department_id == 22) {
+            return Inertia::render("PeerRating/Unauthorized", ['department_id' => $department_id, 'department' => $department, 'offices' => $offices]);
+        }
 
         # get all reports
         $reports = [];
