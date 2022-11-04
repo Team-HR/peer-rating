@@ -12,3 +12,133 @@ body {
     padding: .5em;
     margin-bottom: 50px;
 }
+
+
+/* Carousel */
+
+
+/* End Carousel  */
+
+
+/* body */
+
+.bodys {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 0px;
+    position: absolute;
+    width: 1280px;
+    height: 3529px;
+}
+
+.cards {
+    width: 1280px;
+    height: 622px;
+    left: 0px;
+    top: 0px;
+}
+
+.card1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 3px;
+    position: absolute;
+    width: 245px;
+    left: 86px;
+    top: 170px;
+}
+
+.img1 {
+    flex-direction: column;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 10px;
+    gap: 10px;
+}
+
+.card2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    width: 246px;
+    height: 345px;
+    left: 376px;
+    top: 175px;
+}
+
+.card3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    width: 246px;
+    height: 345px;
+    left: 665px;
+    top: 175px;
+}
+
+.card4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    width: 246px;
+    height: 345px;
+    left: 952px;
+    top: 170px;
+}
+
+.core {
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.325em;
+    position: absolute;
+    width: 1280px;
+    height: 92px;
+    left: 0px;
+    top: 40px;
+}
+
+.rsp {
+    display: flex;
+    gap: 93px;
+    width: 1280px;
+    height: 602px;
+}
+
+.rsp-1 {
+    padding: 10px;
+    gap: 10px;
+    width: 544px;
+    height: 498px;
+}
+
+.rsp-2 {
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    gap: 26px;
+    width: 488px;
+    height: 268px;
+    left: 697px;
+    top: 167px;
+}
+
+.rsp-h1 {
+    align-items: center;
+    text-align: center;
+}
+
+.rsp-3 {
+    text-align: center;
+    align-items: center;
+}
+
+
+/* end body */

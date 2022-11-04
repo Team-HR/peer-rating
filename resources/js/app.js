@@ -115,20 +115,20 @@ createInertiaApp({
             .use(ToastService)
             .use(DialogService)
 
-            /*  The router-link special component is required for the primevue
-                menu model derived components.  It is normally handled by vue-router
-                however because we are using inertia, so instead I pass the 'to'
-                parameter across to inertia-link as a href so it can do it's magic.
-                reference: https://forum.primefaces.org/viewtopic.php?t=70049
-            */
-            // .component('Link', Link)
-            .component('inertia-link', Link)
+        /*  The router-link special component is required for the primevue
+            menu model derived components.  It is normally handled by vue-router
+            however because we are using inertia, so instead I pass the 'to'
+            parameter across to inertia-link as a href so it can do it's magic.
+            reference: https://forum.primefaces.org/viewtopic.php?t=70049
+        */
+        // .component('Link', Link)
+        .component('inertia-link', Link)
             .component("router-link", {
                 props: ["to", "custom"],
                 template: `<inertia-link :href="to" class="p-menuitem-link p-0"><slot/></inertia-link>`,
             })
 
-            .directive('tooltip', Tooltip)
+        .directive('tooltip', Tooltip)
             .directive('badge', BadgeDirective)
             .directive('ripple', Ripple)
             .directive('styleclass', StyleClass)
@@ -224,5 +224,7 @@ createInertiaApp({
             .mount(el);
     },
 });
+
+
 
 InertiaProgress.init({ color: 'yellow' });
