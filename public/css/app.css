@@ -1,144 +1,201 @@
-html {
-    font-size: 16px;
-}
-
-body {
-    background-color: var(--surface-ground);
-    font-family: var(--font-family);
-    font-weight: normal;
-    color: var(--text-color);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    padding: .5em;
-    margin-bottom: 50px;
-}
-
-
-/* Carousel */
-
-
-/* End Carousel  */
-
-
-/* body */
-
-.bodys {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    padding: 0px;
-    position: absolute;
-    width: 1280px;
-    height: 3529px;
-}
-
-.cards {
-    width: 1280px;
-    height: 622px;
-    left: 0px;
-    top: 0px;
-}
-
-.card1 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 8px 3px;
-    position: absolute;
-    width: 245px;
-    left: 86px;
-    top: 170px;
-}
-
-.img1 {
-    flex-direction: column;
-    align-items: center;
-    width: 64px;
-    height: 64px;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 10px;
-    gap: 10px;
-}
-
-.card2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
-    width: 246px;
-    height: 345px;
-    left: 376px;
-    top: 175px;
-}
-
-.card3 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
-    width: 246px;
-    height: 345px;
-    left: 665px;
-    top: 175px;
-}
-
-.card4 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
-    width: 246px;
-    height: 345px;
-    left: 952px;
-    top: 170px;
-}
-
-.core {
-    align-items: center;
-    text-align: center;
-    letter-spacing: 0.325em;
-    position: absolute;
-    width: 1280px;
-    height: 92px;
-    left: 0px;
-    top: 40px;
-}
-
-.rsp {
-    display: flex;
-    gap: 93px;
-    width: 1280px;
-    height: 602px;
-}
-
-.rsp-1 {
-    padding: 10px;
-    gap: 10px;
-    width: 544px;
-    height: 498px;
-}
-
-.rsp-2 {
-    flex-direction: column;
-    align-items: center;
-    padding: 0px;
-    gap: 26px;
-    width: 488px;
-    height: 268px;
-    left: 697px;
-    top: 167px;
-}
-
-.rsp-h1 {
-    align-items: center;
-    text-align: center;
-}
-
-.rsp-3 {
-    text-align: center;
-    align-items: center;
-}
-
-
-/* end body */
+        html {
+            font-size: 16px;
+        }
+        
+        body {
+            background-color: var(--surface-ground);
+            font-family: var(--font-family);
+            font-weight: normal;
+            color: var(--text-color);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding: .5em;
+            margin-bottom: 50px;
+        }
+        /* Carousel */
+        /* End Carousel  */
+        /* body */
+        
+        .bodys {
+            align-content: center;
+            margin: auto;
+            width: 1280px;
+        }
+        
+        .cards {
+            position: relative;
+            height: 740px;
+            left: 0px;
+            top: 0px;
+        }
+        
+        .card1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 3px;
+            position: absolute;
+            width: 245px;
+            left: 86px;
+            top: 170px;
+            height: 500px;
+        }
+        
+        .img1 {
+            width: 64px;
+            height: 64px;
+        }
+        
+        .card2 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            width: 246px;
+            height: 500px;
+            padding: 8px 3px;
+            left: 376px;
+            top: 175px;
+        }
+        
+        .card3 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            width: 246px;
+            height: 500px;
+            left: 665px;
+            top: 175px;
+        }
+        
+        .card4 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            width: 246px;
+            height: 500px;
+            left: 952px;
+            top: 170px;
+        }
+        
+        .core {
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.325em;
+            position: absolute;
+            width: 1280px;
+            height: 92px;
+            left: 0px;
+            top: 40px;
+        }
+        
+        .rsp {
+            position: relative;
+            padding-left: 80px;
+            display: flex;
+            gap: 93px;
+            width: 1280px;
+            height: 600px;
+        }
+        
+        .rsp-rsp {
+            background-color: #F5FA00;
+        }
+        
+        .rsp-1 {
+            text-align: center;
+            gap: 10px;
+            width: 544px;
+            height: 498px;
+            left: 50px;
+            top: 52px;
+        }
+        
+        .rsp-2 {
+            text-align: center;
+            padding: 15px;
+            width: 488px;
+            height: 268px;
+            left: 697px;
+            top: 167px;
+        }
+        
+        .rsp-h1 {
+            align-items: center;
+            text-align: center;
+        }
+        
+        .rsp-3 {
+            text-align: center;
+            align-items: center;
+        }
+        
+        .spms-2 {
+            position: absolute;
+            padding: 0px;
+            width: 520px;
+            height: 325px;
+            left: 684px;
+            top: 111px;
+        }
+        
+        .spms-h1 {
+            align-items: center;
+            text-align: center;
+        }
+        
+        .spms {
+            padding-left: 85px;
+            gap: 93px;
+        }
+        
+        .spms-1 {
+            align-items: center;
+            padding: 0px;
+            gap: 26px;
+            width: 488px;
+            height: 268px;
+            left: 96px;
+            top: 128px;
+        }
+        
+        .readmore {
+            top: 80px;
+        }
+        
+        .readmore2 {
+            top: 13px;
+        }
+        
+        .readmore3 {
+            top: 17px;
+        }
+        
+        .readmore4 {
+            top: 5px
+        }
+        
+        .rsp4 {
+            position: relative;
+            width: 1280px;
+        }
+        
+        .rsp-img {
+            left: 0px;
+            top: 557px;
+            position: absolute;
+        }
+        
+        .rsp-img2 {
+            left: 0px;
+            top: 450px;
+            position: absolute;
+        }
+        
+        .img-rsp1 {
+            height: 228px;
+            width: 228px;
+        }
+        /* end body */
