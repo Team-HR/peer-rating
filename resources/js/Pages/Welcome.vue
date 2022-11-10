@@ -2,7 +2,7 @@
   <guest-nav v-if="!$page.props.auth.user"></guest-nav>
   <authed-nav v-else></authed-nav>
     <div class="bodys">
-      
+      s
       <div class="cards">        
         <h1 class="core">FOUR CORES OF HR SYSTEM</h1>
         <img src="../Pages/images/Vector.png" alt="">
