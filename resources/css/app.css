@@ -1,5 +1,6 @@
         html {
             font-size: 16px;
+            scroll-behavior: smooth;
         }
         
         body {
@@ -9,22 +10,22 @@
             color: var(--text-color);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            padding: .5em;
             margin-bottom: 50px;
+            transition: background-color 1s ease;
         }
         /* Carousel */
         /* End Carousel  */
         /* body */
         
         .bodys {
-            align-content: center;
             margin: auto;
-            width: 1280px;
+            width: 1440px;
         }
         
         .cards {
             position: relative;
-            height: 740px;
+            width: 1440px;
+            height: 603px;
             left: 0px;
             top: 0px;
         }
@@ -35,10 +36,10 @@
             align-items: center;
             padding: 8px 3px;
             position: absolute;
-            width: 245px;
-            left: 86px;
-            top: 170px;
-            height: 500px;
+            width: 310px;
+            height: 399px;
+            left: 70px;
+            top: 127px;
         }
         
         .img1 {
@@ -51,11 +52,11 @@
             flex-direction: column;
             align-items: center;
             position: absolute;
-            width: 246px;
-            height: 500px;
             padding: 8px 3px;
-            left: 376px;
-            top: 175px;
+            width: 308px;
+            height: 399px;
+            left: 400px;
+            top: 127px;
         }
         
         .card3 {
@@ -63,10 +64,11 @@
             flex-direction: column;
             align-items: center;
             position: absolute;
-            width: 246px;
-            height: 500px;
-            left: 665px;
-            top: 175px;
+            padding: 8px 3px;
+            width: 310px;
+            height: 399px;
+            left: 730px;
+            top: 127px;
         }
         
         .card4 {
@@ -74,10 +76,11 @@
             flex-direction: column;
             align-items: center;
             position: absolute;
-            width: 246px;
-            height: 500px;
-            left: 952px;
-            top: 170px;
+            padding: 8px 3px;
+            width: 310px;
+            height: 399px;
+            left: 1060px;
+            top: 127px;
         }
         
         .core {
@@ -85,7 +88,7 @@
             text-align: center;
             letter-spacing: 0.325em;
             position: absolute;
-            width: 1280px;
+            width: 1440px;
             height: 92px;
             left: 0px;
             top: 40px;
@@ -93,7 +96,7 @@
         
         .rsp {
             position: relative;
-            padding-left: 80px;
+            padding-left: 234px;
             display: flex;
             gap: 93px;
             width: 1280px;
@@ -190,12 +193,28 @@
         
         .rsp-img2 {
             left: 0px;
-            top: 450px;
+            top: 504px;
             position: absolute;
         }
         
         .img-rsp1 {
             height: 228px;
             width: 228px;
+        }
+        
+        .reveal {
+            position: relative;
+            transform: translateY(150px);
+            opacity: 0;
+            transition: 1s all ease;
+        }
+        
+        .reveal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .color-yellow {
+            background-color: #FAEB33;
         }
         /* end body */
