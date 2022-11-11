@@ -702,7 +702,6 @@ export default {
         icon: "pi pi-info-circle",
         acceptClass: "p-button-danger",
         accept: () => {
-          // console.log();
           this.$inertia.delete(
             this.current_url +
               "/accomplishment/" +

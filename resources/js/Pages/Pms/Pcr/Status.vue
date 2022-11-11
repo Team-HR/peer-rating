@@ -173,7 +173,15 @@ export default {
         no: 5,
         href: this.current_url + "/support_functions",
         label: "Support Function",
-        status: this.form_status.agency ? ` ` : "Set Form Type first!",
+        status: (() => {
+          var total_percentage_weight = this.form_status.support_total_percentage_weight
+            ? this.form_status.support_total_percentage_weight
+            : "_________";
+          var total_average_rating = this.form_status.support_total_average_rating
+            ? this.form_status.support_total_average_rating
+            : "_________";
+          return `Total Percentage Allocated (%): <b class="text-green-700 mr-3">${total_percentage_weight}</b>Total Average Rating: <b class="text-green-700 mr-3">${total_average_rating}</b>`;
+        })(),
         is_disabled: !this.form_status.agency ? true : false,
       },
       {

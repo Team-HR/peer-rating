@@ -43,39 +43,57 @@ td {
         <table class="w-full">
           <thead>
             <tr>
+              <th class="text-xl">{{ total_percentage_weight }}%</th>
               <th class="text-xl">Support Function</th>
               <th class="text-xl">Success Indicator</th>
               <th class="text-xl">Actual Accomplishment</th>
-              <th class="text-xl">Q</th>
-              <th class="text-xl">E</th>
-              <th class="text-xl">T</th>
-              <th class="text-xl">A</th>
+              <th class="text-xl" style="width: 40px">Q</th>
+              <th class="text-xl" style="width: 40px">E</th>
+              <th class="text-xl" style="width: 40px">T</th>
+              <th class="text-xl" style="width: 40px">
+                A ({{ total_numerical_rating ? total_numerical_rating + "%" : "" }})
+              </th>
               <th class="text-xl">Options</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(row, i) in rows" :key="i">
-              <td colspan="8">{{row}}</td>
-              <!-- <td class="text-lg">{{ row.support_function }}</td>
+              <!-- <td colspan="8">{{row}}</td> -->
+              <td class="text-lg text-center">{{ row.percent }}%</td>
+              <td class="text-lg">{{ row.support_function }}</td>
               <td class="text-lg">{{ row.success_indicator }}</td>
-              <template v-if="row.support_func_data_id">
+              <template v-if="row.id">
                 <td class="text-lg">{{ row.accomplishment }}</td>
                 <td class="text-center">{{ row.quality }}</td>
                 <td class="text-center">{{ row.efficiency }}</td>
                 <td class="text-center">{{ row.timeliness }}</td>
                 <td class="text-center">{{ row.average }}</td>
-                <td class="text-center">Edit ___ Reset</td>
+                <td class="text-center">
+                  <Button
+                    label="Edit"
+                    class="p-button-text p-button-primary"
+                    icon="bi bi-pencil-square"
+                    @click="openAddEditModal(row)"
+                  />
+                  <Button
+                    label="Reset"
+                    class="p-button-text p-button-danger"
+                    icon="bi bi-arrow-counterclockwise"
+                    type="button"
+                    @click="resetAccomplishment(row.id)"
+                  />
+                </td>
               </template>
               <template v-else>
                 <td colspan="6" class="text-center">
                   <Button
                     label="Add Accomplishment"
-                    class="p-button-danger"
+                    class="p-button-raised p-button-text"
                     icon="bi bi-check2-circle"
                     @click="openAddEditModal(row)"
                   />
                 </td>
-              </template> -->
+              </template>
             </tr>
           </tbody>
         </table>
@@ -89,35 +107,59 @@ td {
       style="width: 1000px"
     >
       <div class="m-2">
-        <form @submit.prevent="">
-          <h3 class="text-xl">Support Function:</h3>
-          <p class="text-xl ml-5">{{ editAccomplishment.support_function }}</p>
-          <h3 class="text-xl">Success Indicator:</h3>
-          <p class="text-xl ml-5">{{ editAccomplishment.success_indicator }}</p>
-          <h3 class="text-xl">Acctual Accomplishment:</h3>
+        <form id="submitAccomplishmentForm" @submit.prevent="submitAccomplishment">
+          <table class="mb-2" style="width: 100%">
+            <tr>
+              <td class="text-xl font-bold" style="width: 195px">Support Function:</td>
+              <td class="text-xl">{{ editAccomplishment.support_function }}</td>
+            </tr>
+            <tr>
+              <td class="text-xl font-bold">Success Indicator:</td>
+              <td class="text-xl">
+                {{ editAccomplishment.success_indicator }}
+                <Button
+                  label="Copy"
+                  icon="bi bi-box-arrow-down"
+                  class="p-button-text"
+                  @click="
+                    editAccomplishment.accomplishment =
+                      editAccomplishment.success_indicator
+                  "
+                />
+              </td>
+            </tr>
+          </table>
+          <label class="font-bold text-xl my-2">Actual Accomplishment:</label>
+
           <Textarea
             v-model="editAccomplishment.accomplishment"
-            rows="5"
+            rows="3"
             style="width: 100%"
             placeholder="Enter actual accomplishment here..."
+            class="mt-2"
+            required
           />
 
-          <!-- <div class="field" v-if="core_function.quality.length > 0">
-            <div class="font-bold">Quality:</div>
-            <template v-for="(quality, i) in core_function.quality" :key="i">
-              <div v-if="quality">
-                <input
-                  type="radio"
-                  name="quality"
-                  :value="5 - i"
-                  :id="`quality${i}`"
-                  v-model="accomplishment.quality"
-                  required
-                />
-                <label :for="`quality${i}`">{{ `${5 - i} - ${quality}` }}</label>
-              </div>
-            </template>
-          </div> -->
+          <MeasureSelector
+            v-if="editAccomplishment.quality_options"
+            name="Quality"
+            :options="editAccomplishment.quality_options"
+            v-model="editAccomplishment.quality"
+          />
+
+          <MeasureSelector
+            v-if="editAccomplishment.efficiency_options"
+            name="Efficiency"
+            :options="editAccomplishment.efficiency_options"
+            v-model="editAccomplishment.efficiency"
+          />
+
+          <MeasureSelector
+            v-if="editAccomplishment.timeliness_options"
+            name="Timeliness"
+            :options="editAccomplishment.timeliness_options"
+            v-model="editAccomplishment.timeliness"
+          />
         </form>
       </div>
 
@@ -129,9 +171,10 @@ td {
           class="p-button-text"
         />
         <Button
-          label="Yes"
-          icon="pi pi-check"
-          @click="addEditModal = false"
+          type="submit"
+          form="submitAccomplishmentForm"
+          label="Save"
+          icon="pi pi-save"
           class="p-button-text"
           autofocus
         />
@@ -142,15 +185,19 @@ td {
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
 import PmsToolbar from "@/Layouts/PmsToolbar";
+import MeasureSelector from "@/Components/Pms/Pcr/MeasureSelector.vue";
 
 export default {
   props: {
     period: null,
     rows: null,
+    total_numerical_rating: null,
+    total_percentage_weight: null,
   },
   components: {
     AuthLayout,
     PmsToolbar,
+    MeasureSelector,
   },
   data() {
     return {
@@ -159,15 +206,52 @@ export default {
       accomplishment_modal: false,
       not_applicable_modal: false,
       editAccomplishment: this.$inertia.form({
-        support_func_data_id: null,
+        id: null,
+        support_func_id: null,
         support_function: null,
         success_indicator: null,
         accomplishment: null,
+        quality_options: null,
+        quality: null,
+        efficiency_options: null,
+        efficiency: null,
+        timeliness_options: null,
+        timeliness: null,
+        percent: null,
       }),
       addEditModal: false,
     };
   },
   methods: {
+    resetAccomplishment(id) {
+      this.$confirm.require({
+        message: "Resetting this accomplishment will empty its values, proceed?",
+        header: "Reset Confirmation",
+        icon: "pi pi-info-circle",
+        acceptClass: "p-button-danger",
+        accept: () => {
+          this.$inertia.delete(this.current_url + "/accomplishment/" + id, {
+            preserveScroll: true,
+            onSuccess: () => {
+              this.$toast.add({
+                severity: "info",
+                summary: "Confirmed",
+                detail: "Accomplishment resetted",
+                life: 3000,
+              });
+            },
+          });
+        },
+        reject: () => {
+          // this.$toast.add({
+          //   severity: "error",
+          //   summary: "Rejected",
+          //   detail: "You have rejected",
+          //   life: 3000,
+          // });
+        },
+      });
+    },
     go_back() {
       // window.history.back();
       var pathname = document.location.pathname;
@@ -189,12 +273,44 @@ export default {
     },
 
     openAddEditModal(row) {
-      this.editAccomplishment.support_func_data_id = row.support_func_data_id;
+      this.editAccomplishment.id = row.id;
+      this.editAccomplishment.support_func_id = row.support_func_id;
       this.editAccomplishment.support_function = row.support_function;
       this.editAccomplishment.success_indicator = row.success_indicator;
       this.editAccomplishment.accomplishment = row.accomplishment;
-
+      this.editAccomplishment.quality_options = row.quality_options;
+      this.editAccomplishment.quality = row.quality;
+      this.editAccomplishment.efficiency_options = row.efficiency_options;
+      this.editAccomplishment.efficiency = row.efficiency;
+      this.editAccomplishment.timeliness_options = row.timeliness_options;
+      this.editAccomplishment.timeliness = row.timeliness;
+      this.editAccomplishment.percent = row.percent;
       this.addEditModal = true;
+    },
+
+    submitAccomplishment() {
+      this.editAccomplishment.post(this.current_url + "/accomplishment", {
+        preserveScroll: true,
+        onSuccess: () => {
+          if (!this.editAccomplishment.support_func_data_id) {
+            this.$toast.add({
+              severity: "success",
+              summary: "Accomplished!",
+              detail: "Accomplishment saved!",
+              life: 3000,
+            });
+          } else {
+            this.$toast.add({
+              severity: "success",
+              summary: "Updated!",
+              detail: "Accomplishment updated!",
+              life: 3000,
+            });
+          }
+          this.addEditModal = false;
+          // this.clear_accomplishment();
+        },
+      });
     },
   },
   created() {
