@@ -19,7 +19,7 @@ class SupportFunctionController extends Controller
         $period = PmsPeriod::find($pms_period_id);
         $rows = [];
         $sys_employee_id = auth()->user()->sys_employee_id;
-        $support_function_data = get_support_function_rows($sys_employee_id, $pms_period_id);
+        $support_function_data = $this->get_support_function_rows($sys_employee_id, $pms_period_id);
         return Inertia::render("Pms/Pcr/SupportFunctions", [
             "period" => $period, "rows" => $support_function_data["data"],
             "total_numerical_rating" => $support_function_data["total_numerical_rating"],
@@ -64,99 +64,101 @@ class SupportFunctionController extends Controller
         $accomplishment->delete();
         return Redirect::back();
     }
-}
 
-/**
- * 
- * Get all support functions with accomplishment from 
- * PmsPerformanceCommitmentReviewSupportFunctionData
- * with form type, pms_period_id and sys_employee_id
- * 
- * */
 
-function get_support_function_rows($sys_employee_id, $pms_period_id)
-{
-    $data = [];
-    $total_numerical_rating = 0;
-    $total_percentage_weight = 0;
+    /**
+     * 
+     * Get all support functions with accomplishment from 
+     * PmsPerformanceCommitmentReviewSupportFunctionData
+     * with form type, pms_period_id and sys_employee_id
+     * 
+     * */
 
-    $support_functions = get_support_functions($sys_employee_id, $pms_period_id);
+    public function get_support_function_rows($sys_employee_id, $pms_period_id)
+    {
+        $data = [];
+        $total_numerical_rating = 0;
+        $total_percentage_weight = 0;
 
-    foreach ($support_functions as $key => $support_func) {
+        $support_functions = get_support_functions($sys_employee_id, $pms_period_id);
 
-        $id = $support_func["id"];
-        $support_func_data = PmsPerformanceCommitmentReviewSupportFunctionData::where('pms_performance_commitment_review_support_function_id', $id)->where('sys_employee_id', $sys_employee_id)->where('pms_period_id', $pms_period_id)->first();
+        foreach ($support_functions as $key => $support_func) {
 
-        $percent = $support_func["percent"];
+            $id = $support_func["id"];
+            $support_func_data = PmsPerformanceCommitmentReviewSupportFunctionData::where('pms_performance_commitment_review_support_function_id', $id)->where('sys_employee_id', $sys_employee_id)->where('pms_period_id', $pms_period_id)->first();
 
-        $support_func_data_id = null;
-        $accomplishment = null;
-        $quality = null;
-        $efficiency = null;
-        $timeliness = null;
-        $average = null;
-        // $percent = 0;
+            $percent = $support_func["percent"];
 
-        if ($support_func_data) {
-            $support_func_data_id = $support_func_data["id"];
-            $accomplishment = $support_func_data["accomplishment"];
-            $quality = $support_func_data["quality"];
-            $efficiency = $support_func_data["efficiency"];
-            $timeliness = $support_func_data["timeliness"];
-            $percent_data = $support_func_data["percent"];
+            $support_func_data_id = null;
+            $accomplishment = null;
+            $quality = null;
+            $efficiency = null;
+            $timeliness = null;
+            $average = null;
+            // $percent = 0;
 
-            if ($percent_data != 0) {
-                $count = 0;
-                $total_scores = 0;
-                if ($quality) {
-                    $count++;
-                    $total_scores += $quality;
-                }
-                if ($efficiency) {
-                    $count++;
-                    $total_scores += $efficiency;
-                }
-                if ($timeliness) {
-                    $count++;
-                    $total_scores += $timeliness;
-                }
-                if ($count > 0) {
-                    $average = ($total_scores / $count) * $percent_data / 100;
-                    $average = floatval(number_format($average, 3));
-                    $total_numerical_rating += $average;
+            if ($support_func_data) {
+                $support_func_data_id = $support_func_data["id"];
+                $accomplishment = $support_func_data["accomplishment"];
+                $quality = $support_func_data["quality"];
+                $efficiency = $support_func_data["efficiency"];
+                $timeliness = $support_func_data["timeliness"];
+                $percent_data = $support_func_data["percent"];
+
+                if ($percent_data != 0) {
+                    $count = 0;
+                    $total_scores = 0;
+                    if ($quality) {
+                        $count++;
+                        $total_scores += $quality;
+                    }
+                    if ($efficiency) {
+                        $count++;
+                        $total_scores += $efficiency;
+                    }
+                    if ($timeliness) {
+                        $count++;
+                        $total_scores += $timeliness;
+                    }
+                    if ($count > 0) {
+                        $average = ($total_scores / $count) * $percent_data / 100;
+                        $average = floatval(number_format($average, 3));
+                        $total_numerical_rating += $average;
+                    }
                 }
             }
+
+            $datum = [
+                "id" => $support_func_data_id,
+                "support_func_id" => $id,
+                "support_function" => $support_func["support_function"],
+                "success_indicator" => $support_func["success_indicator"],
+                "accomplishment" => $accomplishment,
+                "quality_options" => $support_func["quality"],
+                "quality" => $quality,
+                "efficiency_options" => $support_func["efficiency"],
+                "efficiency" => $efficiency,
+                "timeliness_options" => $support_func["timeliness"],
+                "timeliness" => $timeliness,
+                "average" => $average,
+                "percent" => $percent
+            ];
+            $total_percentage_weight += $percent;
+            $data[] = $datum;
         }
 
-        $datum = [
-            "id" => $support_func_data_id,
-            "support_func_id" => $id,
-            "support_function" => $support_func["support_function"],
-            "success_indicator" => $support_func["success_indicator"],
-            "accomplishment" => $accomplishment,
-            "quality_options" => $support_func["quality"],
-            "quality" => $quality,
-            "efficiency_options" => $support_func["efficiency"],
-            "efficiency" => $efficiency,
-            "timeliness_options" => $support_func["timeliness"],
-            "timeliness" => $timeliness,
-            "average" => $average,
-            "percent" => $percent
+
+        $data = [
+            "data" => $data,
+            "total_numerical_rating" => bcdiv($total_numerical_rating, 1, 2),
+            "total_percentage_weight" => $total_percentage_weight
         ];
-        $total_percentage_weight += $percent;
-        $data[] = $datum;
+
+
+        return $data;
     }
-
-
-    $data = [
-        "data" => $data,
-        "total_numerical_rating" => $total_numerical_rating,
-        "total_percentage_weight" => $total_percentage_weight
-    ];
-
-
-    return $data;
 }
+
 
 /**
  * 

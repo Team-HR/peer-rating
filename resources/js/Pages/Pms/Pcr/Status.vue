@@ -101,8 +101,8 @@ export default {
             ? this.form_status.form_type.toUpperCase()
             : "________";
           return this.form_status.agency
-            ? `Agency: <b class="text-green-700 mr-3"> ${agency} </b>
-               Type: <b class="text-green-700 mr-3"> ${form_type}</b>`
+            ? `Agency: <b class="text-green-700_ mr-3"> ${agency} </b>
+               Type: <b class="text-green-700_ mr-3"> ${form_type}</b>`
             : "Please set Form Type!";
         })(),
       },
@@ -136,8 +136,8 @@ export default {
           head_of_agency = this.form_status.signatories_inputs.head_of_agency
             ? this.form_status.signatories_inputs.head_of_agency
             : "_________";
-          return `Immediate Supervisor: <b class="text-green-700 mr-3"> ${immediate_supervisor}</b>
-                    Department Head:<b class="text-green-700 mr-3"> ${department_head}</b> Head of Agency: <b class="text-green-700">${head_of_agency}</b>`;
+          return `Immediate Supervisor: <b class="text-green-700_ mr-3"> ${immediate_supervisor}</b>
+                    Department Head:<b class="text-green-700_ mr-3"> ${department_head}</b> Head of Agency: <b class="text-green-700_">${head_of_agency}</b>`;
         })(),
         is_disabled: !this.form_status.agency ? true : false,
       },
@@ -152,7 +152,7 @@ export default {
           var total_average_rating = this.form_status.total_average_rating
             ? this.form_status.total_average_rating
             : "_________";
-          return `Total Percentage Allocated (%): <b class="text-green-700 mr-3">${total_percentage_weight}</b>Total Average Rating: <b class="text-green-700 mr-3">${total_average_rating}</b>`;
+          return this.status_text(total_percentage_weight, total_average_rating);
         })(),
       },
       {
@@ -166,7 +166,7 @@ export default {
           var total_average_rating = this.form_status.strat_total_average_rating
             ? this.form_status.strat_total_average_rating
             : "_________";
-          return `Total Percentage Allocated (%): <b class="text-green-700 mr-3">${total_percentage_weight}</b>Total Average Rating: <b class="text-green-700 mr-3">${total_average_rating}</b>`;
+          return this.status_text(total_percentage_weight, total_average_rating);
         })(),
       },
       {
@@ -180,19 +180,35 @@ export default {
           var total_average_rating = this.form_status.support_total_average_rating
             ? this.form_status.support_total_average_rating
             : "_________";
-          return `Total Percentage Allocated (%): <b class="text-green-700 mr-3">${total_percentage_weight}</b>Total Average Rating: <b class="text-green-700 mr-3">${total_average_rating}</b>`;
+          return this.status_text(total_percentage_weight, total_average_rating);
         })(),
         is_disabled: !this.form_status.agency ? true : false,
       },
       {
         no: 6,
         href: this.current_url + "/submit",
-        label: "Submit",
+        label: "Finalize",
+        status: (() => {
+          var total_percentage_weight = this.form_status.overall_percentage_weight
+            ? this.form_status.support_total_percentage_weight
+            : "_________";
+          var total_average_rating = this.form_status.overall_numerical_rating
+            ? this.form_status.support_total_average_rating
+            : "_________";
+          return `Total Percentage Weight (%): <b class="text-green-700_ mr-3">${total_percentage_weight}%</b>Total Numerical Rating: <b class="text-green-700_ mr-3">${total_average_rating}</b>`;
+        })(),
       },
     ];
 
     this.items = items;
   },
+
+  methods: {
+    status_text(total_percentage_weight, total_average_rating) {
+      return `Percentage Weight (%): <b class="text-green-700_ mr-3">${total_percentage_weight}%</b>Rating: <b class="text-green-700_ mr-3">${total_average_rating}</b>`;
+    },
+  },
+
   mounted() {
     // console.log(this.form_status);
   },

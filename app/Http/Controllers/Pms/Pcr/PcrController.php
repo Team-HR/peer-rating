@@ -10,6 +10,7 @@ use App\Models\PmsPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use App\Http\Controllers\Pms\Pcr\SupportFunctionController;
 
 class PcrController extends Controller
 {
@@ -46,7 +47,13 @@ class PcrController extends Controller
         $form_status["total_average_rating"] = isset($data["total_average_rating"]) ? $data["total_average_rating"] : 0;
         $form_status["strat_total_percentage_weight"] = isset($data["strat_total_percentage_weight"]) ? $data["strat_total_percentage_weight"] : 0;
         $form_status["strat_total_average_rating"] = isset($data["strat_total_average_rating"]) ? $data["strat_total_average_rating"] : 0;
-        // $form_status["total_percentage_weight"] = 0;
+        $support_function_controller = new SupportFunctionController();
+        $support_function_data = $support_function_controller->get_support_function_rows($sys_employee_id, $period_id);
+        $form_status["support_total_percentage_weight"] = $support_function_data["total_percentage_weight"];
+        $form_status["support_total_average_rating"] =  $support_function_data["total_numerical_rating"];
+
+        $form_status["overall_percentage_weight"] = 0;
+        $form_status["overall_numerical_rating"] = 0;
         // $form_status["total_average_rating"] = 0;
         // $form_status["strat_total_percentage_weight"] = 0;
         // $form_status["strat_total_average_rating"] = 0;
