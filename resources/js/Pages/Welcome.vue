@@ -1,9 +1,25 @@
 <template>
   <guest-nav v-if="!$page.props.auth.user"></guest-nav>
   <authed-nav v-else></authed-nav>
-  
+
+
+
+
+ 
+
   <div class="bodys">
-    <div class="cards w-auto">
+    <div class="carousel">
+    <div class="slides">
+      <img src="../Pages/images/1613477375284-01.jpeg" alt="slide image" class="slide">
+      <img src="../Pages/images/20170905182728_IMG_5474-01-01.jpeg" alt="slide image" class="slide">
+      <img src="../Pages/images/DSC_6185-01-02.jpeg" alt="slide image" class="slide">
+    </div>
+    <div class="controls">
+      <div class="control prev-slide">&#9668;</div>
+      <div class="control next-slide">&#9658;</div>
+    </div>
+  </div>
+    <div class="cards w-auto reveal" >
       <h1 class="core">FOUR CORES OF HR SYSTEM</h1>
       <img src="../Pages/images/Vector4.png" alt="">
       <div class="card1">
@@ -47,7 +63,7 @@
         </div>
         <Button class=" p-button-info readmore3" onclick="document.location='#section3'">Read More</Button>
       </div>
-      <div class="card4" >
+      <div class="card4">
         <img src="../Pages/images/shield.png" class="img1" alt="">
         <div>
           <h5 style="text-align: center;font-size: 12px;">RECRUITMENT, SELECTION AND PLACEMENT</h5>
@@ -65,7 +81,7 @@
     </div>
     <!-- RSP -->
     <div class="rsp reveal section" data-background-color="transparent" id="section1">
-      <div class="rsp-1"  >
+      <div class="rsp-1">
         <img class="rsp-img" src="../Pages/images/Vector1.png" alt="">
         <Accordion :active-index="3">
           <AccordionTab v-for="RSP in RSP" :key="RSP.title" :header="RSP.title">
@@ -132,7 +148,6 @@
           </AccordionTab>
         </Accordion>
       </div>
-
     </div>
   </div>
 </template>  
@@ -140,6 +155,9 @@
 // import "../../css/welcome.min.css";
 import GuestNav from "@/Layouts/Guest.vue";
 import AuthedNav from "@/Layouts/Authenticated.vue";
+import PhotoService from "../Layouts/PhotoService";
+
+
 
 export default {
   props: {},
@@ -149,6 +167,7 @@ export default {
   },
   data() {
     return {
+     
       display: true,
       displayBasic: false,
       RSP: [
@@ -260,10 +279,12 @@ export default {
           title: "Consolidation",
           content: "Integration and evaluation of training feedbacks to assess if target outcomes are achieved."
         },
-
       ]
-
     };
+  },
+ 
+  created() {
+    
   },
   methods: {
     openBasic() {
@@ -274,25 +295,68 @@ export default {
       this.displayBasic = false;
     },
   },
-  mounted() {},  
+  mounted() {
+   
+
+    // carousel
+    const delay = 6000; //ms
+
+    const slides = document.querySelector(".slides");
+    const slidesCount = slides.childElementCount;
+    const maxLeft = (slidesCount - 1) * 100 * -1;
+
+    let current = 0;
+
+    function changeSlide(next = true) {
+      if (next) {
+        current += current > maxLeft ? -100 : current * -1;
+      } else {
+        current = current < 0 ? current + 100 : maxLeft;
+      }
+
+      slides.style.left = current + "%";
+    }
+
+    let autoChange = setInterval(changeSlide, delay);
+    const restart = function () {
+      clearInterval(autoChange);
+      autoChange = setInterval(changeSlide, delay);
+    };
+
+    // Controls
+    document.querySelector(".next-slide").addEventListener("click", function () {
+      changeSlide();
+      restart();
+    });
+
+    document.querySelector(".prev-slide").addEventListener("click", function () {
+      changeSlide(false);
+      restart();
+    });
+    // end of carousel
+
+  },
 };
 
 function reveal() {
-      var reveals = document.querySelectorAll(".reveal");
+  var reveals = document.querySelectorAll(".reveal");
 
-      for (var i = 0; i < reveals.length; i++) {
-        var windowHeight = window.innerHeight;
-        var elementTop = reveals[i].getBoundingClientRect().top;
-        var elementVisible = 150;
+  for (var i = 0; i < reveals.length; i++) {
+    var windowHeight = window.innerHeight;
+    var elementTop = reveals[i].getBoundingClientRect().top;
+    var elementVisible = 150;
 
-        if (elementTop < windowHeight - elementVisible) {
-          reveals[i].classList.add("active");
-        } else {
-          reveals[i].classList.remove("active");
-        }
-      }
+    if (elementTop < windowHeight - elementVisible) {
+      reveals[i].classList.add("active");
+    } else {
+      reveals[i].classList.remove("active");
     }
-    window.addEventListener("scroll", reveal);
+  }
+}
+window.addEventListener("scroll", reveal);
+
+
+
 
 // scroll animation
 
