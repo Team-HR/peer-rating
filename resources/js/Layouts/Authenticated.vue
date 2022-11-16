@@ -1,18 +1,24 @@
 <template>
   <navbar class="fixed top-0 left-0 w-full">
     <template #links>
-      <Button v-for="(item, i) in items" :key="i" @click="$inertia.get(item.to)" class="mx-1"
-        :class="is_active_url(item.to) ? 'p-button-raised ' : ''" v-tooltip="item.description" :icon="item.icon"
-        :label="item.label" />
+      <Button
+        v-for="(item, i) in items"
+        :key="i"
+        @click="$inertia.get(item.to)"
+        class="mx-1"
+        :class="is_active_url(item.to) ? 'p-button-raised' : ''"
+        v-tooltip="item.description"
+        :icon="item.icon"
+        :label="item.label"
+      />
     </template>
     <template #right-items>
-      <span class="mr-5 text-white flex align-items-center justify-content-between mx-2">{{
-          `${$page.props.auth.user.username} (${$page.props.auth.user.roles})`
+      <span class="mr-5 text-white">{{
+        `${$page.props.auth.user.username} (${$page.props.auth.user.roles})`
       }}</span>
       <Button @click="$inertia.post(route('logout'))" class="p-button-danger">
         Logout
       </Button>
-
     </template>
   </navbar>
   <div class="mx-auto mt-7">
@@ -58,12 +64,6 @@ export default {
       }
       return false;
     },
-
-
   },
-
-  mounted() {
-
-  }
 };
 </script>
