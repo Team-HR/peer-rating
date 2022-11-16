@@ -1,14 +1,18 @@
 <template>
   <Toolbar class="mb-3 bg-blue-50 w-full">
     <template #start>
-      <h3 class="mr-3 uppercase ">
+      <h3 class="mr-3 uppercase">
         <i class="bi bi-graph-up-arrow mr-2"></i> Performance Management System
       </h3>
       <div class="pl-4 grid">
         <template v-for="(item, i) in items" :key="i">
-          <Button class="mr-2" :class="
-            is_active_url(item.href) ? 'p-button-raised' : 'p-button-text '
-          " :icon="item.icon" :label="item.title" @click="$inertia.get(item.href)" />
+          <Button
+            class="mr-2"
+            :class="is_active_url(item.href) ? 'p-button-raised' : 'p-button-text '"
+            :icon="item.icon"
+            :label="item.title"
+            @click="$inertia.get(item.href)"
+          />
         </template>
       </div>
     </template>
@@ -23,7 +27,7 @@
 <script>
 export default {
   props: {
-    auth: null, 
+    auth: null,
   },
   data() {
     return {
@@ -61,14 +65,24 @@ export default {
       ];
 
       if (this.$page.props.auth.user.roles) {
-        const rsm = {
-          title: "Matrix",
-          href: "/pms/rsm",
-          description: "",
-          icon: "bi bi-book",
-        };
         if (this.$page.props.auth.user.roles.includes("rsm")) {
-          items.push(rsm);
+          items.push({
+            title: "Matrix",
+            href: "/pms/rsm",
+            description: "",
+            icon: "bi bi-book",
+          });
+        }
+      }
+
+      if (this.$page.props.auth.user.roles) {
+        if (this.$page.props.auth.user.roles.includes("prating")) {
+          items.push({
+            title: "Peer Rating 2022",
+            href: "/pms/peer-rating-2022",
+            description: "",
+            icon: "bi bi-person-bounding-box",
+          });
         }
       }
 

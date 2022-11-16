@@ -61,4 +61,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get("/pms/pcr/{period_id}/support_functions", [SupportFunctionController::class, "show"]);
     Route::post("/pms/pcr/{period_id}/support_functions/accomplishment", [SupportFunctionController::class, "create_accomplishment"]);
     Route::delete("/pms/pcr/{period_id}/support_functions/accomplishment/{support_function_data_id}", [SupportFunctionController::class, "delete_accomplishment"]);
+
+    #rpc - review performance commitment reports
+    Route::get("/pms/rpc", [SupportFunctionController::class, "index"]);
 });

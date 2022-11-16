@@ -214,6 +214,9 @@ export default {
     status_text(total_percentage_weight, total_average_rating) {
       return `Percentage Weight (%): <b class="text-green-700_ mr-3">${total_percentage_weight}%</b>Rating: <b class="text-green-700_ mr-3">${total_average_rating}</b>`;
     },
+    go_back() {
+      window.history.back();
+    },
   },
 
   mounted() {

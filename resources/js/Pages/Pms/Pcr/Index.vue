@@ -7,9 +7,7 @@
           ><i class="bi bi-book mr-2"></i> Performannce Commitment Review</span
         ></template
       >
-      <template #subtitle
-        >Accomplish/Review your Performance Commitment</template
-      >
+      <template #subtitle>Accomplish/Review your Performance Commitment</template>
       <template #content>
         <form @submit.prevent="$inertia.get('/pms/pcr/' + period_id)">
           <label class="mr-2">Selected Period:</label>
@@ -53,5 +51,3 @@ export default {
   mounted() {},
 };
 </script>
-
-

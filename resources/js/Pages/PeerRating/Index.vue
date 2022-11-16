@@ -1,5 +1,6 @@
 <template>
   <auth-layout>
+    <PmsToolbar />
     <Card class="w-full h-30rem">
       <template #title>
         <span class="uppercase">Peer Rating Jan-June 2022</span>
@@ -10,7 +11,11 @@
         <!-- Departments: -->
         <form class="mb-5" method="post" @submit.prevent="add_new_department()">
           <!-- <input type="text" v-model="form.department" /> -->
-          <InputText type="text" v-model="form.department" placeholder="Add a Department" />
+          <InputText
+            type="text"
+            v-model="form.department"
+            placeholder="Add a Department"
+          />
           <Button :disabled="!form.department" class="ml-2" type="submit">Add</Button>
         </form>
         <!-- <template v-for="(department, i) in departments" :key="department.id">
@@ -18,35 +23,55 @@
             class="p-button-text p-button-raised uppercase m-2"
             icon="pi pi-folder"
             @click="
-              $inertia.get('/peer-rating-2022/' + department.id + '/files')
+              $inertia.get('/pms/peer-rating-2022/' + department.id + '/files')
             "
             :label="`${i + 1}. ${department.name}`"
           >
           </Button>
         </template> -->
-        <DataTable :value="departments" responsiveLayout="scroll" class="mt-2 p-datatable-sm" selectionMode="single">
+        <DataTable
+          :value="departments"
+          responsiveLayout="scroll"
+          class="mt-2 p-datatable-sm"
+          selectionMode="single"
+        >
           <Column field="id" header="ID" style="width: 20px"></Column>
-          <Column header="OPTIONS" headerStyle="text-align: center;" style="width: 350px; text-align: center">
+          <Column
+            header="OPTIONS"
+            headerStyle="text-align: center;"
+            style="width: 350px; text-align: center"
+          >
             <template #body="slotProps">
               <!-- {{slotProps}} -->
-              <Button class="p-button-text p-button-sm mr-2" label="Open" @click="
-                $inertia.get(
-                  '/peer-rating-2022/' + slotProps.data.id + '/files'
-                )
-              "></Button>
-              <Button class="p-button-text p-button-sm p-button-success mr-2" label="Rename"
-                @click="edit_record(slotProps.data)"></Button>
-              <Button class="p-button-text p-button-sm p-button-danger" label="Delete"
-                @click="delete_record(slotProps.data.id)"></Button>
+              <Button
+                class="p-button-text p-button-sm mr-2"
+                label="Open"
+                @click="
+                  $inertia.get('/pms/peer-rating-2022/' + slotProps.data.id + '/files')
+                "
+              ></Button>
+              <Button
+                class="p-button-text p-button-sm p-button-success mr-2"
+                label="Rename"
+                @click="edit_record(slotProps.data)"
+              ></Button>
+              <Button
+                class="p-button-text p-button-sm p-button-danger"
+                label="Delete"
+                @click="delete_record(slotProps.data.id)"
+              ></Button>
             </template>
           </Column>
           <Column field="name" header="OFFICE"></Column>
         </DataTable>
 
         <!-- edit modal start -->
-        <Dialog v-model:visible="edit_modal" modal 
-        :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
-        :style="{ width: '30vw' }">
+        <Dialog
+          v-model:visible="edit_modal"
+          modal
+          :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
+          :style="{ width: '30vw' }"
+        >
           <template #header>
             <h3>Rename Office</h3>
           </template>
@@ -55,15 +80,30 @@
             <div class="formgrid grid">
               <div class="field col-12 md:col-8">
                 <label for="office_name_input">Name of Office:</label><br />
-                <InputText class="w-full" id="office_name_input" type="text" v-model="edit_form.name" />
+                <InputText
+                  class="w-full"
+                  id="office_name_input"
+                  type="text"
+                  v-model="edit_form.name"
+                />
               </div>
             </div>
-
           </form>
 
           <template #footer>
-            <Button label="No" icon="pi pi-times" class="p-button-text" @click="edit_modal = false" />
-            <Button form="rename_form" label="Save" icon="pi pi-save" autofocus type="submit" />
+            <Button
+              label="No"
+              icon="pi pi-times"
+              class="p-button-text"
+              @click="edit_modal = false"
+            />
+            <Button
+              form="rename_form"
+              label="Save"
+              icon="pi pi-save"
+              autofocus
+              type="submit"
+            />
           </template>
         </Dialog>
         <!-- edit modal end -->
@@ -75,12 +115,14 @@
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
 import { Inertia } from "@inertiajs/inertia";
+import PmsToolbar from "@/Layouts/PmsToolbar";
 export default {
   props: {
     departments: Array,
   },
   components: {
     AuthLayout,
+    PmsToolbar,
   },
   data() {
     return {
@@ -146,7 +188,7 @@ export default {
     },
 
     add_new_department() {
-      this.form.post("/peer-rating-2022", {
+      this.form.post("/pms/peer-rating-2022", {
         onSuccess: () => this.form.reset(),
       });
     },

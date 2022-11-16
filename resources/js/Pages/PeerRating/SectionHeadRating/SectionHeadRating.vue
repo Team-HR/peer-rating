@@ -21,9 +21,9 @@ td {
 }
 </style>
 
-
 <template>
   <auth-layout>
+    <PmsToolbar />
     <Card class="w-full">
       <template #title>
         <Button
@@ -46,9 +46,7 @@ td {
             :filter="true"
             filterPlaceholder="Search name"
           />
-          <Button :disabled="!form.employee" class="ml-2" type="submit"
-            >Add</Button
-          >
+          <Button :disabled="!form.employee" class="ml-2" type="submit">Add</Button>
         </form>
         <!-- #####################################    TABLE START   ############################################ -->
         <table class="mt-5">
@@ -56,12 +54,7 @@ td {
             <th rowspan="2">#</th>
             <td rowspan="2"></td>
             <th class="table-divider" rowspan="2">Name</th>
-            <th
-              class="table-divider"
-              colspan="5"
-              v-for="(num, i) in 4"
-              :key="i"
-            >
+            <th class="table-divider" colspan="5" v-for="(num, i) in 4" :key="i">
               {{ `Criteria ${i}` }}
             </th>
           </tr>
@@ -112,15 +105,8 @@ td {
                     class="pi pi-check text-primary-500"
                   ></i>
                 </div>
-                <div
-                  v-else
-                  class="w-full"
-                  style="height: 20px; text-align: center"
-                >
-                  <i
-                    v-if="25 - s * 5 == ratee[`criteria_${i}`]"
-                    class="pi pi-check"
-                  ></i>
+                <div v-else class="w-full" style="height: 20px; text-align: center">
+                  <i v-if="25 - s * 5 == ratee[`criteria_${i}`]" class="pi pi-check"></i>
                 </div>
               </td>
             </template>
@@ -161,10 +147,11 @@ td {
   </auth-layout>
 </template>
 
-
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
 import { Inertia } from "@inertiajs/inertia";
+import PmsToolbar from "@/Layouts/PmsToolbar.vue";
+
 export default {
   props: {
     is_complete: Boolean,
@@ -176,6 +163,7 @@ export default {
   },
   components: {
     AuthLayout,
+    PmsToolbar,
   },
   data() {
     return {

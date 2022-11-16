@@ -10,6 +10,7 @@ td {
 
 <template>
   <auth-layout>
+    <PmsToolbar />
     <Card class="w-full">
       <template #title>
         <Button
@@ -34,9 +35,7 @@ td {
             class="mr-2"
           />
 
-          <Button :disabled="!form.employee" class="ml-2" type="submit"
-            >Add</Button
-          >
+          <Button :disabled="!form.employee" class="ml-2" type="submit">Add</Button>
         </form>
 
         <table class="my-2">
@@ -53,12 +52,14 @@ td {
           </tr>
           <tr v-for="(ratee, i) in ratees" :key="ratee.id">
             <td>{{ i + 1 }}</td>
-            <td :class="ratee.is_complete? 'text-primary-700 font-bold':'text-gray-700'">{{ ratee.full_name }}</td>
+            <td
+              :class="ratee.is_complete ? 'text-primary-700 font-bold' : 'text-gray-700'"
+            >
+              {{ ratee.full_name }}
+            </td>
             <td class="text-center">{{ ratee.rating }}</td>
             <td>
-              <inertia-link :href="`${current_url}/${ratee.id}`"
-                >open</inertia-link
-              >
+              <inertia-link :href="`${current_url}/${ratee.id}`">open</inertia-link>
             </td>
             <td>
               <a href="#" @click.prevent="remove_ratee(ratee.id)">delete</a>
@@ -73,7 +74,7 @@ td {
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
 import { Inertia } from "@inertiajs/inertia";
-
+import PmsToolbar from "@/Layouts/PmsToolbar.vue";
 export default {
   props: {
     employees: Array,
@@ -82,6 +83,7 @@ export default {
   },
   components: {
     AuthLayout,
+    PmsToolbar,
   },
   data() {
     return {

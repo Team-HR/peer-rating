@@ -10,6 +10,7 @@ td {
 
 <template>
   <auth-layout>
+    <PmsToolbar />
     <Card class="w-full">
       <template #title>
         <Button
@@ -34,9 +35,7 @@ td {
             filterPlaceholder="Search name"
             showClear
           />
-          <Button :disabled="!form.employee" class="ml-2" type="submit"
-            >Add</Button
-          >
+          <Button :disabled="!form.employee" class="ml-2" type="submit">Add</Button>
           <Button
             class="ml-2 p-button-text"
             type="button"
@@ -127,12 +126,7 @@ td {
               class="p-button-text"
               @click="add_others_modal = false"
             />
-            <Button
-              form="other_form"
-              type="submit"
-              label="Yes"
-              icon="pi pi-check"
-            />
+            <Button form="other_form" type="submit" label="Yes" icon="pi pi-check" />
           </template>
         </Dialog>
 
@@ -151,19 +145,13 @@ td {
           <tr v-for="(peer, i) in peers" :key="peer.id">
             <td>{{ i + 1 }}</td>
             <td
-              :class="
-                peer.is_complete
-                  ? 'text-primary-700 font-bold'
-                  : 'text-gray-700'
-              "
+              :class="peer.is_complete ? 'text-primary-700 font-bold' : 'text-gray-700'"
             >
               {{ peer.full_name }}
             </td>
             <td class="text-center">{{ peer.rating }}</td>
             <td>
-              <inertia-link :href="`${current_url}/${peer.id}`"
-                >open</inertia-link
-              >
+              <inertia-link :href="`${current_url}/${peer.id}`">open</inertia-link>
             </td>
             <td>
               <a href="#" @click.prevent="remove_peer(peer.id)">delete</a>
@@ -178,6 +166,7 @@ td {
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
 import { Inertia } from "@inertiajs/inertia";
+import PmsToolbar from "@/Layouts/PmsToolbar.vue";
 export default {
   props: {
     employees: Array,
@@ -187,6 +176,7 @@ export default {
   },
   components: {
     AuthLayout,
+    PmsToolbar,
   },
   data() {
     return {

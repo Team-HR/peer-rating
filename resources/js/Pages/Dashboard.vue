@@ -1,10 +1,10 @@
 <template>
   <auth-layout>
-    <Card class="w-full h-30rem mt-8">
+    <Card class="w-8 mx-auto h-screen mt-8">
       <template #content>
-        <Button @click="$inertia.get('/peer-rating-2022')"
+        <!-- <Button @click="$inertia.get('/pms/peer-rating-2022')"
           >Peer Rating 2022</Button
-        >
+        > -->
       </template>
     </Card>
   </auth-layout>
@@ -19,5 +19,3 @@ export default {
   mounted() {},
 };
 </script>
-
-

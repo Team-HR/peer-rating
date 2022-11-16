@@ -23,6 +23,7 @@ td {
 
 <template>
   <auth-layout>
+    <PmsToolbar />
     <Card class="w-full">
       <template #title>
         <Button
@@ -33,9 +34,7 @@ td {
         ></Button>
         <span class="uppercase"
           >RATER: {{ `${rater.full_name}` }}
-          <i class="text-gray-500"
-            >({{ department.name }} - {{ office.name }})</i
-          ></span
+          <i class="text-gray-500">({{ department.name }} - {{ office.name }})</i></span
         >
       </template>
       <template #content>
@@ -44,12 +43,7 @@ td {
           <tr>
             <th>#</th>
             <th class="table-divider">Name</th>
-            <th
-              class="table-divider"
-              colspan="5"
-              v-for="(num, i) in 4"
-              :key="i"
-            >
+            <th class="table-divider" colspan="5" v-for="(num, i) in 4" :key="i">
               {{ `Criteria ${i}` }}
             </th>
           </tr>
@@ -88,9 +82,7 @@ td {
                   @click="checked_box(index, i, 25 - s * 5)"
                   class="w-full"
                   :class="
-                    rater.id != ratee.id && (is_updating || !is_complete)
-                      ? 'check'
-                      : ''
+                    rater.id != ratee.id && (is_updating || !is_complete) ? 'check' : ''
                   "
                   style="height: 20px; text-align: center"
                 >
@@ -99,15 +91,8 @@ td {
                     class="pi pi-check text-primary-500"
                   ></i>
                 </div>
-                <div
-                  v-else
-                  class="w-full"
-                  style="height: 20px; text-align: center"
-                >
-                  <i
-                    v-if="25 - s * 5 == ratee[`criteria_${i}`]"
-                    class="pi pi-check"
-                  ></i>
+                <div v-else class="w-full" style="height: 20px; text-align: center">
+                  <i v-if="25 - s * 5 == ratee[`criteria_${i}`]" class="pi pi-check"></i>
                 </div>
               </td>
             </template>
@@ -150,10 +135,9 @@ td {
   </auth-layout>
 </template>
 
-
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
-
+import PmsToolbar from "@/Layouts/PmsToolbar";
 export default {
   props: {
     is_complete: Boolean,
@@ -164,6 +148,7 @@ export default {
   },
   components: {
     AuthLayout,
+    PmsToolbar,
   },
   data() {
     return {

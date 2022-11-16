@@ -6,6 +6,7 @@
 </style>
 <template>
   <auth-layout>
+    <PmsToolbar/>
     <Card class="w-full">
       <template #title>
         <Button
@@ -107,6 +108,7 @@
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
 import { Inertia } from "@inertiajs/inertia";
+import PmsToolbar from "@/Layouts/PmsToolbar";
 
 export default {
   props: {
@@ -117,6 +119,7 @@ export default {
   },
   components: {
     AuthLayout,
+    PmsToolbar
   },
   data() {
     return {
@@ -129,20 +132,20 @@ export default {
           name: "Peer Rating",
           description:
             "Forms for rating performance of every co-worker in an office.",
-          link: "/peer-rating-2022/" + this.department_id + "/peer-ratings",
+          link: "/pms/peer-rating-2022/" + this.department_id + "/peer-ratings",
         },
         {
           name: "Section Head Rating",
           description:
             "Forms exclusive for supervisors, rating their subordinate's performance rating from the same office",
           link:
-            "/peer-rating-2022/" + this.department_id + "/section-head-ratings",
+            "/pms/peer-rating-2022/" + this.department_id + "/section-head-ratings",
         },
         {
           name: "Section Head to Section Head Rating",
           description:
             "Forms exclusive only for supervisors, rating their co supervisor's performance rating from the same office. Only available if the department has sections.",
-          link: "/peer-rating-2022/" + this.department_id + "/sh2sh-rating",
+          link: "/pms/peer-rating-2022/" + this.department_id + "/sh2sh-rating",
         },
       ],
     };
@@ -152,7 +155,7 @@ export default {
       history.back();
     },
     create() {
-      this.form.post("/peer-rating-2022/" + this.department_id + "/offices", {
+      this.form.post("/pms/peer-rating-2022/" + this.department_id + "/offices", {
         onSuccess: () => this.form.reset("name"),
       });
     },
