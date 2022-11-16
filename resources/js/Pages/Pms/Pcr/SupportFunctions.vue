@@ -57,6 +57,9 @@ td {
             </tr>
           </thead>
           <tbody>
+            <tr v-if="rows.length < 1">
+              <td class="text-center bg-gray-300 p-5" colspan="9">No records found! Please setup the support functions.</td>
+            </tr>
             <tr v-for="(row, i) in rows" :key="i">
               <!-- <td colspan="8">{{row}}</td> -->
               <td class="text-lg text-center">{{ row.percent }}%</td>

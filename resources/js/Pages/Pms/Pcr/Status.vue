@@ -146,6 +146,7 @@ export default {
         href: this.current_url + "/core_functions/" + this.form_status.id,
         label: "Core Functions",
         status: (() => {
+          if (!this.form_status.agency) return "Set Form Type first!";
           var total_percentage_weight = this.form_status.total_percentage_weight
             ? this.form_status.total_percentage_weight
             : "_________";
@@ -154,12 +155,14 @@ export default {
             : "_________";
           return this.status_text(total_percentage_weight, total_average_rating);
         })(),
+        is_disabled: !this.form_status.agency ? true : false,
       },
       {
         no: 4,
         href: this.current_url + "/strategic_function/" + this.form_status.id,
         label: "Strategic Function",
         status: (() => {
+          if (!this.form_status.agency) return "Set Form Type first!";
           var total_percentage_weight = this.form_status.strat_total_percentage_weight
             ? this.form_status.strat_total_percentage_weight
             : "_________";
@@ -168,12 +171,14 @@ export default {
             : "_________";
           return this.status_text(total_percentage_weight, total_average_rating);
         })(),
+        is_disabled: !this.form_status.agency ? true : false,
       },
       {
         no: 5,
         href: this.current_url + "/support_functions",
         label: "Support Function",
         status: (() => {
+          if (!this.form_status.agency) return "Set Form Type first!";
           var total_percentage_weight = this.form_status.support_total_percentage_weight
             ? this.form_status.support_total_percentage_weight
             : "_________";
@@ -189,6 +194,7 @@ export default {
         href: this.current_url + "/submit",
         label: "Finalize",
         status: (() => {
+          if (!this.form_status.agency) return "Set Form Type first!";
           var total_percentage_weight = this.form_status.overall_percentage_weight
             ? this.form_status.support_total_percentage_weight
             : "_________";
@@ -197,6 +203,7 @@ export default {
             : "_________";
           return `Total Percentage Weight (%): <b class="text-green-700_ mr-3">${total_percentage_weight}%</b>Total Numerical Rating: <b class="text-green-700_ mr-3">${total_average_rating}</b>`;
         })(),
+        is_disabled: !this.form_status.agency ? true : false,
       },
     ];
 
