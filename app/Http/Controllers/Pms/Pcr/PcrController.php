@@ -52,11 +52,13 @@ class PcrController extends Controller
         $form_status["support_total_percentage_weight"] = $support_function_data["total_percentage_weight"];
         $form_status["support_total_average_rating"] =  $support_function_data["total_numerical_rating"];
 
-        $form_status["overall_percentage_weight"] = 0;
-        $form_status["overall_numerical_rating"] = 0;
-        // $form_status["total_average_rating"] = 0;
-        // $form_status["strat_total_percentage_weight"] = 0;
-        // $form_status["strat_total_average_rating"] = 0;
+        $form_status["overall_percentage_weight"] = $form_status["total_percentage_weight"] +
+            $form_status["strat_total_percentage_weight"] +
+            $form_status["support_total_percentage_weight"];
+        $form_status["overall_numerical_rating"] = bcdiv($form_status["total_average_rating"] +
+            $form_status["strat_total_average_rating"] +
+            $form_status["support_total_average_rating"], 1, 2);
+
         return Inertia::render("Pms/Pcr/Status", ["period" => $period, "form_status" => $form_status]);
     }
 

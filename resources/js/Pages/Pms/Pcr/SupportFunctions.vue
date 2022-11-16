@@ -51,14 +51,16 @@ td {
               <th class="text-xl" style="width: 40px">E</th>
               <th class="text-xl" style="width: 40px">T</th>
               <th class="text-xl" style="width: 40px">
-                A ({{ total_numerical_rating ? total_numerical_rating + "%" : "" }})
+                A ({{ total_numerical_rating ? total_numerical_rating : "" }})
               </th>
               <th class="text-xl">Options</th>
             </tr>
           </thead>
           <tbody>
             <tr v-if="rows.length < 1">
-              <td class="text-center bg-gray-300 p-5" colspan="9">No records found! Please setup the support functions.</td>
+              <td class="text-center bg-gray-300 p-5" colspan="9">
+                No records found! Please setup the support functions.
+              </td>
             </tr>
             <tr v-for="(row, i) in rows" :key="i">
               <!-- <td colspan="8">{{row}}</td> -->
