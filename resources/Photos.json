@@ -1,0 +1,10 @@
+{
+    "data": [{
+            "itemImageSrc": "../Pages/images/",
+            "thumbnailImageSrc": "../Pages/images/Vector4.png",
+            "alt": "Description for Image 1",
+            "title": "Title 1"
+        }
+
+    ]
+}
