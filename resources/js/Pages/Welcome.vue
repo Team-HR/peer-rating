@@ -198,9 +198,8 @@
       <img class="rsp-img2" src="../Pages/images/Vector3.png" alt="">
       <div class="rsp-1 ">
         <img src="../Pages/images/trophy.png" alt="" class="img-rsp1">
-        <h2 class="rsp-h1 fadeinleft  animation-duration-1000">STRATEGIC PERFORMANCE MANAGEMENT SYSTEM</h2>
-        A strategic for attaching, screening, selecting and onboarding qualified persons based on relative
-        qualifications and competence in adherence to the merit, fitness and quality principles
+        <h2 class="rsp-h1 fadeinleft  animation-duration-1000">REWARDS & RECOGNITION</h2>
+          A system designed to encourage creativity, innovativeness, efficiency, integrity, and productivity in the public service by recognizing and rewarding offcials and employees for their suggestions, inventions, supervisor accomplishments, and other personal efforts with contribute to the efficiency, economy or for other extraordinary acts or services in the public interest.
       </div>
       <div class="rsp-2">
         <Accordion :active-index="1">
