@@ -10,6 +10,7 @@
         <input type="radio" name="css-fadeshow" id="slide-1" />
         <input type="radio" name="css-fadeshow" id="slide-2" />
         <input type="radio" name="css-fadeshow" id="slide-3" />
+        <input type="radio" name="css-fadeshow" id="slide-4" />
 
         <!-- Slides -->
         <div class="fs-slides">
@@ -20,7 +21,10 @@
               <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">RECRUITMENT, SELECTION AND PLACEMENT</h1>
               <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">A strategy for attracting, screening, selecting and onboarding qualified persons based on relative qualifications and competence in adherance to the merit, fitness and equality principles.
               </p>
-              <Button class="button absolute" onclick="document.location='#section1'">Read More</Button>
+              <div id="section1"> 
+                <Button >Read More</Button>
+              </div>
+             
             </div>
           </div>
           <div class="fs-slide"
@@ -30,7 +34,7 @@
               <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">STRATEGIC PERFORMANCE MANAGEMENT SYSTEM</h1>
               <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">A mechanism that links employee performance with organizational performance to enhance the performance orientation of the compensatopm system, It ensures that the employee achieves the objectives set by the organization and the organization, on the other hand, achieves the objectives that it has set in its strategic plan.
               </p>
-              <Button class="button absolute" onclick="document.location='#section2'">Read More</Button>
+              <Button class="" onclick="document.location='#section2'">Read More</Button>
             </div>
           </div>
           <div class="fs-slide"
@@ -40,20 +44,17 @@
               <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">LEARNING AND DEVELOPMENT</h1>
               <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">AAn approach that uses competencies as the standards against which employee development needs are assessed and piorities are set against the need of the organization. It utilizes competencies as the foundation for designning targeted programs with learning outcomes that directly link to the competency requirements.
               </p>
-              <Button class="button absolute" onclick="document.location='#section3'">Read More</Button>
+              <Button class="" onclick="document.location='#section3'">Read More</Button>
             </div>
           </div>
           <div class="fs-slide"
             style="background-image: url(https://images.unsplash.com/photo-1440557653082-e8e186733eeb?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2500);">
             <div
-              style="position: absolute; height:auto;width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
+              style="position: absolute; height:auto; width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
               <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">REWARDS & RECOGNITION</h1>
               <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">A system designed to encourage creativity, innovativeness, efficiency, integrity, and productivity in the public service by recognizing and rewarding offcials and employees for their suggestions, inventions, supervisor accomplishments, and other personal efforts with contribute to the efficiency, economy or for other extraordinary acts or services in the public interest.
-
-
-
-              </p>
-              <Button class="button absolute" onclick="document.location='#section4'">Read More</Button>
+              </p>  
+              <Button class="" onclick="document.location='#section1'">Read More</Button>
             </div>
           </div>
         </div>
@@ -63,6 +64,8 @@
           <label class="fs-quick-btn" for="slide-1"></label>
           <label class="fs-quick-btn" for="slide-2"></label>
           <label class="fs-quick-btn" for="slide-3"></label>
+          <label class="fs-quick-btn" for="slide-4"></label>
+          
         </div>
 
         <!-- Prev Navigation -->
@@ -70,6 +73,7 @@
           <label class="fs-prev-btn" for="slide-1"></label>
           <label class="fs-prev-btn" for="slide-2"></label>
           <label class="fs-prev-btn" for="slide-3"></label>
+          <label class="fs-quick-btn" for="slide-4"></label>
         </div>
 
         <!-- Next Navigation -->
@@ -77,6 +81,7 @@
           <label class="fs-next-btn" for="slide-1"></label>
           <label class="fs-next-btn" for="slide-2"></label>
           <label class="fs-next-btn" for="slide-3"></label>
+          <label class="fs-quick-btn" for="slide-4"></label>
         </div>
       </div>
     </div>

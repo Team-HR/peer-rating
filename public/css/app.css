@@ -11,7 +11,7 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             margin-bottom: 50px;
-            transition: background-color 1s ease;
+            transition: background-color 3s ease;
         }
         /* Carousel */
         
@@ -33,7 +33,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            transition: opacity 1s ease;
+            transition: opacity 2s ease;
             /* Display first child on load */
         }
         
