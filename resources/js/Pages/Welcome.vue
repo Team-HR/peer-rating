@@ -17,8 +17,8 @@
             style="background-image: url(https://images.unsplash.com/photo-1460500063983-994d4c27756c?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2550);">
             <div
               style="position: absolute; height:auto;width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
-              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 4vw; font-weight: bold;">RECRUITMENT, SELECTION AND PLACEMENT</h1>
-              <p style="font-size: 2vw; font-weight: 100; margin-top: 0;">A strategy for attracting, screening, selecting and onboarding qualified persons based on relative qualifications and competence in adherance to the merit, fitness and equality principles.
+              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">RECRUITMENT, SELECTION AND PLACEMENT</h1>
+              <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">A strategy for attracting, screening, selecting and onboarding qualified persons based on relative qualifications and competence in adherance to the merit, fitness and equality principles.
               </p>
               <Button class="button absolute" onclick="document.location='#section1'">Read More</Button>
             </div>
@@ -27,8 +27,8 @@
             style="background-image: url(https://images.unsplash.com/photo-1440557653082-e8e186733eeb?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2500);">
             <div
               style="position: absolute; height:auto;width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
-              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 4vw; font-weight: bold;">STRATEGIC PERFORMANCE MANAGEMENT SYSTEM</h1>
-              <p style="font-size: 2vw; font-weight: 100; margin-top: 0;">A mechanism that links employee performance with organizational performance to enhance the performance orientation of the compensatopm system, It ensures that the employee achieves the objectives set by the organization and the organization, on the other hand, achieves the objectives that it has set in its strategic plan.
+              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">STRATEGIC PERFORMANCE MANAGEMENT SYSTEM</h1>
+              <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">A mechanism that links employee performance with organizational performance to enhance the performance orientation of the compensatopm system, It ensures that the employee achieves the objectives set by the organization and the organization, on the other hand, achieves the objectives that it has set in its strategic plan.
               </p>
               <Button class="button absolute" onclick="document.location='#section2'">Read More</Button>
             </div>
@@ -37,8 +37,8 @@
             style="background-image: url(https://images.unsplash.com/photo-1449057528837-7ca097b3520c?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2500);">
             <div
               style="position: absolute; height:auto;width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
-              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 4vw; font-weight: bold;">LEARNING AND DEVELOPMENT</h1>
-              <p style="font-size: 2vw; font-weight: 100; margin-top: 0;">AAn approach that uses competencies as the standards against which employee development needs are assessed and piorities are set against the need of the organization. It utilizes competencies as the foundation for designning targeted programs with learning outcomes that directly link to the competency requirements.
+              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">LEARNING AND DEVELOPMENT</h1>
+              <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">AAn approach that uses competencies as the standards against which employee development needs are assessed and piorities are set against the need of the organization. It utilizes competencies as the foundation for designning targeted programs with learning outcomes that directly link to the competency requirements.
               </p>
               <Button class="button absolute" onclick="document.location='#section3'">Read More</Button>
             </div>
@@ -47,8 +47,8 @@
             style="background-image: url(https://images.unsplash.com/photo-1440557653082-e8e186733eeb?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2500);">
             <div
               style="position: absolute; height:auto;width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
-              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 4vw; font-weight: bold;">STRATEGIC PERFORMANCE MANAGEMENT SYSTEM</h1>
-              <p style="font-size: 2vw; font-weight: 100; margin-top: 0;">A strategic for attaching, screening, selecting and onboarding qualified persons based on relative qualifications and competence in adherence to the merit, fitness and quality principles
+              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">STRATEGIC PERFORMANCE MANAGEMENT SYSTEM</h1>
+              <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">A strategic for attaching, screening, selecting and onboarding qualified persons based on relative qualifications and competence in adherence to the merit, fitness and quality principles
 
               </p>
               <Button class="button absolute" onclick="document.location='#section4'">Read More</Button>
