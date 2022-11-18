@@ -92,7 +92,7 @@
                 <Column
                   class="uppercase"
                   field="total_rating"
-                  header="Total Rating (%)"
+                  header="Total Average Rating (%)"
                   sortable
                 ></Column>
                 <!-- <template #footer> Footer </template> -->
