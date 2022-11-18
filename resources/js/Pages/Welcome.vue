@@ -47,8 +47,10 @@
             style="background-image: url(https://images.unsplash.com/photo-1440557653082-e8e186733eeb?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2500);">
             <div
               style="position: absolute; height:auto;width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
-              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">STRATEGIC PERFORMANCE MANAGEMENT SYSTEM</h1>
-              <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">A strategic for attaching, screening, selecting and onboarding qualified persons based on relative qualifications and competence in adherence to the merit, fitness and quality principles
+              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">REWARDS & RECOGNITION</h1>
+              <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">A system designed to encourage creativity, innovativeness, efficiency, integrity, and productivity in the public service by recognizing and rewarding offcials and employees for their suggestions, inventions, supervisor accomplishments, and other personal efforts with contribute to the efficiency, economy or for other extraordinary acts or services in the public interest.
+
+
 
               </p>
               <Button class="button absolute" onclick="document.location='#section4'">Read More</Button>
