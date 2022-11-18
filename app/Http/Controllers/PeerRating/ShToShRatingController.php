@@ -16,6 +16,11 @@ class ShToShRatingController extends Controller
 {
     public function index($department_id)
     {
+        ####################### Forbid Page ###########################
+        if ($department_id == 22) {
+            return Inertia::render("PeerRating/Unauthorized");
+        }
+        ###############################################################
 
         $department = PeerRatingDepartment::find($department_id);
         $employees = Employee::orderBy('last_name')->get()->toArray();
@@ -93,6 +98,11 @@ class ShToShRatingController extends Controller
 
     public function section_head_to_section_head_rating($department_id, $id)
     {
+        ####################### Forbid Page ###########################
+        if ($department_id == 22) {
+            return Inertia::render("PeerRating/Unauthorized");
+        }
+        ###############################################################
 
         $is_complete = false;
         $rater = PeerRatingSectionHead::find($id);

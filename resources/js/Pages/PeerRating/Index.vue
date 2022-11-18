@@ -35,7 +35,12 @@
           class="mt-2 p-datatable-sm"
           selectionMode="single"
         >
-          <Column field="id" header="ID" style="width: 20px"></Column>
+          <!-- <Column field="id" header="ID" style="width: 20px"></Column> -->
+          <Column class="uppercase" header="#" style="width: 20px">
+            <template #body="slotProps">
+              {{ slotProps.index + 1 }}
+            </template></Column
+          >
           <Column
             header="OPTIONS"
             headerStyle="text-align: center;"
@@ -62,7 +67,7 @@
               ></Button>
             </template>
           </Column>
-          <Column field="name" header="OFFICE"></Column>
+          <Column field="name" header="OFFICE" sortable></Column>
         </DataTable>
 
         <!-- edit modal start -->

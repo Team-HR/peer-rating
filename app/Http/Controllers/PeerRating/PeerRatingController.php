@@ -70,11 +70,21 @@ class PeerRatingController extends Controller
     }
     public function files($department_id)
     {
+
+
+        ####################### Forbid Page ###########################
+        if ($department_id == 22) {
+            return Inertia::render("PeerRating/Unauthorized");
+        }
+        ###############################################################
+
+
         // $offices = PeerRatingOffice::where('peer_rating_department_id', '=', $department_id)->orderByDesc('id')->get();
         // return Inertia::render("PeerRating/Files", ['department_id' => $department_id, 'office_id' => $office_id]);
         $department = PeerRatingDepartment::find($department_id);
         $department = $department->name;
         $offices = PeerRatingOffice::where('peer_rating_department_id', '=', $department_id)->get();
+
 
 
         # get all reports
@@ -96,16 +106,61 @@ class PeerRatingController extends Controller
     private function get_peers($department_id, $office_id)
     {
 
+        ####################### Forbid Page ###########################
+        if ($department_id == 22) {
+            return Inertia::render("PeerRating/Unauthorized");
+        }
+        ###############################################################
+
+
         $peers = PeerRatingOfficePeer::where('office_id', $office_id)->get();
 
         $data = [];
         foreach ($peers as $key => $peer) {
+
+            $peer_rating = $this->get_peer_rating($office_id, $peer->id);
+            $section_head_rating = $this->get_section_head_rating($office_id, $peer->employee_id);
+            $section_head_to_section_head_rating = $this->get_section_head_to_section_head_rating($department_id, $peer->employee_id);
+            $total_average_rating = NULL;
+
+            $ratings = [];
+
+            if ($peer_rating) {
+                $peer_rating = bcdiv($peer_rating, 1, 2);
+                $ratings[] = $peer_rating;
+            }
+
+            if ($section_head_rating) {
+                $section_head_rating = bcdiv($section_head_rating, 1, 2);
+                $ratings[] = $section_head_rating;
+            }
+
+            if ($section_head_to_section_head_rating) {
+                $section_head_to_section_head_rating = bcdiv($section_head_to_section_head_rating, 1, 2);
+                $ratings[] = $section_head_to_section_head_rating;
+            }
+
+
+            if (count($ratings) > 0) {
+                $num = 0;
+                $score = 0;
+                foreach ($ratings as $value) {
+                    # code...
+                    $score += $value;
+                    $num += 1;
+                }
+                $total_average_rating = $score / $num;
+                $total_average_rating = bcdiv($total_average_rating, 1, 2);
+            }
+
+
+
             $data[] = [
                 "name" => $peer->full_name,
-                "peer_rating" => $this->get_peer_rating($office_id, $peer->id),
-                "section_head_rating" => $this->get_section_head_rating($office_id, $peer->employee_id),
-                "section_head_to_section_head_rating" => $this->get_section_head_to_section_head_rating($department_id, $peer->employee_id),
-                "total_rating" => NULL
+                "peer_rating" => $peer_rating,
+                "section_head_rating" => $section_head_rating,
+                "section_head_to_section_head_rating" => $section_head_to_section_head_rating,
+                "total_rating" => $total_average_rating
             ];
         }
         return $data;
@@ -161,6 +216,13 @@ class PeerRatingController extends Controller
     # get individual's section head to section head rating
     private function get_section_head_to_section_head_rating($department_id, $employee_id)
     {
+
+        ####################### Forbid Page ###########################
+        if ($department_id == 22) {
+            return Inertia::render("PeerRating/Unauthorized");
+        }
+        ###############################################################
+
         $data = DB::table('peer_rating_section_heads')
             // ->leftJoin('peer_rating_section_peers', 'peer_rating_sections.id', '=', 'peer_rating_section_peers.section_id')
             ->join('peer_rating_section_head_forms', function ($join) use ($department_id, $employee_id) {
@@ -195,6 +257,11 @@ class PeerRatingController extends Controller
 
     public function file_peer_ratings($department_id)
     {
+        ####################### Forbid Page ###########################
+        if ($department_id == 22) {
+            return Inertia::render("PeerRating/Unauthorized");
+        }
+        ###############################################################
         $department = PeerRatingDepartment::find($department_id);
         $offices = PeerRatingOffice::where('peer_rating_department_id', '=', $department_id)->get();
         return Inertia::render("PeerRating/Filetypes/PeerRatings", ['department' => $department, 'offices' => $offices]);
@@ -229,6 +296,14 @@ class PeerRatingController extends Controller
 
     public function file_peers($department_id, $office_id)
     {
+
+
+        ####################### Forbid Page ###########################
+        if ($department_id == 22) {
+            return Inertia::render("PeerRating/Unauthorized");
+        }
+        ###############################################################
+
         $employees = Employee::orderBy('last_name')->get()->toArray();
         $peers = PeerRatingOfficePeer::where("office_id", "=", $office_id)->orderBy('index')->get();
         foreach ($peers as $index => $peer) {
@@ -348,6 +423,13 @@ class PeerRatingController extends Controller
     # peer rating form encoding
     public function file_peer_rating($department_id, $office_id, $peer_id)
     {
+
+        ####################### Forbid Page ###########################
+        if ($department_id == 22) {
+            return Inertia::render("PeerRating/Unauthorized");
+        }
+        ###############################################################
+
         $is_complete = false;
         $rater = PeerRatingOfficePeer::find($peer_id);
         $ratees = [];
