@@ -22,7 +22,7 @@ td {
         ></Button>
         <br />
         <span class="uppercase"
-          ><i class="bi bi-book mr-2"></i> PERFORMANCE COMMITMENT AND REVIEW</span
+          ><i class="bi bi-book mr-2"></i> REVIEW PERFORMANCE COMMITMENT AND REVIEW</span
         ></template
       >
       <template #subtitle>
@@ -31,14 +31,19 @@ td {
           {{ period.year }})</span
         >
         <br />
-        Accomplish/Review your Performance Commitments</template
+        Review personnel's accomplished performance commitment and review.</template
       >
       <template #content>
-        <table>
+        <table class="w-full">
           <tr>
-            <th>Option</th>
-            <th>Form</th>
-            <th>Status</th>
+            <th class="text-xl">Name</th>
+            <th class="text-xl">Form Type</th>
+            <th class="text-xl">Status</th>
+          </tr>
+          <tr v-if="items.length < 1">
+            <td colspan="3" class="text-xl p-5 text-center bg-gray-300">
+              No personnel under direct supervision.
+            </td>
           </tr>
           <tr v-for="(item, i) in items" :key="i">
             <!-- <td>
