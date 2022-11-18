@@ -22,7 +22,7 @@ td {
         ></Button>
         <br />
         <span class="uppercase"
-          ><i class="bi bi-book mr-2"></i> Performance Commitment Review | Core
+          ><i class="bi bi-book mr-2"></i> PERFORMANCE COMMITMENT AND REVIEW | Core
           Functions</span
         ></template
       >

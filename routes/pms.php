@@ -10,7 +10,7 @@ use App\Http\Controllers\Pms\Pcr\CoreFunctionController;
 use App\Http\Controllers\Pms\Pcr\PcrController;
 use App\Http\Controllers\Pms\Pcr\StrategicFunctionController;
 use App\Http\Controllers\Pms\Pcr\SupportFunctionController;
-
+use App\Http\Controllers\Pms\Rpc\ReviewPerformanceCommitmentController;
 
 Route::middleware(['auth'])->group(function () {
     # pms dashboard
@@ -63,5 +63,6 @@ Route::middleware(['auth'])->group(function () {
     Route::delete("/pms/pcr/{period_id}/support_functions/accomplishment/{support_function_data_id}", [SupportFunctionController::class, "delete_accomplishment"]);
 
     #rpc - review performance commitment reports
-    Route::get("/pms/rpc", [SupportFunctionController::class, "index"]);
+    Route::get("/pms/rpc", [ReviewPerformanceCommitmentController::class, "index"]);
+    Route::get("/pms/rpc/{period_id}", [ReviewPerformanceCommitmentController::class, "show"]);
 });

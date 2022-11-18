@@ -22,7 +22,7 @@ td {
         ></Button>
         <br />
         <span class="uppercase"
-          ><i class="bi bi-book mr-2"></i> Performance Commitment Review | Strategic
+          ><i class="bi bi-book mr-2"></i> PERFORMANCE COMMITMENT AND REVIEW | Strategic
           Function</span
         ></template
       >

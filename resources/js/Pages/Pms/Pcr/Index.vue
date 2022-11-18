@@ -4,7 +4,7 @@
     <Card class="w-full">
       <template #title
         ><span class="uppercase"
-          ><i class="bi bi-book mr-2"></i> Performannce Commitment Review</span
+          ><i class="bi bi-book mr-2"></i> PERFORMANCE COMMITMENT AND REVIEW</span
         ></template
       >
       <template #subtitle>Accomplish/Review your Performance Commitment</template>
