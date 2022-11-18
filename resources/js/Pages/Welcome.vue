@@ -2,24 +2,83 @@
   <guest-nav v-if="!$page.props.auth.user"></guest-nav>
   <authed-nav v-else></authed-nav>
 
-
-
-
- 
-
   <div class="bodys">
-    <div class="carousel">
-    <div class="slides">
-      <img src="../Pages/images/1613477375284-01.jpeg" alt="slide image" class="slide">
-      <img src="../Pages/images/20170905182728_IMG_5474-01-01.jpeg" alt="slide image" class="slide">
-      <img src="../Pages/images/DSC_6185-01-02.jpeg" alt="slide image" class="slide">
+
+    <div class="s flex">
+      <div data-am-fadeshow="next-prev-navigation autoplay">
+        <!-- Radio -->
+        <input type="radio" name="css-fadeshow" id="slide-1" />
+        <input type="radio" name="css-fadeshow" id="slide-2" />
+        <input type="radio" name="css-fadeshow" id="slide-3" />
+
+        <!-- Slides -->
+        <div class="fs-slides">
+          <div class="fs-slide"
+            style="background-image: url(https://images.unsplash.com/photo-1460500063983-994d4c27756c?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2550);">
+            <div
+              style="position: absolute; height:auto;width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
+              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 4vw; font-weight: bold;">RECRUITMENT, SELECTION AND PLACEMENT</h1>
+              <p style="font-size: 2vw; font-weight: 100; margin-top: 0;">A strategy for attracting, screening, selecting and onboarding qualified persons based on relative qualifications and competence in adherance to the merit, fitness and equality principles.
+              </p>
+              <Button class="button absolute" onclick="document.location='#section1'">Read More</Button>
+            </div>
+          </div>
+          <div class="fs-slide"
+            style="background-image: url(https://images.unsplash.com/photo-1440557653082-e8e186733eeb?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2500);">
+            <div
+              style="position: absolute; height:auto;width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
+              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 4vw; font-weight: bold;">STRATEGIC PERFORMANCE MANAGEMENT SYSTEM</h1>
+              <p style="font-size: 2vw; font-weight: 100; margin-top: 0;">A mechanism that links employee performance with organizational performance to enhance the performance orientation of the compensatopm system, It ensures that the employee achieves the objectives set by the organization and the organization, on the other hand, achieves the objectives that it has set in its strategic plan.
+              </p>
+              <Button class="button absolute" onclick="document.location='#section2'">Read More</Button>
+            </div>
+          </div>
+          <div class="fs-slide"
+            style="background-image: url(https://images.unsplash.com/photo-1449057528837-7ca097b3520c?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2500);">
+            <div
+              style="position: absolute; height:auto;width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
+              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 4vw; font-weight: bold;">LEARNING AND DEVELOPMENT</h1>
+              <p style="font-size: 2vw; font-weight: 100; margin-top: 0;">AAn approach that uses competencies as the standards against which employee development needs are assessed and piorities are set against the need of the organization. It utilizes competencies as the foundation for designning targeted programs with learning outcomes that directly link to the competency requirements.
+              </p>
+              <Button class="button absolute" onclick="document.location='#section3'">Read More</Button>
+            </div>
+          </div>
+          <div class="fs-slide"
+            style="background-image: url(https://images.unsplash.com/photo-1440557653082-e8e186733eeb?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2500);">
+            <div
+              style="position: absolute; height:auto;width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
+              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 4vw; font-weight: bold;">STRATEGIC PERFORMANCE MANAGEMENT SYSTEM</h1>
+              <p style="font-size: 2vw; font-weight: 100; margin-top: 0;">A strategic for attaching, screening, selecting and onboarding qualified persons based on relative qualifications and competence in adherence to the merit, fitness and quality principles
+
+              </p>
+              <Button class="button absolute" onclick="document.location='#section4'">Read More</Button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Navigation -->
+        <div class="fs-quick-nav">
+          <label class="fs-quick-btn" for="slide-1"></label>
+          <label class="fs-quick-btn" for="slide-2"></label>
+          <label class="fs-quick-btn" for="slide-3"></label>
+        </div>
+
+        <!-- Prev Navigation -->
+        <div class="fs-prev-nav">
+          <label class="fs-prev-btn" for="slide-1"></label>
+          <label class="fs-prev-btn" for="slide-2"></label>
+          <label class="fs-prev-btn" for="slide-3"></label>
+        </div>
+
+        <!-- Next Navigation -->
+        <div class="fs-next-nav">
+          <label class="fs-next-btn" for="slide-1"></label>
+          <label class="fs-next-btn" for="slide-2"></label>
+          <label class="fs-next-btn" for="slide-3"></label>
+        </div>
+      </div>
     </div>
-    <div class="controls">
-      <div class="control prev-slide">&#9668;</div>
-      <div class="control next-slide">&#9658;</div>
-    </div>
-  </div>
-    <div class="cards w-auto reveal" >
+    <!-- <div class="cards w-auto reveal">
       <h1 class="core">FOUR CORES OF HR SYSTEM</h1>
       <img src="../Pages/images/Vector4.png" alt="">
       <div class="card1">
@@ -78,7 +137,7 @@
         </div>
         <Button class=" p-button-info readmore4" onclick="document.location='#section4'">Read More</Button>
       </div>
-    </div>
+    </div> -->
     <!-- RSP -->
     <div class="rsp reveal section" data-background-color="transparent" id="section1">
       <div class="rsp-1">
@@ -167,7 +226,7 @@ export default {
   },
   data() {
     return {
-     
+
       display: true,
       displayBasic: false,
       RSP: [
@@ -282,9 +341,9 @@ export default {
       ]
     };
   },
- 
+
   created() {
-    
+
   },
   methods: {
     openBasic() {
@@ -296,44 +355,8 @@ export default {
     },
   },
   mounted() {
-   
 
-    // carousel
-    const delay = 6000; //ms
 
-    const slides = document.querySelector(".slides");
-    const slidesCount = slides.childElementCount;
-    const maxLeft = (slidesCount - 1) * 100 * -1;
-
-    let current = 0;
-
-    function changeSlide(next = true) {
-      if (next) {
-        current += current > maxLeft ? -100 : current * -1;
-      } else {
-        current = current < 0 ? current + 100 : maxLeft;
-      }
-
-      slides.style.left = current + "%";
-    }
-
-    let autoChange = setInterval(changeSlide, delay);
-    const restart = function () {
-      clearInterval(autoChange);
-      autoChange = setInterval(changeSlide, delay);
-    };
-
-    // Controls
-    document.querySelector(".next-slide").addEventListener("click", function () {
-      changeSlide();
-      restart();
-    });
-
-    document.querySelector(".prev-slide").addEventListener("click", function () {
-      changeSlide(false);
-      restart();
-    });
-    // end of carousel
 
   },
 };
