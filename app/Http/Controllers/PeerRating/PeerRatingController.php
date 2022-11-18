@@ -117,12 +117,50 @@ class PeerRatingController extends Controller
 
         $data = [];
         foreach ($peers as $key => $peer) {
+
+            $peer_rating = $this->get_peer_rating($office_id, $peer->id);
+            $section_head_rating = $this->get_section_head_rating($office_id, $peer->employee_id);
+            $section_head_to_section_head_rating = $this->get_section_head_to_section_head_rating($department_id, $peer->employee_id);
+            $total_average_rating = NULL;
+
+            $ratings = [];
+
+            if ($peer_rating) {
+                $peer_rating = bcdiv($peer_rating, 1, 2);
+                $ratings[] = $peer_rating;
+            }
+
+            if ($section_head_rating) {
+                $section_head_rating = bcdiv($section_head_rating, 1, 2);
+                $ratings[] = $section_head_rating;
+            }
+
+            if ($section_head_to_section_head_rating) {
+                $section_head_to_section_head_rating = bcdiv($section_head_to_section_head_rating, 1, 2);
+                $ratings[] = $section_head_to_section_head_rating;
+            }
+
+
+            if (count($ratings) > 0) {
+                $num = 0;
+                $score = 0;
+                foreach ($ratings as $value) {
+                    # code...
+                    $score += $value;
+                    $num += 1;
+                }
+                $total_average_rating = $score / $num;
+                $total_average_rating = bcdiv($total_average_rating, 1, 2);
+            }
+
+
+
             $data[] = [
                 "name" => $peer->full_name,
-                "peer_rating" => $this->get_peer_rating($office_id, $peer->id),
-                "section_head_rating" => $this->get_section_head_rating($office_id, $peer->employee_id),
-                "section_head_to_section_head_rating" => $this->get_section_head_to_section_head_rating($department_id, $peer->employee_id),
-                "total_rating" => NULL
+                "peer_rating" => $peer_rating,
+                "section_head_rating" => $section_head_rating,
+                "section_head_to_section_head_rating" => $section_head_to_section_head_rating,
+                "total_rating" => $total_average_rating
             ];
         }
         return $data;

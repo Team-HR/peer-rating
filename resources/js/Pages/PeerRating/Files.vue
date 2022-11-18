@@ -15,8 +15,7 @@
           @click="history_back()"
         ></Button>
         <span class="uppercase"
-          >Peer Rating <i style="color: grey">(Jan-June 2022)</i>::
-          {{ department }}</span
+          >Peer Rating <i style="color: grey">(Jan-June 2022)</i>:: {{ department }}</span
         >
       </template>
       <template #content>
@@ -28,9 +27,7 @@
               </template> -->
               <template #title>
                 <div style="height: 65px">
-                  <span class="uppercase text-primary">{{
-                    filetype.name
-                  }}</span>
+                  <span class="uppercase text-primary">{{ filetype.name }}</span>
                 </div>
               </template>
               <template #content>
@@ -72,27 +69,31 @@
                     {{ slotProps.index + 1 }}
                   </template></Column
                 >
-                <Column class="uppercase" field="name" header="Name"></Column>
+                <Column class="uppercase" sortable field="name" header="Name"></Column>
                 <Column
                   class="uppercase"
                   field="peer_rating"
                   header="Peer Rating (%)"
+                  sortable
                 ></Column>
                 <Column
                   class="uppercase"
                   field="section_head_rating"
                   header="Section Head (%)"
+                  sortable
                 ></Column>
                 <Column
                   headerStyle="width: 16em"
                   class="uppercase"
                   field="section_head_to_section_head_rating"
                   header="Section Head to Section Head Rating (%)"
+                  sortable
                 ></Column>
                 <Column
                   class="uppercase"
                   field="total_rating"
                   header="Total Rating (%)"
+                  sortable
                 ></Column>
                 <!-- <template #footer> Footer </template> -->
               </DataTable>
@@ -127,16 +128,14 @@ export default {
       filetypes: [
         {
           name: "Peer Rating",
-          description:
-            "Forms for rating performance of every co-worker in an office.",
+          description: "Forms for rating performance of every co-worker in an office.",
           link: "/peer-rating-2022/" + this.department_id + "/peer-ratings",
         },
         {
           name: "Section Head Rating",
           description:
             "Forms exclusive for supervisors, rating their subordinate's performance rating from the same office",
-          link:
-            "/peer-rating-2022/" + this.department_id + "/section-head-ratings",
+          link: "/peer-rating-2022/" + this.department_id + "/section-head-ratings",
         },
         {
           name: "Section Head to Section Head Rating",

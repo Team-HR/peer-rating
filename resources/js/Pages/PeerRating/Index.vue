@@ -15,9 +15,7 @@
             v-model="form.department"
             placeholder="Add a Department"
           />
-          <Button :disabled="!form.department" class="ml-2" type="submit"
-            >Add</Button
-          >
+          <Button :disabled="!form.department" class="ml-2" type="submit">Add</Button>
         </form>
         <!-- <template v-for="(department, i) in departments" :key="department.id">
           <Button
@@ -36,7 +34,12 @@
           class="mt-2 p-datatable-sm"
           selectionMode="single"
         >
-          <Column field="id" header="ID" style="width: 20px"></Column>
+          <!-- <Column field="id" header="ID" style="width: 20px"></Column> -->
+          <Column class="uppercase" header="#" style="width: 20px">
+            <template #body="slotProps">
+              {{ slotProps.index + 1 }}
+            </template></Column
+          >
           <Column
             header="OPTIONS"
             headerStyle="text-align: center;"
@@ -47,11 +50,7 @@
               <Button
                 class="p-button-text p-button-sm mr-2"
                 label="Open"
-                @click="
-                  $inertia.get(
-                    '/peer-rating-2022/' + slotProps.data.id + '/files'
-                  )
-                "
+                @click="$inertia.get('/peer-rating-2022/' + slotProps.data.id + '/files')"
               ></Button>
               <Button
                 class="p-button-text p-button-sm p-button-success mr-2"
@@ -65,7 +64,7 @@
               ></Button>
             </template>
           </Column>
-          <Column field="name" header="OFFICE"></Column>
+          <Column field="name" header="OFFICE" sortable></Column>
         </DataTable>
 
         <!-- edit modal start -->
