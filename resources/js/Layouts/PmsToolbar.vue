@@ -50,19 +50,29 @@ export default {
           description: "",
           icon: "bi bi-person-lines-fill",
         },
-        {
-          title: "Review",
-          href: "/pms/rpc",
-          description: "",
-          icon: "bi bi-list-check",
-        },
-        {
-          title: "PMT",
-          href: "/pms/pmt",
-          description: "",
-          icon: "bi bi-braces-asterisk",
-        },
       ];
+
+      if (this.$page.props.auth.user.roles) {
+        if (this.$page.props.auth.user.roles.includes("sup")) {
+          items.push({
+            title: "Review",
+            href: "/pms/rpc",
+            description: "",
+            icon: "bi bi-list-check",
+          });
+        }
+      }
+
+      if (this.$page.props.auth.user.roles) {
+        if (this.$page.props.auth.user.roles.includes("pmt")) {
+          items.push({
+            title: "PMT",
+            href: "/pms/pmt",
+            description: "",
+            icon: "bi bi-braces-asterisk",
+          });
+        }
+      }
 
       if (this.$page.props.auth.user.roles) {
         if (this.$page.props.auth.user.roles.includes("rsm")) {

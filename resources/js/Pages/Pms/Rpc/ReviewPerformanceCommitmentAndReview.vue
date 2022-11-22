@@ -69,7 +69,7 @@ import PmsToolbar from "@/Layouts/PmsToolbar";
 export default {
   props: {
     period: null,
-    form_status: null,
+    items: null,
   },
   components: {
     AuthLayout,
@@ -87,7 +87,6 @@ export default {
     },
   },
   created() {},
-  methods: {},
   mounted() {},
 };
 </script>
