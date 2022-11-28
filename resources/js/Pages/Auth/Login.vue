@@ -6,8 +6,8 @@
   </div>
 <br>
   <form @submit.prevent="submit">
-    <Card class=" w-max  mx-auto mt-8 bg-blue-100">
-      <template #title> LOGIN </template>
+    <Card class=" w-2 mx-auto mt-8">
+      <template #title> IHRIS Login </template>
       <template #content>
         <div class="field w-full">
           <label for="username">Username</label>

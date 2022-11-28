@@ -6,15 +6,16 @@
     </template>
     <template #right-items>
       <Button
-        class="p-button active"
+        class="p-button p-button-text p-button-lg font-bold text-teal-700"
+        icon="bi bi-box-arrow-in-right"
         label="Login"
         @click="$inertia.get('/login')"
       ></Button>
-      <Button
+      <!-- <Button
         class="p-button ml-2"
         label="Register"
         @click="$inertia.get('/register')"
-      ></Button>
+      ></Button> -->
     </template>
   </navbar>
   <div class="mt-7">

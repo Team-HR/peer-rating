@@ -5,8 +5,8 @@
         v-for="(item, i) in items"
         :key="i"
         @click="$inertia.get(item.to)"
-        class="mx-1"
-        :class="is_active_url(item.to) ? 'p-button-raised' : ''"
+        class="p-button p-button-lg p-button-text text-teal-700 mx-1"
+        :class="is_active_url(item.to) ? 'shadow-4' : ''"
         v-tooltip="item.description"
         :icon="item.icon"
         :label="item.label"
@@ -16,12 +16,10 @@
       <span class="mr-5 text-white">{{
         `${$page.props.auth.user.username} (${$page.props.auth.user.roles})`
       }}</span>
-      <Button @click="$inertia.post(route('logout'))" class="p-button-danger">
-        Logout
-      </Button>
+      <Button @click="$inertia.post(route('logout'))" class="p-button p-button-danger p-button-lg p-button-text font-bold" icon="bi bi-box-arrow-right" label=" Logout" />
     </template>
   </navbar>
-  <div class="mx-auto mt-7">
+  <div class="mx-auto mt-8">
     <slot />
   </div>
 </template>
