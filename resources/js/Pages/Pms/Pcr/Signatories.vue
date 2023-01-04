@@ -121,7 +121,7 @@ export default {
   methods: {
     validate() {},
     submit_form() {
-      console.log(this.form);
+      // console.log(this.form);
       this.form.post(this.current_url, {
         onSuccess: () => {
           this.go_back();

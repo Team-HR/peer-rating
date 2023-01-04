@@ -34,17 +34,19 @@ td {
         Accomplish/Review your Performance Commitments</template
       >
       <template #content>
-        <table>
-          <tr>
-            <th>Option</th>
-            <th>Form</th>
-            <th>Status</th>
-          </tr>
+        <table class="mx-auto">
+          <!-- <thead>
+            <tr>
+              <th>Option</th>
+              <th>Form</th>
+              <th>Status</th>
+            </tr>
+          </thead> -->
           <tr v-for="(item, i) in items" :key="i">
             <td>
               <Button
                 @click="$inertia.get(item.href, {}, { replace: true })"
-                label="Open"
+                :label="item.b_label ? item.b_label : 'Open'"
                 class="p-button-sm"
                 :disabled="item.is_disabled"
               ></Button>
@@ -192,6 +194,7 @@ export default {
       {
         no: 6,
         href: this.current_url + "/submit",
+        b_label: "Submit",
         label: "Finalize",
         status: (() => {
           if (!this.form_status.agency) return "Set Form Type first!";

@@ -1,5 +1,5 @@
 <template>
-  <Toolbar class="mb-3 bg-blue-50 w-full">
+  <Toolbar class="mb-3 w-full">
     <template #start>
       <h3 class="mr-3 uppercase">
         <i class="bi bi-graph-up-arrow mr-2"></i> Performance Management System

@@ -6,10 +6,10 @@
     <div class="flex align-items-center justify-content-center">
       <!-- logo -->
       <Button
-        class="p-button p-button-lg p-button-text ml-2 mr-5"
+        class="p-button p-button-primary p-button-lg p-button-text ml-2 mr-5"
         @click="$inertia.get('/')"
         ><img src="/favicon.ico" alt="Icon" class="mr-2" width="50" />
-        <span class="text-teal-700 text-2xl">Integrated HRIS</span>
+        <span class="text-2xl text-gray-700">Integrated HRIS</span>
       </Button>
       <slot name="links" />
     </div>

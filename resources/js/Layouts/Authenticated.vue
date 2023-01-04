@@ -1,26 +1,33 @@
 <template>
-  <navbar class="fixed top-0 left-0 w-full">
-    <template #links>
-      <Button
-        v-for="(item, i) in items"
-        :key="i"
-        @click="$inertia.get(item.to)"
-        class="p-button p-button-lg p-button-text text-teal-700 mx-1"
-        :class="is_active_url(item.to) ? 'shadow-4' : ''"
-        v-tooltip="item.description"
-        :icon="item.icon"
-        :label="item.label"
-      />
-    </template>
-    <template #right-items>
-      <span class="mr-5 text-white">{{
-        `${$page.props.auth.user.username} (${$page.props.auth.user.roles})`
-      }}</span>
-      <Button @click="$inertia.post(route('logout'))" class="p-button p-button-danger p-button-lg p-button-text font-bold" icon="bi bi-box-arrow-right" label=" Logout" />
-    </template>
-  </navbar>
-  <div class="mx-auto mt-8">
-    <slot />
+  <div class="card w-full px-3">
+    <navbar class="fixed top-0 left-0 w-full">
+      <template #links>
+        <Button
+          v-for="(item, i) in items"
+          :key="i"
+          @click="$inertia.get(item.to)"
+          class="p-button p-button-primary p-button-text mr-3"
+          :class="is_active_url(item.to) ? 'shadow-4' : ''"
+          v-tooltip="item.description"
+          :icon="item.icon"
+          :label="item.label"
+        />
+      </template>
+      <template #right-items>
+        <span class="mr-5 text-white">{{
+          `${$page.props.auth.user.username} (${$page.props.auth.user.roles})`
+        }}</span>
+        <Button
+          @click="$inertia.post(route('logout'))"
+          class="p-button p-button-danger p-button-lg p-button-text font-bold"
+          icon="bi bi-box-arrow-right"
+          label=" Logout"
+        />
+      </template>
+    </navbar>
+    <div class="w-full mt-8 mx-auto">
+      <slot />
+    </div>
   </div>
 </template>
 <script>

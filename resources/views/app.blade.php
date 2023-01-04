@@ -23,7 +23,8 @@
 
 <style>
     body {
-        background-color: white;
+        background-color: #d5d5d5;
+        /* background-image: url("./images/bg.jpg"); */
     }
 </style>
 
