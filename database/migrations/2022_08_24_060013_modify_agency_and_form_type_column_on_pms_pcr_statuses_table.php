@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ModifyAgencyAndFormTypeColumnOnPmsPerformanceCommitmentReviewStatusesTable extends Migration
+class ModifyAgencyAndFormTypeColumnOnPmsPcrStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class ModifyAgencyAndFormTypeColumnOnPmsPerformanceCommitmentReviewStatusesTable
      */
     public function up()
     {
-        Schema::table('pms_performance_commitment_review_statuses', function (Blueprint $table) {
+        Schema::table('pms_pcr_statuses', function (Blueprint $table) {
             $table->string('agency')->nullable()->change();
             $table->string('form_type')->nullable()->change();
         });
@@ -26,7 +26,7 @@ class ModifyAgencyAndFormTypeColumnOnPmsPerformanceCommitmentReviewStatusesTable
      */
     public function down()
     {
-        Schema::table('pms_performance_commitment_review_statuses', function (Blueprint $table) {
+        Schema::table('pms_pcr_statuses', function (Blueprint $table) {
             $table->string('agency')->change();
             $table->string('form_type')->change();
         });

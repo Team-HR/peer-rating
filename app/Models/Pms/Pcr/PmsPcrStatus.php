@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Pms\Pcr;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use phpDocumentor\Reflection\Types\Null_;
+use App\Models\SysEmployee;
 
-class PmsPerformanceCommitmentReviewStatus extends Model
+class PmsPcrStatus extends Model
 {
     use HasFactory;
 

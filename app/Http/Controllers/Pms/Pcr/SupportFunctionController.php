@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Pms\Pcr;
 use App\Http\Controllers\Controller;
 use App\Models\Pms\Pcr\PmsPerformanceCommitmentReviewSupportFunction;
 use App\Models\Pms\Pcr\PmsPerformanceCommitmentReviewSupportFunctionData;
-use App\Models\PmsPerformanceCommitmentReviewStatus;
+use App\Models\Pms\Pcr\PmsPcrStatus;
 use App\Models\PmsPeriod;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -172,7 +172,7 @@ function get_support_functions($sys_employee_id, $pms_period_id)
 {
     // check form type from status
     $data = [];
-    $pcr_status = PmsPerformanceCommitmentReviewStatus::where('sys_employee_id', $sys_employee_id)->where('pms_period_id', $pms_period_id)->first();
+    $pcr_status = PmsPcrStatus::where('sys_employee_id', $sys_employee_id)->where('pms_period_id', $pms_period_id)->first();
     // if no status not execute and return []
     if ($pcr_status) {
         $form_type = $pcr_status["form_type"];

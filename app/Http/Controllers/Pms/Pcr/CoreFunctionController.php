@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Pms\Pcr;
 use App\Http\Controllers\Controller;
 use App\Models\Pms\Pcr\PmsPcrCoreFunctionData;
 use App\Models\Pms\Pcr\PmsPerformanceCommitmentReviewStrategicFunctionData;
-use App\Models\PmsPerformanceCommitmentReviewStatus;
+use App\Models\Pms\Pcr\PmsPcrStatus;
 use App\Models\PmsPeriod;
 use App\Models\PmsRatingScaleMatrix;
 use App\Models\PmsRatingScaleMatrixAssignment;
@@ -147,7 +147,7 @@ class CoreFunctionController extends Controller
         }
 
         $period = PmsPeriod::find($period_id);
-        $form_status = PmsPerformanceCommitmentReviewStatus::find($id);
+        $form_status = PmsPcrStatus::find($id);
         $total_percentage_weight = get_total_percentage_weight($rows);
         $total_average_rating = get_total_average_rating($rows);
         $strat = get_strat_data($period_id, $sys_employee_id);

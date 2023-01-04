@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Pms\Pcr;
 use App\Http\Controllers\Controller;
 // use App\Http\Controllers\Pms\Pcr\CoreFunctionController;
 use App\Models\SysEmployee;
-use App\Models\PmsPerformanceCommitmentReviewStatus;
+use App\Models\Pms\Pcr\PmsPcrStatus;
 use App\Models\PmsPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -28,17 +28,17 @@ class PcrController extends Controller
         $period = PmsPeriod::find($period_id);
         $sys_employee_id = auth()->user()->sys_employee_id;
         # get pms_performance_committment_review_status
-        $form_status = PmsPerformanceCommitmentReviewStatus::where("pms_period_id", $period_id)->where("sys_employee_id", $sys_employee_id)->first();
+        $form_status = PmsPcrStatus::where("pms_period_id", $period_id)->where("sys_employee_id", $sys_employee_id)->first();
         # if none create
         if (!$form_status) {
             $sys_employee_id = auth()->user()->sys_employee_id;
             $sys_department_id = auth()->user()->sys_department_id;
-            $form = new PmsPerformanceCommitmentReviewStatus;
+            $form = new PmsPcrStatus;
             $form->pms_period_id = $period_id;
             $form->sys_employee_id = $sys_employee_id;
             $form->sys_department_id = $sys_department_id;
             $form->save();
-            $form_status = PmsPerformanceCommitmentReviewStatus::find($form->id);
+            $form_status = PmsPcrStatus::find($form->id);
         }
 
         $core_function = new CoreFunctionController;
@@ -65,7 +65,7 @@ class PcrController extends Controller
     public function show_form_type($period_id, $id)
     {
         $period = PmsPeriod::find($period_id);
-        $form_type = PmsPerformanceCommitmentReviewStatus::find($id);
+        $form_type = PmsPcrStatus::find($id);
 
         return Inertia::render("Pms/Pcr/FormType", ["period" => $period, "form_type" => $form_type]);
     }
@@ -73,7 +73,7 @@ class PcrController extends Controller
     public function set_form_type($period_id, $id, Request $request)
     {
         $period = PmsPeriod::find($period_id);
-        $form = PmsPerformanceCommitmentReviewStatus::find($id);
+        $form = PmsPcrStatus::find($id);
         $agency_current =  $form->agency;
         $agency_new =  $request->agency;
         $form->agency = $request->agency;
@@ -92,14 +92,14 @@ class PcrController extends Controller
     {
         $period = PmsPeriod::find($period_id);
         $employees = SysEmployee::orderBy('last_name')->get()->toArray();
-        $form_type = PmsPerformanceCommitmentReviewStatus::find($id);
+        $form_type = PmsPcrStatus::find($id);
         return Inertia::render("Pms/Pcr/Signatories", ["period" => $period, "form_type" => $form_type, "employees" => $employees]);
     }
 
     public function set_signatories($period_id, $id, Request $request)
     {
         $period = PmsPeriod::find($period_id);
-        $form = PmsPerformanceCommitmentReviewStatus::find($id);
+        $form = PmsPcrStatus::find($id);
 
         // if (isset($request->immediate_supervisor)) {
         // }
