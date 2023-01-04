@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Pms\Pcr;
 
 use App\Http\Controllers\Controller;
-use App\Models\Pms\Pcr\PmsPerformanceCommitmentReviewStrategicFunctionData;
+use App\Models\Pms\Pcr\PmsPcrStrategicFunctionData;
 use App\Models\PmsPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -14,14 +14,14 @@ class StrategicFunctionController extends Controller
     public function show($period_id, $status_id)
     {
         $period = PmsPeriod::find($period_id);
-        $rows = PmsPerformanceCommitmentReviewStrategicFunctionData::where("pms_period_id", $period_id)->where("sys_employee_id", auth()->user()->sys_employee_id)->get();
+        $rows = PmsPcrStrategicFunctionData::where("pms_period_id", $period_id)->where("sys_employee_id", auth()->user()->sys_employee_id)->get();
         return Inertia::render("Pms/Pcr/StrategicFunction", ["period" => $period, "rows" => $rows]);
     }
 
     public function create_update($period_id, $status_id, Request $request)
     {
         if (!$request->id) {
-            $strat = new PmsPerformanceCommitmentReviewStrategicFunctionData();
+            $strat = new PmsPcrStrategicFunctionData();
             $strat->pms_period_id = $period_id;
             $strat->sys_employee_id = auth()->user()->sys_employee_id;
             $strat->function_title = $request->function_title;
@@ -33,7 +33,7 @@ class StrategicFunctionController extends Controller
             $strat->not_applicable = false;
         } else {
             $id = $request->id;
-            $strat = PmsPerformanceCommitmentReviewStrategicFunctionData::find($id);
+            $strat = PmsPcrStrategicFunctionData::find($id);
             // $strat->pms_period_id = $period_id;
             // $strat->sys_employee_id = auth()->user()->sys_employee_id;
             $strat->function_title = $request->function_title;
@@ -50,7 +50,7 @@ class StrategicFunctionController extends Controller
 
     public function delete($period_id, $status_id, $strat_id)
     {
-        $strat = PmsPerformanceCommitmentReviewStrategicFunctionData::find($strat_id);
+        $strat = PmsPcrStrategicFunctionData::find($strat_id);
         $strat->delete();
         return Redirect::back();
     }

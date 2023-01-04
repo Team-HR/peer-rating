@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Pms\Pcr;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pms\Pcr\PmsPcrCoreFunctionData;
-use App\Models\Pms\Pcr\PmsPerformanceCommitmentReviewStrategicFunctionData;
+use App\Models\Pms\Pcr\PmsPcrStrategicFunctionData;
 use App\Models\Pms\Pcr\PmsPcrStatus;
 use App\Models\PmsPeriod;
 use App\Models\PmsRatingScaleMatrix;
@@ -295,7 +295,7 @@ function get_total_average_rating($rows)
 
 function get_strat_data($period_id, $sys_employee_id)
 {
-    $strat = PmsPerformanceCommitmentReviewStrategicFunctionData::where("pms_period_id", $period_id)->where("sys_employee_id", $sys_employee_id)->first();
+    $strat = PmsPcrStrategicFunctionData::where("pms_period_id", $period_id)->where("sys_employee_id", $sys_employee_id)->first();
 
     if (isset($strat->percent) && isset($strat->final_numerical_rating)) {
         $data = [
