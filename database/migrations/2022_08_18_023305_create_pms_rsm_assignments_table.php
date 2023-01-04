@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePmsRatingScaleMatricesTable extends Migration
+class CreatePmsRsmAssignmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreatePmsRatingScaleMatricesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pms_rating_scale_matrices', function (Blueprint $table) {
+        Schema::create('pms_rsm_assignments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("period_id");
-            $table->unsignedBigInteger("parent_id")->nullable();
-            $table->unsignedBigInteger("sys_department_id");
-            $table->tinyInteger("index");
-            $table->string("code");
-            $table->string("title");
+            $table->unsignedBigInteger("pms_rsm_success_indicator_id");
+            $table->unsignedBigInteger("sys_employee_id");
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreatePmsRatingScaleMatricesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pms_rating_scale_matrices');
+        Schema::dropIfExists('pms_rsm_assignments');
     }
 }

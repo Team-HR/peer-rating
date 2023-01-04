@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Pms\Rsm;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PmsRatingScaleMatrix extends Model
+class PmsRsm extends Model
 {
     use HasFactory;
 }

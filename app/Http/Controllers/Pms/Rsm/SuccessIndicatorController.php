@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Pms\Rsm;
 
 use App\Http\Controllers\Controller;
-use App\Models\PmsRatingScaleMatrix;
-use App\Models\PmsRatingScaleMatrixAssignment;
-use App\Models\PmsRatingScaleMatrixSuccessIndicator;
+use App\Models\Pms\Rsm\PmsRsm;
+use App\Models\Pms\Rsm\PmsRsmAssignment;
+use App\Models\Pms\Rsm\PmsRsmSuccessIndicator;
 use App\Models\SysEmployee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -21,7 +21,7 @@ class SuccessIndicatorController extends Controller
         // }
 
         // $parents = [];
-        $mfo = PmsRatingScaleMatrix::find($rsm_id);
+        $mfo = PmsRsm::find($rsm_id);
         $sys_employees = SysEmployee::orderBy('last_name')->get();
         $success_indicators = [];
         return Inertia::render("Pms/RatingScaleMatrix/SuccessIndicator", ["employees" => $sys_employees, "mfo" => $mfo, "success_indicators" => $success_indicators]);
@@ -29,7 +29,7 @@ class SuccessIndicatorController extends Controller
 
     public function create($period_id, $rsm_id, Request $request)
     {
-        $success_indicator = new PmsRatingScaleMatrixSuccessIndicator;
+        $success_indicator = new PmsRsmSuccessIndicator;
         $success_indicator->pms_rating_scale_matrix_id = $rsm_id;
         $success_indicator->index = 0;
         $success_indicator->success_indicator = $request->success_indicator;
@@ -40,7 +40,7 @@ class SuccessIndicatorController extends Controller
         $pms_rating_scale_matrix_success_indicator_id = $success_indicator->id;
         if (isset($request->in_charges)) {
             foreach ($request->in_charges as $emp) {
-                $assignment = new PmsRatingScaleMatrixAssignment;
+                $assignment = new PmsRsmAssignment;
                 $assignment->period_id = $period_id;
                 $assignment->pms_rating_scale_matrix_success_indicator_id = $pms_rating_scale_matrix_success_indicator_id;
                 $assignment->sys_employee_id = $emp["id"];
@@ -53,10 +53,10 @@ class SuccessIndicatorController extends Controller
 
     public function edit($period_id, $rsm_id, $id)
     {
-        $mfo = PmsRatingScaleMatrix::find($rsm_id);
-        $success_indicator = PmsRatingScaleMatrixSuccessIndicator::find($id);
+        $mfo = PmsRsm::find($rsm_id);
+        $success_indicator = PmsRsmSuccessIndicator::find($id);
         # get list of incharges
-        $assignments = PmsRatingScaleMatrixAssignment::where("pms_rating_scale_matrix_success_indicator_id", $success_indicator->id)->get();
+        $assignments = PmsRsmAssignment::where("pms_rating_scale_matrix_success_indicator_id", $success_indicator->id)->get();
 
         $in_charges = [];
         if ($assignments) {
@@ -83,7 +83,7 @@ class SuccessIndicatorController extends Controller
 
     public function update($period_id, $rsm_id, $id, Request $request)
     {
-        $success_indicator = PmsRatingScaleMatrixSuccessIndicator::find($request->id);
+        $success_indicator = PmsRsmSuccessIndicator::find($request->id);
         $success_indicator->success_indicator = $request->success_indicator;
         $success_indicator->quality = $request->quality;
         $success_indicator->efficiency = $request->efficiency;
@@ -91,12 +91,12 @@ class SuccessIndicatorController extends Controller
         $success_indicator->save();
 
         # delete all existing assignments of the success indicator
-        $assignments = PmsRatingScaleMatrixAssignment::where("pms_rating_scale_matrix_success_indicator_id", $request->id);
+        $assignments = PmsRsmAssignment::where("pms_rating_scale_matrix_success_indicator_id", $request->id);
         $assignments->delete();
 
         if (isset($request->in_charges)) {
             foreach ($request->in_charges as $emp) {
-                $assignment = new PmsRatingScaleMatrixAssignment;
+                $assignment = new PmsRsmAssignment;
                 $assignment->period_id = $period_id;
                 $assignment->pms_rating_scale_matrix_success_indicator_id = $request->id;
                 $assignment->sys_employee_id = $emp["id"];
@@ -111,7 +111,7 @@ class SuccessIndicatorController extends Controller
     public function destroy($period_id, $rsm_id, $id)
     {
         // return $id;
-        $success_indicator = PmsRatingScaleMatrixSuccessIndicator::find($id);
+        $success_indicator = PmsRsmSuccessIndicator::find($id);
         $success_indicator->delete();
         return Redirect::back();
     }
