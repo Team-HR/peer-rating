@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePmsPerformanceCommitmentReviewSupportFunctionsTable extends Migration
+class CreatePmsPcrSupportFunctionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePmsPerformanceCommitmentReviewSupportFunctionsTable extends Migratio
      */
     public function up()
     {
-        Schema::create('pms_performance_commitment_review_support_functions', function (Blueprint $table) {
+        Schema::create('pms_pcr_support_functions', function (Blueprint $table) {
             $table->id();
             $table->string("support_function");
             $table->string("success_indicator");
@@ -33,6 +33,6 @@ class CreatePmsPerformanceCommitmentReviewSupportFunctionsTable extends Migratio
      */
     public function down()
     {
-        Schema::dropIfExists('pms_performance_commitment_review_support_functions');
+        Schema::dropIfExists('pms_pcr_support_functions');
     }
 }

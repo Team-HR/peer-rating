@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Pms\Pcr;
 
 use App\Http\Controllers\Controller;
-use App\Models\Pms\Pcr\PmsPerformanceCommitmentReviewSupportFunction;
-use App\Models\Pms\Pcr\PmsPerformanceCommitmentReviewSupportFunctionData;
+use App\Models\Pms\Pcr\PmsPcrSupportFunction;
+use App\Models\Pms\Pcr\PmsPcrSupportFunctionData;
 use App\Models\Pms\Pcr\PmsPcrStatus;
 use App\Models\PmsPeriod;
 use Illuminate\Http\Request;
@@ -30,7 +30,7 @@ class SupportFunctionController extends Controller
     public function create_accomplishment($pms_period_id, Request $request)
     {
         if (!$request->id) {
-            $accomplishment_data = new PmsPerformanceCommitmentReviewSupportFunctionData();
+            $accomplishment_data = new PmsPcrSupportFunctionData();
             $accomplishment_data->pms_performance_commitment_review_support_function_id = $request->support_func_id;
             $accomplishment_data->pms_period_id = $pms_period_id;
             $accomplishment_data->sys_employee_id = auth()->user()->sys_employee_id;
@@ -42,7 +42,7 @@ class SupportFunctionController extends Controller
             // $accomplishment_data->remarks = $request->remarks;
             // $accomplishment_data->not_applicable = $request->not_applicable ? true : false;
         } else {
-            $accomplishment_data = PmsPerformanceCommitmentReviewSupportFunctionData::find($request->id);
+            $accomplishment_data = PmsPcrSupportFunctionData::find($request->id);
             $accomplishment_data->pms_performance_commitment_review_support_function_id = $request->support_func_id;
             $accomplishment_data->pms_period_id = $pms_period_id;
             $accomplishment_data->sys_employee_id = auth()->user()->sys_employee_id;
@@ -60,7 +60,7 @@ class SupportFunctionController extends Controller
 
     public function delete_accomplishment($period_id, $accomplishment_id)
     {
-        $accomplishment = PmsPerformanceCommitmentReviewSupportFunctionData::find($accomplishment_id);
+        $accomplishment = PmsPcrSupportFunctionData::find($accomplishment_id);
         $accomplishment->delete();
         return Redirect::back();
     }
@@ -69,7 +69,7 @@ class SupportFunctionController extends Controller
     /**
      * 
      * Get all support functions with accomplishment from 
-     * PmsPerformanceCommitmentReviewSupportFunctionData
+     * PmsPcrSupportFunctionData
      * with form type, pms_period_id and sys_employee_id
      * 
      * */
@@ -85,7 +85,7 @@ class SupportFunctionController extends Controller
         foreach ($support_functions as $key => $support_func) {
 
             $id = $support_func["id"];
-            $support_func_data = PmsPerformanceCommitmentReviewSupportFunctionData::where('pms_performance_commitment_review_support_function_id', $id)->where('sys_employee_id', $sys_employee_id)->where('pms_period_id', $pms_period_id)->first();
+            $support_func_data = PmsPcrSupportFunctionData::where('pms_performance_commitment_review_support_function_id', $id)->where('sys_employee_id', $sys_employee_id)->where('pms_period_id', $pms_period_id)->first();
 
             $percent = $support_func["percent"];
 
@@ -163,7 +163,7 @@ class SupportFunctionController extends Controller
 /**
  * 
  * Get all support functions from 
- * PmsPerformanceCommitmentReviewSupportFunction
+ * PmsPcrSupportFunction
  * with form type, pms_period_id and sys_employee_id
  * 
  * */
@@ -176,7 +176,7 @@ function get_support_functions($sys_employee_id, $pms_period_id)
     // if no status not execute and return []
     if ($pcr_status) {
         $form_type = $pcr_status["form_type"];
-        $support_functions = PmsPerformanceCommitmentReviewSupportFunction::where(
+        $support_functions = PmsPcrSupportFunction::where(
             'form_type',
             $form_type
         )->get();
@@ -193,7 +193,7 @@ function get_numerical_rating($sys_employee_id, $pms_period_id)
     foreach ($support_functions as $key => $support_func) {
 
         $id = $support_func["id"];
-        $support_func_data = PmsPerformanceCommitmentReviewSupportFunctionData::where('pms_performance_commitment_review_support_function_id', $id)->where('sys_employee_id', $sys_employee_id)->where('pms_period_id', $pms_period_id)->first();
+        $support_func_data = PmsPcrSupportFunctionData::where('pms_performance_commitment_review_support_function_id', $id)->where('sys_employee_id', $sys_employee_id)->where('pms_period_id', $pms_period_id)->first();
 
         $quality = null;
         $efficiency = null;

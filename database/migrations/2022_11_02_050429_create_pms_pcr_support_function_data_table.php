@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePmsPerformanceCommitmentReviewSupportFunctionDataTable extends Migration
+class CreatePmsPcrSupportFunctionDataTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePmsPerformanceCommitmentReviewSupportFunctionDataTable extends Migra
      */
     public function up()
     {
-        Schema::create('pms_performance_commitment_review_support_function_data', function (Blueprint $table) {
+        Schema::create('pms_pcr_support_function_data', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("pms_performance_commitment_review_support_function_id");
             $table->unsignedBigInteger("sys_employee_id");
@@ -39,6 +39,6 @@ class CreatePmsPerformanceCommitmentReviewSupportFunctionDataTable extends Migra
      */
     public function down()
     {
-        Schema::dropIfExists('pms_performance_commitment_review_support_function_data');
+        Schema::dropIfExists('pms_pcr_support_function_data');
     }
 }
