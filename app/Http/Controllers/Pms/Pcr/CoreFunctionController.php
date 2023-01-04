@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Pms\Pcr;
 
 use App\Http\Controllers\Controller;
-use App\Models\Pms\Pcr\PmsPerformanceCommitmentReviewCoreFunctionData;
+use App\Models\Pms\Pcr\PmsPcrCoreFunctionData;
 use App\Models\Pms\Pcr\PmsPerformanceCommitmentReviewStrategicFunctionData;
 use App\Models\PmsPerformanceCommitmentReviewStatus;
 use App\Models\PmsPeriod;
@@ -139,7 +139,7 @@ class CoreFunctionController extends Controller
                         "quality" => $quality,
                         "efficiency" => $efficiency,
                         "timeliness" => $timeliness,
-                        "pms_performance_commitment_review_core_function_data" => get_pms_performance_commitment_review_core_function_data($success_indicator["id"])
+                        "pms_pcr_core_function_data" => get_pms_pcr_core_function_data($success_indicator["id"])
                     ];
                     $rows[] = array_merge($datum, $success_indicator_datum);
                 }
@@ -158,7 +158,7 @@ class CoreFunctionController extends Controller
     public function create_accomplishment($period_id, $id, Request $request)
     {
         if (!$request->id) {
-            $accomplishment_data = new PmsPerformanceCommitmentReviewCoreFunctionData();
+            $accomplishment_data = new PmsPcrCoreFunctionData();
             $accomplishment_data->pms_rating_scale_matrix_success_indicator_id = $request->pms_rating_scale_matrix_success_indicator_id;
             $accomplishment_data->pms_period_id = $period_id;
             $accomplishment_data->sys_employee_id = auth()->user()->sys_employee_id;
@@ -170,7 +170,7 @@ class CoreFunctionController extends Controller
             $accomplishment_data->remarks = $request->remarks;
             $accomplishment_data->not_applicable = $request->not_applicable ? true : false;
         } else {
-            $accomplishment_data = PmsPerformanceCommitmentReviewCoreFunctionData::find($request->id);
+            $accomplishment_data = PmsPcrCoreFunctionData::find($request->id);
             $accomplishment_data->pms_rating_scale_matrix_success_indicator_id = $request->pms_rating_scale_matrix_success_indicator_id;
             $accomplishment_data->pms_period_id = $period_id;
             $accomplishment_data->sys_employee_id = auth()->user()->sys_employee_id;
@@ -188,20 +188,20 @@ class CoreFunctionController extends Controller
 
     public function delete_accomplishment($period_id, $status_id, $accomplishment_id)
     {
-        $accomplishment = PmsPerformanceCommitmentReviewCoreFunctionData::find($accomplishment_id);
+        $accomplishment = PmsPcrCoreFunctionData::find($accomplishment_id);
         $accomplishment->delete();
         return Redirect::back();
     }
 }
 
-function get_pms_performance_commitment_review_core_function_data($pms_rating_scale_matrix_success_indicator_id)
+function get_pms_pcr_core_function_data($pms_rating_scale_matrix_success_indicator_id)
 {
-    $pms_performance_commitment_review_core_function_data = PmsPerformanceCommitmentReviewCoreFunctionData::where("pms_rating_scale_matrix_success_indicator_id", $pms_rating_scale_matrix_success_indicator_id)->first();
-    if (!$pms_performance_commitment_review_core_function_data) return null;
+    $pms_pcr_core_function_data = PmsPcrCoreFunctionData::where("pms_rating_scale_matrix_success_indicator_id", $pms_rating_scale_matrix_success_indicator_id)->first();
+    if (!$pms_pcr_core_function_data) return null;
     $scores = [
-        $pms_performance_commitment_review_core_function_data["quality"],
-        $pms_performance_commitment_review_core_function_data["efficiency"],
-        $pms_performance_commitment_review_core_function_data["timeliness"],
+        $pms_pcr_core_function_data["quality"],
+        $pms_pcr_core_function_data["efficiency"],
+        $pms_pcr_core_function_data["timeliness"],
     ];
     $count = 0;
     $total = 0;
@@ -214,12 +214,12 @@ function get_pms_performance_commitment_review_core_function_data($pms_rating_sc
     // to avoid division by zero
     if ($count > 0) {
         $average = $total / $count;
-        $percent = $pms_performance_commitment_review_core_function_data["percent"] / 100;
+        $percent = $pms_pcr_core_function_data["percent"] / 100;
         $average = $average * $percent;
         $average = number_format($average, 2);
-        $pms_performance_commitment_review_core_function_data["average"] = $average;
+        $pms_pcr_core_function_data["average"] = $average;
     }
-    return $pms_performance_commitment_review_core_function_data;
+    return $pms_pcr_core_function_data;
 }
 
 
@@ -272,8 +272,8 @@ function get_total_percentage_weight($rows)
     $total_percentage_weight = 0;
 
     foreach ($rows as $row) {
-        if (isset($row["pms_performance_commitment_review_core_function_data"])) {
-            $total_percentage_weight += $row["pms_performance_commitment_review_core_function_data"]["percent"];
+        if (isset($row["pms_pcr_core_function_data"])) {
+            $total_percentage_weight += $row["pms_pcr_core_function_data"]["percent"];
         }
     }
 
@@ -285,8 +285,8 @@ function get_total_average_rating($rows)
     $total_average_rating = 0;
 
     foreach ($rows as $row) {
-        if (isset($row["pms_performance_commitment_review_core_function_data"])) {
-            $total_average_rating += $row["pms_performance_commitment_review_core_function_data"]["average"];
+        if (isset($row["pms_pcr_core_function_data"])) {
+            $total_average_rating += $row["pms_pcr_core_function_data"]["average"];
         }
     }
 

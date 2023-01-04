@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePmsPerformanceCommitmentReviewCoreFunctionDataTable extends Migration
+class CreatePmsPcrCoreFunctionDataTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePmsPerformanceCommitmentReviewCoreFunctionDataTable extends Migratio
      */
     public function up()
     {
-        Schema::create('pms_performance_commitment_review_core_function_data', function (Blueprint $table) {
+        Schema::create('pms_pcr_core_function_data', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pms_rating_scale_matrix_success_indicator_id');
             $table->unsignedBigInteger('pms_period_id');
@@ -37,6 +37,6 @@ class CreatePmsPerformanceCommitmentReviewCoreFunctionDataTable extends Migratio
      */
     public function down()
     {
-        Schema::dropIfExists('pms_performance_commitment_review_core_function_data');
+        Schema::dropIfExists('pms_pcr_core_function_data');
     }
 }
