@@ -185,7 +185,7 @@ export default {
       form: this.$inertia.form({
         department: this.department,
         office: this.office,
-        employee: null,
+        SysEmployee: null,
       }),
       other_employee: this.$inertia.form({
         last_name: null,

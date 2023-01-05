@@ -2,7 +2,7 @@
 
 namespace App\Models\PeerRating;
 
-use App\Models\Employee;
+use App\Models\SysEmployee;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +15,7 @@ class PeerRatingSectionHead extends Model
     public function getFullNameAttribute()
     {
 
-        $employee = Employee::find($this->employee_id);
+        $employee = SysEmployee::find($this->employee_id);
         $last_name = $employee->last_name;
         $first_name = $employee->first_name;
         $middle_name = $employee->middle_name && strlen($employee->middle_name) > 0 ? " " . $employee->middle_name[0] . "." : "";

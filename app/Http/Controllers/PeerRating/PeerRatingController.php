@@ -4,7 +4,7 @@ namespace App\Http\Controllers\PeerRating;
 
 use App\Http\Controllers\Controller;
 
-use App\Models\Employee;
+use App\Models\SysEmployee;
 use App\Models\PeerRating\PeerRatingDepartment;
 use App\Models\PeerRating\PeerRatingOffice;
 use App\Models\PeerRating\PeerRatingOfficePeer;
@@ -304,7 +304,7 @@ class PeerRatingController extends Controller
         }
         ###############################################################
 
-        $employees = Employee::orderBy('last_name')->get()->toArray();
+        $employees = SysEmployee::orderBy('last_name')->get()->toArray();
         $peers = PeerRatingOfficePeer::where("office_id", "=", $office_id)->orderBy('index')->get();
         foreach ($peers as $index => $peer) {
             # getting peer rating scores     
@@ -375,7 +375,7 @@ class PeerRatingController extends Controller
         $employee->ext = $request->ext ? mb_convert_case($request->ext, MB_CASE_UPPER) : null;
 
         # check first if personnel is already in the list
-        $is_exists  = Employee::where('last_name', $request->last_name)
+        $is_exists  = SysEmployee::where('last_name', $request->last_name)
             ->where('first_name', $request->first_name)
             ->where('middle_name', $request->middle_name)
             ->where('ext', $request->ext)

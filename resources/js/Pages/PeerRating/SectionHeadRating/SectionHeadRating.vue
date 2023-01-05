@@ -170,7 +170,7 @@ export default {
       is_updating: false,
       current_url: document.location.pathname,
       form: this.$inertia.form({
-        employee: {},
+        SysEmployee: {},
       }),
       measures: [
         "Outstanding",

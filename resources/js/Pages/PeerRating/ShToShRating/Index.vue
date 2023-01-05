@@ -89,7 +89,7 @@ export default {
     return {
       current_url: document.location.pathname,
       form: this.$inertia.form({
-        employee: {},
+        SysEmployee: {},
       }),
     };
   },

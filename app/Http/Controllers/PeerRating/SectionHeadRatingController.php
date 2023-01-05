@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
 
-use App\Models\Employee;
+use App\Models\SysEmployee;
 use App\Models\PeerRating\PeerRatingDepartment;
 use App\Models\PeerRating\PeerRatingOffice;
 use App\Models\PeerRating\PeerRatingOfficePeer;
@@ -25,12 +25,12 @@ class SectionHeadRatingController extends Controller
         ###############################################################
 
 
-        $employees = Employee::orderBy('last_name')->get()->toArray();
+        $employees = SysEmployee::orderBy('last_name')->get()->toArray();
         $sections = PeerRatingSection::where('department_id', $department_id)->get();
 
 
         foreach ($sections as $sec_key => $section) {
-            $sections[$sec_key]['supervisor'] = Employee::find($section->employee_id_supervisor);
+            $sections[$sec_key]['supervisor'] = SysEmployee::find($section->employee_id_supervisor);
             $sections[$sec_key]['office'] = PeerRatingOffice::find($section->office_id);
         }
 
@@ -95,7 +95,7 @@ class SectionHeadRatingController extends Controller
 
         $is_complete = false;
 
-        $employees = Employee::orderBy('last_name')->get()->toArray();
+        $employees = SysEmployee::orderBy('last_name')->get()->toArray();
         $department = PeerRatingDepartment::find($department_id);
         $section = PeerRatingSection::find($section_id);
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\PeerRating;
 
 use App\Http\Controllers\Controller;
-use App\Models\Employee;
+use App\Models\SysEmployee;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
@@ -23,7 +23,7 @@ class ShToShRatingController extends Controller
         ###############################################################
 
         $department = PeerRatingDepartment::find($department_id);
-        $employees = Employee::orderBy('last_name')->get()->toArray();
+        $employees = SysEmployee::orderBy('last_name')->get()->toArray();
         $ratees = PeerRatingSectionHead::where('department_id', $department_id)->get();
 
         foreach ($ratees as $index => $peer) {
