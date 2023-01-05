@@ -58,7 +58,7 @@ Note: All commands below must be ran on the application's root folder. Any chang
         </Directory> 
         ```
     - `sudo /etc/init.d/apache2 restart`
-- Done
+    - Done
  
  ### Setting Vhost Configuration File
  Note: Make sure on the domain's record, `ihris` is added as `CNAME` which directs to `hrmdo-lgubayawan.online`
@@ -74,11 +74,19 @@ Note: All commands below must be ran on the application's root folder. Any chang
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
  ```
-- Run command `sudo a2ensite ihris.hrmdo-lguabayawan.online.conf`
-- Run command `sudo systemctl reload apache`
-- Run command `sudo certbot --apache` and select `ihris.hrmdo-lgubayawan.online` and enable redirect.
-- Done
+ - Run command `sudo a2ensite ihris.hrmdo-lguabayawan.online.conf`
+ - Run command `sudo systemctl reload apache`
+ - Run command `sudo certbot --apache` and select `ihris.hrmdo-lgubayawan.online` and enable redirect.
+ - Done
 
+ ### System Account Registration
+ - On `users` database table
+ - Add a system administrator user with 
+   - username `sys_admin` 
+   - roles `["sys_admin"]` emphasis on double quotes
+   - password (`sys_admin`) `$2y$10$3MbYI9WQUE9gEblpxGPbyOujmDNxwmjvWmQat.JLaeJKCyMIupf.q`
+ 
+ 
 
 ## License
 NProgress, (c) 2013, 2014 Rico Sta. Cruz - http://ricostacruz.com/nprogress
