@@ -13,7 +13,7 @@ class DeleteIndexColumnOnPmsRsmTable extends Migration
      */
     public function up()
     {
-        Schema::table('pms_rsm', function (Blueprint $table) {
+        Schema::table('pms_rsms', function (Blueprint $table) {
             $table->dropColumn('index');
         });
     }
@@ -25,7 +25,7 @@ class DeleteIndexColumnOnPmsRsmTable extends Migration
      */
     public function down()
     {
-        Schema::table('pms_rsm', function (Blueprint $table) {
+        Schema::table('pms_rsms', function (Blueprint $table) {
             $table->integer("index")->after("sys_department_id")->default(0);
         });
     }
