@@ -4,8 +4,8 @@
       <div class="" style="height: 100vh; overflow: hidden;">
         <div class="min-h-screen flex relative lg:static surface-ground">
           <div id="app-sidebar-10"
-               class="h-full lg:h-auto lg:block flex-shrink-0 absolute lg:static left-0 top-0 z-1 border-right-1 surface-border w-full md:w-auto">
-            <div class="flex h-full">
+               class="hidden h-full lg:h-auto lg:block flex-shrink-0 absolute lg:static left-0 top-0 z-1 border-right-1 surface-border w-full md:w-auto">
+            <div class="flex lg:inline-flex h-full">
               <div class="flex flex-column h-full bg-indigo-900 flex-shrink-0 select-none">
                 <div class="flex align-items-center justify-content-center flex-shrink-0" style="height: 60px;">
                   <!-- <img src="images/blocks/logos/hyper-light.svg" alt="Image" height="30"> -->
@@ -48,7 +48,7 @@
                         style="cursor: pointer; border-radius: 12px;"
                         v-for="sublink, s in links[active_link_index].sublinks" :key="s"
                         @click="$inertia.get(sublink.href)">
-                        <!-- @click="active_sublink_index = s" :class="active_sublink_index == s ? 'bg-indigo-700' : ''" -->
+                      <!-- @click="active_sublink_index = s" :class="active_sublink_index == s ? 'bg-indigo-700' : ''" -->
                       <i class="text-xl mr-3" :class="sublink.icon"></i>
                       <div class="flex flex-column"><span>{{ sublink.title }}</span>
                         <p class="mt-2 mb-0 line-height-3 text-indigo-200">{{ sublink.description }}</p>
@@ -106,7 +106,9 @@
             </div>
             <div class="p-5 flex flex-column flex-auto">
               <div class="border-2 border-dashed border-round surface-border surface-section flex-auto">
-                <slot />
+                <div class="">
+                  <slot />
+                </div>
               </div>
             </div>
           </div>
