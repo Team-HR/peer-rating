@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "chart.js": "^3.8.0",
+        "pinia": "^2.0.28",
         "primeflex": "^3.2.1",
         "primeicons": "^5.0.0",
         "primevue": "^3.16.1",
