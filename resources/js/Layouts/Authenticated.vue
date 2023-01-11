@@ -8,11 +8,11 @@
             <div class="flex lg:inline-flex h-full">
               <div class="flex flex-column h-full bg-indigo-900 flex-shrink-0 select-none">
                 <div class="flex align-items-center justify-content-center flex-shrink-0" style="height: 60px;">
-                  <!-- <img src="images/blocks/logos/hyper-light.svg" alt="Image" height="30"> -->
+                  
                   <img src="/favicon.ico" alt="ihris" class="" width="40" />
                 </div>
                 <div class="overflow-y-auto mt-3">
-                  <!-- left icon list start -->
+                 
                   <ul class="list-none py-3 pl-2 pr-0 m-0">
                     <li class="mb-2" v-for="link, i in links" :key="i">
                       <Button
@@ -26,7 +26,7 @@
                       </Button>
                     </li>
                   </ul>
-                  <!-- left icon list end -->
+               
                 </div>
                 <div class="mt-auto">
                   <hr class="mb-3 mx-2 border-top-1 border-none border-indigo-300"><a
@@ -52,7 +52,6 @@
                       style="cursor: pointer; border-radius: 12px;"
                       v-for="sublink, s in links[active_link_index].sublinks" :key="s"
                       @click="$inertia.get(sublink.href)">
-                      <!-- @click="active_sublink_index = s" :class="active_sublink_index == s ? 'bg-indigo-700' : ''" -->
                       <i class="text-xl mr-3" :class="sublink.icon"></i>
                       <div class="flex flex-column"><span>{{ sublink.title }}</span>
                         <p class="mt-2 mb-0 line-height-3 text-indigo-200">{{ sublink.description }}</p>
@@ -117,11 +116,9 @@
             </div>
           </div>
         </div>
-      </div><!---->
+      </div>
     </div>
   </div>
-
-
 </template>
 <script>
 import Navbar from "@/Components/Navbar.vue";
@@ -130,7 +127,6 @@ export default {
     Navbar,
   },
   data() {
-
     return {
       isActive: true,
       isHidden: false,
