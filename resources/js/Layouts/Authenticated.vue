@@ -17,7 +17,7 @@ export default {
       isHidden: false,
       currentUrl: this.$inertia.page.url,
       activeLinkIndex: 0,
-      activeSubLinkIndex: 0,
+      activeSubLinkIndex: null,
     }
   },
   methods: {
