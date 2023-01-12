@@ -97,12 +97,11 @@ export default {
               </div>
               <div class="flex flex-column bg-indigo-500 p-4 overflow-y-auto flex-shrink-0 flex-grow-1 md:flex-grow-0"
                    style="width: 300px;">
-                <div class="justify-content-end mb-3 flex lg:hidden fadeinleft animation-duration-500"><button icon="pi pi-times"
+                <div class="justify-content-end mb-3 flex  fadeinleft animation-duration-500"><button icon="pi pi-times"
                           class="cursor-pointer text-white appearance-none bg-transparent border-none inline-flex justify-content-center align-items-center border-circle hover:bg-indigo-600 transition-duration-150 transition-colors"
                           style="width: 2rem; height: 2rem;" @click="isHidden = !isHidden"><i
                        class="pi pi-times text-xl text-indigo-100"></i></button></div>
                 <div class="border-round flex-auto">
-
                   <div class="p-3 font-medium text-2xl text-white mb-5">{{
                     links[activeLinkIndex].title
                   }}</div>
@@ -133,7 +132,7 @@ export default {
           <div class="min-h-screen flex flex-column relative flex-auto">
             <div class="flex justify-content-between lg:justify-content-start align-items-center px-5 surface-section border-bottom-1 surface-border relative lg:static"
                  style="height: 60px;">
-              <div id="main" class="flex"><a class="cursor-pointer block lg:hidden text-700 mr-3 mt-1 p-ripple"><i
+              <div id="main" class="flex"><a class="cursor-pointer block text-700 mr-3 mt-1 p-ripple"><i
                      class="pi pi-bars text-4xl" @click="isHidden = !isHidden"></i><span class="p-ink"
                         role="presentation" style="height: 34px; width: 34px; top: 1.5px; left: 10px;"></span></a></div>
               <img src="images/blocks/logos/hyper.svg" alt="Image" height="30" class="block lg:hidden"><a
@@ -183,8 +182,6 @@ export default {
             </div>
           </div>
           <!-- main screen end -->
-
-
 
         </div>
       </div>

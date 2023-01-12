@@ -105,7 +105,7 @@ import { createApp, h } from 'vue';
 import { createInertiaApp, Link } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
 import { createPinia } from 'pinia';
-import piniaPluginPersistedState from "pinia-plugin-persistedstate"
+import piniaPluginPersistedState from "pinia-plugin-persistedstate";
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedState)
@@ -135,7 +135,7 @@ createInertiaApp({
                 template: `<inertia-link :href="to" class="p-menuitem-link p-0"><slot/></inertia-link>`,
             })
 
-            .directive('tooltip', Tooltip)
+        .directive('tooltip', Tooltip)
             .directive('badge', BadgeDirective)
             .directive('ripple', Ripple)
             .directive('styleclass', StyleClass)
