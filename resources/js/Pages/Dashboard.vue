@@ -1,12 +1,6 @@
 <template>
   <auth-layout>
-    <Card class="w-8 mx-auto h-screen mt-8">
-      <template #content>
-        <!-- <Button @click="$inertia.get('/pms/peer-rating-2022')"
-          >Peer Rating 2022</Button
-        > -->
-      </template>
-    </Card>
+
   </auth-layout>
 </template>
 <script>

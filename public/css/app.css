@@ -48,7 +48,6 @@
             z-index: 1;
             -webkit-user-select: none;
             -moz-user-select: none;
-            -ms-user-select: none;
             user-select: none;
             transform: translateX(-50%);
         }

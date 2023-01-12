@@ -1,9 +1,5 @@
 require('./bootstrap');
-
-// Import modules...
-import { createApp, h } from 'vue';
-import { createInertiaApp, Link } from '@inertiajs/inertia-vue3';
-import { InertiaProgress } from '@inertiajs/progress';
+// primevue start
 import PrimeVue from 'primevue/config';
 import AutoComplete from 'primevue/autocomplete';
 import Accordion from 'primevue/accordion';
@@ -100,10 +96,19 @@ import TreeSelect from 'primevue/treeselect';
 import TreeTable from 'primevue/treetable';
 import TriStateCheckbox from 'primevue/tristatecheckbox';
 import VirtualScroller from 'primevue/virtualscroller';
-
-
 // CHART
 import Chart from 'primevue/chart';
+// primevue end
+
+// Import modules...
+import { createApp, h } from 'vue';
+import { createInertiaApp, Link } from '@inertiajs/inertia-vue3';
+import { InertiaProgress } from '@inertiajs/progress';
+import { createPinia } from 'pinia';
+import piniaPluginPersistedState from "pinia-plugin-persistedstate"
+
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedState)
 
 const el = document.getElementById('app');
 createInertiaApp({
@@ -116,21 +121,21 @@ createInertiaApp({
             .use(ConfirmationService)
             .use(ToastService)
             .use(DialogService)
-
-        /*  The router-link special component is required for the primevue
-            menu model derived components.  It is normally handled by vue-router
-            however because we are using inertia, so instead I pass the 'to'
-            parameter across to inertia-link as a href so it can do it's magic.
-            reference: https://forum.primefaces.org/viewtopic.php?t=70049
-        */
-        // .component('Link', Link)
-        .component('inertia-link', Link)
+            .use(pinia)
+            /*  The router-link special component is required for the primevue
+                menu model derived components.  It is normally handled by vue-router
+                however because we are using inertia, so instead I pass the 'to'
+                parameter across to inertia-link as a href so it can do it's magic.
+                reference: https://forum.primefaces.org/viewtopic.php?t=70049
+            */
+            // .component('Link', Link)
+            .component('inertia-link', Link)
             .component("router-link", {
                 props: ["to", "custom"],
                 template: `<inertia-link :href="to" class="p-menuitem-link p-0"><slot/></inertia-link>`,
             })
 
-        .directive('tooltip', Tooltip)
+            .directive('tooltip', Tooltip)
             .directive('badge', BadgeDirective)
             .directive('ripple', Ripple)
             .directive('styleclass', StyleClass)
@@ -226,5 +231,9 @@ createInertiaApp({
             .mount(el);
     },
 });
+
+
+// import { useAppbarStore } from "./stores/AppbarStore";
+// useAppbarStore();
 
 InertiaProgress.init({ color: 'yellow' });
