@@ -26,7 +26,10 @@ export default {
       const currentPath = this.currentUrl.split("/")[1];
       if (currentPath) {
         const index = this.links.map(function (e) { return e.path ? e.path.split("/")[1] : false }).indexOf(currentPath)
-        this.activeLinkIndex = index;
+        // console.log(index);
+        if (index > -1) {
+          this.activeLinkIndex = index;
+        }
       }
     },
 
@@ -34,7 +37,9 @@ export default {
       const currentSubPath = this.currentUrl.split("/")[2];
       if (currentSubPath) {
         const index = this.links[this.activeLinkIndex].sublinks.map(function (e) { return e.path.split("/")[2]; }).indexOf(currentSubPath);
-        this.activeSubLinkIndex = index;
+        if (index > -1) {
+          this.activeSubLinkIndex = index;
+        }
       }
 
     },
@@ -97,7 +102,8 @@ export default {
               </div>
               <div class="flex flex-column bg-indigo-500 p-4 overflow-y-auto flex-shrink-0 flex-grow-1 md:flex-grow-0"
                    style="width: 300px;">
-                <div class="justify-content-end mb-3 flex lg:hidden fadeinleft animation-duration-500"><button icon="pi pi-times"
+                <div class="justify-content-end mb-3 flex lg:hidden fadeinleft animation-duration-500"><button
+                          icon="pi pi-times"
                           class="cursor-pointer text-white appearance-none bg-transparent border-none inline-flex justify-content-center align-items-center border-circle hover:bg-indigo-600 transition-duration-150 transition-colors"
                           style="width: 2rem; height: 2rem;" @click="isHidden = !isHidden"><i
                        class="pi pi-times text-xl text-indigo-100"></i></button></div>
