@@ -104,9 +104,12 @@ import Chart from 'primevue/chart';
 import { createApp, h } from 'vue';
 import { createInertiaApp, Link } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
-import { createPinia } from 'pinia'
+import { createPinia } from 'pinia';
+import piniaPluginPersistedState from "pinia-plugin-persistedstate"
 
 const pinia = createPinia()
+pinia.use(piniaPluginPersistedState)
+
 const el = document.getElementById('app');
 createInertiaApp({
     resolve: (name) => require(`./Pages/${name}`),
@@ -228,5 +231,9 @@ createInertiaApp({
             .mount(el);
     },
 });
+
+
+// import { useAppbarStore } from "./stores/AppbarStore";
+// useAppbarStore();
 
 InertiaProgress.init({ color: 'yellow' });

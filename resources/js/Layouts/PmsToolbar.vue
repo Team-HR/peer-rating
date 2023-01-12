@@ -6,13 +6,8 @@
       </h3>
       <div class="pl-4 grid">
         <template v-for="(item, i) in items" :key="i">
-          <Button
-            class="mr-2"
-            :class="is_active_url(item.href) ? 'p-button-raised' : 'p-button-text '"
-            :icon="item.icon"
-            :label="item.title"
-            @click="$inertia.get(item.href)"
-          />
+          <Button class="mr-2" :class="is_active_url(item.href) ? 'p-button-raised' : 'p-button-text '"
+                  :icon="item.icon" :label="item.title" @click="$inertia.get(item.href)" />
         </template>
       </div>
     </template>
