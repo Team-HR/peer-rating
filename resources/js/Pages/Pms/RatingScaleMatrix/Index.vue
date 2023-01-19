@@ -1,6 +1,6 @@
 <template>
   <auth-layout>
-    <Card class="w-full">
+    <!-- <Card class="w-full">
       <template #title><span class="uppercase"><i class="bi bi-book mr-2"></i> Rating Scale Matrix</span></template>
       <template #subtitle>Edit or review your Department/Section's Rating Scale Matrix</template>
       <template #content>
@@ -13,21 +13,25 @@
                   :label="!period_id ? 'Select a period first' : 'Open'" />
         </form>
       </template>
-    </Card>
+    </Card> -->
+    <period-selector icon="bi bi-book" title="Rating Scale Matrix"
+                     description="Edit or review your Department/Section's Rating Scale Matrix" path="/pms/rsm/"></period-selector>
   </auth-layout>
 </template>
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
+import PeriodSelector from "@/Components/Pms/PeriodSelector.vue";
 export default {
   props: {
-    periods: null,
+    // periods: null,
   },
   components: {
     AuthLayout,
+    PeriodSelector
   },
   data() {
     return {
-      period_id: null,
+      // period_id: null,
     };
   },
   mounted() { },

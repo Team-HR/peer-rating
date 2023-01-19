@@ -11,7 +11,6 @@ td {
 
 <template>
   <auth-layout>
-    <PmsToolbar />
     <Card class="w-full">
       <template #title>
         <Button
@@ -544,7 +543,6 @@ td {
 </template>
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
-import PmsToolbar from "@/Layouts/PmsToolbar";
 
 export default {
   props: {
@@ -556,7 +554,6 @@ export default {
   },
   components: {
     AuthLayout,
-    PmsToolbar,
   },
   data() {
     return {
@@ -568,7 +565,7 @@ export default {
       // percentage_weight_remaining: null,
       accomplishment: this.$inertia.form({
         id: null,
-        pms_rating_scale_matrix_success_indicator_id: null,
+        pms_rsm_success_indicator_id: null,
         actual: null,
         quality: null,
         efficiency: null,
@@ -582,8 +579,8 @@ export default {
   methods: {
     not_applicable(row) {
       this.accomplishment.id = null;
-      this.accomplishment.pms_rating_scale_matrix_success_indicator_id =
-        row.pms_rating_scale_matrix_success_indicator_id;
+      this.accomplishment.pms_rsm_success_indicator_id =
+        row.pms_rsm_success_indicator_id;
       this.accomplishment.not_applicable = true;
       this.not_applicable_modal = true;
     },
@@ -595,8 +592,8 @@ export default {
       console.log(row);
       this.accomplishment.id =
         row.pms_pcr_core_function_data.id;
-      this.accomplishment.pms_rating_scale_matrix_success_indicator_id =
-        row.pms_rating_scale_matrix_success_indicator_id;
+      this.accomplishment.pms_rsm_success_indicator_id =
+        row.pms_rsm_success_indicator_id;
       this.accomplishment.actual =
         row.pms_pcr_core_function_data.actual;
       this.accomplishment.not_applicable = true;
@@ -654,8 +651,8 @@ export default {
     add_accomplishment(row) {
       this.core_function = row;
       this.accomplishment.id = null;
-      this.accomplishment.pms_rating_scale_matrix_success_indicator_id =
-        row.pms_rating_scale_matrix_success_indicator_id;
+      this.accomplishment.pms_rsm_success_indicator_id =
+        row.pms_rsm_success_indicator_id;
       this.edit_accomplishment_modal = true;
     },
     cancel_accomplishment() {
@@ -666,8 +663,8 @@ export default {
       this.core_function = row;
       this.accomplishment.id =
         row.pms_pcr_core_function_data.id;
-      this.accomplishment.pms_rating_scale_matrix_success_indicator_id =
-        row.pms_rating_scale_matrix_success_indicator_id;
+      this.accomplishment.pms_rsm_success_indicator_id =
+        row.pms_rsm_success_indicator_id;
       this.accomplishment.actual =
         row.pms_pcr_core_function_data.actual;
       this.accomplishment.quality =
@@ -684,7 +681,7 @@ export default {
     },
     clear_accomplishment() {
       this.accomplishment.id = null;
-      this.accomplishment.pms_rating_scale_matrix_success_indicator_id = null;
+      this.accomplishment.pms_rsm_success_indicator_id = null;
       this.accomplishment.actual = null;
       this.accomplishment.quality = null;
       this.accomplishment.efficiency = null;

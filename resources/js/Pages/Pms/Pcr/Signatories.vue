@@ -11,78 +11,37 @@ td {
 
 <template>
   <auth-layout>
-    <PmsToolbar />
     <Card class="w-full">
       <template #title>
-        <Button
-          label="Back"
-          class="p-button-sm p-button-raised p-button-text mb-3"
-          icon="bi bi-arrow-left"
-          @click="go_back()"
-        ></Button>
+        <Button label="Back" class="p-button-sm p-button-raised p-button-text mb-3" icon="bi bi-arrow-left"
+                @click="go_back()"></Button>
         <br />
-        <span class="uppercase"
-          ><i class="bi bi-book mr-2"></i> PERFORMANCE COMMITMENT AND REVIEW | Set
-          Signatories</span
-        ></template
-      >
+        <span class="uppercase"><i class="bi bi-book mr-2"></i> PERFORMANCE COMMITMENT AND REVIEW | Set
+          Signatories</span></template>
       <template #subtitle>
-        <span class="text-xl"
-          >{{ $page.props.auth.user.sys_department_name }} ( {{ period.period }},
-          {{ period.year }})</span
-        >
+        <span class="text-xl">{{ $page.props.auth.user.sys_department_name }} ( {{ period.period }},
+          {{ period.year }})</span>
         <br />
-        Set signatories</template
-      >
+        Set signatories</template>
       <template #content>
         <form @submit.prevent="submit_form()" class="w-full ml-5">
           <div class="field">
             <h3>SUPERVISOR:</h3>
-            <Dropdown
-              v-if="this.form_type.agency == 'lgu'"
-              showClear
-              v-model="form.immediate_supervisor"
-              :options="employees"
-              optionLabel="full_name"
-              placeholder="Select the supervisor"
-              :filter="true"
-              filterPlaceholder="Search name"
-              class="mr-2 w-4"
-            />
-            <InputText
-              v-else
-              placeholder="Name of your supervisor"
-              class="w-4"
-              v-model="form.immediate_supervisor"
-            />
+            <Dropdown v-if="this.form_type.agency == 'lgu'" showClear v-model="form.immediate_supervisor"
+                      :options="employees" optionLabel="full_name" placeholder="Select the supervisor" :filter="true"
+                      filterPlaceholder="Search name" class="mr-2 w-4" />
+            <InputText v-else placeholder="Name of your supervisor" class="w-4" v-model="form.immediate_supervisor" />
           </div>
           <div class="field">
             <h3>DEPARTMENT HEAD:</h3>
-            <Dropdown
-              v-if="this.form_type.agency == 'lgu'"
-              showClear
-              v-model="form.department_head"
-              :options="employees"
-              optionLabel="full_name"
-              placeholder="Select your department head"
-              :filter="true"
-              filterPlaceholder="Search name"
-              class="mr-2 w-4"
-            />
-            <InputText
-              v-else
-              placeholder="Name of your department head"
-              class="w-4"
-              v-model="form.department_head"
-            />
+            <Dropdown v-if="this.form_type.agency == 'lgu'" showClear v-model="form.department_head"
+                      :options="employees" optionLabel="full_name" placeholder="Select your department head"
+                      :filter="true" filterPlaceholder="Search name" class="mr-2 w-4" />
+            <InputText v-else placeholder="Name of your department head" class="w-4" v-model="form.department_head" />
           </div>
           <div class="field">
             <h3>HEAD OF AGENCY:</h3>
-            <InputText
-              placeholder="Name of your agency head"
-              class="w-4"
-              v-model="form.head_of_agency"
-            />
+            <InputText placeholder="Name of your agency head" class="w-4" v-model="form.head_of_agency" />
           </div>
           <Button icon="bi bi-save" label="Save" type="submit"></Button>
         </form>
@@ -92,7 +51,6 @@ td {
 </template>
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
-import PmsToolbar from "@/Layouts/PmsToolbar";
 
 export default {
   props: {
@@ -102,7 +60,6 @@ export default {
   },
   components: {
     AuthLayout,
-    PmsToolbar,
   },
   data() {
     return {
@@ -119,7 +76,7 @@ export default {
     };
   },
   methods: {
-    validate() {},
+    validate() { },
     submit_form() {
       // console.log(this.form);
       this.form.post(this.current_url, {
@@ -157,6 +114,6 @@ export default {
       this.form.head_of_agency = "JOHN T. RAYMOND, JR.";
     }
   },
-  mounted() {},
+  mounted() { },
 };
 </script>

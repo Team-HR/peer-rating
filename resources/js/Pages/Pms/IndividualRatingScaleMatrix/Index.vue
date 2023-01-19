@@ -1,6 +1,6 @@
 <template>
   <auth-layout>
-    <Card class="w-full">
+    <!-- <Card class="w-full">
       <template #title><span class="uppercase"><i class="bi bi-book mr-2"></i> Individual Rating Scale
           Matrix</span></template>
       <template #subtitle>Review your Rating Scale Matrix</template>
@@ -14,23 +14,27 @@
                   :label="!period_id ? 'Select a period first' : 'Open'" />
         </form>
       </template>
-    </Card>
+    </Card> -->
+    <period-selector icon="bi bi-book" title="Individual Rating Scale"
+                     description="View your individual rating scale matrix." path="/pms/irsm/"></period-selector>
   </auth-layout>
 </template>
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
+import PeriodSelector from "@/Components/Pms/PeriodSelector.vue";
 import { Inertia } from "@inertiajs/inertia";
 
 export default {
-  props: {
-    periods: null,
-  },
+  // props: {
+  //   periods: null,
+  // },
   components: {
     AuthLayout,
+    PeriodSelector
   },
   data() {
     return {
-      period_id: null
+      // period_id: null
     };
   },
   mounted() {

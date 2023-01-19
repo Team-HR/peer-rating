@@ -11,11 +11,10 @@ td {
 
 <template>
   <auth-layout>
-    <PmsToolbar />
     <Card class="w-full">
       <template #title>
         <Button label="Back" class="p-button-sm p-button-raised p-button-text mb-3" icon="bi bi-arrow-left"
-          @click="go_back()"></Button> <br>
+                @click="go_back()"></Button> <br>
         <div class="uppercase w-full"><i class="bi bi-book mr-2"></i> Rating Scale Matrix</div>
       </template>
       <template #subtitle>
@@ -52,7 +51,7 @@ td {
                 <td :colspan="row.mfo_only ? 8 : 1">
                   <div :style="indent(row.level)">
                     <Button type="button" class="p-button-tex p-button-text py-0 px-2 m-0 mr-2"
-                      @click="toggle($event, row.id)">
+                            @click="toggle($event, row.id)">
                       <i class="bi bi-gear"></i>
                     </Button>
                     <Menu :ref="`menu${row.id}`" :model="get_menu_items(row)" :popup="true" />
@@ -87,7 +86,7 @@ td {
                 <td :rowspan="row.rowspan">
                   <div :style="indent(row.level)">
                     <Button type="button" class="p-button-tex p-button-text py-0 px-2 m-0 mr-2"
-                      @click="toggle($event, row.id)">
+                            @click="toggle($event, row.id)">
                       <i class="bi bi-gear"></i>
                     </Button>
                     <Menu :ref="`menu${row.id}`" :model="get_menu_items(row)" :popup="true" />
@@ -105,9 +104,9 @@ td {
                 <td v-html="in_charge(row.in_charges)"></td>
                 <td>
                   <Button class="p-button-sm p-button-text p-button-success flex w-full" icon="bi bi-pencil"
-                    label="Edit" @click="edit_success_indicator(row)"></Button>
+                          label="Edit" @click="edit_success_indicator(row)"></Button>
                   <Button class="p-button-sm p-button-text p-button-danger flex w-full" icon="bi bi-trash"
-                    label="Delete" @click="delete_success_indicator(row)"></Button>
+                          label="Delete" @click="delete_success_indicator(row)"></Button>
                 </td>
               </tr>
               <tr v-else>
@@ -119,9 +118,9 @@ td {
                 <td v-html="in_charge(row.in_charges)"></td>
                 <td>
                   <Button class="p-button-sm p-button-text p-button-success flex w-full" icon="bi bi-pencil"
-                    label="Edit" @click="edit_success_indicator(row)"></Button>
+                          label="Edit" @click="edit_success_indicator(row)"></Button>
                   <Button class="p-button-sm p-button-text p-button-danger flex w-full" icon="bi bi-trash"
-                    label="Delete" @click="delete_success_indicator(row)"></Button>
+                          label="Delete" @click="delete_success_indicator(row)"></Button>
                 </td>
               </tr>
             </template>
@@ -136,28 +135,28 @@ td {
         <!-- ####################### Table End ########################### -->
 
         <Button class="my-5 p-button-sm" icon="pi pi-plus" label="Add New MFO/PAP"
-          @click="add_edit_modal = !add_edit_modal"></Button>
+                @click="add_edit_modal = !add_edit_modal"></Button>
         <!-- ############################       AddEdit Modal Start        ############################# -->
         <Dialog :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
-          :header="form.id ? 'EDIT MFO/PAP' : 'ADD NEW MFO/PAP'" v-model:visible="add_edit_modal" :modal="true">
+                :header="form.id ? 'EDIT MFO/PAP' : 'ADD NEW MFO/PAP'" v-model:visible="add_edit_modal" :modal="true">
           <form id="add_new_form" class="card" @submit.prevent="add_edit_submit()">
             <div class="formgrid grid">
               <div class="field col-12">
                 <label class="mr-2">Parent MFO/PAP:</label>
                 <br />
                 <Dropdown showClear v-model="form.parent_id" :options="parents" optionLabel="label" optionValue="id"
-                  placeholder="Select parent if available (Leave blank if none)" />
+                          placeholder="Select parent if available (Leave blank if none)" />
               </div>
               <div class="field col-4">
                 <label>Code:</label>
                 <InputText class="w-full" type="text" v-model="form.code" placeholder="e.g. A., A.1., B.,B.1"
-                  required />
+                           required />
                 <small class="ml-2">*Required</small>
               </div>
               <div class="field col-8">
                 <label>MFO/PAP Title:</label>
                 <InputText class="w-full" type="text" v-model="form.title" placeholder="e.g. Recruitment Services"
-                  required />
+                           required />
                 <small class="ml-2">*Required</small>
               </div>
             </div>
@@ -178,7 +177,6 @@ td {
 </template>
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
-import PmsToolbar from "@/Layouts/PmsToolbar";
 export default {
   props: {
     auth: null,
@@ -189,7 +187,6 @@ export default {
   },
   components: {
     AuthLayout,
-    PmsToolbar,
   },
 
   data() {

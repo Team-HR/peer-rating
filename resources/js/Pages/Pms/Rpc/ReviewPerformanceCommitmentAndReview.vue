@@ -11,28 +11,18 @@ td {
 
 <template>
   <auth-layout>
-    <PmsToolbar />
     <Card class="w-full">
       <template #title>
-        <Button
-          label="Back"
-          class="p-button-sm p-button-raised p-button-text mb-3"
-          icon="bi bi-arrow-left"
-          @click="go_back()"
-        ></Button>
+        <Button label="Back" class="p-button-sm p-button-raised p-button-text mb-3" icon="bi bi-arrow-left"
+                @click="go_back()"></Button>
         <br />
-        <span class="uppercase"
-          ><i class="bi bi-book mr-2"></i> REVIEW PERFORMANCE COMMITMENT AND REVIEW</span
-        ></template
-      >
+        <span class="uppercase"><i class="bi bi-book mr-2"></i> REVIEW PERFORMANCE COMMITMENT AND
+          REVIEW</span></template>
       <template #subtitle>
-        <span class="text-xl"
-          >{{ $page.props.auth.user.sys_department_name }} ( {{ period.period }},
-          {{ period.year }})</span
-        >
+        <span class="text-xl">{{ $page.props.auth.user.sys_department_name }} ( {{ period.period }},
+          {{ period.year }})</span>
         <br />
-        Review personnel's accomplished performance commitment and review.</template
-      >
+        Review personnel's accomplished performance commitment and review.</template>
       <template #content>
         <table class="w-full">
           <tr>
@@ -64,7 +54,6 @@ td {
 </template>
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
-import PmsToolbar from "@/Layouts/PmsToolbar";
 
 export default {
   props: {
@@ -73,7 +62,6 @@ export default {
   },
   components: {
     AuthLayout,
-    PmsToolbar,
   },
   data() {
     return {
@@ -86,7 +74,7 @@ export default {
       window.history.back();
     },
   },
-  created() {},
-  mounted() {},
+  created() { },
+  mounted() { },
 };
 </script>

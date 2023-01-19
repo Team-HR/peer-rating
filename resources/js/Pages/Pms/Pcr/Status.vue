@@ -11,28 +11,17 @@ td {
 
 <template>
   <auth-layout>
-    <PmsToolbar />
     <Card class="w-full">
       <template #title>
-        <Button
-          label="Back"
-          class="p-button-sm p-button-raised p-button-text mb-3"
-          icon="bi bi-arrow-left"
-          @click="go_back()"
-        ></Button>
+        <Button label="Back" class="p-button-sm p-button-raised p-button-text mb-3" icon="bi bi-arrow-left"
+                @click="go_back()"></Button>
         <br />
-        <span class="uppercase"
-          ><i class="bi bi-book mr-2"></i> PERFORMANCE COMMITMENT AND REVIEW</span
-        ></template
-      >
+        <span class="uppercase"><i class="bi bi-book mr-2"></i> PERFORMANCE COMMITMENT AND REVIEW</span></template>
       <template #subtitle>
-        <span class="text-xl"
-          >{{ $page.props.auth.user.sys_department_name }} ( {{ period.period }},
-          {{ period.year }})</span
-        >
+        <span class="text-xl">{{ $page.props.auth.user.sys_department_name }} ( {{ period.period }},
+          {{ period.year }})</span>
         <br />
-        Accomplish/Review your Performance Commitments</template
-      >
+        Accomplish/Review your Performance Commitments</template>
       <template #content>
         <table class="mx-auto">
           <!-- <thead>
@@ -44,12 +33,9 @@ td {
           </thead> -->
           <tr v-for="(item, i) in items" :key="i">
             <td>
-              <Button
-                @click="$inertia.get(item.href, {}, { replace: true })"
-                :label="item.b_label ? item.b_label : 'Open'"
-                class="p-button-sm"
-                :disabled="item.is_disabled"
-              ></Button>
+              <Button @click="$inertia.get(item.href, {}, { replace: true })"
+                      :label="item.b_label ? item.b_label : 'Open'" class="p-button-sm"
+                      :disabled="item.is_disabled"></Button>
             </td>
             <td>{{ item.label }}</td>
             <td class="" v-html="item.status"></td>
@@ -61,7 +47,6 @@ td {
 </template>
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
-import PmsToolbar from "@/Layouts/PmsToolbar";
 
 export default {
   props: {
@@ -70,7 +55,6 @@ export default {
   },
   components: {
     AuthLayout,
-    PmsToolbar,
   },
   data() {
     return {
