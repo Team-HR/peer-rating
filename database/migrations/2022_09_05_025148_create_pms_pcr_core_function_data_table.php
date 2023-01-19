@@ -15,7 +15,7 @@ class CreatePmsPcrCoreFunctionDataTable extends Migration
     {
         Schema::create('pms_pcr_core_function_data', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pms_rating_scale_matrix_success_indicator_id');
+            $table->unsignedBigInteger('pms_rsm_success_indicator_id');
             $table->unsignedBigInteger('pms_period_id');
             $table->unsignedBigInteger('sys_employee_id');
             $table->text('actual');

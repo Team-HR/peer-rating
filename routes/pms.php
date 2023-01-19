@@ -18,6 +18,9 @@ Route::middleware(['auth'])->group(function () {
         return Inertia::render('Pms/Index');
     });
 
+    # pms period selector
+    
+
     # rating scale matrix
     Route::get('/pms/rsm', [RatingScaleMatrixController::class, "index"]);
 

@@ -110,7 +110,7 @@ class RatingScaleMatrixController extends Controller
                     }
 
 
-                    $in_charges = PmsRsmAssignment::where("pms_rating_scale_matrix_success_indicator_id", $success_indicator["id"])->get();
+                    $in_charges = PmsRsmAssignment::where("pms_rsm_success_indicator_id", $success_indicator["id"])->get();
 
                     $success_indicator_datum = [
                         "success_indicator_id" => $success_indicator["id"],
@@ -164,8 +164,8 @@ class RatingScaleMatrixController extends Controller
 
     public function destroy($period_id, $id)
     {
-        # delete success indicators with pms_rating_scale_matrix_id = $id
-        $success_indicators = PmsRsmSuccessIndicator::where("pms_rating_scale_matrix_id", $id);
+        # delete success indicators with pms_rsm_id = $id
+        $success_indicators = PmsRsmSuccessIndicator::where("pms_rsm_id", $id);
         $success_indicators->delete();
 
         # get mfo children
@@ -231,14 +231,14 @@ function get_level($level = 0, $parent_id)
 # count rowspan 
 function get_rowspan($id)
 {
-    $count = PmsRsmSuccessIndicator::where("pms_rating_scale_matrix_id", $id)->count();
+    $count = PmsRsmSuccessIndicator::where("pms_rsm_id", $id)->count();
     return $count;
 }
 
 # get success indicators of the mfo/pap
 function get_success_indicators($id)
 {
-    $pms_rating_scale_matrix_success_indicators = PmsRsmSuccessIndicator::where("pms_rating_scale_matrix_id", $id)->get();
+    $pms_rating_scale_matrix_success_indicators = PmsRsmSuccessIndicator::where("pms_rsm_id", $id)->get();
     return $pms_rating_scale_matrix_success_indicators;
 }
 
