@@ -1,0 +1,128 @@
+{
+    "data": [{
+            "id": "1",
+            "departments": "CITY ADMINISTRATOR'S OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "2",
+            "departments": "CITY ACCOUNTING OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "3",
+            "departments": "CITY MAYOR'S OFFICE - INFORMATION TECHNOLOGY OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "4",
+            "departments": "CITY AGRICULTURE OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "5",
+            "departments": "CITY BUDGET OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "6",
+            "departments": "CITY TREASURER'S OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "7",
+            "departments": "CITY ASSESSOR'S OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "8",
+            "departments": "CITY SOCIAL WELFARE & DEVELOPMENT OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "9",
+            "departments": "CITY ENGINEERING OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "10",
+            "departments": "CITY VETERINARY OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "11",
+            "departments": "CITY HEALTH OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "12",
+            "departments": "CITY CIVIL REGISTRY OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "13",
+            "departments": "CITY ENVIRONMENT & NATURAL RESOURCES OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "14",
+            "departments": "CITY LEGAL OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "15",
+            "departments": "CITY MAYOR'S OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "16",
+            "departments": "SP AND CITY VICE MAYOR'S OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "18",
+            "departments": "CITY COOPERATIVE AND MANPOWER DEVELOPMENT OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "19",
+            "departments": "CITY PUBLIC SAFETY OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "20",
+            "departments": "CITY PLANNING AND DEVELOPMENT OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "21",
+            "departments": "LOCAL DISASTER AND RISK REDUCTION MANAGEMENT OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "22",
+            "departments": "CITY GENERAL SERVICES OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "23",
+            "departments": "PUBLIC MARKET & SLAUGHTERHOUSE",
+            "done": "0"
+        },
+        {
+            "id": "24",
+            "departments": "CITY ENGINEERING OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "25",
+            "departments": "CITY ENGINEERING OFFICE",
+            "done": "0"
+        },
+        {
+            "id": "26",
+            "departments": "CITY ENGINEERING OFFICE",
+            "done": "0"
+        }
+    ]
+}
