@@ -23,6 +23,12 @@ class PcrController extends Controller
         return Inertia::render("Pms/Pcr/Index", ["periods" => $periods]);
     }
 
+    public function submit($period_id)
+    {
+        return $period_id;
+        // return Inertia::render("Pms/Pcr/Index", ["periods" => $periods]);
+    }
+
     public function show($period_id)
     {
         $period = PmsPeriod::find($period_id);

@@ -37,7 +37,6 @@ class RatingScaleMatrixController extends Controller
             ->orderBy('code')
             ->get();
 
-
         # sort parents first start -- according to the alphanumeric code
         $sorted_codes = [];
         foreach ($pms_rating_scale_matrices as $key => $mfo) {

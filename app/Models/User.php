@@ -53,6 +53,11 @@ class User extends Authenticatable
         'sys_department_name',
     ];
 
+    public function hasRole($role)
+    {
+        return in_array($role, $this->roles);
+    }
+
     public function getFullNameAttribute()
     {
 

@@ -17,7 +17,13 @@ use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return Inertia::render('Welcome');
-});
+}); //->middleware('role:test');
+
+# error pages
+Route::get('/error-503', function () {
+    return Inertia::render('Error/503');
+})->name('error-503');
+
 
 # employees
 use App\Http\Controllers\SysEmployeeController;
@@ -25,9 +31,9 @@ use App\Http\Controllers\SysEmployeeController;
 Route::get('/employees', [SysEmployeeController::class, 'index'])->name('employees');
 Route::post('/employees', [SysEmployeeController::class, 'create'])->name('employee.create');
 
-Route::get('/dashboard', function () {
+Route::get('/dashboard', function (Request $request) {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/prating.php';

@@ -26,7 +26,7 @@ td {
       <template #content>
         <form @submit.prevent="submit_form()" class="w-full ml-5">
           <div class="field">
-            <h3>EMPLOYEER:</h3>
+            <h3>AGENCY:</h3>
             <div class="field-radiobutton">
               <RadioButton inputId="agency1" name="employee_from" value="lgu" v-model="form.agency" />
               <label for="agency1">(LGU) Local Government Unit</label>

@@ -14,7 +14,7 @@
         </form>
       </template>
     </Card> -->
-    <period-selector icon="bi bi-book" title="Rating Scale Matrix"
+    <period-selector icon="bi bi-book" title="Department Rating Scale Matrix"
                      description="Edit or review your Department/Section's Rating Scale Matrix" path="/pms/rsm/"></period-selector>
   </auth-layout>
 </template>

@@ -19,7 +19,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     # pms period selector
-    
+
 
     # rating scale matrix
     Route::get('/pms/rsm', [RatingScaleMatrixController::class, "index"]);
@@ -43,6 +43,9 @@ Route::middleware(['auth'])->group(function () {
     # pcr
     Route::get("/pms/pcr", [PcrController::class, "index"]);
     Route::get("/pms/pcr/{period_id}", [PcrController::class, "show"]);
+
+    # /pcr/{period_id}/submit
+    Route::get("/pms/pcr/{period_id}/submit", [PcrController::class, "submit"]);
 
     # pcr - form type
     Route::get("/pms/pcr/{period_id}/form_type/{id}", [PcrController::class, "show_form_type"]);

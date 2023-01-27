@@ -103,7 +103,7 @@ class SupportFunctionController extends Controller
                 $quality = $support_func_data["quality"];
                 $efficiency = $support_func_data["efficiency"];
                 $timeliness = $support_func_data["timeliness"];
-                $percent_data = $support_func_data["percent"];
+                $percent = $percent_data = $support_func_data["percent"];
 
                 if ($percent_data != 0) {
                     $count = 0;

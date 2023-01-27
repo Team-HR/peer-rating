@@ -3,15 +3,41 @@
         <template #title> <i :class="icon"></i> <span class="uppercase"> {{ title }}</span></template>
         <template #subtitle>{{ description }}</template>
         <template v-if="$page.props.auth.user.sys_employee_id" #content>
-            <form @submit.prevent="$inertia.get(path + period_id)" class="">
-                <label class="mr-2">Selected Period:</label>
-                <Dropdown autofocus class="mr-2" v-model="period_id" :options="periods" optionLabel="text"
-                          optionValue="id" placeholder="Please select a period" />
-                <Button :disabled="!period_id" type="submit"
-                        :class="!period_id ? 'p-button p-button-primary p-button-text disabled' : 'p-button p-button-primary'"
-                        :icon="!period_id ? 'bi bi-arrow-left' : 'bi bi-folder'"
-                        :label="!period_id ? 'Select a period first' : 'Open'" />
-            </form>
+
+            <!-- <template v-for="period in periods">
+                <h1>{{ period.year }}</h1>
+                <Button v-if="period.period1"
+                        class="p-button hover:bg-primary-900 bg-primary-600 m-2 p-5 p-button-raised"
+                        label="January - June" @click="$inertia.get(path + period.period1)" />
+                <Button v-if="period.period2" class="p-button hover:bg-red-900 bg-red-600 m-2 p-5 p-button-raised"
+                        label="July - December" @click="$inertia.get(path + period.period2)" />
+            </template> -->
+
+            <DataTable :value="periods" responsiveLayout="scroll" class="w-4 mx-auto">
+                <Column field="year" header="Year">
+                    <template #body="slotProp">
+                        <span class="text-xl font-bold">{{ slotProp.data.year }}</span>
+                    </template>
+                </Column>
+                <Column field="period1" header="1st Semester">
+                    <template #body="slotProp">
+                        <!-- {{ slotProp.data }} -->
+                        <Button v-if="slotProp.data.period1"
+                                class="p-button hover:bg-primary-900 bg-primary-600 m-2 p-3 p-button-raised"
+                                label="January - June" @click="$inertia.get(path + slotProp.data.period1)" />
+                    </template>
+                </Column>
+                <Column field="period2" header="2nd Semester">
+                    <template #body="slotProp">
+                        <!-- {{ slotProp.data }} -->
+                        <Button v-if="slotProp.data.period2"
+                                class="p-button hover:bg-red-900 bg-red-600 m-2 p-3 p-button-raised"
+                                label="July - December" @click="$inertia.get(path + slotProp.data.period2)" />
+                    </template>
+                </Column>
+            </DataTable>
+
+
         </template>
         <template v-else #content>
             <p class="text-red-700">*Only available for users with an associated employee ID.</p>
@@ -42,7 +68,20 @@ export default {
             periods: []
         };
     },
-    mounted() {
+    computed: {
+        years() {
+            let years = [{
+                year: 2023,
+                period0Id: 1,
+                period1Id: 2,
+            }];
+            // this.periods.forEach(element => {
+
+            // });
+            return years
+        },
+    },
+    created() {
         axios('/api/pms/periods').then(({ data }) => {
             this.periods = data
         });

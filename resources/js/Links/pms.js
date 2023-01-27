@@ -6,7 +6,7 @@ let links = [{
     path: "/pms",
     sublinks: [
         {
-            title: "PCR",
+            title: "Performance Commitment Report",
             path: "/pms/pcr",
             description: "Accomplish your performance commitment review",
             icon: "bi bi-input-cursor-text",
@@ -18,7 +18,7 @@ let links = [{
             icon: "bi bi-person-lines-fill",
         },
         {
-            title: "Rating Scale Matrix",
+            title: "Department Rating Scale Matrix",
             path: "/pms/rsm",
             description: "Edit your department's rating scale matrix.",
             icon: "bi bi-book",

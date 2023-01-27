@@ -34,7 +34,7 @@ td {
           <tr v-for="(item, i) in items" :key="i">
             <td>
               <Button @click="$inertia.get(item.href, {}, { replace: true })"
-                      :label="item.b_label ? item.b_label : 'Open'" class="p-button-sm"
+                      :label="item.b_label ? item.b_label : 'Edit'" class="p-button-sm"
                       :disabled="item.is_disabled"></Button>
             </td>
             <td>{{ item.label }}</td>
@@ -207,7 +207,7 @@ export default {
   },
 
   mounted() {
-    // console.log(this.form_status);
+    console.log(this.form_status);
   },
 };
 </script>

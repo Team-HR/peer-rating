@@ -22,7 +22,8 @@ class IndividualRatingScaleMatrixController extends Controller
     }
 
     public function show($period_id)
-    {
+    {   
+        // return json_encode(auth()->user());
         $period = PmsPeriod::find($period_id);
         $sys_employee_id = auth()->user()->sys_employee_id;
 
@@ -33,7 +34,6 @@ class IndividualRatingScaleMatrixController extends Controller
         foreach ($assignments as $assignment) {
             $success_indicator_ids[] = $assignment->pms_rsm_success_indicator_id;
         }
-
 
         # get mfo ids
         $mfo_ids = [];
