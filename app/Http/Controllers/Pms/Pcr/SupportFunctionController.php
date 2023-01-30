@@ -103,7 +103,7 @@ class SupportFunctionController extends Controller
                 $quality = $support_func_data["quality"];
                 $efficiency = $support_func_data["efficiency"];
                 $timeliness = $support_func_data["timeliness"];
-                $percent = $percent_data = $support_func_data["percent"];
+                $percent_data = $support_func_data["percent"];
 
                 if ($percent_data != 0) {
                     $count = 0;
@@ -179,7 +179,7 @@ function get_support_functions($sys_employee_id, $pms_period_id)
         $support_functions = PmsPcrSupportFunction::where(
             'form_type',
             $form_type
-        )->get();
+        )->where('pms_period_id', $pms_period_id)->get();
         $data = $support_functions;
     }
     return $data;
