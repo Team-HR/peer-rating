@@ -22,7 +22,8 @@ class IndividualRatingScaleMatrixController extends Controller
     }
 
     public function show($period_id)
-    {
+    {   
+        // return json_encode(auth()->user());
         $period = PmsPeriod::find($period_id);
         $sys_employee_id = auth()->user()->sys_employee_id;
 
@@ -31,15 +32,14 @@ class IndividualRatingScaleMatrixController extends Controller
         # get the success indicator ids
         $success_indicator_ids = [];
         foreach ($assignments as $assignment) {
-            $success_indicator_ids[] = $assignment->pms_rating_scale_matrix_success_indicator_id;
+            $success_indicator_ids[] = $assignment->pms_rsm_success_indicator_id;
         }
-
 
         # get mfo ids
         $mfo_ids = [];
         foreach ($success_indicator_ids as $success_indicator_id) {
             $mfo = PmsRsmSuccessIndicator::find($success_indicator_id);
-            $mfo_id = $mfo->pms_rating_scale_matrix_id;
+            $mfo_id = $mfo->pms_rsm_id;
             if (!in_array($mfo_id, $mfo_ids)) {
                 $mfo_ids[] = $mfo_id;
             }
@@ -123,7 +123,7 @@ class IndividualRatingScaleMatrixController extends Controller
                     }
 
 
-                    $in_charges = PmsRsmAssignment::where("pms_rating_scale_matrix_success_indicator_id", $success_indicator["id"])->get();
+                    $in_charges = PmsRsmAssignment::where("pms_rsm_success_indicator_id", $success_indicator["id"])->get();
 
                     $success_indicator_datum = [
                         "success_indicator_id" => $success_indicator["id"],
@@ -148,6 +148,7 @@ class IndividualRatingScaleMatrixController extends Controller
 function get_parent($mfos, $parent_id)
 {
     $mfo = PmsRsm::find($parent_id);
+    if (!$mfo) return $mfos;
     $mfos[] = $mfo;
     if ($mfo->parent_id) {
         $mfos[] = get_parent($mfos, $mfo->parent_id);
@@ -169,13 +170,13 @@ function get_level($level = 0, $parent_id)
 # count rowspan 
 function get_rowspan($id)
 {
-    $count = PmsRsmSuccessIndicator::where("pms_rating_scale_matrix_id", $id)->count();
+    $count = PmsRsmSuccessIndicator::where("pms_rsm_id", $id)->count();
     return $count;
 }
 
 # get success indicators of the mfo/pap
 function get_success_indicators($id)
 {
-    $pms_rating_scale_matrix_success_indicators = PmsRsmSuccessIndicator::where("pms_rating_scale_matrix_id", $id)->get();
+    $pms_rating_scale_matrix_success_indicators = PmsRsmSuccessIndicator::where("pms_rsm_id", $id)->get();
     return $pms_rating_scale_matrix_success_indicators;
 }

@@ -1,25 +1,24 @@
 <template>
   <auth-layout>
-    <PmsToolbar />
     <Card class="w-full">
       <template #title>
-        <span class="uppercase"><i class="bi bi-book mr-2"></i> Rating Scale Matrix | Success
+        <span><i class="bi bi-book mr-2"></i> Rating Scale Matrix | Success
           Indicator</span>
       </template>
       <template #subtitle>Add/Edit/Delete Success Indicator/s</template>
       <template #content>
         <Button label="Cancel" icon="bi bi-arrow-left"
-          class="p-button-danger p-button-sm p-button-text p-button-raised mx-3" @click="go_back()"></Button>
+                class="p-button-danger p-button-sm p-button-text p-button-raised mx-3" @click="go_back()"></Button>
 
         <Button label="Save" icon="bi bi-save" class="p-button-success p-button-sm p-button-raised"
-          :disabled="!form.success_indicator" @click="save_form()"></Button>
+                :disabled="!form.success_indicator" @click="save_form()"></Button>
 
         <div class="m-5">
           <div class="text-xl w-full mb-2">
             <span class="mr-3">MFO/PAP:</span>
-            <span>{{  $page.props.mfo.code  }})</span>
-            {{  ` `  }}
-            <span>{{  $page.props.mfo.title  }}</span>
+            <span>{{ $page.props.mfo.code }})</span>
+            {{ ` ` }}
+            <span>{{ $page.props.mfo.title }}</span>
             <br />
           </div>
 
@@ -32,7 +31,7 @@
                 <small class="ml-2">*Required</small>
                 <br />
                 <Textarea class="w-full" v-model="form.success_indicator" rows="5" :autoResize="true"
-                  placeholder="Example: 100% (_/_) of applicant requirements prepared..." />
+                          placeholder="Example: 100% (_/_) of applicant requirements prepared..." />
               </div>
               <div class="field col-12">
                 <label>Measures:</label> <small class="ml-2">*Required</small>
@@ -51,34 +50,34 @@
                 </div>
 
                 <div class="formgrid grid">
-                    <div class="ffield col-12 md:col-4" :hidden="!has_quality">
-                      <label>Quality:</label>
-                      <div class="p-inputgroup mb-1" v-for="(i, k) in 5" :key="k">
-                        <span class="p-inputgroup-addon">
-                          {{  5 - i + 1  }}
-                        </span>
-                        <InputText v-model="form.quality[k]" />
-                      </div>
-                    </div>
-                    <div class="field col-12 md:col-4" :hidden="!has_efficiency">
-                      <label>Efficiency:</label>
-                      <div class="p-inputgroup mb-1" v-for="(i, k) in 5" :key="k">
-                        <span class="p-inputgroup-addon">
-                          {{  5 - i + 1  }}
-                        </span>
-                        <InputText v-model="form.efficiency[k]" />
-                      </div>
-                    </div>
-                    <div class="field col-12 md:col-4" :hidden="!has_timeliness">
-                      <label>Timeliness:</label>
-                      <div class="p-inputgroup mb-1" v-for="(i, k) in 5" :key="k">
-                        <span class="p-inputgroup-addon">
-                          {{  5 - i + 1  }}
-                        </span>
-                        <InputText v-model="form.timeliness[k]" />
-                      </div>
+                  <div class="ffield col-12 md:col-4" :hidden="!has_quality">
+                    <label>Quality:</label>
+                    <div class="p-inputgroup mb-1" v-for="(i, k) in 5" :key="k">
+                      <span class="p-inputgroup-addon">
+                        {{ 5 - i + 1 }}
+                      </span>
+                      <InputText v-model="form.quality[k]" />
                     </div>
                   </div>
+                  <div class="field col-12 md:col-4" :hidden="!has_efficiency">
+                    <label>Efficiency:</label>
+                    <div class="p-inputgroup mb-1" v-for="(i, k) in 5" :key="k">
+                      <span class="p-inputgroup-addon">
+                        {{ 5 - i + 1 }}
+                      </span>
+                      <InputText v-model="form.efficiency[k]" />
+                    </div>
+                  </div>
+                  <div class="field col-12 md:col-4" :hidden="!has_timeliness">
+                    <label>Timeliness:</label>
+                    <div class="p-inputgroup mb-1" v-for="(i, k) in 5" :key="k">
+                      <span class="p-inputgroup-addon">
+                        {{ 5 - i + 1 }}
+                      </span>
+                      <InputText v-model="form.timeliness[k]" />
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div class="field col-12">
@@ -97,7 +96,6 @@
 </template>
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
-import PmsToolbar from "@/Layouts/PmsToolbar";
 import EmployeePicker from "@/Components/EmployeePicker.vue";
 export default {
   props: {
@@ -107,7 +105,6 @@ export default {
   },
   components: {
     AuthLayout,
-    PmsToolbar,
     EmployeePicker,
   },
   data() {

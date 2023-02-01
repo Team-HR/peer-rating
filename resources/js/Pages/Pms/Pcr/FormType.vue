@@ -11,49 +11,28 @@ td {
 
 <template>
   <auth-layout>
-    <PmsToolbar />
     <Card class="w-full">
       <template #title>
-        <Button
-          label="Back"
-          class="p-button-sm p-button-raised p-button-text mb-3"
-          icon="bi bi-arrow-left"
-          @click="go_back()"
-        ></Button>
+        <Button label="Back" class="p-button-sm p-button-raised p-button-text mb-3" icon="bi bi-arrow-left"
+                @click="go_back()"></Button>
         <br />
-        <span class="uppercase"
-          ><i class="bi bi-book mr-2"></i> PERFORMANCE COMMITMENT AND REVIEW | Set Form
-          Type</span
-        ></template
-      >
+        <span><i class="bi bi-book mr-2"></i> PERFORMANCE COMMITMENT AND REVIEW | Set Form
+          Type</span></template>
       <template #subtitle>
-        <span class="text-xl"
-          >{{ $page.props.auth.user.sys_department_name }} ( {{ period.period }},
-          {{ period.year }})</span
-        >
+        <span class="text-xl">{{ $page.props.auth.user.sys_department_name }} ( {{ period.period }},
+          {{ period.year }})</span>
         <br />
-        Set form type</template
-      >
+        Set form type</template>
       <template #content>
         <form @submit.prevent="submit_form()" class="w-full ml-5">
           <div class="field">
-            <h3>EMPLOYEER:</h3>
+            <h3>AGENCY:</h3>
             <div class="field-radiobutton">
-              <RadioButton
-                inputId="agency1"
-                name="employee_from"
-                value="lgu"
-                v-model="form.agency"
-              />
+              <RadioButton inputId="agency1" name="employee_from" value="lgu" v-model="form.agency" />
               <label for="agency1">(LGU) Local Government Unit</label>
             </div>
             <div class="field-radiobutton">
-              <RadioButton
-                inputId="agency2"
-                name="employee_from"
-                value="nga"
-                v-model="form.agency"
-              />
+              <RadioButton inputId="agency2" name="employee_from" value="nga" v-model="form.agency" />
               <label for="agency2">(NGA) National Government Agency</label>
             </div>
             <Message severity="error" v-if="error.agency && !form.agency">
@@ -63,41 +42,21 @@ td {
           <div class="field">
             <h3>PCR TYPE:</h3>
             <div class="field-radiobutton">
-              <RadioButton
-                inputId="type1"
-                name="form_type"
-                value="ipcr"
-                v-model="form.form_type"
-              />
+              <RadioButton inputId="type1" name="form_type" value="ipcr" v-model="form.form_type" />
               <label for="type1">IPCR</label>
             </div>
 
             <div v-if="form.agency != 'nga'">
               <div class="field-radiobutton">
-                <RadioButton
-                  inputId="type2"
-                  name="form_type"
-                  value="spcr"
-                  v-model="form.form_type"
-                />
+                <RadioButton inputId="type2" name="form_type" value="spcr" v-model="form.form_type" />
                 <label for="type2">SPCR</label>
               </div>
               <div class="field-radiobutton">
-                <RadioButton
-                  inputId="type3"
-                  name="form_type"
-                  value="dspcr"
-                  v-model="form.form_type"
-                />
+                <RadioButton inputId="type3" name="form_type" value="dspcr" v-model="form.form_type" />
                 <label for="type3">DIVISION SPCR</label>
               </div>
               <div class="field-radiobutton">
-                <RadioButton
-                  inputId="type4"
-                  name="form_type"
-                  value="dpcr"
-                  v-model="form.form_type"
-                />
+                <RadioButton inputId="type4" name="form_type" value="dpcr" v-model="form.form_type" />
                 <label for="type4">DPCR</label>
               </div>
             </div>
@@ -113,7 +72,6 @@ td {
 </template>
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
-import PmsToolbar from "@/Layouts/PmsToolbar";
 
 export default {
   props: {
@@ -122,7 +80,6 @@ export default {
   },
   components: {
     AuthLayout,
-    PmsToolbar,
   },
   data() {
     return {
@@ -181,6 +138,6 @@ export default {
       this.form.form_type = this.form_type.form_type;
     }
   },
-  mounted() {},
+  mounted() { },
 };
 </script>

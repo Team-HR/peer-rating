@@ -1,7 +1,7 @@
 
 <script>
 import Sidebar from "@/Components/Sidebar.vue";
-import links from "@/Links";
+import sideBarLinks from "@/Links";
 
 export default {
   mounted() {
@@ -12,21 +12,25 @@ export default {
   },
   data() {
     return {
-      links: links,
+      links: sideBarLinks,
       isActive: true,
       isHidden: false,
       currentUrl: this.$inertia.page.url,
       activeLinkIndex: 0,
-      activeSubLinkIndex: 0,
+      activeSubLinkIndex: null,
     }
   },
+
   methods: {
     // sets tab positions
     setCurrentTab() {
       const currentPath = this.currentUrl.split("/")[1];
       if (currentPath) {
         const index = this.links.map(function (e) { return e.path ? e.path.split("/")[1] : false }).indexOf(currentPath)
-        this.activeLinkIndex = index;
+        // console.log(index);
+        if (index > -1) {
+          this.activeLinkIndex = index;
+        }
       }
     },
 
@@ -34,7 +38,9 @@ export default {
       const currentSubPath = this.currentUrl.split("/")[2];
       if (currentSubPath) {
         const index = this.links[this.activeLinkIndex].sublinks.map(function (e) { return e.path.split("/")[2]; }).indexOf(currentSubPath);
-        this.activeSubLinkIndex = index;
+        if (index > -1) {
+          this.activeSubLinkIndex = index;
+        }
       }
 
     },
@@ -42,9 +48,17 @@ export default {
     authCheck(roles) {
       if (roles) {
         const authRoles = this.$page.props.auth.user.roles;
+        // const authRoles = authRoles?
         return roles.some(v => authRoles.includes(v))
       } else return true;
-    }
+    },
+
+
+    linkIsForSupervisor(roles) {
+      if (roles) {
+        return roles.includes("supervisor");
+      } else return false;
+    },
 
   },
   mounted() {
@@ -62,7 +76,7 @@ export default {
 
           <!-- appbar main sidebar start -->
           <div id="app-sidebar-10" v-if="!isHidden"
-               class="fadeinleft animation-duration-200 h-full lg:h-auto lg:block flex-shrink-0 absolute lg:static left-0 top-0 z-1 border-right-1 surface-border w-full md:w-auto">
+               class="h-full lg:h-auto lg:block flex-shrink-0 left-0 top-0 z-1 border-right-1 surface-border w-full md:w-auto">
             <!-- class="hidden h-full lg:h-auto lg:block flex-shrink-0 absolute lg:static left-0 top-0 z-1 border-right-1 surface-border w-full md:w-auto" -->
             <div class="flex lg:inline-flex h-full">
               <div class="flex flex-column h-full bg-indigo-900 flex-shrink-0 select-none">
@@ -88,10 +102,11 @@ export default {
                   <!-- left icon list end -->
                 </div>
                 <div class="mt-auto">
-                  <hr class="mb-3 mx-2 border-top-1 border-none border-indigo-300"><a @click="appbarStore.logOut"
-                     class="m-3 flex align-items-center cursor-pointer p-2 justify-content-center hover:bg-indigo-600 border-round text-300 hover:text-0 transition-duration-150 transition-colors p-ripple"><img
-                         src="images/blocks/avatars/circle/avatar-f-1.png" style="width: 24px; height: 24px;"><span
-                          class="p-ink" role="presentation"></span></a>
+                  <hr class="mb-3 mx-2 border-top-1 border-none border-indigo-300"><a @click="$inertia.post('logout')"
+                     class="m-3 flex align-items-center cursor-pointer p-2 justify-content-center hover:bg-indigo-600 border-round text-300 hover:text-0 transition-duration-150 transition-colors p-ripple">
+                    <!-- <img
+                         src="images/blocks/avatars/circle/avatar-f-1.png" style="width: 24px; height: 24px;"> -->
+                    <span class="p-ink" role="presentation"></span></a>
                 </div>
 
               </div>
@@ -110,12 +125,14 @@ export default {
                     <!-- .some(v => sublink.roles.includes(v)) -->
                     <template v-for="sublink, s in links[activeLinkIndex].sublinks" :key="s">
                       <li v-if="authCheck(sublink.roles)"
-                          class="mb-3 flex align-items-start p-3 hover:bg-indigo-600 transition-duration-150 transition-colors"
+                          class="mb-3 flex align-items-start p-3 hover:bg-indigo-900 transition-duration-150 transition-colors"
                           style="cursor: pointer; border-radius: 12px;"
-                          :class="activeSubLinkIndex == s ? 'bg-indigo-700' : 'bg-indigo-500'"
+                          :class="activeSubLinkIndex == s ? 'bg-indigo-800' : 'bg-indigo-600'"
                           @click="$inertia.get(sublink.path)">
                         <i class="text-xl mr-3" :class="sublink.icon"></i>
-                        <div class="flex flex-column"><span>{{ sublink.title }}</span>
+                        <div class="flex flex-column" style="position: relative;"><span>{{ sublink.title }}</span>
+                          <div v-if="sublink.tag" :class="sublink.tag.color" class="border-round text-white p-1"
+                               style="position: absolute; top: -30px; right: -30px;">{{ sublink.tag.name }}</div>
                           <p class="mt-2 mb-0 line-height-3 text-indigo-200">{{ sublink.description }}</p>
                         </div>
                       </li>
@@ -135,8 +152,8 @@ export default {
               <div id="main" class="flex"><a class="cursor-pointer block text-700 mr-3 mt-1 p-ripple"><i
                      class="pi pi-bars text-4xl" @click="isHidden = !isHidden"></i><span class="p-ink"
                         role="presentation" style="height: 34px; width: 34px; top: 1.5px; left: 10px;"></span></a></div>
-              <img src="images/blocks/logos/hyper.svg" alt="Image" height="30" class="block lg:hidden"><a
-                 class="cursor-pointer block lg:hidden text-700 p-ripple"><i class="pi pi-ellipsis-v text-2xl"></i><span
+              <!-- <img src="images/blocks/logos/hyper.svg" alt="Image" height="30" class="block lg:hidden"> -->
+              <a class="cursor-pointer block lg:hidden text-700 p-ripple"><i class="pi pi-ellipsis-v text-2xl"></i><span
                       class="p-ink" role="presentation"
                       style="height: 26px; width: 26px; top: -1.5px; left: 5.01562px;"></span></a>
               <ul
@@ -163,15 +180,17 @@ export default {
                           class="block lg:hidden font-medium">Notifications</span><span class="p-ink"
                           role="presentation"></span></a></li>
                 <li class="border-top-1 surface-border lg:border-top-none lg:ml-auto"><a
-                     class="flex p-3 lg:px-3 lg:py-2 align-items-center hover:surface-100 font-medium border-round cursor-pointer transition-duration-150 transition-colors p-ripple"><img
-                         src="images/blocks/avatars/circle/avatar-f-1.png" class="mr-3 lg:mr-0"
-                         style="width: 32px; height: 32px;">
+                     class="flex p-3 lg:px-3 lg:py-2 align-items-center hover:surface-100 font-medium border-round cursor-pointer transition-duration-150 transition-colors p-ripple">
+                    <!-- <img src="images/blocks/avatars/circle/avatar-f-1.png" class="mr-3 lg:mr-0"
+                         style="width: 32px; height: 32px;"> -->
                     <div class="block lg:hidden">
                       <div class="text-900 font-medium">Josephine Lillard</div><span
                             class="text-600 font-medium text-sm">Marketing Specialist</span>
                     </div><span class="p-ink" role="presentation"></span>
                   </a></li>
               </ul>
+              <span class="mr-4">{{ $inertia.page.props.auth.user.username }}</span>
+              <Button class="p-button p-button-danger" label="Logout" @click="$inertia.get('/logout')" />
             </div>
             <div class="p-5 flex flex-column flex-auto">
               <div class="_border-2 _border-dashed _border-round _surface-border _surface-section flex-auto">

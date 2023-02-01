@@ -30,19 +30,19 @@ class SuccessIndicatorController extends Controller
     public function create($period_id, $rsm_id, Request $request)
     {
         $success_indicator = new PmsRsmSuccessIndicator;
-        $success_indicator->pms_rating_scale_matrix_id = $rsm_id;
+        $success_indicator->pms_rsm_id = $rsm_id;
         $success_indicator->index = 0;
         $success_indicator->success_indicator = $request->success_indicator;
         $success_indicator->quality = $request->quality;
         $success_indicator->efficiency = $request->efficiency;
         $success_indicator->timeliness = $request->timeliness;
         $success_indicator->save();
-        $pms_rating_scale_matrix_success_indicator_id = $success_indicator->id;
+        $pms_rsm_success_indicator_id = $success_indicator->id;
         if (isset($request->in_charges)) {
             foreach ($request->in_charges as $emp) {
                 $assignment = new PmsRsmAssignment;
                 $assignment->period_id = $period_id;
-                $assignment->pms_rating_scale_matrix_success_indicator_id = $pms_rating_scale_matrix_success_indicator_id;
+                $assignment->pms_rsm_success_indicator_id = $pms_rsm_success_indicator_id;
                 $assignment->sys_employee_id = $emp["id"];
                 $assignment->save();
             }
@@ -56,7 +56,7 @@ class SuccessIndicatorController extends Controller
         $mfo = PmsRsm::find($rsm_id);
         $success_indicator = PmsRsmSuccessIndicator::find($id);
         # get list of incharges
-        $assignments = PmsRsmAssignment::where("pms_rating_scale_matrix_success_indicator_id", $success_indicator->id)->get();
+        $assignments = PmsRsmAssignment::where("pms_rsm_success_indicator_id", $success_indicator->id)->get();
 
         $in_charges = [];
         if ($assignments) {
@@ -91,14 +91,14 @@ class SuccessIndicatorController extends Controller
         $success_indicator->save();
 
         # delete all existing assignments of the success indicator
-        $assignments = PmsRsmAssignment::where("pms_rating_scale_matrix_success_indicator_id", $request->id);
+        $assignments = PmsRsmAssignment::where("pms_rsm_success_indicator_id", $request->id);
         $assignments->delete();
 
         if (isset($request->in_charges)) {
             foreach ($request->in_charges as $emp) {
                 $assignment = new PmsRsmAssignment;
                 $assignment->period_id = $period_id;
-                $assignment->pms_rating_scale_matrix_success_indicator_id = $request->id;
+                $assignment->pms_rsm_success_indicator_id = $request->id;
                 $assignment->sys_employee_id = $emp["id"];
                 $assignment->save();
             }

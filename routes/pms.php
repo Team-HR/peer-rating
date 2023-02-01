@@ -11,12 +11,16 @@ use App\Http\Controllers\Pms\Pcr\PcrController;
 use App\Http\Controllers\Pms\Pcr\StrategicFunctionController;
 use App\Http\Controllers\Pms\Pcr\SupportFunctionController;
 use App\Http\Controllers\Pms\Rpc\ReviewPerformanceCommitmentController;
+use App\Http\Controllers\Pms\SettingsController;
 
 Route::middleware(['auth'])->group(function () {
     # pms dashboard
     Route::get('/pms', function () {
         return Inertia::render('Pms/Index');
     });
+
+    # pms period selector
+
 
     # rating scale matrix
     Route::get('/pms/rsm', [RatingScaleMatrixController::class, "index"]);
@@ -40,6 +44,10 @@ Route::middleware(['auth'])->group(function () {
     # pcr
     Route::get("/pms/pcr", [PcrController::class, "index"]);
     Route::get("/pms/pcr/{period_id}", [PcrController::class, "show"]);
+
+    # /pcr/{period_id}/submit
+    // submit is on api.php
+    Route::post("/pms/pcr/{period_id}/submit", [PcrController::class, "submit"]);
 
     # pcr - form type
     Route::get("/pms/pcr/{period_id}/form_type/{id}", [PcrController::class, "show_form_type"]);
@@ -65,4 +73,8 @@ Route::middleware(['auth'])->group(function () {
     #rpc - review performance commitment reports
     Route::get("/pms/rpc", [ReviewPerformanceCommitmentController::class, "index"]);
     Route::get("/pms/rpc/{period_id}", [ReviewPerformanceCommitmentController::class, "show"]);
+
+
+    # pms - settings
+    Route::get("/pms/settings", [SettingsController::class, "index"]);
 });

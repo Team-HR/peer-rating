@@ -3,7 +3,7 @@ table,
 th,
 td {
   font-size: 14px;
-  padding: 5px;
+  padding: 20px;
   border: 0.5px solid rgb(185, 185, 185);
   border-collapse: collapse;
 }
@@ -11,20 +11,15 @@ td {
 
 <template>
   <auth-layout>
-    <PmsToolbar />
     <Card class="w-full">
       <template #title>
-        <Button
-          label="Back"
-          class="p-button-sm p-button-raised p-button-text mb-3"
-          icon="bi bi-arrow-left"
-          @click="go_back()"
-        ></Button>
+        <Button label="Back" class="p-button-sm p-button-raised p-button-text mb-3" icon="bi bi-arrow-left"
+                @click="go_back()"></Button>
         <br />
-        <div class="uppercase">
+        <div>
           <i class="bi bi-book mr-2"></i>Individual Rating Scale Matrix
-        </div></template
-      >
+        </div>
+      </template>
       <template #subtitle>Individual Rating Scale Matrix</template>
       <template #content>
         <!-- table start -->
@@ -44,10 +39,7 @@ td {
           </thead>
           <template v-for="(row, r) in rows" :key="r">
             <!-- if  -->
-            <tr
-              v-if="row.rowspan == 0 && row.si_only == false"
-              :class="row.mfo_only ? 'bg-primary-50' : ''"
-            >
+            <tr v-if="row.rowspan == 0 && row.si_only == false" :class="row.mfo_only ? 'bg-primary-50' : ''">
               <td :colspan="row.mfo_only ? 6 : 1">
                 <div :style="indent(row.level)">
                   <span>
@@ -58,9 +50,7 @@ td {
               </td>
               <template v-if="!row.mfo_only">
                 <td>{{ row.success_indicator }}</td>
-                <td
-                  v-html="performance_measures(row.performance_measures)"
-                ></td>
+                <td v-html="performance_measures(row.performance_measures)"></td>
                 <td v-html="performance_measure_criteria(row.quality)"></td>
                 <td v-html="performance_measure_criteria(row.efficiency)"></td>
                 <td v-html="performance_measure_criteria(row.timeliness)"></td>
@@ -102,7 +92,6 @@ td {
 </template>
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
-import PmsToolbar from "@/Layouts/PmsToolbar";
 export default {
   props: {
     auth: null,
@@ -111,7 +100,6 @@ export default {
   },
   components: {
     AuthLayout,
-    PmsToolbar,
   },
   data() {
     return {};
@@ -147,7 +135,7 @@ export default {
       return margin;
     },
   },
-  mounted() {},
+  mounted() { },
 };
 </script>
 

@@ -11,29 +11,18 @@ td {
 
 <template>
   <auth-layout>
-    <PmsToolbar />
     <Card class="w-full">
       <template #title>
-        <Button
-          label="Back"
-          class="p-button-sm p-button-raised p-button-text mb-3"
-          icon="bi bi-arrow-left"
-          @click="go_back()"
-        ></Button>
+        <Button label="Back" class="p-button-sm p-button-raised p-button-text mb-3" icon="bi bi-arrow-left"
+                @click="go_back()"></Button>
         <br />
-        <span class="uppercase"
-          ><i class="bi bi-book mr-2"></i> PERFORMANCE COMMITMENT AND REVIEW | Support
-          Functions</span
-        ></template
-      >
+        <span><i class="bi bi-book mr-2"></i> PERFORMANCE COMMITMENT AND REVIEW | Support
+          Functions</span></template>
       <template #subtitle>
-        <span class="text-xl"
-          >{{ $page.props.auth.user.sys_department_name }} ( {{ period.period }},
-          {{ period.year }})</span
-        >
+        <span class="text-xl">{{ $page.props.auth.user.sys_department_name }} ( {{ period.period }},
+          {{ period.year }})</span>
         <br />
-        Accomplish Support Functions</template
-      >
+        Accomplish Support Functions</template>
       <template #content>
         <div class="mx-5"></div>
         <!-- Dialogs and Toast start-->
@@ -51,7 +40,7 @@ td {
               <th class="text-xl" style="width: 40px">E</th>
               <th class="text-xl" style="width: 40px">T</th>
               <th class="text-xl" style="width: 40px">
-                A ({{ total_numerical_rating ? total_numerical_rating : "" }})
+                A ({{ total_numerical_rating? total_numerical_rating: "" }})
               </th>
               <th class="text-xl">Options</th>
             </tr>
@@ -74,29 +63,16 @@ td {
                 <td class="text-center">{{ row.timeliness }}</td>
                 <td class="text-center">{{ row.average }}</td>
                 <td class="text-center">
-                  <Button
-                    label="Edit"
-                    class="p-button-text p-button-primary"
-                    icon="bi bi-pencil-square"
-                    @click="openAddEditModal(row)"
-                  />
-                  <Button
-                    label="Reset"
-                    class="p-button-text p-button-danger"
-                    icon="bi bi-arrow-counterclockwise"
-                    type="button"
-                    @click="resetAccomplishment(row.id)"
-                  />
+                  <Button label="Edit" class="p-button-text p-button-primary" icon="bi bi-pencil-square"
+                          @click="openAddEditModal(row)" />
+                  <Button label="Reset" class="p-button-text p-button-danger" icon="bi bi-arrow-counterclockwise"
+                          type="button" @click="resetAccomplishment(row.id)" />
                 </td>
               </template>
               <template v-else>
                 <td colspan="6" class="text-center">
-                  <Button
-                    label="Add Accomplishment"
-                    class="p-button-raised p-button-text"
-                    icon="bi bi-check2-circle"
-                    @click="openAddEditModal(row)"
-                  />
+                  <Button label="Add Accomplishment" class="p-button-raised p-button-text" icon="bi bi-check2-circle"
+                          @click="openAddEditModal(row)" />
                 </td>
               </template>
             </tr>
@@ -105,12 +81,7 @@ td {
       </template>
     </Card>
 
-    <Dialog
-      header="Add/Edit Accomplishment"
-      v-model:visible="addEditModal"
-      :modal="true"
-      style="width: 1000px"
-    >
+    <Dialog header="Add/Edit Accomplishment" v-model:visible="addEditModal" :modal="true" style="width: 1000px">
       <div class="m-2">
         <form id="submitAccomplishmentForm" @submit.prevent="submitAccomplishment">
           <table class="mb-2" style="width: 100%">
@@ -122,74 +93,39 @@ td {
               <td class="text-xl font-bold">Success Indicator:</td>
               <td class="text-xl">
                 {{ editAccomplishment.success_indicator }}
-                <Button
-                  label="Copy"
-                  icon="bi bi-box-arrow-down"
-                  class="p-button-text"
-                  @click="
-                    editAccomplishment.accomplishment =
-                      editAccomplishment.success_indicator
-                  "
-                />
+                <Button label="Copy" icon="bi bi-box-arrow-down" class="p-button-text" @click="
+                  editAccomplishment.accomplishment =
+                  editAccomplishment.success_indicator
+                " />
               </td>
             </tr>
           </table>
           <label class="font-bold text-xl my-2">Actual Accomplishment:</label>
 
-          <Textarea
-            v-model="editAccomplishment.accomplishment"
-            rows="3"
-            style="width: 100%"
-            placeholder="Enter actual accomplishment here..."
-            class="mt-2"
-            required
-          />
+          <Textarea v-model="editAccomplishment.accomplishment" rows="3" style="width: 100%"
+                    placeholder="Enter actual accomplishment here..." class="mt-2" required />
 
-          <MeasureSelector
-            v-if="editAccomplishment.quality_options"
-            name="Quality"
-            :options="editAccomplishment.quality_options"
-            v-model="editAccomplishment.quality"
-          />
+          <MeasureSelector v-if="editAccomplishment.quality_options" name="Quality"
+                           :options="editAccomplishment.quality_options" v-model="editAccomplishment.quality" />
 
-          <MeasureSelector
-            v-if="editAccomplishment.efficiency_options"
-            name="Efficiency"
-            :options="editAccomplishment.efficiency_options"
-            v-model="editAccomplishment.efficiency"
-          />
+          <MeasureSelector v-if="editAccomplishment.efficiency_options" name="Efficiency"
+                           :options="editAccomplishment.efficiency_options" v-model="editAccomplishment.efficiency" />
 
-          <MeasureSelector
-            v-if="editAccomplishment.timeliness_options"
-            name="Timeliness"
-            :options="editAccomplishment.timeliness_options"
-            v-model="editAccomplishment.timeliness"
-          />
+          <MeasureSelector v-if="editAccomplishment.timeliness_options" name="Timeliness"
+                           :options="editAccomplishment.timeliness_options" v-model="editAccomplishment.timeliness" />
         </form>
       </div>
 
       <template #footer>
-        <Button
-          label="No"
-          icon="pi pi-times"
-          @click="addEditModal = false"
-          class="p-button-text"
-        />
-        <Button
-          type="submit"
-          form="submitAccomplishmentForm"
-          label="Save"
-          icon="pi pi-save"
-          class="p-button-text"
-          autofocus
-        />
+        <Button label="No" icon="pi pi-times" @click="addEditModal = false" class="p-button-text" />
+        <Button type="submit" form="submitAccomplishmentForm" label="Save" icon="pi pi-save" class="p-button-text"
+                autofocus />
       </template>
     </Dialog>
   </auth-layout>
 </template>
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
-import PmsToolbar from "@/Layouts/PmsToolbar";
 import MeasureSelector from "@/Components/Pms/Pcr/MeasureSelector.vue";
 
 export default {
@@ -201,7 +137,6 @@ export default {
   },
   components: {
     AuthLayout,
-    PmsToolbar,
     MeasureSelector,
   },
   data() {
@@ -321,6 +256,6 @@ export default {
   created() {
     this.$inertia.reload({ only: ["rows"] });
   },
-  mounted() {},
+  mounted() { },
 };
 </script>

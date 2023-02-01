@@ -11,28 +11,17 @@ td {
 
 <template>
   <auth-layout>
-    <PmsToolbar />
     <Card class="w-full">
       <template #title>
-        <Button
-          label="Back"
-          class="p-button-sm p-button-raised p-button-text mb-3"
-          icon="bi bi-arrow-left"
-          @click="go_back()"
-        ></Button>
+        <Button label="Back" class="p-button-sm p-button-raised p-button-text mb-3" icon="bi bi-arrow-left"
+                @click="go_back()"></Button>
         <br />
-        <span class="uppercase"
-          ><i class="bi bi-book mr-2"></i> PERFORMANCE COMMITMENT AND REVIEW</span
-        ></template
-      >
+        <span><i class="bi bi-book mr-2"></i> PERFORMANCE COMMITMENT AND REVIEW</span></template>
       <template #subtitle>
-        <span class="text-xl"
-          >{{ $page.props.auth.user.sys_department_name }} ( {{ period.period }},
-          {{ period.year }})</span
-        >
+        <span class="text-xl">{{ $page.props.auth.user.sys_department_name }} ( {{ period.period }},
+          {{ period.year }})</span>
         <br />
-        Accomplish/Review your Performance Commitments</template
-      >
+        Accomplish/Review your Performance Commitments</template>
       <template #content>
         <table class="mx-auto">
           <!-- <thead>
@@ -43,26 +32,39 @@ td {
             </tr>
           </thead> -->
           <tr v-for="(item, i) in items" :key="i">
-            <td>
-              <Button
-                @click="$inertia.get(item.href, {}, { replace: true })"
-                :label="item.b_label ? item.b_label : 'Open'"
-                class="p-button-sm"
-                :disabled="item.is_disabled"
-              ></Button>
+            <td v-if="!form_status.is_submitted">
+              <Button @click="$inertia.get(item.href, {}, { replace: true })"
+                      :label="item.b_label ? item.b_label : 'Edit'" class="p-button-sm"
+                      :disabled="item.is_disabled"></Button>
+              <!-- submit button start-->
+              <!-- <Button v-else @click="submit(item)" :label="item.b_label ? item.b_label : 'Submit'" class="p-button-sm"
+                      :disabled="item.is_disabled"></Button> -->
+              <!-- submit button end-->
             </td>
             <td>{{ item.label }}</td>
             <td class="" v-html="item.status"></td>
           </tr>
+
+          <tr>
+            <td v-if="!form_status.is_submitted">
+              <Button label="Submit" class="p-button-sm" @click="submit"
+                      :disabled="(form_status.overall_numerical_rating == '0.00' && !form_status.is_submitted) ? true : false"></Button>
+            </td>
+            <td>{{!form_status.is_submitted ? "Submit & Finalize" : "Submitted"}}</td>
+            <td v-html="submit_status_text"></td>
+          </tr>
+
+
         </table>
       </template>
     </Card>
+    <Toast />
   </auth-layout>
 </template>
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
-import PmsToolbar from "@/Layouts/PmsToolbar";
-
+import { Inertia } from "@inertiajs/inertia";
+import { useForm } from "@inertiajs/inertia-vue3";
 export default {
   props: {
     period: null,
@@ -70,12 +72,12 @@ export default {
   },
   components: {
     AuthLayout,
-    PmsToolbar,
   },
   data() {
     return {
       current_url: document.location.pathname,
       items: [],
+      form: useForm(this.form_status)
     };
   },
   methods: {
@@ -191,31 +193,56 @@ export default {
         })(),
         is_disabled: !this.form_status.agency ? true : false,
       },
-      {
-        no: 6,
-        href: this.current_url + "/submit",
-        b_label: "Submit",
-        label: "Finalize",
-        status: (() => {
-          if (!this.form_status.agency) return "Set Form Type first!";
-          var total_percentage_weight = this.form_status.overall_percentage_weight
-            ? this.form_status.overall_percentage_weight
-            : "_________";
-          var total_average_rating = this.form_status.overall_numerical_rating
-            ? this.form_status.overall_numerical_rating
-            : "_________";
-          return `Total Percentage Weight (%): <b class="text-green-700_ mr-3">${total_percentage_weight}%</b>Total Numerical Rating: <b class="text-green-700_ mr-3">${total_average_rating}</b>`;
-        })(),
-        is_disabled: !this.form_status.agency ? true : false,
-      },
+      // {
+      //   no: 6,
+      //   href: "/api/" + this.current_url + "/submit",
+      //   b_label: "Submit",
+      //   label: this.form_status.is_submitted ? "Submitted" : "Finalize & Submit",
+      //   status: (() => {
+      //     if (!this.form_status.agency) return "Set Form Type first!";
+      //     var total_percentage_weight = this.form_status.overall_percentage_weight
+      //       ? this.form_status.overall_percentage_weight
+      //       : "_________";
+      //     var total_average_rating = this.form_status.overall_numerical_rating
+      //       ? this.form_status.overall_numerical_rating
+      //       : "_________";
+      //     return `Total Percentage Weight (%): <b class="text-green-700_ mr-3">${total_percentage_weight}%</b>Total Numerical Rating: <b class="text-green-700_ mr-3">${total_average_rating}</b>`;
+      //   })(),
+      //   is_disabled: !this.form_status.agency ? true : false,
+      // },
     ];
 
     this.items = items;
+  },
+  computed: {
+    submit_status_text() {
+      if (!this.form_status.agency) return "Set Form Type first!";
+      var total_percentage_weight = this.form_status.overall_percentage_weight
+        ? this.form_status.overall_percentage_weight
+        : "_________";
+      var total_average_rating = this.form_status.overall_numerical_rating
+        ? this.form_status.overall_numerical_rating
+        : "_________";
+      return `Total Percentage Weight (%): <b class="text-green-700_ mr-3">${total_percentage_weight}%</b>Total Numerical Rating: <b class="text-green-700_ mr-3">${total_average_rating}</b>`;
+    },
   },
 
   methods: {
     status_text(total_percentage_weight, total_average_rating) {
       return `Percentage Weight (%): <b class="text-green-700_ mr-3">${total_percentage_weight}%</b>Rating: <b class="text-green-700_ mr-3">${total_average_rating}</b>`;
+    },
+    submit() {
+      // console.log(this.form);
+      this.form.post(this.current_url + "/submit", {
+        onSuccess: (page) => {
+          this.$toast.add({
+            severity: "success",
+            summary: "Submitted",
+            detail: "PCR Successfully Submitted!",
+            life: 3000,
+          });
+        },
+      })
     },
     go_back() {
       window.history.back();
@@ -223,7 +250,8 @@ export default {
   },
 
   mounted() {
-    // console.log(this.form_status);
+    Inertia.reload({ only: ["form_status"] });
+    console.log(this.form_status);
   },
 };
 </script>

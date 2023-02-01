@@ -11,29 +11,18 @@ td {
 
 <template>
   <auth-layout>
-    <PmsToolbar />
     <Card class="w-full">
       <template #title>
-        <Button
-          label="Back"
-          class="p-button-sm p-button-raised p-button-text mb-3"
-          icon="bi bi-arrow-left"
-          @click="go_back()"
-        ></Button>
+        <Button label="Back" class="p-button-sm p-button-raised p-button-text mb-3" icon="bi bi-arrow-left"
+                @click="go_back()"></Button>
         <br />
-        <span class="uppercase"
-          ><i class="bi bi-book mr-2"></i> PERFORMANCE COMMITMENT AND REVIEW | Core
-          Functions</span
-        ></template
-      >
+        <span><i class="bi bi-book mr-2"></i> PERFORMANCE COMMITMENT AND REVIEW | Core
+          Functions</span></template>
       <template #subtitle>
-        <span class="text-xl"
-          >{{ $page.props.auth.user.sys_department_name }} ( {{ period.period }},
-          {{ period.year }})</span
-        >
+        <span class="text-xl">{{ $page.props.auth.user.sys_department_name }} ( {{ period.period }},
+          {{ period.year }})</span>
         <br />
-        Accomplish Core Functions</template
-      >
+        Accomplish Core Functions</template>
       <template #content>
         <!-- table start -->
         <table class="w-full">
@@ -57,20 +46,14 @@ td {
             </tr>
           </thead>
           <template v-for="(row, r) in rows" :key="r">
-            <tr
-              v-if="row.rowspan == 0 && row.si_only == false"
-              :class="row.mfo_only ? 'bg-primary-50' : ''"
-            >
+            <tr v-if="row.rowspan == 0 && row.si_only == false" :class="row.mfo_only ? 'bg-primary-50' : ''">
               <td v-if="!row.mfo_only" class="text-center">
                 <template v-if="row.pms_pcr_core_function_data">
-                  <span
-                    v-if="
-                      row.pms_pcr_core_function_data.percent
-                    "
-                    >{{
-                      row.pms_pcr_core_function_data.percent
-                    }}%</span
-                  >
+                  <span v-if="
+                    row.pms_pcr_core_function_data.percent
+                  ">{{
+  row.pms_pcr_core_function_data.percent
+}}%</span>
                 </template>
               </td>
               <!-- if  mfo has no success indicator (title) conditioned colspan if has multiple success indicator -->
@@ -86,12 +69,10 @@ td {
               <template v-if="!row.mfo_only">
                 <td>{{ row.success_indicator }}</td>
                 <template v-if="row.pms_pcr_core_function_data">
-                  <template
-                    v-if="
-                      !row.pms_pcr_core_function_data
-                        .not_applicable
-                    "
-                  >
+                  <template v-if="
+                    !row.pms_pcr_core_function_data
+                      .not_applicable
+                  ">
                     <td>
                       {{
                         row.pms_pcr_core_function_data.actual
@@ -130,47 +111,29 @@ td {
                       {{
                         row.pms_pcr_core_function_data.actual
                       }}
-                    </td></template
-                  >
+                    </td>
+                  </template>
                   <td></td>
                   <td class="text-center">
-                    <Button
-                      v-if="
-                        !row.pms_pcr_core_function_data
-                          .not_applicable
-                      "
-                      label="Edit"
-                      icon="bi bi-pencil"
-                      class="p-button-sm p-button-text p-2 m-1"
-                      @click="edit_accomplishment(row)"
-                    />
-                    <Button
-                      v-else
-                      label="Edit"
-                      icon="bi bi-pencil"
-                      class="p-button-sm p-button-text p-2 m-1"
-                      @click="edit_not_applicable(row)"
-                    />
-                    <Button
-                      label="Clear"
-                      icon="bi bi-arrow-counterclockwise"
-                      class="p-button-sm p-button-text p-button-warning p-2 m-1"
-                      @click="confirm_accomplishment_reset(row)"
-                    />
+                    <Button v-if="
+                      !row.pms_pcr_core_function_data
+                        .not_applicable
+                    " label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
+                            @click="edit_accomplishment(row)" />
+                    <Button v-else label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
+                            @click="edit_not_applicable(row)" />
+                    <Button label="Clear" icon="bi bi-arrow-counterclockwise"
+                            class="p-button-sm p-button-text p-button-warning p-2 m-1"
+                            @click="confirm_accomplishment_reset(row)" />
                   </td>
                 </template>
                 <template v-else>
                   <td colspan="8" class="text-center">
-                    <Button
-                      label="Add Accomplishment"
-                      class="p-button-text p-button-small p-button-raised w-4 p-1"
-                      @click="add_accomplishment(row)"
-                    ></Button>
-                    <Button
-                      label="Not Applicable"
-                      class="p-button-danger p-button-small p-button-raised w-4 mt-2 ml-3 p-1"
-                      @click="not_applicable(row)"
-                    ></Button>
+                    <Button label="Add Accomplishment" class="p-button-text p-button-small p-button-raised w-4 p-1"
+                            @click="add_accomplishment(row)"></Button>
+                    <Button label="Not Applicable"
+                            class="p-button-danger p-button-small p-button-raised w-4 mt-2 ml-3 p-1"
+                            @click="not_applicable(row)"></Button>
                   </td>
                 </template>
               </template>
@@ -179,14 +142,11 @@ td {
             <tr v-else-if="row.rowspan > 0 && row.si_only == false">
               <td class="text-center text-center">
                 <template v-if="row.pms_pcr_core_function_data">
-                  <span
-                    v-if="
-                      row.pms_pcr_core_function_data.percent
-                    "
-                    >{{
-                      row.pms_pcr_core_function_data.percent
-                    }}%</span
-                  >
+                  <span v-if="
+                    row.pms_pcr_core_function_data.percent
+                  ">{{
+  row.pms_pcr_core_function_data.percent
+}}%</span>
                 </template>
               </td>
               <td :rowspan="row.rowspan">
@@ -200,12 +160,10 @@ td {
               <td>{{ row.success_indicator }}</td>
               <!-- accomplish interface start -->
               <template v-if="row.pms_pcr_core_function_data">
-                <template
-                  v-if="
-                    !row.pms_pcr_core_function_data
-                      .not_applicable
-                  "
-                >
+                <template v-if="
+                  !row.pms_pcr_core_function_data
+                    .not_applicable
+                ">
                   <td>
                     {{ row.pms_pcr_core_function_data.actual }}
                   </td>
@@ -232,47 +190,29 @@ td {
                 <template v-else>
                   <td colspan="6" class="text-center text-blue-700">
                     {{ row.pms_pcr_core_function_data.actual }}
-                  </td></template
-                >
+                  </td>
+                </template>
                 <td></td>
                 <td class="text-center">
-                  <Button
-                    v-if="
-                      !row.pms_pcr_core_function_data
-                        .not_applicable
-                    "
-                    label="Edit"
-                    icon="bi bi-pencil"
-                    class="p-button-sm p-button-text p-2 m-1"
-                    @click="edit_accomplishment(row)"
-                  />
-                  <Button
-                    v-else
-                    label="Edit"
-                    icon="bi bi-pencil"
-                    class="p-button-sm p-button-text p-2 m-1"
-                    @click="edit_not_applicable(row)"
-                  />
-                  <Button
-                    label="Clear"
-                    icon="bi bi-arrow-counterclockwise"
-                    class="p-button-sm p-button-text p-button-warning p-2 m-1"
-                    @click="confirm_accomplishment_reset(row)"
-                  />
+                  <Button v-if="
+                    !row.pms_pcr_core_function_data
+                      .not_applicable
+                  " label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
+                          @click="edit_accomplishment(row)" />
+                  <Button v-else label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
+                          @click="edit_not_applicable(row)" />
+                  <Button label="Clear" icon="bi bi-arrow-counterclockwise"
+                          class="p-button-sm p-button-text p-button-warning p-2 m-1"
+                          @click="confirm_accomplishment_reset(row)" />
                 </td>
               </template>
               <template v-else>
                 <td colspan="8" class="text-center">
-                  <Button
-                    label="Add Accomplishment"
-                    class="p-button-text p-button-small p-button-raised w-4 p-1"
-                    @click="add_accomplishment(row)"
-                  ></Button>
-                  <Button
-                    label="Not Applicable"
-                    class="p-button-danger p-button-small p-button-raised w-4 mt-2 ml-3 p-1"
-                    @click="not_applicable(row)"
-                  ></Button>
+                  <Button label="Add Accomplishment" class="p-button-text p-button-small p-button-raised w-4 p-1"
+                          @click="add_accomplishment(row)"></Button>
+                  <Button label="Not Applicable"
+                          class="p-button-danger p-button-small p-button-raised w-4 mt-2 ml-3 p-1"
+                          @click="not_applicable(row)"></Button>
                 </td>
               </template>
               <!-- accomplish interface end -->
@@ -281,24 +221,19 @@ td {
             <tr v-else>
               <td class="text-center">
                 <template v-if="row.pms_pcr_core_function_data">
-                  <span
-                    v-if="
-                      row.pms_pcr_core_function_data.percent
-                    "
-                    >{{
-                      row.pms_pcr_core_function_data.percent
-                    }}%</span
-                  >
+                  <span v-if="
+                    row.pms_pcr_core_function_data.percent
+                  ">{{
+  row.pms_pcr_core_function_data.percent
+}}%</span>
                 </template>
               </td>
               <td>{{ row.success_indicator }}</td>
               <template v-if="row.pms_pcr_core_function_data">
-                <template
-                  v-if="
-                    !row.pms_pcr_core_function_data
-                      .not_applicable
-                  "
-                >
+                <template v-if="
+                  !row.pms_pcr_core_function_data
+                    .not_applicable
+                ">
                   <td>
                     {{ row.pms_pcr_core_function_data.actual }}
                   </td>
@@ -325,47 +260,29 @@ td {
                 <template v-else>
                   <td colspan="6" class="text-center text-blue-700">
                     {{ row.pms_pcr_core_function_data.actual }}
-                  </td></template
-                >
+                  </td>
+                </template>
                 <td></td>
                 <td class="text-center">
-                  <Button
-                    v-if="
-                      !row.pms_pcr_core_function_data
-                        .not_applicable
-                    "
-                    label="Edit"
-                    icon="bi bi-pencil"
-                    class="p-button-sm p-button-text p-2 m-1"
-                    @click="edit_accomplishment(row)"
-                  />
-                  <Button
-                    v-else
-                    label="Edit"
-                    icon="bi bi-pencil"
-                    class="p-button-sm p-button-text p-2 m-1"
-                    @click="edit_not_applicable(row)"
-                  />
-                  <Button
-                    label="Clear"
-                    icon="bi bi-arrow-counterclockwise"
-                    class="p-button-sm p-button-text p-button-warning p-2 m-1"
-                    @click="confirm_accomplishment_reset(row)"
-                  />
+                  <Button v-if="
+                    !row.pms_pcr_core_function_data
+                      .not_applicable
+                  " label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
+                          @click="edit_accomplishment(row)" />
+                  <Button v-else label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
+                          @click="edit_not_applicable(row)" />
+                  <Button label="Clear" icon="bi bi-arrow-counterclockwise"
+                          class="p-button-sm p-button-text p-button-warning p-2 m-1"
+                          @click="confirm_accomplishment_reset(row)" />
                 </td>
               </template>
               <template v-else>
                 <td colspan="8" class="text-center">
-                  <Button
-                    label="Add Accomplishment"
-                    class="p-button-text p-button-small p-button-raised w-4 p-1"
-                    @click="add_accomplishment(row)"
-                  ></Button>
-                  <Button
-                    label="Not Applicable"
-                    class="p-button-danger p-button-small p-button-raised w-4 mt-2 ml-3 p-1"
-                    @click="not_applicable(row)"
-                  ></Button>
+                  <Button label="Add Accomplishment" class="p-button-text p-button-small p-button-raised w-4 p-1"
+                          @click="add_accomplishment(row)"></Button>
+                  <Button label="Not Applicable"
+                          class="p-button-danger p-button-small p-button-raised w-4 mt-2 ml-3 p-1"
+                          @click="not_applicable(row)"></Button>
                 </td>
               </template>
             </tr>
@@ -378,13 +295,8 @@ td {
         </table>
         <!-- table end -->
         <!-- add accomplishment modal start -->
-        <Dialog
-          header="Edit Accomplishment"
-          v-model:visible="edit_accomplishment_modal"
-          :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
-          :style="{ width: '50vw' }"
-          :modal="true"
-        >
+        <Dialog header="Edit Accomplishment" v-model:visible="edit_accomplishment_modal"
+                :breakpoints="{ '960px': '75vw', '640px': '90vw' }" :style="{ width: '50vw' }" :modal="true">
           <form @submit.prevent="submit_accomplishment()" id="accomplishment_form">
             <div class="field">
               <div class="font-bold">Success Indicator:</div>
@@ -392,14 +304,9 @@ td {
             </div>
             <div class="field">
               <div class="font-bold">Actual Accomplishment:</div>
-              <Textarea
-                v-model="accomplishment.actual"
-                :autoResize="true"
-                rows="5"
-                class="w-full"
-                placeholder="Enter your actual accomplishment here based on the success indicator above."
-                required
-              />
+              <Textarea v-model="accomplishment.actual" :autoResize="true" rows="5" class="w-full"
+                        placeholder="Enter your actual accomplishment here based on the success indicator above."
+                        required />
             </div>
             <!-- <div class="field">
               {{ core_function }}
@@ -408,14 +315,8 @@ td {
               <div class="font-bold">Quality:</div>
               <template v-for="(quality, i) in core_function.quality" :key="i">
                 <div v-if="quality">
-                  <input
-                    type="radio"
-                    name="quality"
-                    :value="5 - i"
-                    :id="`quality${i}`"
-                    v-model="accomplishment.quality"
-                    required
-                  />
+                  <input type="radio" name="quality" :value="5 - i" :id="`quality${i}`" v-model="accomplishment.quality"
+                         required />
                   <label :for="`quality${i}`">{{ `${5 - i} - ${quality}` }}</label>
                 </div>
               </template>
@@ -424,14 +325,8 @@ td {
               <div class="font-bold">Efficiency:</div>
               <template v-for="(efficiency, i) in core_function.efficiency" :key="i">
                 <div v-if="efficiency">
-                  <input
-                    type="radio"
-                    name="efficiency"
-                    :value="5 - i"
-                    :id="`efficiency${i}`"
-                    v-model="accomplishment.efficiency"
-                    required
-                  />
+                  <input type="radio" name="efficiency" :value="5 - i" :id="`efficiency${i}`"
+                         v-model="accomplishment.efficiency" required />
                   <label :for="`efficiency${i}`">{{ `${5 - i} - ${efficiency}` }}</label>
                 </div>
               </template>
@@ -440,14 +335,8 @@ td {
               <div class="font-bold">Timeliness:</div>
               <template v-for="(timeliness, i) in core_function.timeliness" :key="i">
                 <div v-if="timeliness">
-                  <input
-                    type="radio"
-                    name="timeliness"
-                    :value="5 - i"
-                    :id="`timeliness${i}`"
-                    v-model="accomplishment.timeliness"
-                    required
-                  />
+                  <input type="radio" name="timeliness" :value="5 - i" :id="`timeliness${i}`"
+                         v-model="accomplishment.timeliness" required />
                   <label :for="`timeliness${i}`">{{ `${5 - i} - ${timeliness}` }}</label>
                 </div>
               </template>
@@ -455,51 +344,24 @@ td {
             <div class="field">
               <div class="font-bold">Percentage Weight:</div>
               <!-- <InputNumber placeholder="-- % " /> -->
-              <InputNumber
-                inputId="percent"
-                v-model="accomplishment.percent"
-                suffix="%"
-                placeholder="--%"
-                required
-              />
+              <InputNumber inputId="percent" v-model="accomplishment.percent" suffix="%" placeholder="--%" required />
             </div>
             <div class="field">
               <div class="font-bold">Remarks:</div>
-              <Textarea
-                :autoResize="true"
-                rows="5"
-                class="w-full"
-                placeholder="Enter remarks here."
-                v-model="accomplishment.remarks"
-              />
+              <Textarea :autoResize="true" rows="5" class="w-full" placeholder="Enter remarks here."
+                        v-model="accomplishment.remarks" />
             </div>
           </form>
           <template #footer>
-            <Button
-              label="Cancel"
-              icon="pi pi-times"
-              @click="cancel_accomplishment()"
-              class="p-button-text"
-            />
-            <Button
-              label="Save"
-              icon="pi pi-check"
-              autofocus
-              type="submit"
-              form="accomplishment_form"
-            />
+            <Button label="Cancel" icon="pi pi-times" @click="cancel_accomplishment()" class="p-button-text" />
+            <Button label="Save" icon="pi pi-check" autofocus type="submit" form="accomplishment_form" />
           </template>
         </Dialog>
         <!-- add accomplishment modal end -->
 
         <!-- not applicable modal start -->
-        <Dialog
-          header="Not Applicable"
-          v-model:visible="not_applicable_modal"
-          :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
-          :style="{ width: '50vw' }"
-          :modal="true"
-        >
+        <Dialog header="Not Applicable" v-model:visible="not_applicable_modal"
+                :breakpoints="{ '960px': '75vw', '640px': '90vw' }" :style="{ width: '50vw' }" :modal="true">
           <form @submit.prevent="submit_not_applicable()" id="not_applicable_form">
             <!-- <div class="field">
               <div class="font-bold">Success Indicator:</div>
@@ -507,31 +369,15 @@ td {
             </div> -->
             <div class="field">
               <div class="font-bold mb-2">Reason:</div>
-              <Textarea
-                v-model="accomplishment.actual"
-                :autoResize="true"
-                rows="5"
-                class="w-full"
-                placeholder="Enter the reason why the success indicator is not applicable for accomplishment."
-                required
-              />
+              <Textarea v-model="accomplishment.actual" :autoResize="true" rows="5" class="w-full"
+                        placeholder="Enter the reason why the success indicator is not applicable for accomplishment."
+                        required />
             </div>
           </form>
 
           <template #footer>
-            <Button
-              label="Cancel"
-              icon="pi pi-times"
-              @click="cancel_not_applicable()"
-              class="p-button-text"
-            />
-            <Button
-              label="Save"
-              icon="pi pi-check"
-              autofocus
-              type="submit"
-              form="not_applicable_form"
-            />
+            <Button label="Cancel" icon="pi pi-times" @click="cancel_not_applicable()" class="p-button-text" />
+            <Button label="Save" icon="pi pi-check" autofocus type="submit" form="not_applicable_form" />
           </template>
         </Dialog>
         <!-- not applicable modal end -->
@@ -544,7 +390,6 @@ td {
 </template>
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
-import PmsToolbar from "@/Layouts/PmsToolbar";
 
 export default {
   props: {
@@ -556,7 +401,6 @@ export default {
   },
   components: {
     AuthLayout,
-    PmsToolbar,
   },
   data() {
     return {
@@ -568,7 +412,7 @@ export default {
       // percentage_weight_remaining: null,
       accomplishment: this.$inertia.form({
         id: null,
-        pms_rating_scale_matrix_success_indicator_id: null,
+        pms_rsm_success_indicator_id: null,
         actual: null,
         quality: null,
         efficiency: null,
@@ -582,8 +426,8 @@ export default {
   methods: {
     not_applicable(row) {
       this.accomplishment.id = null;
-      this.accomplishment.pms_rating_scale_matrix_success_indicator_id =
-        row.pms_rating_scale_matrix_success_indicator_id;
+      this.accomplishment.pms_rsm_success_indicator_id =
+        row.pms_rsm_success_indicator_id;
       this.accomplishment.not_applicable = true;
       this.not_applicable_modal = true;
     },
@@ -595,8 +439,8 @@ export default {
       console.log(row);
       this.accomplishment.id =
         row.pms_pcr_core_function_data.id;
-      this.accomplishment.pms_rating_scale_matrix_success_indicator_id =
-        row.pms_rating_scale_matrix_success_indicator_id;
+      this.accomplishment.pms_rsm_success_indicator_id =
+        row.pms_rsm_success_indicator_id;
       this.accomplishment.actual =
         row.pms_pcr_core_function_data.actual;
       this.accomplishment.not_applicable = true;
@@ -654,8 +498,8 @@ export default {
     add_accomplishment(row) {
       this.core_function = row;
       this.accomplishment.id = null;
-      this.accomplishment.pms_rating_scale_matrix_success_indicator_id =
-        row.pms_rating_scale_matrix_success_indicator_id;
+      this.accomplishment.pms_rsm_success_indicator_id =
+        row.pms_rsm_success_indicator_id;
       this.edit_accomplishment_modal = true;
     },
     cancel_accomplishment() {
@@ -666,8 +510,8 @@ export default {
       this.core_function = row;
       this.accomplishment.id =
         row.pms_pcr_core_function_data.id;
-      this.accomplishment.pms_rating_scale_matrix_success_indicator_id =
-        row.pms_rating_scale_matrix_success_indicator_id;
+      this.accomplishment.pms_rsm_success_indicator_id =
+        row.pms_rsm_success_indicator_id;
       this.accomplishment.actual =
         row.pms_pcr_core_function_data.actual;
       this.accomplishment.quality =
@@ -684,7 +528,7 @@ export default {
     },
     clear_accomplishment() {
       this.accomplishment.id = null;
-      this.accomplishment.pms_rating_scale_matrix_success_indicator_id = null;
+      this.accomplishment.pms_rsm_success_indicator_id = null;
       this.accomplishment.actual = null;
       this.accomplishment.quality = null;
       this.accomplishment.efficiency = null;
@@ -703,8 +547,8 @@ export default {
         accept: () => {
           this.$inertia.delete(
             this.current_url +
-              "/accomplishment/" +
-              row.pms_pcr_core_function_data.id,
+            "/accomplishment/" +
+            row.pms_pcr_core_function_data.id,
             {
               preserveScroll: true,
               onSuccess: () => {
@@ -736,8 +580,8 @@ export default {
       return margin;
     },
 
-    validate() {},
-    submit_form() {},
+    validate() { },
+    submit_form() { },
     go_back() {
       // window.history.back();
       var pathname = document.location.pathname;
@@ -761,6 +605,6 @@ export default {
   created() {
     this.$inertia.reload({ only: ["rows"] });
   },
-  mounted() {},
+  mounted() { },
 };
 </script>

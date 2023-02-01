@@ -1,6 +1,5 @@
 <template>
   <auth-layout>
-    <PmsToolbar />
     <Card class="w-8 mx-auto">
       <template #content>
         <div class="flex">
@@ -20,15 +19,13 @@
 </template>
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
-import PmsToolbar from "@/Layouts/PmsToolbar";
 export default {
   components: {
     AuthLayout,
-    PmsToolbar,
   },
   data() {
     return {};
   },
-  mounted() {},
+  mounted() { },
 };
 </script>

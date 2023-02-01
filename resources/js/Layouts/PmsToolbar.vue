@@ -11,12 +11,6 @@
         </template>
       </div>
     </template>
-
-    <template #end>
-      <!-- <Button icon="pi pi-search" class="mr-2" />
-        <Button icon="pi pi-calendar" class="p-button-success mr-2" />
-        <Button icon="pi pi-times" class="p-button-danger" /> -->
-    </template>
   </Toolbar>
 </template>
 <script>

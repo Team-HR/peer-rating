@@ -17,7 +17,13 @@ use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return Inertia::render('Welcome');
-});
+}); //->middleware('role:test');
+
+# error pages
+Route::get('/error-503', function () {
+    return Inertia::render('Error/503');
+})->name('error-503');
+
 
 # employees
 use App\Http\Controllers\SysEmployeeController;

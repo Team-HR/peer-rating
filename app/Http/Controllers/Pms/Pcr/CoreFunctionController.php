@@ -32,13 +32,14 @@ class CoreFunctionController extends Controller
         # get the success indicator ids
         $success_indicator_ids = [];
         foreach ($assignments as $assignment) {
-            $success_indicator_ids[] = $assignment->pms_rating_scale_matrix_success_indicator_id;
+            $success_indicator_ids[] = $assignment->pms_rsm_success_indicator_id;
         }
         # get mfo ids
         $mfo_ids = [];
+        // return $success_indicator_ids;
         foreach ($success_indicator_ids as $success_indicator_id) {
             $mfo = PmsRsmSuccessIndicator::find($success_indicator_id);
-            $mfo_id = $mfo->pms_rating_scale_matrix_id;
+            $mfo_id = $mfo->pms_rsm_id;
             if (!in_array($mfo_id, $mfo_ids)) {
                 $mfo_ids[] = $mfo_id;
             }
@@ -93,7 +94,7 @@ class CoreFunctionController extends Controller
             $success_indicators_count = count($success_indicators);
             $rowspan = $success_indicators_count > 1 ? $success_indicators_count : 0;
             $datum = [
-                "pms_rating_scale_matrix_id" => $row["id"],
+                "pms_rsm_id" => $row["id"],
                 "parent_id" => $row["parent_id"],
                 "level" => $level,
                 "rowspan" => $rowspan,
@@ -130,10 +131,10 @@ class CoreFunctionController extends Controller
                         $performance_measures[] = "Timeliness";
                     }
 
-                    $in_charges = PmsRsmAssignment::where("pms_rating_scale_matrix_success_indicator_id", $success_indicator["id"])->get();
+                    $in_charges = PmsRsmAssignment::where("pms_rsm_success_indicator_id", $success_indicator["id"])->get();
 
                     $success_indicator_datum = [
-                        "pms_rating_scale_matrix_success_indicator_id" => $success_indicator["id"],
+                        "pms_rsm_success_indicator_id" => $success_indicator["id"],
                         "success_indicator" => $success_indicator["success_indicator"],
                         "performance_measures" => $performance_measures,
                         "quality" => $quality,
@@ -159,7 +160,7 @@ class CoreFunctionController extends Controller
     {
         if (!$request->id) {
             $accomplishment_data = new PmsPcrCoreFunctionData();
-            $accomplishment_data->pms_rating_scale_matrix_success_indicator_id = $request->pms_rating_scale_matrix_success_indicator_id;
+            $accomplishment_data->pms_rsm_success_indicator_id = $request->pms_rsm_success_indicator_id;
             $accomplishment_data->pms_period_id = $period_id;
             $accomplishment_data->sys_employee_id = auth()->user()->sys_employee_id;
             $accomplishment_data->actual = $request->actual;
@@ -171,7 +172,7 @@ class CoreFunctionController extends Controller
             $accomplishment_data->not_applicable = $request->not_applicable ? true : false;
         } else {
             $accomplishment_data = PmsPcrCoreFunctionData::find($request->id);
-            $accomplishment_data->pms_rating_scale_matrix_success_indicator_id = $request->pms_rating_scale_matrix_success_indicator_id;
+            $accomplishment_data->pms_rsm_success_indicator_id = $request->pms_rsm_success_indicator_id;
             $accomplishment_data->pms_period_id = $period_id;
             $accomplishment_data->sys_employee_id = auth()->user()->sys_employee_id;
             $accomplishment_data->actual = $request->actual;
@@ -194,9 +195,9 @@ class CoreFunctionController extends Controller
     }
 }
 
-function get_pms_pcr_core_function_data($pms_rating_scale_matrix_success_indicator_id)
+function get_pms_pcr_core_function_data($pms_rsm_success_indicator_id)
 {
-    $pms_pcr_core_function_data = PmsPcrCoreFunctionData::where("pms_rating_scale_matrix_success_indicator_id", $pms_rating_scale_matrix_success_indicator_id)->first();
+    $pms_pcr_core_function_data = PmsPcrCoreFunctionData::where("pms_rsm_success_indicator_id", $pms_rsm_success_indicator_id)->first();
     if (!$pms_pcr_core_function_data) return null;
     $scores = [
         $pms_pcr_core_function_data["quality"],
@@ -228,6 +229,8 @@ function get_parent($mfos, $parent_id)
     $mfo = PmsRsm::find($parent_id);
 
     // check if parent already exists
+    if (!$mfo) return $mfos;
+
     foreach ($mfos as $value) {
         if ($value["id"] === $mfo->id) {
             return $mfos;
@@ -256,14 +259,14 @@ function get_level($level = 0, $parent_id)
 # count rowspan 
 function get_rowspan($id)
 {
-    $count = PmsRsmSuccessIndicator::where("pms_rating_scale_matrix_id", $id)->count();
+    $count = PmsRsmSuccessIndicator::where("pms_rsm_id", $id)->count();
     return $count;
 }
 
 # get success indicators of the mfo/pap
 function get_success_indicators($id)
 {
-    $pms_rating_scale_matrix_success_indicators = PmsRsmSuccessIndicator::where("pms_rating_scale_matrix_id", $id)->get();
+    $pms_rating_scale_matrix_success_indicators = PmsRsmSuccessIndicator::where("pms_rsm_id", $id)->get();
     return $pms_rating_scale_matrix_success_indicators;
 }
 
