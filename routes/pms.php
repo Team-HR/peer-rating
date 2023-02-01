@@ -11,6 +11,7 @@ use App\Http\Controllers\Pms\Pcr\PcrController;
 use App\Http\Controllers\Pms\Pcr\StrategicFunctionController;
 use App\Http\Controllers\Pms\Pcr\SupportFunctionController;
 use App\Http\Controllers\Pms\Rpc\ReviewPerformanceCommitmentController;
+use App\Http\Controllers\Pms\SettingsController;
 
 Route::middleware(['auth'])->group(function () {
     # pms dashboard
@@ -71,4 +72,9 @@ Route::middleware(['auth'])->group(function () {
     #rpc - review performance commitment reports
     Route::get("/pms/rpc", [ReviewPerformanceCommitmentController::class, "index"]);
     Route::get("/pms/rpc/{period_id}", [ReviewPerformanceCommitmentController::class, "show"]);
+
+
+    # pms - settings
+    Route::get("/pms/settings", [SettingsController::class, "index"]);
+
 });
