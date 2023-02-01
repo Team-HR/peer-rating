@@ -1,6 +1,6 @@
 <template>
     <Card class="w-full">
-        <template #title> <i :class="icon"></i> <span class="uppercase"> {{ title }}</span></template>
+        <template #title> <i :class="icon"></i> <span> {{ title }}</span></template>
         <template #subtitle>{{ description }}</template>
         <template v-if="$page.props.auth.user.sys_employee_id" #content>
 

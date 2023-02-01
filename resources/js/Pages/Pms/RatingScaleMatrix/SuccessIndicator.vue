@@ -2,7 +2,7 @@
   <auth-layout>
     <Card class="w-full">
       <template #title>
-        <span class="uppercase"><i class="bi bi-book mr-2"></i> Rating Scale Matrix | Success
+        <span><i class="bi bi-book mr-2"></i> Rating Scale Matrix | Success
           Indicator</span>
       </template>
       <template #subtitle>Add/Edit/Delete Success Indicator/s</template>

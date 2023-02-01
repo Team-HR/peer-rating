@@ -16,7 +16,7 @@ td {
         <Button label="Back" class="p-button-sm p-button-raised p-button-text mb-3" icon="bi bi-arrow-left"
                 @click="go_back()"></Button>
         <br />
-        <span class="uppercase"><i class="bi bi-book mr-2"></i> PERFORMANCE COMMITMENT AND REVIEW</span></template>
+        <span><i class="bi bi-book mr-2"></i> PERFORMANCE COMMITMENT AND REVIEW</span></template>
       <template #subtitle>
         <span class="text-xl">{{ $page.props.auth.user.sys_department_name }} ( {{ period.period }},
           {{ period.year }})</span>

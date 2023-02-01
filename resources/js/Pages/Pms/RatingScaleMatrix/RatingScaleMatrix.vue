@@ -15,7 +15,7 @@ td {
       <template #title>
         <Button label="Back" class="p-button-sm p-button-raised p-button-text mb-3" icon="bi bi-arrow-left"
                 @click="go_back()"></Button> <br>
-        <div class="uppercase w-full"><i class="bi bi-book mr-2"></i> Department Rating Scale Matrix</div>
+        <div class="w-full"><i class="bi bi-book mr-2"></i> Department Rating Scale Matrix</div>
       </template>
       <template #subtitle>
         <div>Edit or review your Department/Section's Rating Scale Matrix</div>

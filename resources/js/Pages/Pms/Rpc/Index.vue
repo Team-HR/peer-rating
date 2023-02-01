@@ -1,9 +1,9 @@
 <template>
   <auth-layout>
-    <Card class="w-full">
-      <template #title><span class="uppercase"><i class="bi bi-book mr-2"></i> REVIEW PERFORMANCE COMMITMENT AND
+    <!-- <Card class="w-full">
+      <template #title><span><i class="bi bi-book mr-2"></i> REVIEW PERFORMANCE COMMITMENT AND
           REVIEW</span></template>
-      <template #subtitle>Review your personnel's Performance Commitment and Review</template>
+      <template #subtitle></template>
       <template #content>
         <form @submit.prevent="$inertia.get('/pms/rpc/' + period_id)">
           <label class="mr-2">Selected Period:</label>
@@ -14,17 +14,22 @@
                   :label="!period_id ? 'Select a period first' : 'Open'" />
         </form>
       </template>
-    </Card>
+    </Card> -->
+    <period-selector icon="bi bi-book" title="Review Performance Commitment and Review"
+                     description="Review your personnel's Performance Commitment and Review"
+                     path="/pms/rpc/"></period-selector>
   </auth-layout>
 </template>
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
+import PeriodSelector from "@/Components/Pms/PeriodSelector.vue";
 export default {
   props: {
     periods: null,
   },
   components: {
     AuthLayout,
+    PeriodSelector
   },
   data() {
     return {

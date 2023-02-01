@@ -16,7 +16,7 @@ td {
         <Button label="Back" class="p-button-sm p-button-raised p-button-text mb-3" icon="bi bi-arrow-left"
                 @click="go_back()"></Button>
         <br />
-        <div class="uppercase">
+        <div>
           <i class="bi bi-book mr-2"></i>Individual Rating Scale Matrix
         </div>
       </template>
