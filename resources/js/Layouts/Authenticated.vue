@@ -1,7 +1,7 @@
 
 <script>
 import Sidebar from "@/Components/Sidebar.vue";
-import links from "@/Links";
+import sideBarLinks from "@/Links";
 
 export default {
   mounted() {
@@ -12,7 +12,7 @@ export default {
   },
   data() {
     return {
-      links: links,
+      links: sideBarLinks,
       isActive: true,
       isHidden: false,
       currentUrl: this.$inertia.page.url,
@@ -20,6 +20,7 @@ export default {
       activeSubLinkIndex: null,
     }
   },
+
   methods: {
     // sets tab positions
     setCurrentTab() {
@@ -50,7 +51,14 @@ export default {
         // const authRoles = authRoles?
         return roles.some(v => authRoles.includes(v))
       } else return true;
-    }
+    },
+
+
+    linkIsForSupervisor(roles) {
+      if (roles) {
+        return roles.includes("supervisor");
+      } else return false;
+    },
 
   },
   mounted() {
@@ -118,12 +126,14 @@ export default {
                     <!-- .some(v => sublink.roles.includes(v)) -->
                     <template v-for="sublink, s in links[activeLinkIndex].sublinks" :key="s">
                       <li v-if="authCheck(sublink.roles)"
-                          class="mb-3 flex align-items-start p-3 hover:bg-indigo-600 transition-duration-150 transition-colors"
+                          class="mb-3 flex align-items-start p-3 hover:bg-indigo-900 transition-duration-150 transition-colors"
                           style="cursor: pointer; border-radius: 12px;"
-                          :class="activeSubLinkIndex == s ? 'bg-indigo-700' : 'bg-indigo-500'"
+                          :class="activeSubLinkIndex == s ? 'bg-indigo-800' : 'bg-indigo-600'"
                           @click="$inertia.get(sublink.path)">
                         <i class="text-xl mr-3" :class="sublink.icon"></i>
-                        <div class="flex flex-column"><span>{{ sublink.title }}</span>
+                        <div class="flex flex-column" style="position: relative;"><span>{{ sublink.title }}</span>
+                          <div v-if="sublink.tag" :class="sublink.tag.color" class="border-round text-white p-1"
+                               style="position: absolute; top: -30px; right: -30px;">{{ sublink.tag.name }}</div>
                           <p class="mt-2 mb-0 line-height-3 text-indigo-200">{{ sublink.description }}</p>
                         </div>
                       </li>
