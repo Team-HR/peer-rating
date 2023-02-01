@@ -23,9 +23,25 @@ class PcrController extends Controller
         return Inertia::render("Pms/Pcr/Index", ["periods" => $periods]);
     }
 
-    public function submit($period_id)
+    public function submit($period_id, Request $request)
     {
-        return $period_id;
+        $id = $request->id;
+        $overall_numerical_rating = $request->overall_numerical_rating;
+
+
+        $update = PmsPcrStatus::where('id', $id)
+            ->update([
+                'is_submitted' => 1,
+                'date_accomplished' => date("Y-m-d"),
+                'overall_numerical_rating' => $overall_numerical_rating
+            ]);
+        //     Flight::where('active', 1)
+        //   ->where('destination', 'San Diego')
+        //   ->update(['delayed' => 1]);
+
+
+        return Redirect::back();
+        // return $update;
         // return Inertia::render("Pms/Pcr/Index", ["periods" => $periods]);
     }
 

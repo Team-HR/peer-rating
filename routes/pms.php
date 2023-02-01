@@ -46,7 +46,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get("/pms/pcr/{period_id}", [PcrController::class, "show"]);
 
     # /pcr/{period_id}/submit
-    Route::get("/pms/pcr/{period_id}/submit", [PcrController::class, "submit"]);
+    // submit is on api.php
+    Route::post("/pms/pcr/{period_id}/submit", [PcrController::class, "submit"]);
 
     # pcr - form type
     Route::get("/pms/pcr/{period_id}/form_type/{id}", [PcrController::class, "show_form_type"]);
@@ -76,5 +77,4 @@ Route::middleware(['auth'])->group(function () {
 
     # pms - settings
     Route::get("/pms/settings", [SettingsController::class, "index"]);
-
 });

@@ -11,7 +11,10 @@ class PmsPcrStatus extends Model
 {
     use HasFactory;
 
-
+    protected $casts = [
+        'is_submitted' => 'boolean',
+    ];
+    
     protected $appends = ['signatories_inputs'];
 
     /**
