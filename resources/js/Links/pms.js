@@ -3,9 +3,8 @@ import Inertia from '@inertiajs/inertia-vue3'
 let links = [{
     title: "PMS",
     icon: 'bi bi-graph-up-arrow',
-    path: "/pms",
-    sublinks: [
-        {
+
+    sublinks: [{
             title: "PCR",
             path: "/pms/pcr",
             description: "Accomplish your performance commitment review",

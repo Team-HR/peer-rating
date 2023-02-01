@@ -25,7 +25,7 @@ use App\Http\Controllers\SysEmployeeController;
 Route::get('/employees', [SysEmployeeController::class, 'index'])->name('employees');
 Route::post('/employees', [SysEmployeeController::class, 'create'])->name('employee.create');
 Route::get('/departments', function () {
-    return Inertia::render('Departments');
+    return Inertia::render('Admin/Departments');
 })->middleware(['auth', 'verified']);
 
 require __DIR__ . '/auth.php';
