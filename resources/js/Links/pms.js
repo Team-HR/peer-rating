@@ -22,7 +22,11 @@ let links = [{
             path: "/pms/rsm",
             description: "Edit your department's rating scale matrix.",
             icon: "bi bi-book",
-            roles: ["sys_admin_", "rsm"]
+            roles: ["sys_admin_", "rsm"],
+            tag: {
+                name: "RSM Editor",
+                color: "bg-yellow-500",
+            }
         },
         {
             title: "Review Personnel PCRs",
