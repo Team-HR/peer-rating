@@ -59,8 +59,9 @@ Route::get('/pms/periods', function () {
     return $data;
 });
 
-
-
+Route::get('/pms/authCheckIfSupervisor', function () {
+    return response()->json("test");
+});
 //    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });

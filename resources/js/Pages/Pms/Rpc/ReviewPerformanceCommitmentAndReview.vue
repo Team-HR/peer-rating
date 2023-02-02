@@ -57,7 +57,10 @@ import AuthLayout from "@/Layouts/Authenticated";
 export default {
   props: {
     period: null,
-    items: null,
+    items: {
+      type: Array,
+      default: []
+    }
   },
   components: {
     AuthLayout,
@@ -65,13 +68,13 @@ export default {
   data() {
     return {
       current_url: document.location.pathname,
-      items: [],
     };
   },
   methods: {
     go_back() {
       window.history.back();
     },
+
   },
   created() { },
   mounted() { },

@@ -51,11 +51,16 @@ class User extends Authenticatable
         'sys_employee_assigned_department_id',
         'sys_department_id',
         'sys_department_name',
+        'is_supervisor'
     ];
 
     public function hasRole($role)
     {
         return in_array($role, $this->roles);
+    }
+
+    public function getIsSupervisorAttribute(){
+        
     }
 
     public function getFullNameAttribute()

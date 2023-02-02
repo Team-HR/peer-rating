@@ -2,6 +2,7 @@
 <script>
 import Sidebar from "@/Components/Sidebar.vue";
 import sideBarLinks from "@/Links";
+import axios from "axios";
 
 export default {
   mounted() {
@@ -53,17 +54,19 @@ export default {
       } else return true;
     },
 
-
-    linkIsForSupervisor(roles) {
-      if (roles) {
-        return roles.includes("supervisor");
-      } else return false;
+    authCheckIfSupervisor() {
+      // return true
+      axios.get("/api/pms/authCheckIfSupervisor").then(res => {
+        return res
+      })
     },
+
 
   },
   mounted() {
     this.setCurrentTab()
     this.setCurrentSubTab()
+    console.log(this.authCheckIfSupervisor());
   }
 };
 </script>
