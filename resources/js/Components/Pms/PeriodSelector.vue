@@ -3,7 +3,6 @@
         <template #title> <i :class="icon"></i> <span> {{ title }}</span></template>
         <template #subtitle>{{ description }}</template>
         <template v-if="$page.props.auth.user.sys_employee_id" #content>
-
             <!-- <template v-for="period in periods">
                 <h1>{{ period.year }}</h1>
                 <Button v-if="period.period1"

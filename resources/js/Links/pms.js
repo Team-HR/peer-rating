@@ -1,11 +1,8 @@
-import Inertia from '@inertiajs/inertia-vue3'
-
-let links = [{
+export default [{
     title: "PMS",
     icon: 'bi bi-graph-up-arrow',
     path: "/pms",
-    sublinks: [
-        {
+    sublinks: [{
             title: "Performance Commitment Report",
             path: "/pms/pcr",
             description: "Accomplish your performance commitment review",
@@ -55,5 +52,3 @@ let links = [{
         }
     ]
 }];
-
-export default links;

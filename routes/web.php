@@ -34,6 +34,10 @@ Route::get('/departments', function () {
     return Inertia::render('Admin/Departments');
 })->middleware(['auth', 'verified']);
 
+Route::get('/Users', function () {
+    return Inertia::render('Admin/ManageAccounts');
+})->middleware(['auth', 'verified']);
+
 require __DIR__ . '/auth.php';
 require __DIR__ . '/prating.php';
 require __DIR__ . '/pms.php';
