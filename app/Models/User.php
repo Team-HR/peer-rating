@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Pms\Pcr\PmsPcrStatus;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -59,8 +60,15 @@ class User extends Authenticatable
         return in_array($role, $this->roles);
     }
 
-    public function getIsSupervisorAttribute(){
-        
+    public function getIsSupervisorAttribute()
+    {
+        if ($sys_employee_id = $this->sys_employee_id) {
+            $status = PmsPcrStatus::where(
+                'immediate_supervisor',
+                $sys_employee_id
+            )->first();
+            return $status ? true : false;
+        } else return false;
     }
 
     public function getFullNameAttribute()
