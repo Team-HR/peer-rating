@@ -8,15 +8,15 @@
       </template>
       <template #content>
         <div class="flex justify-content-start gap-3 mb-5 ">
-          <Dropdown v-model="selectedPeriod" :options="periods" optionLabel="SelectPeriod"
-            placeholder="Select a Period" class="dropDown"/>
+          <Dropdown v-model="selectedPeriod" :options="periods" optionLabel="SelectPeriod" placeholder="Select a Period"
+            class="dropDown" />
           <Dropdown v-model="selectedYear" :options="yearPeriod" optionLabel="SelectYear" placeholder="Select a Year" />
           <Button label="Generate" @click="showData" class="p-button-sm button" />
-        </div>
+        </div>      
         <div class="mb-5">
           <span class="p-input-icon-left">
             <i class="pi pi-search" />
-            <InputText type="text" placeholder="Search" v-model="filters['departments'].value" />
+            <InputText type="text" placeholder="Search" v-model="filters['departments'].value" class="search-input" />
           </span>
         </div>
         <div v-if="!showTable" class="Error">
@@ -123,16 +123,19 @@ export default {
   text-align: center;
   color: #0000002b;
 }
-.button{
+
+.button {
   background-color: #3f51b5;
   color: #fff;
   padding: 10px 20px;
   border: none;
   transition: all 0.2s ease-in-out;
 }
-.button:hover{
+
+.button:hover {
   transform: translateY(-5px);
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
 }
+
 
 </style>

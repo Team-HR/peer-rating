@@ -21,33 +21,19 @@ const others = [{
         title: "Admin Panel",
         name: "Settings",
         icon: 'pi pi-cog',
-        is_active: false,
-        path: "/departments",
+        path: "/settings",
         sublinks: [{
 
                 title: "RSM Status",
                 icon: 'pi pi-sitemap',
-                path: "/departments",
+                path: "/settings/departments",
             }, {
                 title: "Manage Accounts",
                 icon: "pi pi-user",
-                path: "/Users",
+                path: "/settings/Users",
             },
-            {
-                name: "Inbox",
-                icon: "pi pi-inbox",
-                desc: "Condimentum vitae sapien pellentesque habitant."
-            },
-            {
-                name: "Sales",
-                icon: "pi pi-credit-card",
-                desc: "Egestas integer eget aliquet nibh praesent tristique."
-            },
-            {
-                name: "Privacy",
-                icon: "pi pi-lock",
-                desc: "In ante metus dictum at tempor commodo ullamcorper a lacus."
-            },
+
+
         ]
     }
 ];

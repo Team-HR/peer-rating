@@ -32,7 +32,7 @@ export default {
       const currentPath = this.currentUrl.split("/")[1];
       if (currentPath) {
         const index = this.links.map(function (e) { return e.path ? e.path.split("/")[1] : false }).indexOf(currentPath)
-        // console.log(index);
+        // console.log(this.currentUrl);
         if (index > -1) {
           this.activeLinkIndex = index;
         }

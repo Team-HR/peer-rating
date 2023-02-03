@@ -30,11 +30,11 @@ use App\Http\Controllers\SysEmployeeController;
 
 Route::get('/employees', [SysEmployeeController::class, 'index'])->name('employees');
 Route::post('/employees', [SysEmployeeController::class, 'create'])->name('employee.create');
-Route::get('/departments', function () {
+Route::get('/settings/departments', function () {
     return Inertia::render('Admin/Departments');
 })->middleware(['auth', 'verified']);
 
-Route::get('/Users', function () {
+Route::get('/settings/Users', function () {
     return Inertia::render('Admin/ManageAccounts');
 })->middleware(['auth', 'verified']);
 
