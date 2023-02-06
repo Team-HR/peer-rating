@@ -73,6 +73,7 @@ Route::middleware(['auth'])->group(function () {
     #rpc - review performance commitment reports
     Route::get("/pms/rpc", [ReviewPerformanceCommitmentController::class, "index"]);
     Route::get("/pms/rpc/{period_id}", [ReviewPerformanceCommitmentController::class, "show"]);
+    Route::get("/pms/rpc/{pms_pcr_status_id}/form", [ReviewPerformanceCommitmentController::class, "showPcr"]);
 
 
     # pms - settings

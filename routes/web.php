@@ -33,6 +33,9 @@ Route::post('/employees', [SysEmployeeController::class, 'create'])->name('emplo
 Route::get('/departments', function () {
     return Inertia::render('Admin/Departments');
 })->middleware(['auth', 'verified']);
+Route::get('/settings/testing', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified']);
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/prating.php';

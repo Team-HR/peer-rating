@@ -2,6 +2,7 @@
 
 namespace App\Models\Pms\Pcr;
 
+use App\Models\SysDepartment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use phpDocumentor\Reflection\Types\Null_;
@@ -14,14 +15,31 @@ class PmsPcrStatus extends Model
     protected $casts = [
         'is_submitted' => 'boolean',
     ];
-    
-    protected $appends = ['signatories_inputs'];
+
+    protected $appends = [
+        'full_name',
+        'signatories_inputs',
+        'sys_department'
+    ];
+
+    public function getSysDepartmentAttribute()
+    {
+        $department = SysDepartment::find($this->sys_department_id);
+        return $department->name;
+    }
+
 
     /**
      * Get the employees's full name.
      *
      * @return string
      */
+
+    public function getFullNameAttribute()
+    {
+        $full_name = SysEmployee::find($this->sys_employee_id);
+        return $full_name->full_name;
+    }
 
     public function getSignatoriesInputsAttribute()
     {

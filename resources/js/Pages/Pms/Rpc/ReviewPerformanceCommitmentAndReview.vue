@@ -35,16 +35,10 @@ td {
             </td>
           </tr>
           <tr v-for="(item, i) in items" :key="i">
-            <!-- <td>
-              <Button
-                @click="$inertia.get(item.href, {}, { replace: true })"
-                label="Open"
-                class="p-button-sm"
-                :disabled="item.is_disabled"
-              ></Button>
-            </td> -->
-            <td>{{ item.label }}</td>
-            <td class="" v-html="item.status"></td>
+            <!-- <td>{{ item.label }}</td>
+            <td class="" v-html="item.status"></td> -->
+            <td colspan="3"><Button label="Open" @click="$inertia.get(`/pms/rpc/${item.id}/form`)"></Button> {{ item }}
+            </td>
           </tr>
         </table>
       </template>

@@ -48,7 +48,7 @@ export default {
 
     authCheck(roles) {
       if (roles) {
-        const authRoles = this.$page.props.auth.user.roles;
+        const authRoles = this.$page.props.auth.user.is_supervisor ? this.$page.props.auth.user.roles.concat("supervisor") : this.$page.props.auth.user.roles;
         // const authRoles = authRoles?
         return roles.some(v => authRoles.includes(v))
       } else return true;
