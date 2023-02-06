@@ -1,5 +1,6 @@
 require('./bootstrap');
 // primevue start
+import "bootstrap-icons/font/bootstrap-icons.css";
 import PrimeVue from 'primevue/config';
 import AutoComplete from 'primevue/autocomplete';
 import Accordion from 'primevue/accordion';
@@ -135,7 +136,7 @@ createInertiaApp({
                 template: `<inertia-link :href="to" class="p-menuitem-link p-0"><slot/></inertia-link>`,
             })
 
-        .directive('tooltip', Tooltip)
+            .directive('tooltip', Tooltip)
             .directive('badge', BadgeDirective)
             .directive('ripple', Ripple)
             .directive('styleclass', StyleClass)
