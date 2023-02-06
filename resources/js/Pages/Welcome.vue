@@ -1,91 +1,106 @@
 <template>
-  <guest-nav v-if="!$page.props.auth.user"></guest-nav>
-  <authed-nav v-else></authed-nav>
+  <guest-nav v-if="!$page.props.auth.user">
 
-  <div class="bodys">
 
-    <div class="s flex">
-      <div data-am-fadeshow="next-prev-navigation autoplay">
-        <!-- Radio -->
-        <input type="radio" name="css-fadeshow" id="slide-1" />
-        <input type="radio" name="css-fadeshow" id="slide-2" />
-        <input type="radio" name="css-fadeshow" id="slide-3" />
-        <input type="radio" name="css-fadeshow" id="slide-4" />
+    <div class="bodys">
+      <div class="s flex">
+        <div data-am-fadeshow="next-prev-navigation autoplay">
+          <!-- Radio -->
+          <input type="radio" name="css-fadeshow" id="slide-1" />
+          <input type="radio" name="css-fadeshow" id="slide-2" />
+          <input type="radio" name="css-fadeshow" id="slide-3" />
+          <input type="radio" name="css-fadeshow" id="slide-4" />
 
-        <!-- Slides -->
-        <div class="fs-slides">
-          <div class="fs-slide"
-            style="background-image: url(https://images.unsplash.com/photo-1460500063983-994d4c27756c?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2550);">
-            <div
-              style="position: absolute; height:auto;width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
-              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">RECRUITMENT, SELECTION AND PLACEMENT</h1>
-              <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">A strategy for attracting, screening, selecting and onboarding qualified persons based on relative qualifications and competence in adherance to the merit, fitness and equality principles.
-              </p>
-              <div id="section1"> 
-                <Button >Read More</Button>
+          <!-- Slides -->
+          <div class="fs-slides">
+            <div class="fs-slide"
+                 style="background-image: url(https://images.unsplash.com/photo-1460500063983-994d4c27756c?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2550);">
+              <div
+                   style="position: absolute; height:auto;width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
+                <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">RECRUITMENT,
+                  SELECTION AND PLACEMENT</h1>
+                <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">A strategy for attracting, screening,
+                  selecting and onboarding qualified persons based on relative qualifications and competence in
+                  adherance to the merit, fitness and equality principles.
+                </p>
+                <div id="section1">
+                  <Button>Read More</Button>
+                </div>
+
               </div>
-             
+            </div>
+            <div class="fs-slide"
+                 style="background-image: url(https://images.unsplash.com/photo-1440557653082-e8e186733eeb?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2500);">
+              <div
+                   style="position: absolute; height:auto;width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
+                <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">STRATEGIC
+                  PERFORMANCE MANAGEMENT SYSTEM</h1>
+                <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">A mechanism that links employee
+                  performance with organizational performance to enhance the performance orientation of the compensatopm
+                  system, It ensures that the employee achieves the objectives set by the organization and the
+                  organization, on the other hand, achieves the objectives that it has set in its strategic plan.
+                </p>
+                <Button class="" onclick="document.location='#section2'">Read More</Button>
+              </div>
+            </div>
+            <div class="fs-slide"
+                 style="background-image: url(https://images.unsplash.com/photo-1449057528837-7ca097b3520c?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2500);">
+              <div
+                   style="position: absolute; height:auto;width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
+                <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">LEARNING AND
+                  DEVELOPMENT</h1>
+                <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">AAn approach that uses competencies as the
+                  standards against which employee development needs are assessed and piorities are set against the need
+                  of the organization. It utilizes competencies as the foundation for designning targeted programs with
+                  learning outcomes that directly link to the competency requirements.
+                </p>
+                <Button class="" onclick="document.location='#section3'">Read More</Button>
+              </div>
+            </div>
+            <div class="fs-slide"
+                 style="background-image: url(https://images.unsplash.com/photo-1440557653082-e8e186733eeb?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2500);">
+              <div
+                   style="position: absolute; height:auto; width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
+                <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">REWARDS &
+                  RECOGNITION</h1>
+                <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">A system designed to encourage creativity,
+                  innovativeness, efficiency, integrity, and productivity in the public service by recognizing and
+                  rewarding offcials and employees for their suggestions, inventions, supervisor accomplishments, and
+                  other personal efforts with contribute to the efficiency, economy or for other extraordinary acts or
+                  services in the public interest.
+                </p>
+                <Button class="" onclick="document.location='#section1'">Read More</Button>
+              </div>
             </div>
           </div>
-          <div class="fs-slide"
-            style="background-image: url(https://images.unsplash.com/photo-1440557653082-e8e186733eeb?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2500);">
-            <div
-              style="position: absolute; height:auto;width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
-              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">STRATEGIC PERFORMANCE MANAGEMENT SYSTEM</h1>
-              <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">A mechanism that links employee performance with organizational performance to enhance the performance orientation of the compensatopm system, It ensures that the employee achieves the objectives set by the organization and the organization, on the other hand, achieves the objectives that it has set in its strategic plan.
-              </p>
-              <Button class="" onclick="document.location='#section2'">Read More</Button>
-            </div>
-          </div>
-          <div class="fs-slide"
-            style="background-image: url(https://images.unsplash.com/photo-1449057528837-7ca097b3520c?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2500);">
-            <div
-              style="position: absolute; height:auto;width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
-              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">LEARNING AND DEVELOPMENT</h1>
-              <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">AAn approach that uses competencies as the standards against which employee development needs are assessed and piorities are set against the need of the organization. It utilizes competencies as the foundation for designning targeted programs with learning outcomes that directly link to the competency requirements.
-              </p>
-              <Button class="" onclick="document.location='#section3'">Read More</Button>
-            </div>
-          </div>
-          <div class="fs-slide"
-            style="background-image: url(https://images.unsplash.com/photo-1440557653082-e8e186733eeb?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2500);">
-            <div
-              style="position: absolute; height:auto; width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
-              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">REWARDS & RECOGNITION</h1>
-              <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">A system designed to encourage creativity, innovativeness, efficiency, integrity, and productivity in the public service by recognizing and rewarding offcials and employees for their suggestions, inventions, supervisor accomplishments, and other personal efforts with contribute to the efficiency, economy or for other extraordinary acts or services in the public interest.
-              </p>  
-              <Button class="" onclick="document.location='#section1'">Read More</Button>
-            </div>
-          </div>
-        </div>
 
-        <!-- Quick Navigation -->
-        <div class="fs-quick-nav">
-          <label class="fs-quick-btn" for="slide-1"></label>
-          <label class="fs-quick-btn" for="slide-2"></label>
-          <label class="fs-quick-btn" for="slide-3"></label>
-          <label class="fs-quick-btn" for="slide-4"></label>
-          
-        </div>
+          <!-- Quick Navigation -->
+          <div class="fs-quick-nav">
+            <label class="fs-quick-btn" for="slide-1"></label>
+            <label class="fs-quick-btn" for="slide-2"></label>
+            <label class="fs-quick-btn" for="slide-3"></label>
+            <label class="fs-quick-btn" for="slide-4"></label>
 
-        <!-- Prev Navigation -->
-        <div class="fs-prev-nav">
-          <label class="fs-prev-btn" for="slide-1"></label>
-          <label class="fs-prev-btn" for="slide-2"></label>
-          <label class="fs-prev-btn" for="slide-3"></label>
-          <label class="fs-quick-btn" for="slide-4"></label>
-        </div>
+          </div>
 
-        <!-- Next Navigation -->
-        <div class="fs-next-nav">
-          <label class="fs-next-btn" for="slide-1"></label>
-          <label class="fs-next-btn" for="slide-2"></label>
-          <label class="fs-next-btn" for="slide-3"></label>
-          <label class="fs-quick-btn" for="slide-4"></label>
+          <!-- Prev Navigation -->
+          <div class="fs-prev-nav">
+            <label class="fs-prev-btn" for="slide-1"></label>
+            <label class="fs-prev-btn" for="slide-2"></label>
+            <label class="fs-prev-btn" for="slide-3"></label>
+            <label class="fs-quick-btn" for="slide-4"></label>
+          </div>
+
+          <!-- Next Navigation -->
+          <div class="fs-next-nav">
+            <label class="fs-next-btn" for="slide-1"></label>
+            <label class="fs-next-btn" for="slide-2"></label>
+            <label class="fs-next-btn" for="slide-3"></label>
+            <label class="fs-quick-btn" for="slide-4"></label>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- <div class="cards w-auto reveal">
+      <!-- <div class="cards w-auto reveal">
       <h1 class="core">FOUR CORES OF HR SYSTEM</h1>
       <img src="../Pages/images/Vector4.png" alt="">
       <div class="card1">
@@ -145,76 +160,83 @@
         <Button class=" p-button-info readmore4" onclick="document.location='#section4'">Read More</Button>
       </div>
     </div> -->
-    <!-- RSP -->
-    <div class="rsp reveal section" data-background-color="transparent" id="section1">
-      <div class="rsp-1">
-        <img class="rsp-img" src="../Pages/images/Vector1.png" alt="">
-        <Accordion :active-index="3">
-          <AccordionTab v-for="RSP in RSP" :key="RSP.title" :header="RSP.title">
-            <p>{{ RSP.content }}</p>
-          </AccordionTab>
-        </Accordion>
+      <!-- RSP -->
+      <div class="rsp reveal section" data-background-color="transparent" id="section1">
+        <div class="rsp-1">
+          <img class="rsp-img" src="../Pages/images/Vector1.png" alt="">
+          <Accordion :active-index="3">
+            <AccordionTab v-for="RSP in RSP" :key="RSP.title" :header="RSP.title">
+              <p>{{ RSP.content }}</p>
+            </AccordionTab>
+          </Accordion>
+        </div>
+        <div class="rsp-2">
+          <img src="../Pages/images/human-resources.png" alt="" class="img-rsp1">
+          <h2 class="rsp-h1 fadeinleft  animation-duration-1000">RECRUITMENT, SELECTION AND PLACEMENT</h2>
+          A strategy for attracting, screening, selecting and onboarding qualified persons based on relative
+          qualifications and competence in adherance to the merit, fitness and equality principles.
+        </div>
       </div>
-      <div class="rsp-2">
-        <img src="../Pages/images/human-resources.png" alt="" class="img-rsp1">
-        <h2 class="rsp-h1 fadeinleft  animation-duration-1000">RECRUITMENT, SELECTION AND PLACEMENT</h2>
-        A strategy for attracting, screening, selecting and onboarding qualified persons based on relative
-        qualifications and competence in adherance to the merit, fitness and equality principles.
+      <!-- SPMS -->
+      <div class="rsp reveal" id="section2">
+        <div class="rsp-1 ">
+          <img src="../Pages/images/business-plan.png" alt="" class="img-rsp1">
+          <h2 class="rsp-h1 fadeinleft  animation-duration-1000">STRATEGIC PERFORMANCE MANAGEMENT SYSTEM</h2>
+          A mechanism that links employee performance with organizational performance to enhance the performance
+          orientation of the compensatopm system, It ensures that the employee achieves the objectives set by the
+          organization and the organization, on the other hand, achieves the objectives that it has set in its strategic
+          plan.
+        </div>
+        <div class="rsp-2">
+          <Accordion :active-index="0">
+            <AccordionTab v-for="SPMS in SPMS" :key="SPMS.title" :header="SPMS.title">
+              <p>{{ SPMS.content }}</p>
+            </AccordionTab>
+          </Accordion>
+        </div>
       </div>
-    </div>
-    <!-- SPMS -->
-    <div class="rsp reveal" id="section2">
-      <div class="rsp-1 ">
-        <img src="../Pages/images/business-plan.png" alt="" class="img-rsp1">
-        <h2 class="rsp-h1 fadeinleft  animation-duration-1000">STRATEGIC PERFORMANCE MANAGEMENT SYSTEM</h2>
-        A mechanism that links employee performance with organizational performance to enhance the performance
-        orientation of the compensatopm system, It ensures that the employee achieves the objectives set by the
-        organization and the organization, on the other hand, achieves the objectives that it has set in its strategic
-        plan.
+      <!-- L and D -->
+      <div class="rsp reveal" id="section3">
+        <div class="rsp-1 ">
+          <Accordion :active-index="0">
+            <AccordionTab v-for="LD in LD" :key="LD.title" :header="LD.title">
+              <p>{{ LD.content }}</p>
+            </AccordionTab>
+          </Accordion>
+        </div>
+        <div class="rsp-2">
+          <img src="../Pages/images/mind-mapping.png" alt="" class="img-rsp1">
+          <h2 class="rsp-h1 fadeinleft  animation-duration-1000">LEARNING AND DEVELOPMENT</h2>
+          An approach that uses competencies as the standards against which employee development needs are assessed and
+          piorities are set against the need of the organization. It utilizes competencies as the foundation for
+          designning targeted programs with learning outcomes that directly link to the competency requirements.
+        </div>
       </div>
-      <div class="rsp-2">
-        <Accordion :active-index="0">
-          <AccordionTab v-for="SPMS in SPMS" :key="SPMS.title" :header="SPMS.title">
-            <p>{{ SPMS.content }}</p>
-          </AccordionTab>
-        </Accordion>
-      </div>
-    </div>
-    <!-- L and D -->
-    <div class="rsp reveal" id="section3">
-      <div class="rsp-1 ">
-        <Accordion :active-index="0">
-          <AccordionTab v-for="LD in LD" :key="LD.title" :header="LD.title">
-            <p>{{ LD.content }}</p>
-          </AccordionTab>
-        </Accordion>
-      </div>
-      <div class="rsp-2">
-        <img src="../Pages/images/mind-mapping.png" alt="" class="img-rsp1">
-        <h2 class="rsp-h1 fadeinleft  animation-duration-1000">LEARNING AND DEVELOPMENT</h2>
-        An approach that uses competencies as the standards against which employee development needs are assessed and
-        piorities are set against the need of the organization. It utilizes competencies as the foundation for
-        designning targeted programs with learning outcomes that directly link to the competency requirements.
+
+      <!-- R & R -->
+      <div class="rsp reveal" id="section4">
+        <img class="rsp-img2" src="../Pages/images/Vector3.png" alt="">
+        <div class="rsp-1 ">
+          <img src="../Pages/images/trophy.png" alt="" class="img-rsp1">
+          <h2 class="rsp-h1 fadeinleft  animation-duration-1000">REWARDS & RECOGNITION</h2>
+          A system designed to encourage creativity, innovativeness, efficiency, integrity, and productivity in the
+          public service by recognizing and rewarding offcials and employees for their suggestions, inventions,
+          supervisor accomplishments, and other personal efforts with contribute to the efficiency, economy or for other
+          extraordinary acts or services in the public interest.
+        </div>
+        <div class="rsp-2">
+          <Accordion :active-index="1">
+            <AccordionTab v-for="RSP in RSP" :key="RSP.title" :header="RSP.title">
+              <p>{{ RSP.content }}</p>
+            </AccordionTab>
+          </Accordion>
+        </div>
       </div>
     </div>
 
-    <!-- R & R -->
-    <div class="rsp reveal" id="section4">
-      <img class="rsp-img2" src="../Pages/images/Vector3.png" alt="">
-      <div class="rsp-1 ">
-        <img src="../Pages/images/trophy.png" alt="" class="img-rsp1">
-        <h2 class="rsp-h1 fadeinleft  animation-duration-1000">REWARDS & RECOGNITION</h2>
-          A system designed to encourage creativity, innovativeness, efficiency, integrity, and productivity in the public service by recognizing and rewarding offcials and employees for their suggestions, inventions, supervisor accomplishments, and other personal efforts with contribute to the efficiency, economy or for other extraordinary acts or services in the public interest.
-      </div>
-      <div class="rsp-2">
-        <Accordion :active-index="1">
-          <AccordionTab v-for="RSP in RSP" :key="RSP.title" :header="RSP.title">
-            <p>{{ RSP.content }}</p>
-          </AccordionTab>
-        </Accordion>
-      </div>
-    </div>
-  </div>
+  </guest-nav>
+  <authed-nav v-else></authed-nav>
+
 </template>  
 <script>
 // import "../../css/welcome.min.css";
