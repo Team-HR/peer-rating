@@ -33,7 +33,7 @@
           <Skeleton width="20rem" class="mb-2"></Skeleton>
         </div>
         <div>
-          <DataTable :value="products" responsiveLayout="scroll" stripedRows v-model:selection="selectedDepartment"
+          <DataTable :value="products" responsiveLayout="scroll" stripedRows v-model:selection="selectedDepartment" selectionMode="single"
             dataKey="id" :filters="filters" v-if="showTable">
             <Column field="departments" header="Departments"></Column>
             <Column field="done" header="Done"></Column>
@@ -51,7 +51,6 @@ import { FilterMatchMode } from 'primevue/api';
 import AuthLayout from "@/Layouts/Authenticated";
 import PmsToolbar from "@/Layouts/PmsToolbar";
 import ProductService from '@/Api/DepartmentsMap';
-
 
 export default {
   data() {
