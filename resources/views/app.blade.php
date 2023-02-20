@@ -25,7 +25,7 @@
     body {
         background-color: #d5d5d5;
         /* height: 1080px;  */
-        background-image: url("./images/bg_pcr.jpg");
+        background-image: url("/images/bg_pcr.jpg");
         background-position: center;
         /* Center the image */
         background-repeat: no-repeat;
@@ -33,8 +33,6 @@
         background-size: cover;
         background-attachment: fixed;
     }
-
-
 </style>
 
 <body class="_font-sans _antialiased">
