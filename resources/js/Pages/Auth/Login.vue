@@ -1,13 +1,12 @@
 <template>
   <breeze-validation-errors class="mb-4" />
-
   <div v-if="status" class="alert alert-success mb-4">
     {{ status }}
   </div>
   <br>
   <form @submit.prevent="submit">
     <div class=" px-4 py-8 md:px-6 lg:px-8 flex align-items-center justify-content-center">
-      <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+      <div class="surface-card p-4 shadow-2 border-round w-full lg:w-4">
         <div class="text-center mb-5">
           <!-- img src="/favicon.ico" alt="Icon" class="mr-2" width="50" /> -->
           <img src="/favicon.ico" alt="Image" height="50" class="mb-3">
@@ -58,7 +57,7 @@ export default {
   props: {
     canResetPassword: Boolean,
     status: String,
-  }, 
+  },
 
   data() {
     return {
