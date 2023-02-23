@@ -1,9 +1,8 @@
 <template>
   <breeze-validation-errors class="mb-4" />
-
-  <div v-if="status" class="alert alert-success mb-4">
+  <!-- <div v-if="status" class="alert alert-success mb-4">
     {{ status }}
-  </div>
+  </div> -->
   <br>
   <form @submit.prevent="submit">
     <div class=" px-4 py-8 md:px-6 lg:px-8 flex align-items-center justify-content-center">
@@ -16,21 +15,21 @@
         <div>
           <label for="username" class="block text-900 font-medium mb-2">Username</label>
           <InputText id="username" type="text" class="w-full mb-3" v-model="form.username" autocomplete="username"
-                     required />
-
+            required />
           <label for="password" class="block text-900 font-medium mb-2">Password</label>
           <InputText id="password" type="password" class="w-full mb-3" v-model="form.password"
-                     autocomplete="current-password" required />
+            autocomplete="current-password" required />
 
           <div class="flex align-items-center justify-content-between mb-6">
             <div class="flex align-items-center">
-              <Checkbox id="rememberme1" :binary="true" v-model="form.checked" class="mr-2"></Checkbox>
+              <Checkbox id="rememberme1" v-model="form.rememberMe" :binary="true" class="mr-2">
+              </Checkbox>
               <label for="rememberme1">Remember me</label>
             </div>
             <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Forgot password?</a>
           </div>
           <Button type="submit" label="Sign In" icon="pi pi-user" class="w-full"
-                  :class="{ 'opacity-25': form.processing }" :disabled="form.processing"></Button>
+            :class="{ 'opacity-25': form.processing }" :disabled="form.processing"></Button>
         </div>
       </div>
     </div>
@@ -58,7 +57,7 @@ export default {
   props: {
     canResetPassword: Boolean,
     status: String,
-  }, 
+  },
 
   data() {
     return {
@@ -66,11 +65,37 @@ export default {
         username: "",
         password: "",
         remember: false,
-        checked: false
+        checked: false,
+        rememberMe: false,
       }),
     };
   },
+  mounted() {
+    const rememberMe = localStorage.getItem('rememberMe');
+    if (rememberMe !== null) {
+      this.form.rememberMe = rememberMe === 'true';
+    }
 
+    const savedUsername = localStorage.getItem('username');
+    if (savedUsername !== null) {
+      this.form.username = savedUsername;
+    }
+
+  },
+
+  watch: {
+    'form.rememberMe'(newValue) {
+      localStorage.setItem('rememberMe', newValue);
+    },
+
+    'form.username'(newValue) {
+      if (this.rememberMe) {
+        localStorage.setItem('username', newValue);
+      } else {
+        localStorage.removeItem('username');
+      }
+    }
+  },
   methods: {
     submit() {
       this.form.post("login", {

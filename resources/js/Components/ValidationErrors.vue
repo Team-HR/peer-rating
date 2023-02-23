@@ -1,11 +1,12 @@
 <template>
-    <div v-if="hasErrors" class="alert alert-danger">
+    <br>
+    <br>
+    <Message severity="warn" :life="5000" v-if="hasErrors" class="alert alert-danger">
         <p>Whoops! Something went wrong.</p>
-
         <ul class="mb-0">
             <li v-for="(error, key) in errors" :key="key">{{ error }}</li>
-        </ul>
-    </div>
+        </ul>        
+    </Message>
 </template>
 
 <script>

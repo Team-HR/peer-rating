@@ -77,5 +77,6 @@ const useraccounts = {
         ]
         return data;
     }
+
 }
 export default useraccounts

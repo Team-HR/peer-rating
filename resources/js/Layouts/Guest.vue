@@ -11,7 +11,7 @@
         label="Login"
         @click="$inertia.get('/login')"
       ></Button>
-      <!-- <Button
+      <!-- <Button  
         class="p-button ml-2"
         label="Register"
         @click="$inertia.get('/register')"
