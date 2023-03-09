@@ -2,90 +2,105 @@
   <guest-nav v-if="!$page.props.auth.user"></guest-nav>
   <authed-nav v-else></authed-nav>
 
-  <div class="bodys">
 
-    <div class="s flex">
-      <div data-am-fadeshow="next-prev-navigation autoplay">
-        <!-- Radio -->
-        <input type="radio" name="css-fadeshow" id="slide-1" />
-        <input type="radio" name="css-fadeshow" id="slide-2" />
-        <input type="radio" name="css-fadeshow" id="slide-3" />
-        <input type="radio" name="css-fadeshow" id="slide-4" />
 
-        <!-- Slides -->
-        <div class="fs-slides">
-          <div class="fs-slide"
-            style="background-image: url(https://images.unsplash.com/photo-1460500063983-994d4c27756c?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2550);">
-            <div
-              style="position: absolute; height:auto;width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
-              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">RECRUITMENT, SELECTION AND PLACEMENT</h1>
-              <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">A strategy for attracting, screening, selecting and onboarding qualified persons based on relative qualifications and competence in adherance to the merit, fitness and equality principles.
-              </p>
-              <div id="section1"> 
-                <Button >Read More</Button>
-              </div>
-             
-            </div>
-          </div>
-          <div class="fs-slide"
-            style="background-image: url(https://images.unsplash.com/photo-1440557653082-e8e186733eeb?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2500);">
-            <div
-              style="position: absolute; height:auto;width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
-              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">STRATEGIC PERFORMANCE MANAGEMENT SYSTEM</h1>
-              <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">A mechanism that links employee performance with organizational performance to enhance the performance orientation of the compensatopm system, It ensures that the employee achieves the objectives set by the organization and the organization, on the other hand, achieves the objectives that it has set in its strategic plan.
-              </p>
-              <Button class="" onclick="document.location='#section2'">Read More</Button>
-            </div>
-          </div>
-          <div class="fs-slide"
-            style="background-image: url(https://images.unsplash.com/photo-1449057528837-7ca097b3520c?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2500);">
-            <div
-              style="position: absolute; height:auto;width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
-              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">LEARNING AND DEVELOPMENT</h1>
-              <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">AAn approach that uses competencies as the standards against which employee development needs are assessed and piorities are set against the need of the organization. It utilizes competencies as the foundation for designning targeted programs with learning outcomes that directly link to the competency requirements.
-              </p>
-              <Button class="" onclick="document.location='#section3'">Read More</Button>
-            </div>
-          </div>
-          <div class="fs-slide"
-            style="background-image: url(https://images.unsplash.com/photo-1440557653082-e8e186733eeb?crop=entropy&fit=crop&fm=jpg&h=1325&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=2500);">
-            <div
-              style="position: absolute; height:auto; width:auto;top: 50%; left: 40%; transform: translate(-50%, -50%); color: white; font-family: sans-serif;  text-shadow: 0 0 20px rgba(0,0,0,0.5);">
-              <h1 style="margin-top: 0; margin-bottom: 0.8vw; font-size: 3vw; font-weight: bold;">REWARDS & RECOGNITION</h1>
-              <p style="font-size: 1.5vw; font-weight: 100; margin-top: 0;">A system designed to encourage creativity, innovativeness, efficiency, integrity, and productivity in the public service by recognizing and rewarding offcials and employees for their suggestions, inventions, supervisor accomplishments, and other personal efforts with contribute to the efficiency, economy or for other extraordinary acts or services in the public interest.
-              </p>  
-              <Button class="" onclick="document.location='#section1'">Read More</Button>
-            </div>
-          </div>
-        </div>
 
-        <!-- Quick Navigation -->
-        <div class="fs-quick-nav">
-          <label class="fs-quick-btn" for="slide-1"></label>
-          <label class="fs-quick-btn" for="slide-2"></label>
-          <label class="fs-quick-btn" for="slide-3"></label>
-          <label class="fs-quick-btn" for="slide-4"></label>
-          
-        </div>
-
-        <!-- Prev Navigation -->
-        <div class="fs-prev-nav">
-          <label class="fs-prev-btn" for="slide-1"></label>
-          <label class="fs-prev-btn" for="slide-2"></label>
-          <label class="fs-prev-btn" for="slide-3"></label>
-          <label class="fs-quick-btn" for="slide-4"></label>
-        </div>
-
-        <!-- Next Navigation -->
-        <div class="fs-next-nav">
-          <label class="fs-next-btn" for="slide-1"></label>
-          <label class="fs-next-btn" for="slide-2"></label>
-          <label class="fs-next-btn" for="slide-3"></label>
-          <label class="fs-quick-btn" for="slide-4"></label>
+  <!-- <div class="carousel__article">
+    <div class="carousel__nav"><span class="carousel__arrow" id="moveLeft">
+        <svg class="carousel__icon" width="24" height="24" viewbox="0 0 24 24">
+          <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path>
+        </svg></span><span class="carousel__arrow" id="moveRight">
+        <svg class="carousel__icon" width="24" height="24" viewbox="0 0 24 24">
+          <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
+        </svg></span></div>
+    <div class="carousel__article--carousel-item carousel-item--1">
+      <div class="carousel-item__image"></div>
+      <div class="carousel-item__info">
+        <div class="carousel-item__container">
+          <h1 class="carousel-item__title">Title for Carousel Article</h1>
+          <h2 class="carousel-item__subtitle">30 JANUARI 2019 </h2>
+          <p class="carousel-item__description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+            accusantium doloremque laudantium, totam rem aperiam.</p><a class="carousel-item__btn" href="#">LIHAT
+            SELENGKAPNYA </a>
         </div>
       </div>
     </div>
-    <!-- <div class="cards w-auto reveal">
+    <div class="carousel__article--carousel-item carousel-item--2">
+      <div class="carousel-item__image"></div>
+      <div class="carousel-item__info">
+        <div class="carousel-item__container">
+          <h2 class="carousel-item__subtitle">The big window </h2>
+          <h1 class="carousel-item__title">Minimal window</h1>
+          <p class="carousel-item__description">Clear Glass Window With Brown and White Wooden Frame iste natus error
+            sit voluptatem accusantium doloremque laudantium.</p><a class="carousel-item__btn" href="#">Read the
+            article</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel__article--carousel-item carousel-item--3">
+      <div class="carousel-item__image"></div>
+      <div class="carousel-item__info">
+        <div class="carousel-item__container">
+          <h2 class="carousel-item__subtitle">Tropical palms </h2>
+          <h1 class="carousel-item__title">Palms</h1>
+          <p class="carousel-item__description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+            accusantium doloremque laudantium, totam rem aperiam.</p><a class="carousel-item__btn" href="#">Explore
+            the palms</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel__article--carousel-itemcarousel-item--4">
+      <div class="carousel-item__image"></div>
+      <div class="carousel-item__info">
+        <div class="carousel-item__container">
+          <h2 class="carousel-item__subtitle">Beach </h2>
+          <h1 class="carousel-item__title">The beach </h1>
+          <p class="carousel-item__description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+            accusantium doloremque laudantium, totam rem aperiam.</p><a class="carousel-item__btn" href="#">Explore
+            the beach</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item carousel-item--5">
+      <div class="carousel-item__image"></div>
+      <div class="carousel-item__info">
+        <div class="carousel-item__container">
+          <h2 class="carousel-item__subtitle">The white building </h2>
+          <h1 class="carousel-item__title">White building</h1>
+          <p class="carousel-item__description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+            accusantium doloremque laudantium, totam rem aperiam.</p><a class="carousel-item__btn" href="#">Read the
+            article</a>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <!-- end carousel -->
+  <!-- start body -->
+  <!-- RSP -->
+  <div class="grid grid-nogutter surface-section text-800">asdasdasdasdasdasd
+    <div class="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
+      <section>
+        <span class="block text-6xl font-bold mb-1">RECRUITMENT,SELECTION</span>
+        <div class="text-6xl text-primary font-bold mb-3">AND PLACEMENT</div>
+        <p class="mt-0 mb-4 text-700 line-height-3">A strategy for attracting, screening ,selecting and on boarding
+          qualifed person based on relative qualifications and competence in adherence to the merit, fitness and equality
+          principles.</p>
+
+        <Button label="Learn More" type="button" class="p-button-outlined"></Button>
+      </section>
+    </div>
+    <div class="col-12 md:col-6 overflow-hidden">
+      <img src="../Pages/images/welcome-image.jpg" class="md:ml-auto block md:h-full"
+        style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)" />
+    </div>
+  </div>
+  <br>
+  <!-- SPMS -->
+ 
+  <!-- End RSP -->
+  <!-- end body -->
+
+  <!-- <div class="cards w-auto reveal">
       <h1 class="core">FOUR CORES OF HR SYSTEM</h1>
       <img src="../Pages/images/Vector4.png" alt="">
       <div class="card1">
@@ -145,84 +160,85 @@
         <Button class=" p-button-info readmore4" onclick="document.location='#section4'">Read More</Button>
       </div>
     </div> -->
-    <!-- RSP -->
-    <div class="rsp reveal section" data-background-color="transparent" id="section1">
-      <div class="rsp-1">
-        <img class="rsp-img" src="../Pages/images/Vector1.png" alt="">
-        <Accordion :active-index="3">
-          <AccordionTab v-for="RSP in RSP" :key="RSP.title" :header="RSP.title">
-            <p>{{ RSP.content }}</p>
-          </AccordionTab>
-        </Accordion>
-      </div>
-      <div class="rsp-2">
-        <img src="../Pages/images/human-resources.png" alt="" class="img-rsp1">
-        <h2 class="rsp-h1 fadeinleft  animation-duration-1000">RECRUITMENT, SELECTION AND PLACEMENT</h2>
-        A strategy for attracting, screening, selecting and onboarding qualified persons based on relative
-        qualifications and competence in adherance to the merit, fitness and equality principles.
-      </div>
+  <!-- RSP -->
+  <!-- <div class="rsp reveal section" data-background-color="transparent" id="section1">
+    <div class="rsp-1">
+      <img class="rsp-img" src="../Pages/images/Vector1.png" alt="">
+      <Accordion :active-index="3">
+        <AccordionTab v-for="RSP in RSP" :key="RSP.title" :header="RSP.title">
+          <p>{{ RSP.content }}</p>
+        </AccordionTab>
+      </Accordion>
     </div>
-    <!-- SPMS -->
-    <div class="rsp reveal" id="section2">
-      <div class="rsp-1 ">
-        <img src="../Pages/images/business-plan.png" alt="" class="img-rsp1">
-        <h2 class="rsp-h1 fadeinleft  animation-duration-1000">STRATEGIC PERFORMANCE MANAGEMENT SYSTEM</h2>
-        A mechanism that links employee performance with organizational performance to enhance the performance
-        orientation of the compensatopm system, It ensures that the employee achieves the objectives set by the
-        organization and the organization, on the other hand, achieves the objectives that it has set in its strategic
-        plan.
-      </div>
-      <div class="rsp-2">
-        <Accordion :active-index="0">
-          <AccordionTab v-for="SPMS in SPMS" :key="SPMS.title" :header="SPMS.title">
-            <p>{{ SPMS.content }}</p>
-          </AccordionTab>
-        </Accordion>
-      </div>
+    <div class="rsp-2">
+      <img src="../Pages/images/human-resources.png" alt="" class="img-rsp1">
+      <h2 class="rsp-h1 fadeinleft  animation-duration-1000">RECRUITMENT, SELECTION AND PLACEMENT</h2>
+      A strategy for attracting, screening, selecting and onboarding qualified persons based on relative
+      qualifications and competence in adherance to the merit, fitness and equality principles.
     </div>
-    <!-- L and D -->
-    <div class="rsp reveal" id="section3">
-      <div class="rsp-1 ">
-        <Accordion :active-index="0">
-          <AccordionTab v-for="LD in LD" :key="LD.title" :header="LD.title">
-            <p>{{ LD.content }}</p>
-          </AccordionTab>
-        </Accordion>
-      </div>
-      <div class="rsp-2">
-        <img src="../Pages/images/mind-mapping.png" alt="" class="img-rsp1">
-        <h2 class="rsp-h1 fadeinleft  animation-duration-1000">LEARNING AND DEVELOPMENT</h2>
-        An approach that uses competencies as the standards against which employee development needs are assessed and
-        piorities are set against the need of the organization. It utilizes competencies as the foundation for
-        designning targeted programs with learning outcomes that directly link to the competency requirements.
-      </div>
+  </div> -->
+  <!-- SPMS -->
+  <!-- <div class="rsp reveal" id="section2">
+    <div class="rsp-1 ">
+      <img src="../Pages/images/business-plan.png" alt="" class="img-rsp1">
+      <h2 class="rsp-h1 fadeinleft  animation-duration-1000">STRATEGIC PERFORMANCE MANAGEMENT SYSTEM</h2>
+      A mechanism that links employee performance with organizational performance to enhance the performance
+      orientation of the compensatopm system, It ensures that the employee achieves the objectives set by the
+      organization and the organization, on the other hand, achieves the objectives that it has set in its strategic
+      plan.
     </div>
+    <div class="rsp-2">
+      <Accordion :active-index="0">
+        <AccordionTab v-for="SPMS in SPMS" :key="SPMS.title" :header="SPMS.title">
+          <p>{{ SPMS.content }}</p>
+        </AccordionTab>
+      </Accordion>
+    </div>
+  </div> -->
+  <!-- L and D -->
+  <!-- <div class="rsp reveal" id="section3">
+    <div class="rsp-1 ">
+      <Accordion :active-index="0">
+        <AccordionTab v-for="LD in LD" :key="LD.title" :header="LD.title">
+          <p>{{ LD.content }}</p>
+        </AccordionTab>
+      </Accordion>
+    </div>
+    <div class="rsp-2">
+      <img src="../Pages/images/mind-mapping.png" alt="" class="img-rsp1">
+      <h2 class="rsp-h1 fadeinleft  animation-duration-1000">LEARNING AND DEVELOPMENT</h2>
+      An approach that uses competencies as the standards against which employee development needs are assessed and
+      piorities are set against the need of the organization. It utilizes competencies as the foundation for
+      designning targeted programs with learning outcomes that directly link to the competency requirements.
+    </div>
+  </div> -->
 
-    <!-- R & R -->
-    <div class="rsp reveal" id="section4">
-      <img class="rsp-img2" src="../Pages/images/Vector3.png" alt="">
-      <div class="rsp-1 ">
-        <img src="../Pages/images/trophy.png" alt="" class="img-rsp1">
-        <h2 class="rsp-h1 fadeinleft  animation-duration-1000">REWARDS & RECOGNITION</h2>
-          A system designed to encourage creativity, innovativeness, efficiency, integrity, and productivity in the public service by recognizing and rewarding offcials and employees for their suggestions, inventions, supervisor accomplishments, and other personal efforts with contribute to the efficiency, economy or for other extraordinary acts or services in the public interest.
-      </div>
-      <div class="rsp-2">
-        <Accordion :active-index="1">
-          <AccordionTab v-for="RSP in RSP" :key="RSP.title" :header="RSP.title">
-            <p>{{ RSP.content }}</p>
-          </AccordionTab>
-        </Accordion>
-      </div>
+  <!-- R & R -->
+  <!-- <div class="rsp reveal" id="section4">
+    <img class="rsp-img2" src="../Pages/images/Vector3.png" alt="">
+    <div class="rsp-1 ">
+      <img src="../Pages/images/trophy.png" alt="" class="img-rsp1">
+      <h2 class="rsp-h1 fadeinleft  animation-duration-1000">REWARDS & RECOGNITION</h2>
+      A system designed to encourage creativity, innovativeness, efficiency, integrity, and productivity in the public
+      service by recognizing and rewarding offcials and employees for their suggestions, inventions, supervisor
+      accomplishments, and other personal efforts with contribute to the efficiency, economy or for other extraordinary
+      acts or services in the public interest.
     </div>
-  </div>
+    <div class="rsp-2">
+      <Accordion :active-index="1">
+        <AccordionTab v-for="RSP in RSP" :key="RSP.title" :header="RSP.title">
+          <p>{{ RSP.content }}</p>
+        </AccordionTab>
+      </Accordion>
+    </div>
+  </div> -->
 </template>  
 <script>
+import $ from 'jquery';
 // import "../../css/welcome.min.css";
 import GuestNav from "@/Layouts/Guest.vue";
 import AuthedNav from "@/Layouts/Authenticated.vue";
 import PhotoService from "../Layouts/PhotoService";
-
-
 
 export default {
   props: {},
@@ -232,7 +248,6 @@ export default {
   },
   data() {
     return {
-
       display: true,
       displayBasic: false,
       RSP: [
@@ -362,10 +377,44 @@ export default {
   },
   mounted() {
 
-
-
   },
 };
+$(function () {
+  setInterval(function () { $("#moveRight").trigger("click"); }, 3000);
+  $('.carousel__article--carousel-item').eq(0).addClass('active');
+  var total = $('.carousel__article--carousel-item').length;
+  var current = 0;
+  $('#moveRight').on('click', function () {
+    var next = current;
+    current = current + 1;
+    setSlide(next, current);
+  });
+  $('#moveLeft').on('click', function () {
+    var prev = current;
+    current = current - 1;
+    setSlide(prev, current);
+  });
+  function setSlide(prev, next) {
+    var slide = current;
+    if (next > total - 1) {
+      slide = 0;
+      current = 0;
+    }
+    if (next < 0) {
+      slide = total - 1;
+      current = total - 1;
+    }
+    $('.carousel__article--carousel-item').eq(prev).removeClass('active');
+    $('.carousel__article--carousel-item').eq(slide).addClass('active');
+    setTimeout(function () {
+
+    }, 800);
+
+
+    console.log('current ' + current);
+    console.log('prev ' + prev);
+  }
+});
 
 function reveal() {
   var reveals = document.querySelectorAll(".reveal");
@@ -383,10 +432,6 @@ function reveal() {
   }
 }
 window.addEventListener("scroll", reveal);
-
-
-
-
 // scroll animation
 
 
@@ -395,5 +440,238 @@ window.addEventListener("scroll", reveal);
 
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css?family=Lato:400,900|Oswald:700');
 
+* {
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+  align-items: center;
+  -webkit-align-items: center;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+  align-items: center;
+  -webkit-align-items: center;
+  background-color: #eaeaea;
+}
+
+.carousel__article {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  max-width: 900px;
+  max-height: 550px;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel__article--carousel-item {
+  visibility: visible;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  -webkit-align-items: center;
+  -webkit-justify-content: flex-end;
+  position: relative;
+  background-color: #fff;
+  flex-shrink: 0;
+  -webkit-flex-shrink: 0;
+  position: absolute;
+  z-index: 0;
+  transition: 0.6s all linear;
+}
+
+.carousel-item__info {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  display: -webkit-flex;
+  -webkit-justify-content: center;
+  -webkit-flex-direction: column;
+  order: 1;
+  left: 0;
+  margin: auto;
+  padding: 0 40px;
+  width: 40%;
+}
+
+.carousel-item__image {
+  width: 60%;
+  height: 100%;
+  order: 2;
+  align-self: flex-end;
+  flex-basis: 60%;
+  -webkit-order: 2;
+  -webkit-align-self: flex-end;
+  -webkit-flex-basis: 60%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  transform: translateX(100%);
+  transition: 0.6s all ease-in-out;
+}
+
+.carousel-item__subtitle {
+  font-family: 'Open Sans', sans-serif;
+  letter-spacing: 0.3px;
+  font-size: 0.7em;
+  text-transform: uppercase;
+  margin-top: 10px;
+  color: #7e7e7e;
+  font-weight: 900;
+  transform: translateY(25%);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.4s all ease-in-out;
+}
+
+.carousel-item__title {
+  margin: 15px 0 0 0;
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
+  letter-spacing: 0.3px;
+  font-weight: 700;
+  color: #2c2c2c;
+  transform: translateY(25%);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.6s all ease-in-out;
+}
+
+.carousel-item__description {
+  transform: translateY(25%);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.6s all ease-in-out;
+  margin-top: 35px;
+  font-family: 'Lato', sans-serif;
+  font-size: 1em;
+  color: #7e7e7e;
+  line-height: 22px;
+  margin-bottom: 35px;
+}
+
+.carousel-item--1 .carousel-item__image {
+  background-image: url('https://images.pexels.com/photos/1194420/pexels-photo-1194420.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+}
+
+.carousel-item--2 .carousel-item__image {
+  background-image: url('https://images.pexels.com/photos/921294/pexels-photo-921294.png?auto=compress&cs=tinysrgb&h=750&w=1260');
+}
+
+.carousel-item--3 .carousel-item__image {
+  background-image: url('https://images.pexels.com/photos/92733/pexels-photo-92733.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+}
+
+.carousel-item--4 .carousel-item__image {
+  background-image: url('https://images.pexels.com/photos/1008732/pexels-photo-1008732.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260');
+}
+
+.carousel-item--5 .carousel-item__image {
+  background-image: url('https://images.pexels.com/photos/1029614/pexels-photo-1029614.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+}
+
+.carousel-item__btn {
+  width: 35%;
+  color: #2c2c2c;
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 0.2px;
+  font-size: 11px;
+  text-transform: uppercase;
+  margin: 0;
+  width: 35%;
+  font-weight: 700;
+  text-decoration: none;
+  transform: translateY(25%);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.6s all ease-in-out;
+}
+
+.carousel-item__btn:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.carousel-item__btn:after {
+  font-family: "Material Icons";
+  content: "\e5cc";
+  vertical-align: middle;
+}
+
+.carousel__nav {
+  position: absolute;
+  right: 0;
+  z-index: 2;
+  background-color: #fff;
+  bottom: 0;
+}
+
+.carousel__icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 16px;
+  fill: #5d5d5d;
+}
+
+.carousel__arrow {
+  cursor: pointer;
+  display: inline-block;
+  padding: 11px 15px;
+  position: relative;
+}
+
+.carousel__arrow:nth-child(1):after {
+  content: '';
+  right: -3px;
+  position: absolute;
+  width: 1px;
+  background-color: #b0b0b0;
+  height: 14px;
+  top: 50%;
+  margin-top: -7px;
+}
+
+.active {
+  z-index: 1;
+  display: flex;
+  visibility: visible;
+}
+
+.active .carousel-item__subtitle,
+.active .carousel-item__title,
+.active .carousel-item__description,
+.active .carousel-item__btn {
+  transform: translateY(0);
+  opacity: 1;
+  transition: 0.6s all ease-in-out;
+  visibility: visible;
+}
+
+.active .carousel-item__image {
+  transition: 0.6s all ease-in-out;
+  transform: translateX(0);
+}
 </style>

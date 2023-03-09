@@ -3,7 +3,7 @@
   transform: translateY(-5px);
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
 }
-</style>>
+</style>
 <script>
 import Sidebar from "@/Components/Sidebar.vue";
 import sideBarLinks from "@/Links";
