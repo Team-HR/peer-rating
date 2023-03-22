@@ -2,6 +2,7 @@
 
 namespace App\Models\Pms\Pcr;
 
+use App\Models\PmsPeriod;
 use App\Models\SysDepartment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,15 +18,52 @@ class PmsPcrStatus extends Model
     ];
 
     protected $appends = [
-        'full_name',
         'signatories_inputs',
-        'sys_department'
+        'sys_employee',
+        'sys_department',
+        'position',
+        'period',
+        'overall_adjectival_rating'
     ];
+
+    public function getOverallAdjectivalRatingAttribute()
+    {
+        $adjectival = "";
+        if (!$this->overall_numerical_rating) {
+            return null;
+        }
+        $overallAv = $this->overall_numerical_rating;
+        if ($overallAv <= 5 && $overallAv > 4) {
+            $adjectival = "OUTSTANDING";
+        } elseif ($overallAv <= 4 && $overallAv > 3) {
+            $adjectival = "Very Satisfactory";
+        } elseif ($overallAv <= 3 && $overallAv > 2) {
+            $adjectival = "Satisfactory";
+        } elseif ($overallAv <= 2 && $overallAv > 1) {
+            $adjectival = "Unsatisfactory";
+        }
+
+        return $adjectival;
+    }
+
+    public function getPositionAttribute()
+    {
+
+        return [
+            "position_title" => "{{_Get Position Func()_}}"
+        ];
+    }
+
+    public function getPeriodAttribute()
+    {
+        $period = PmsPeriod::find($this->pms_period_id);
+        return $period;
+    }
 
     public function getSysDepartmentAttribute()
     {
         $department = SysDepartment::find($this->sys_department_id);
-        return $department->name;
+        return $department;
     }
 
 
@@ -35,10 +73,10 @@ class PmsPcrStatus extends Model
      * @return string
      */
 
-    public function getFullNameAttribute()
+    public function getSysEmployeeAttribute()
     {
-        $full_name = SysEmployee::find($this->sys_employee_id);
-        return $full_name->full_name;
+        $sys_employee = SysEmployee::find($this->sys_employee_id);
+        return $sys_employee;
     }
 
     public function getSignatoriesInputsAttribute()

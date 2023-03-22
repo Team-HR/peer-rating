@@ -57,24 +57,22 @@ Route::middleware(['auth'])->group(function () {
     Route::post("/pms/pcr/{period_id}/signatories/{id}", [PcrController::class, "set_signatories"]);
     # pcr - core_functions
     Route::get("/pms/pcr/{period_id}/core_functions/{id}", [CoreFunctionController::class, "show"]);
-    Route::post("/pms/pcr/{period_id}/core_functions/{id}/accomplishment", [CoreFunctionController::class, "create_accomplishment"]);
+    Route::post("/pms/pcr/{period_id}/core_functions/{id}/accomplishment", [CoreFunctionController::class, "create_update"]);
     Route::delete("/pms/pcr/{period_id}/core_functions/{id}/accomplishment/{accomplishment_id}", [CoreFunctionController::class, "delete_accomplishment"]);
     # pcr - strategic_function
     Route::get("/pms/pcr/{period_id}/strategic_function/{status_id}", [StrategicFunctionController::class, "show"]);
     Route::post("/pms/pcr/{period_id}/strategic_function/{status_id}", [StrategicFunctionController::class, "create_update"]);
     Route::delete("/pms/pcr/{period_id}/strategic_function/{status_id}/delete/{strat_id}", [StrategicFunctionController::class, "delete"]);
     # pcr - support functions
-
-
     Route::get("/pms/pcr/{period_id}/support_functions", [SupportFunctionController::class, "show"]);
     Route::post("/pms/pcr/{period_id}/support_functions/accomplishment", [SupportFunctionController::class, "create_accomplishment"]);
     Route::delete("/pms/pcr/{period_id}/support_functions/accomplishment/{support_function_data_id}", [SupportFunctionController::class, "delete_accomplishment"]);
 
-    #rpc - review performance commitment reports
+    # rpc - review performance commitment reports
     Route::get("/pms/rpc", [ReviewPerformanceCommitmentController::class, "index"]);
     Route::get("/pms/rpc/{period_id}", [ReviewPerformanceCommitmentController::class, "show"]);
     Route::get("/pms/rpc/{pms_pcr_status_id}/form", [ReviewPerformanceCommitmentController::class, "showPcr"]);
-
+    Route::post("/pms/rpc/{period_id}/form/accomplishment", [CoreFunctionController::class, "create_update"]);
 
     # pms - settings
     Route::get("/pms/settings", [SettingsController::class, "index"]);

@@ -17,17 +17,7 @@ let links = [{
             description: "View your individual rating scale matrix",
             icon: "bi bi-person-lines-fill",
         },
-        {
-            title: "Department Rating Scale Matrix",
-            path: "/pms/rsm",
-            description: "Edit your department's rating scale matrix.",
-            icon: "bi bi-book",
-            roles: ["sys_admin_", "rsm"],
-            tag: {
-                name: "RSM Editor",
-                color: "bg-yellow-500",
-            }
-        },
+
         {
             title: "Review Personnel PCRs",
             path: "/pms/rpc",
@@ -39,6 +29,19 @@ let links = [{
                 color: "bg-green-500",
             }
         },
+
+        {
+            title: "Department Rating Scale Matrix",
+            path: "/pms/rsm",
+            description: "Edit your department's rating scale matrix.",
+            icon: "bi bi-book",
+            roles: ["sys_admin_", "rsm"],
+            tag: {
+                name: "RSM Editor",
+                color: "bg-yellow-500",
+            }
+        },
+        
         {
             title: "PMT",
             path: "/pms/pmt",

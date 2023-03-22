@@ -37,7 +37,7 @@ td {
           <tr v-for="(item, i) in items" :key="i">
             <!-- <td>{{ item.label }}</td>
             <td class="" v-html="item.status"></td> -->
-            <td colspan="3"><Button label="Open" @click="$inertia.get(`/pms/rpc/${item.id}/form`)"></Button> {{ item }}
+            <td colspan="3"><Button :disabled="!item.is_submitted" label="Open" @click="$inertia.get(`/pms/rpc/${item.id}/form`)"></Button> {{ item }}
             </td>
           </tr>
         </table>

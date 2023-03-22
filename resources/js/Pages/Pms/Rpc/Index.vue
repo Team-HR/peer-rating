@@ -25,7 +25,7 @@ import AuthLayout from "@/Layouts/Authenticated";
 import PeriodSelector from "@/Components/Pms/PeriodSelector.vue";
 export default {
   props: {
-    periods: null,
+    periods: null
   },
   components: {
     AuthLayout,

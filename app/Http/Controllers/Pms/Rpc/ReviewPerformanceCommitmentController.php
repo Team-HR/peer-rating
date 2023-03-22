@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pms\Rpc;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Pms\Pcr\CoreFunctionController;
 use App\Models\Pms\Pcr\PmsPcrStatus;
 use App\Models\PmsPeriod;
 use Illuminate\Http\Request;
@@ -37,6 +38,8 @@ class ReviewPerformanceCommitmentController extends Controller
         $pms_pcr_status = PmsPcrStatus::find($pms_pcr_status_id);
         $pms_period_id = $pms_pcr_status["pms_period_id"];
         $period = PmsPeriod::find($pms_period_id);
+       
+        
         return Inertia("Pms/Rpc/ReviewPerformanceCommitmentAndReviewForm", ["period" => $period, "pms_pcr_status" => $pms_pcr_status]);
     }
 }

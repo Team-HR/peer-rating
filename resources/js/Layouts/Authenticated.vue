@@ -66,7 +66,7 @@ export default {
   mounted() {
     this.setCurrentTab()
     this.setCurrentSubTab()
-    console.log(this.authCheckIfSupervisor());
+    // console.log(this.authCheckIfSupervisor());
   }
 };
 </script>
@@ -108,11 +108,11 @@ export default {
                   <hr class="mb-3 mx-2 border-top-1 border-none border-indigo-300"><a @click="$inertia.post('logout')"
                      class="m-3 flex align-items-center cursor-pointer p-2 justify-content-center hover:bg-indigo-600 border-round text-300 hover:text-0 transition-duration-150 transition-colors p-ripple">
                     <!-- <img
-                         src="images/blocks/avatars/circle/avatar-f-1.png" style="width: 24px; height: 24px;"> -->
+                           src="images/blocks/avatars/circle/avatar-f-1.png" style="width: 24px; height: 24px;"> -->
                     <span class="p-ink" role="presentation"></span></a>
                 </div>
 
-              </div>
+            </div>
               <div class="flex flex-column bg-indigo-500 p-4 overflow-y-auto flex-shrink-0 flex-grow-1 md:flex-grow-0"
                    style="width: 300px;">
                 <div class="justify-content-end mb-3 flex  fadeinleft animation-duration-500"><button icon="pi pi-times"
@@ -153,8 +153,8 @@ export default {
             <div class="flex justify-content-between lg:justify-content-start align-items-center px-5 surface-section border-bottom-1 surface-border relative lg:static"
                  style="height: 60px;">
               <div id="main" class="flex"><a class="cursor-pointer block text-700 mr-3 mt-1 p-ripple"><i
-                     class="pi pi-bars text-4xl" @click="isHidden = !isHidden"></i><span class="p-ink"
-                        role="presentation" style="height: 34px; width: 34px; top: 1.5px; left: 10px;"></span></a></div>
+                     class="pi pi-bars text-4xl" @click="isHidden = !isHidden"></i><span class="p-ink" role="presentation"
+                        style="height: 34px; width: 34px; top: 1.5px; left: 10px;"></span></a></div>
               <!-- <img src="images/blocks/logos/hyper.svg" alt="Image" height="30" class="block lg:hidden"> -->
               <a class="cursor-pointer block lg:hidden text-700 p-ripple"><i class="pi pi-ellipsis-v text-2xl"></i><span
                       class="p-ink" role="presentation"
@@ -185,7 +185,7 @@ export default {
                 <li class="border-top-1 surface-border lg:border-top-none lg:ml-auto"><a
                      class="flex p-3 lg:px-3 lg:py-2 align-items-center hover:surface-100 font-medium border-round cursor-pointer transition-duration-150 transition-colors p-ripple">
                     <!-- <img src="images/blocks/avatars/circle/avatar-f-1.png" class="mr-3 lg:mr-0"
-                         style="width: 32px; height: 32px;"> -->
+                           style="width: 32px; height: 32px;"> -->
                     <div class="block lg:hidden">
                       <div class="text-900 font-medium">Josephine Lillard</div><span
                             class="text-600 font-medium text-sm">Marketing Specialist</span>
