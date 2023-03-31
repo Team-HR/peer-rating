@@ -32,6 +32,11 @@ const others = [{
                 icon: "pi pi-user",
                 path: "/settings/Users",
             },
+            {
+                title: "Support Function",
+                icon: "pi pi-user",
+                path: "/settings/SupportFunction",
+            },
 
 
         ]

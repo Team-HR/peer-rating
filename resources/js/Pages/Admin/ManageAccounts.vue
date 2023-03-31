@@ -79,11 +79,12 @@ import { FilterMatchMode } from "primevue/api";
 import AuthLayout from "@/Layouts/Authenticated";
 import userAccnt from "@/Api/Accounts";
 
+this.user = userAccnt.getAccounts();
+
 export default {
   setup() {
     const toast = useToast();
     const display = ref(false);
-
 
     const update = () => {
       toast.add({ 

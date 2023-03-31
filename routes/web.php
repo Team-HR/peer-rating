@@ -38,6 +38,10 @@ Route::get('/settings/Users', function () {
     return Inertia::render('Admin/ManageAccounts');
 })->middleware(['auth', 'verified']);
 
+Route::get('/settings/SupportFunction', function () {
+    return Inertia::render('Admin/SupportFunction');
+})->middleware(['auth', 'verified']);
+
 require __DIR__ . '/auth.php';
 require __DIR__ . '/prating.php';
 require __DIR__ . '/pms.php';
