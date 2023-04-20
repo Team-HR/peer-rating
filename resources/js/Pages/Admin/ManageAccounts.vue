@@ -68,18 +68,17 @@
         </div>
       </Dialog>
       <Toast ref="toast" />
+      <div>
+      </div>
     </div>
   </auth-layout>
 </template>
 <script>
-
 import { ref } from "vue";
 import { useToast } from "primevue/usetoast";
 import { FilterMatchMode } from "primevue/api";
 import AuthLayout from "@/Layouts/Authenticated";
 import userAccnt from "@/Api/Accounts";
-
-this.user = userAccnt.getAccounts();
 
 export default {
   setup() {
@@ -87,7 +86,7 @@ export default {
     const display = ref(false);
 
     const update = () => {
-      toast.add({ 
+      toast.add({
         severity: 'success',
         summary: 'Profile Updated',
         detail: 'Done',
@@ -105,12 +104,12 @@ export default {
       });
       display.value = false;
     }
-
     return { display, toast, update, resetPass };
   },
   data() {
-    return {
 
+    return {
+      users: [],
       selectedCategories: [],
       user: [],
       select: 0,
@@ -126,6 +125,7 @@ export default {
       // display: false,
       selectedtable: [],
       filters: {},
+
       initFilters() {
         this.filters = {
           global: {
@@ -148,15 +148,14 @@ export default {
         { name: "PMT", key: "M" },
         { name: "Supervisor / Department Head", key: "P" },
       ],
-
-
     };
+
   },
   components: {
     AuthLayout,
 
   },
-  created() {
+  async created() {
     this.initFilters();
   },
   mounted() {
@@ -175,7 +174,9 @@ export default {
     },
 
   },
-  computed: {},
+  computed: {
+
+  },
 };
 </script>
 <style>

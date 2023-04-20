@@ -34,7 +34,7 @@ Route::get('/settings/departments', function () {
     return Inertia::render('Admin/Departments');
 })->middleware(['auth', 'verified']);
 
-Route::get('/settings/Users', function () {
+Route::get('/settings/users', function () {
     return Inertia::render('Admin/ManageAccounts');
 })->middleware(['auth', 'verified']);
 

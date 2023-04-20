@@ -27,23 +27,19 @@ const others = [{
                 title: "RSM Status",
                 icon: 'pi pi-sitemap',
                 path: "/settings/departments",
-            }, {
+            },
+            {
                 title: "Manage Accounts",
                 icon: "pi pi-user",
-                path: "/settings/Users",
+                path: "/settings/users",
             },
             {
                 title: "Support Function",
                 icon: "pi pi-user",
                 path: "/settings/SupportFunction",
             },
-
-
         ]
     }
 ];
-
 const links = main.concat(pms, others);
-
-
 export default links;
