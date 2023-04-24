@@ -1,8 +1,7 @@
 <template>
   <Card class="w-full">
     <template #title>
-      <i :class="icon"></i> <span> {{ title }}</span></template
-    >
+      <i :class="icon"></i> <span> {{ title }}</span></template>
     <template #subtitle>{{ description }}</template>
     <template v-if="$page.props.auth.user.sys_employee_id" #content>
       <!-- <template v-for="period in periods">
@@ -18,40 +17,30 @@
         <Column field="year" header="Year">
           <template #body="slotProp">
             <span class="text-xl font-bold">{{ slotProp.data.year }}</span>
-          </template>   
+          </template>
         </Column>
         <Column field="period1" header="1st Semester">
           <template #body="slotProp">
             <!-- {{ slotProp.data }} -->
-            <Button
-              v-if="slotProp.data.period1"
-              class="
-                p-button
-                hover:bg-primary-900
-                bg-primary-600
-                m-2
-                p-3 p-button-raised
-              "
-              label="January - June"
-              @click="$inertia.get(path + slotProp.data.period1)"
-            />
+            <Button v-if="slotProp.data.period1" class="
+                  p-button
+                  hover:bg-primary-900
+                  bg-primary-600
+                  m-2
+                  p-3 p-button-raised
+                " label="January - June" @click="$inertia.get(path + slotProp.data.period1)" />
           </template>
         </Column>
         <Column field="period2" header="2nd Semester">
           <template #body="slotProp">
             <!-- {{ slotProp.data }} -->
-            <Button
-              v-if="slotProp.data.period2"
-              class="
-                p-button
-                hover:bg-red-900
-                bg-red-600
-                m-2
-                p-3 p-button-raised
-              "
-              label="July - December"
-              @click="$inertia.get(path + slotProp.data.period2)"
-            />
+            <Button v-if="slotProp.data.period2" class="
+                  p-button
+                  hover:bg-red-900
+                  bg-red-600
+                  m-2
+                  p-3 p-button-raised
+                " label="July - December" @click="$inertia.get(path + slotProp.data.period2)" />
           </template>
         </Column>
       </DataTable>

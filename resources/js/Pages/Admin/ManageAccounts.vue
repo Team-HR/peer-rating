@@ -18,7 +18,8 @@
       <Card>
         <template #content>
           <DataTable :value="user" responsiveLayout="scroll" stripedRows selectionMode="single"
-            v-model:selection="selectedtable" :filters="filters">
+            v-model:selection="selectedtable" :filters="filters" class="DataTable-Account"
+            headerStyle="background-color:#372e2e;">
             <Column v-for="col in columns" :field="col.field" :header="col.header" :key="col.id" class="uppercase">
             </Column>
             <Column field="" header="">
@@ -73,7 +74,7 @@
     </div>
   </auth-layout>
 </template>
-<script>
+<script >
 import { ref } from "vue";
 import { useToast } from "primevue/usetoast";
 import { FilterMatchMode } from "primevue/api";
@@ -109,6 +110,7 @@ export default {
   data() {
 
     return {
+
       users: [],
       selectedCategories: [],
       user: [],
@@ -133,12 +135,13 @@ export default {
             matchMode: FilterMatchMode.CONTAINS,
           },
         };
+
       },
       columns: [
         { field: "fname", header: "First Name" },
         { field: "lname", header: "Last Name" },
         { field: "ml", header: "M.I" },
-        { field: "type", header: "Type" },
+        { field: "type", header: "Type" }
       ],
       categories: [
         {
@@ -177,9 +180,14 @@ export default {
   computed: {
 
   },
+
 };
 </script>
 <style>
+.DataTable-Account thead tr {
+  background-color: #372e2e;
+}
+
 .p-grid {
   margin: 20px;
 }
