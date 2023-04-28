@@ -18,6 +18,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+use App\Http\Controllers\getDepartmentController;
+Route::get('/getDepartments', [getDepartmentController::class ,"test"]);
+
+Route::delete('/getDepartments/{$id}', [getDepartmentController::class ,"test"]);
+
 
 use App\Models\PmsPeriod;
 

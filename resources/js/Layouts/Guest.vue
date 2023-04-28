@@ -18,7 +18,7 @@
       ></Button> -->
     </template>
   </navbar>
-  <div class="mt-7">
+  <div class="">
     <slot />
   </div>
 </template>

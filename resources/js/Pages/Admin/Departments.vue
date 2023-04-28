@@ -21,13 +21,13 @@
                             class="search-input" />
                     </span>
                 </div>
-                <div v-if="!showTable" class="Error">   
+                <div v-if="!showTable" class="Error">
                     <h1 style="text-align: center" class=" md:text-center">
                         <br />
                         Select Period to display Data
                     </h1>
                 </div>
-                <div class="field col-12 md:col-6" v-if="loading">
+                <div v-else class="field col-12 md:col-6" v-if="loading">
                     <Skeleton class="mb-2"></Skeleton>
                     <Skeleton width="20rem" class="mb-2"></Skeleton>
                     <Skeleton width="20rem" class="mb-2"></Skeleton>
@@ -53,10 +53,12 @@ import { FilterMatchMode } from "primevue/api";
 import AuthLayout from "@/Layouts/Authenticated";
 import PmsToolbar from "@/Layouts/PmsToolbar";
 import ProductService from "@/Api/DepartmentsMap";
+import axios from "axios";
 
 export default {
     data() {
         return {
+            message:'',
             loading: false,
             showTable: false,
             selectedDepartment: [],
@@ -96,23 +98,38 @@ export default {
             },
         };
     },
-    departmentRec: null,
     components: {
         AuthLayout,
         PmsToolbar,
     },
-    productService: null,
     created() {
         this.productService = new ProductService();
         this.initFilters();
     },
     mounted() {
-        this.productService
-            .getProductsSmall()
-            .then((data) => (this.products = data));
+        // this.productService
+        //     .getProductsSmall()
+        //     .then((data) => (this.products = data));
+        // this.getDepartments();
     },
 
     methods: {
+        // getDepartments() {
+        //     axios.get("/api/getDepartments")
+        //         .then(
+        //             ({ data }) => {
+        //                 console.log(data)
+        //             })
+        // },
+
+        // deleteDepartments(id) {
+        //     axios.delete("/api/getDepartments/" + id)
+        //         .then(
+        //             ({ data }) => {
+        //                 console.log(data)
+        //             })
+        // },
+
         showData() {
             if (this.selectedPeriod && this.selectedYear) {
                 this.loading = true;
