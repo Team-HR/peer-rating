@@ -27,11 +27,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: true
 // });
 
-// primeflex for css utilities
-import "primeflex/primeflex.css";
-
 // prime vue
 import "primevue/resources/themes/mdc-light-indigo/theme.css";
 // import "primevue/resources/themes/bootstrap4-light-blue/theme.css";
 import "primevue/resources/primevue.min.css";
 import "primeicons/primeicons.css";
+// primeflex for css utilities
+import "primeflex/primeflex.css";

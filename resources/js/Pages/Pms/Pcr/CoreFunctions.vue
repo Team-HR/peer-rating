@@ -290,6 +290,8 @@ td {
             <div class="field">
               <div class="font-bold">Success Indicator:</div>
               <span>{{ core_function.success_indicator }}</span>
+              <br>
+              <Button text label="Copy" @click="accomplishment.actual = core_function.success_indicator" icon="pi pi-copy" class="m-1"/>
             </div>
             <div class="field">
               <div class="font-bold">Actual Accomplishment:</div>
