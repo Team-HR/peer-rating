@@ -158,11 +158,12 @@ class CoreFunctionController extends Controller
         return ["period" => $period, "form_status" => $form_status, "rows" => $rows, "total_percentage_weight" => $total_percentage_weight, "total_average_rating" => $total_average_rating, "strat_total_percentage_weight" => $strat["total_percentage_weight"], "strat_total_average_rating" => $strat["total_average_rating"]];
     }
 
-
     public function create_update($period_id, $id = 0, Request $request)
     {
-        $pms_pcr_status = $request->pms_pcr_status;
-        $sys_employee_id = $pms_pcr_status['sys_employee_id'];
+        $pms_pcr_status = $request->form_status;
+        // return  $request;
+        $sys_employee_id = $pms_pcr_status["sys_employee_id"];
+        // return $sys_employee_id;
         $auth_sys_employees_id = auth()->user()->sys_employee_id;
         // return $auth_sys_employees_id; //auth()->user();
         if (!$request->id) {

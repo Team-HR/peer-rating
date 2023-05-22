@@ -57,6 +57,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post("/pms/pcr/{period_id}/signatories/{id}", [PcrController::class, "set_signatories"]);
     # pcr - core_functions
     Route::get("/pms/pcr/{period_id}/core_functions/{id}", [CoreFunctionController::class, "show"]);
+    ##############################################################################
+    ##############################################################################
+    ##############################################################################
+    ##############################################################################
+    ##############################################################################
+    ##############################################################################
     Route::post("/pms/pcr/{period_id}/core_functions/{id}/accomplishment", [CoreFunctionController::class, "create_update"]);
     Route::delete("/pms/pcr/{period_id}/core_functions/{id}/accomplishment/{accomplishment_id}", [CoreFunctionController::class, "delete_accomplishment"]);
     # pcr - strategic_function

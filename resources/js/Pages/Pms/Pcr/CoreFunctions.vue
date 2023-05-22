@@ -49,11 +49,10 @@ td {
             <tr v-if="row.rowspan == 0 && row.si_only == false" :class="row.mfo_only ? 'bg-primary-50' : ''">
               <td v-if="!row.mfo_only" class="text-center">
                 <template v-if="row.pms_pcr_core_function_data">
-                  <span v-if="
-                    row.pms_pcr_core_function_data.percent
-                  ">{{
-  row.pms_pcr_core_function_data.percent
-}}%</span>
+                  <span v-if="row.pms_pcr_core_function_data.percent
+                    ">{{
+    row.pms_pcr_core_function_data.percent
+  }}%</span>
                 </template>
               </td>
               <!-- if  mfo has no success indicator (title) conditioned colspan if has multiple success indicator -->
@@ -69,10 +68,9 @@ td {
               <template v-if="!row.mfo_only">
                 <td>{{ row.success_indicator }}</td>
                 <template v-if="row.pms_pcr_core_function_data">
-                  <template v-if="
-                    !row.pms_pcr_core_function_data
+                  <template v-if="!row.pms_pcr_core_function_data
                       .not_applicable
-                  ">
+                    ">
                     <td>
                       {{
                         row.pms_pcr_core_function_data.actual
@@ -115,10 +113,9 @@ td {
                   </template>
                   <td></td>
                   <td class="text-center">
-                    <Button v-if="
-                      !row.pms_pcr_core_function_data
-                        .not_applicable
-                    " label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
+                    <Button v-if="!row.pms_pcr_core_function_data
+                          .not_applicable
+                        " label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
                             @click="edit_accomplishment(row)" />
                     <Button v-else label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
                             @click="edit_not_applicable(row)" />
@@ -142,11 +139,10 @@ td {
             <tr v-else-if="row.rowspan > 0 && row.si_only == false">
               <td class="text-center text-center">
                 <template v-if="row.pms_pcr_core_function_data">
-                  <span v-if="
-                    row.pms_pcr_core_function_data.percent
-                  ">{{
-  row.pms_pcr_core_function_data.percent
-}}%</span>
+                  <span v-if="row.pms_pcr_core_function_data.percent
+                      ">{{
+      row.pms_pcr_core_function_data.percent
+    }}%</span>
                 </template>
               </td>
               <td :rowspan="row.rowspan">
@@ -160,10 +156,9 @@ td {
               <td>{{ row.success_indicator }}</td>
               <!-- accomplish interface start -->
               <template v-if="row.pms_pcr_core_function_data">
-                <template v-if="
-                  !row.pms_pcr_core_function_data
+                <template v-if="!row.pms_pcr_core_function_data
                     .not_applicable
-                ">
+                  ">
                   <td>
                     {{ row.pms_pcr_core_function_data.actual }}
                   </td>
@@ -194,10 +189,9 @@ td {
                 </template>
                 <td></td>
                 <td class="text-center">
-                  <Button v-if="
-                    !row.pms_pcr_core_function_data
-                      .not_applicable
-                  " label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
+                  <Button v-if="!row.pms_pcr_core_function_data
+                    .not_applicable
+                    " label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
                           @click="edit_accomplishment(row)" />
                   <Button v-else label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
                           @click="edit_not_applicable(row)" />
@@ -210,8 +204,7 @@ td {
                 <td colspan="8" class="text-center">
                   <Button label="Add Accomplishment" class="p-button-text p-button-small p-button-raised w-4 p-1"
                           @click="add_accomplishment(row)"></Button>
-                  <Button label="Not Applicable"
-                          class="p-button-danger p-button-small p-button-raised w-4 mt-2 ml-3 p-1"
+                  <Button label="Not Applicable" class="p-button-danger p-button-small p-button-raised w-4 mt-2 ml-3 p-1"
                           @click="not_applicable(row)"></Button>
                 </td>
               </template>
@@ -221,19 +214,17 @@ td {
             <tr v-else>
               <td class="text-center">
                 <template v-if="row.pms_pcr_core_function_data">
-                  <span v-if="
-                    row.pms_pcr_core_function_data.percent
-                  ">{{
-  row.pms_pcr_core_function_data.percent
-}}%</span>
+                  <span v-if="row.pms_pcr_core_function_data.percent
+                    ">{{
+    row.pms_pcr_core_function_data.percent
+  }}%</span>
                 </template>
               </td>
               <td>{{ row.success_indicator }}</td>
               <template v-if="row.pms_pcr_core_function_data">
-                <template v-if="
-                  !row.pms_pcr_core_function_data
+                <template v-if="!row.pms_pcr_core_function_data
                     .not_applicable
-                ">
+                  ">
                   <td>
                     {{ row.pms_pcr_core_function_data.actual }}
                   </td>
@@ -264,10 +255,9 @@ td {
                 </template>
                 <td></td>
                 <td class="text-center">
-                  <Button v-if="
-                    !row.pms_pcr_core_function_data
-                      .not_applicable
-                  " label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
+                  <Button v-if="!row.pms_pcr_core_function_data
+                    .not_applicable
+                    " label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
                           @click="edit_accomplishment(row)" />
                   <Button v-else label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
                           @click="edit_not_applicable(row)" />
@@ -280,8 +270,7 @@ td {
                 <td colspan="8" class="text-center">
                   <Button label="Add Accomplishment" class="p-button-text p-button-small p-button-raised w-4 p-1"
                           @click="add_accomplishment(row)"></Button>
-                  <Button label="Not Applicable"
-                          class="p-button-danger p-button-small p-button-raised w-4 mt-2 ml-3 p-1"
+                  <Button label="Not Applicable" class="p-button-danger p-button-small p-button-raised w-4 mt-2 ml-3 p-1"
                           @click="not_applicable(row)"></Button>
                 </td>
               </template>
@@ -411,6 +400,7 @@ export default {
       core_function: null,
       // percentage_weight_remaining: null,
       accomplishment: this.$inertia.form({
+        form_status: this.$props.form_status,
         id: null,
         pms_rsm_success_indicator_id: null,
         actual: null,
@@ -538,7 +528,6 @@ export default {
       this.accomplishment.not_applicable = null;
     },
     confirm_accomplishment_reset(row) {
-      // console.log(row.pms_pcr_core_function_data.id);
       this.$confirm.require({
         message: "Resetting this accomplishment will empty its values, proceed?",
         header: "Reset Confirmation",
