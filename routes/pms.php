@@ -82,4 +82,6 @@ Route::middleware(['auth'])->group(function () {
 
     # pms - settings
     Route::get("/pms/settings", [SettingsController::class, "index"]);
+    Route::get("/pms/settings/periods", [SettingsController::class, "periods"]);
+    Route::post("/pms/settings/periods/create", [SettingsController::class, "create_period"]);
 });

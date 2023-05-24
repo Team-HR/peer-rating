@@ -5,8 +5,9 @@
       <template #subtitle>Configure Performance Management System</template>
       <template #content>
 
-        <template v-for="item in items">
-          <Button class="m-3" style="height:85px; width: 300px;" :label="item.label" @click="$inertia.get(item.path)"></Button>
+        <template v-for="item, i in items" :key="i">
+          <Button class="m-3" style="height:85px; width: 300px;" :label="item.label"
+                  @click="$inertia.get(item.path)"></Button>
         </template>
 
       </template>
