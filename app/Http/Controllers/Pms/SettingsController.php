@@ -40,6 +40,12 @@ class SettingsController extends Controller
         return Inertia::render('Pms/Settings/Periods', ['years' => $_years]);
     }
 
+
+    public function support_functions()
+    {
+        return Inertia::render('Pms/Settings/SupportFuncitons');
+    }
+
     public function create_period(Request $request)
     {
         $year = $request->year;
@@ -73,5 +79,17 @@ class SettingsController extends Controller
         }
         // return "exists";
         return Redirect::back();
+    }
+
+    public function support_functions_setup($period_id)
+    {
+
+        $period = PmsPeriod::find($period_id);
+        return Inertia::render("Pms/Settings/SupportFuncitonsPeriod", ["period" => $period]);
+    }
+
+    public function support_functions_setup_create($period_id, Request $request)
+    {
+        return [$period_id, $request->all()];
     }
 }

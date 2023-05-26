@@ -1,7 +1,7 @@
 <template>
   <auth-layout>
     <Card class="mx-auto">
-      <template #title><i class="bi bi-gear"></i> Settings</template>
+      <template #title><i class="bi bi-gear"></i> Settings : Periods</template>
       <template #subtitle>Configure Performance Management System Periods</template>
       <template #content>
         <!-- <Button icon="pi pi-plus" label="Add New Period"></Button> -->
