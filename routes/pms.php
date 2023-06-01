@@ -87,6 +87,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get("/pms/settings/support_functions", [SettingsController::class, "support_functions"]);
     // /pms/settings/support_functions
     Route::get("/pms/settings/support_functions/{id}", [SettingsController::class, "support_functions_setup"]);
+    Route::post("/pms/settings/support_functions/{id}", [SettingsController::class, "get_support_functions"]);
     // /pms/settings/support_functions/19
-    Route::post("/pms/settings/support_functions/{id}", [SettingsController::class, "support_functions_setup_create"]);
+    // Route::post("/pms/settings/support_functions/{id}", [SettingsController::class, "support_functions_setup_create"]);
+    Route::post("/pms/settings/support_functions/{id}/create", [SettingsController::class, "support_functions_setup_create_update"]);
 });
