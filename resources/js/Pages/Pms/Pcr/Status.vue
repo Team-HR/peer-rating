@@ -47,10 +47,10 @@ td {
 
           <tr>
             <td v-if="!form_status.is_submitted">
-              <Button label="Submit" class="p-button-sm" @click="submit"
-                      :disabled="(form_status.overall_numerical_rating == '0.00' && !form_status.is_submitted) ? true : false"></Button>
+              <!-- {{ form_status }} -- {{ form_status.is_submitted }} -->
+              <Button label="Submit" class="p-button-sm" @click="submit" :disabled="checkIfSubmittable"></Button>
             </td>
-            <td>{{!form_status.is_submitted ? "Submit & Finalize" : "Submitted"}}</td>
+            <td>{{ !form_status.is_submitted ? "Submit & Finalize" : "Submitted" }}</td>
             <td v-html="submit_status_text"></td>
           </tr>
 
@@ -79,17 +79,6 @@ export default {
       items: [],
       form: useForm(this.form_status)
     };
-  },
-  methods: {
-    go_back() {
-      window.history.back();
-    },
-    test() {
-      console.log(this.form_status);
-      return this.form_status.agency
-        ? `${this.form_status.signatories_inputs.immediate_supervisor.full_name} - ${this.form_status.department_head}`
-        : "Set Form Type first!";
-    },
   },
   created() {
     var items = [
@@ -186,7 +175,7 @@ export default {
           var total_percentage_weight = this.form_status.support_total_percentage_weight
             ? this.form_status.support_total_percentage_weight
             : "_________";
-          var total_average_rating = this.form_status.support_total_average_rating
+          var total_average_rating = this.form_status.support_total_average_rating && this.form_status.support_total_average_rating != "0.00" 
             ? this.form_status.support_total_average_rating
             : "_________";
           return this.status_text(total_percentage_weight, total_average_rating);
@@ -225,9 +214,27 @@ export default {
         : "_________";
       return `Total Percentage Weight (%): <b class="text-green-700_ mr-3">${total_percentage_weight}%</b>Total Numerical Rating: <b class="text-green-700_ mr-3">${total_average_rating}</b>`;
     },
+
+    checkIfSubmittable() {
+      console.log(this.form_status.strat_total_average_rating == '0.00');
+      if (this.form_status.total_average_rating == '0.00' || this.form_status.strat_total_average_rating == '0.00' || this.form_status.support_total_average_rating == '0.00') {
+        console.log(true)
+        return true
+      }
+      // strat_total_average_rating
+      // support_total_average_rating
+      // total_average_rating
+      // return true;
+    }
+
   },
 
   methods: {
+
+    go_back() {
+      window.history.back();
+    },
+
     status_text(total_percentage_weight, total_average_rating) {
       return `Percentage Weight (%): <b class="text-green-700_ mr-3">${total_percentage_weight}%</b>Rating: <b class="text-green-700_ mr-3">${total_average_rating}</b>`;
     },
@@ -251,7 +258,7 @@ export default {
 
   mounted() {
     Inertia.reload({ only: ["form_status"] });
-    console.log(this.form_status);
+    // console.log(this.form_status);
   },
 };
 </script>
