@@ -7,7 +7,6 @@
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
 import PeriodSelector from "@/Components/Pms/PeriodSelector.vue";
-import { Inertia } from "@inertiajs/inertia";
 
 export default {
   // props: {

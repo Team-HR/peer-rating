@@ -73,7 +73,7 @@ td {
 
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3'
 import PmsToolbar from "@/Layouts/PmsToolbar.vue";
 export default {
   props: {
@@ -108,7 +108,7 @@ export default {
     },
   },
   mounted() {
-    Inertia.reload({ only: ["ratees"] });
+    router.reload({ only: ["ratees"] });
   },
 };
 </script>

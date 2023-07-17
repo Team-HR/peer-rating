@@ -24,7 +24,6 @@
 
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
-import { Inertia } from "@inertiajs/inertia";
 
 export default {
   props: {

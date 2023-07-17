@@ -1,4 +1,3 @@
-import Inertia from '@inertiajs/inertia-vue3'
 
 let links = [{
     title: "PMS",

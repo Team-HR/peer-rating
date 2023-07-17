@@ -103,8 +103,7 @@ import Chart from 'primevue/chart';
 
 // Import modules...
 import { createApp, h } from 'vue';
-import { createInertiaApp, Link } from '@inertiajs/inertia-vue3';
-import { InertiaProgress } from '@inertiajs/progress';
+import { createInertiaApp, Link } from '@inertiajs/vue3'
 import { createPinia } from 'pinia';
 import piniaPluginPersistedState from "pinia-plugin-persistedstate";
 
@@ -113,9 +112,12 @@ pinia.use(piniaPluginPersistedState)
 
 const el = document.getElementById('app');
 createInertiaApp({
+    progress: {
+        color: '#29d',
+    },
     resolve: (name) => require(`./Pages/${name}`),
-    setup({ el, app, props, plugin }) {
-        createApp({ render: () => h(app, props) })
+    setup({ el, App, props, plugin }) {
+        createApp({ render: () => h(App, props) })
             .mixin({ methods: { route } })
             .use(plugin)
             .use(PrimeVue, { ripple: true })
@@ -236,5 +238,3 @@ createInertiaApp({
 
 // import { useAppbarStore } from "./stores/AppbarStore";
 // useAppbarStore();
-
-InertiaProgress.init({ color: 'yellow' });

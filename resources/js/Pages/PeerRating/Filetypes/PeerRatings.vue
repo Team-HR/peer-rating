@@ -120,7 +120,7 @@
 
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3'
 import PmsToolbar from "@/Layouts/PmsToolbar";
 
 export default {
@@ -211,7 +211,7 @@ export default {
   },
   mounted() {
     // console.log(this.offices);
-    Inertia.reload({ only: ["offices"] });
+    router.reload({ only: ["offices"] });
   },
 };
 </script>

@@ -33,6 +33,7 @@ td {
           </thead> -->
           <tr v-for="(item, i) in items" :key="i">
             <td v-if="!form_status.is_submitted">
+              <!--  -->
               <Button @click="$inertia.get(item.href, {}, { replace: true })"
                       :label="item.b_label ? item.b_label : 'Edit'" class="p-button-sm"
                       :disabled="item.is_disabled"></Button>
@@ -57,7 +58,8 @@ td {
 
         </table>
 
-        <Button label="Print Form" icon="bi bi-print" v-if="form_status.is_submitted" class="mt-2" @click=""></Button>
+        <Button label="Print Form" icon="bi bi-print" v-if="form_status.is_submitted" class="mt-2"
+                @click="printForm()"></Button>
 
       </template>
     </Card>
@@ -66,8 +68,10 @@ td {
 </template>
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
-import { Inertia } from "@inertiajs/inertia";
-import { useForm } from "@inertiajs/inertia-vue3";
+import { router } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3'
+
+
 export default {
   props: {
     period: null,
@@ -219,9 +223,7 @@ export default {
     },
 
     checkIfSubmittable() {
-      console.log(this.form_status.strat_total_average_rating == '0.00');
       if (this.form_status.total_average_rating == '0.00' || this.form_status.strat_total_average_rating == '0.00' || this.form_status.support_total_average_rating == '0.00') {
-        console.log(true)
         return true
       }
       // strat_total_average_rating
@@ -233,7 +235,9 @@ export default {
   },
 
   methods: {
-
+    printForm() {
+      console.log("print form");
+    },
     go_back() {
       window.history.back();
     },
@@ -260,7 +264,7 @@ export default {
   },
 
   mounted() {
-    Inertia.reload({ only: ["form_status"] });
+    router.reload({ only: ["form_status"] });
     // console.log(this.form_status);
   },
 };
