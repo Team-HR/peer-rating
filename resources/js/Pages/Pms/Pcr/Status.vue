@@ -23,7 +23,7 @@ td {
         <br />
         Accomplish/Review your Performance Commitments</template>
       <template #content>
-        <table class="mx-auto">
+        <table class="">
           <!-- <thead>
             <tr>
               <th>Option</th>
@@ -56,6 +56,9 @@ td {
 
 
         </table>
+
+        <Button label="Print Form" icon="bi bi-print" v-if="form_status.is_submitted" class="mt-2" @click=""></Button>
+
       </template>
     </Card>
     <Toast />
@@ -175,7 +178,7 @@ export default {
           var total_percentage_weight = this.form_status.support_total_percentage_weight
             ? this.form_status.support_total_percentage_weight
             : "_________";
-          var total_average_rating = this.form_status.support_total_average_rating && this.form_status.support_total_average_rating != "0.00" 
+          var total_average_rating = this.form_status.support_total_average_rating && this.form_status.support_total_average_rating != "0.00"
             ? this.form_status.support_total_average_rating
             : "_________";
           return this.status_text(total_percentage_weight, total_average_rating);
