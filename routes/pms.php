@@ -44,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
     # pcr
     Route::get("/pms/pcr", [PcrController::class, "index"]);
     Route::get("/pms/pcr/{period_id}", [PcrController::class, "show"]);
+    Route::get("/pms/pcr/{period_id}/print/{form_status_id}", [PcrController::class, "print"]);
 
     # /pcr/{period_id}/submit
     // submit is on api.php

@@ -236,7 +236,7 @@ export default {
 
   methods: {
     printForm() {
-      console.log("print form");
+      router.get(this.current_url + '/print/' + this.form_status.id);
     },
     go_back() {
       window.history.back();

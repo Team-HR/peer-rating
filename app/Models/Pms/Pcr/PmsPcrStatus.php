@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use phpDocumentor\Reflection\Types\Null_;
 use App\Models\SysEmployee;
+use App\Models\SysPositions;
 
 class PmsPcrStatus extends Model
 {
@@ -48,9 +49,14 @@ class PmsPcrStatus extends Model
 
     public function getPositionAttribute()
     {
-
+        if (!$this->sys_position_id) {
+            return [
+                "position_title" => "____________________________"
+            ];
+        }
+        $sys_position = SysPositions::find($this->sys_position_id);
         return [
-            "position_title" => "{{_Get Position Func()_}}"
+            "position_title" => $sys_position->position . " (" . $sys_position->functional . ")"
         ];
     }
 

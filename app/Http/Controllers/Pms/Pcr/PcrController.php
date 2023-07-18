@@ -139,4 +139,11 @@ class PcrController extends Controller
         $form->save();
         return Redirect::back();
     }
+
+    public function print($period_id, $form_status_id)
+    {
+        // return $form_status;
+        $form_status = PmsPcrStatus::find($form_status_id);
+        return Inertia::render("Pms/Pcr/Print", ["form_status" => $form_status]);
+    }
 }
