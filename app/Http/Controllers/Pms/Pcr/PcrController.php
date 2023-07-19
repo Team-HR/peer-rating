@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use App\Http\Controllers\Pms\Pcr\SupportFunctionController;
+use App\Models\Pms\Pcr\PmsPcrStrategicFunctionData;
+use App\Http\Controllers\Pms\Pcr\CoreFunctionController;
 
 class PcrController extends Controller
 {
@@ -144,6 +146,14 @@ class PcrController extends Controller
     {
         // return $form_status;
         $form_status = PmsPcrStatus::find($form_status_id);
-        return Inertia::render("Pms/Pcr/Print", ["form_status" => $form_status]);
+        $strategic_function = PmsPcrStrategicFunctionData::where('pms_period_id', $period_id)->where('sys_employee_id', $form_status->sys_employee_id)->first();
+        $core_functions = new CoreFunctionController;
+        $core_functions = $core_functions->get_row_data($period_id, $form_status_id, $form_status->sys_employee_id);
+        $core_functions = $core_functions['rows'];
+        return Inertia::render("Pms/Pcr/Print", [
+            "form_status" => $form_status,
+            "strategic_function" =>  $strategic_function,
+            "rows" => $core_functions
+        ]);
     }
 }

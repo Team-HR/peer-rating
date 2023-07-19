@@ -102,144 +102,292 @@ td {
           </tbody>
           <tbody style="font-size:14px">
             <tr style="background:#f7f70026">
-              <td colspan="8"><b>Strategic Function</b></td>
+              <td colspan="8"><b>Strategic Function</b> <span v-if="strategic_function">(<b style="color:blue">{{
+                strategic_function.percent }}%</b>)</span></td>
             </tr>
-            <tr>
-              <td style="width:25%">Organizational Development </td>
-              <td style="width:25%">Formulation and Initial Implementation of ICT Training on Agri-Extension Technicians
-              </td>
-              <td style="width:25%">Formulation and Initial Implementation of ICT Training on Agri-Extension Technicians
-              </td>
+            <tr v-if="strategic_function">
+              <td class="text-center" style="width:25%">{{ strategic_function.function_title }} </td>
+              <td class="text-center" style="width:25%">{{ strategic_function.success_indicator }}</td>
+              <td class="text-center" style="width:25%">{{ strategic_function.actual_accomplishment }}</td>
               <td></td>
               <td></td>
               <td></td>
-              <td>4.67</td>
+              <td class="text-center">{{ strategic_function.final_numerical_rating }}</td>
               <td></td>
+            </tr>
+            <tr v-else>
+              <td colspan="8" class="text-center text-gray-500">N/A</td>
             </tr>
             <tr style="background:#f7f70026">
-              <td colspan="8"><b>Core Function</b> (<b style="color:blue">60 %</b>)</td>
+              <td colspan="8"><b>Core Function</b> (<b style="color:blue">60%</b>)</td>
             </tr>
-            <tr>
-              <td style="padding-left:5;width:25%">H. Administrative Services</td>
-              <td style="width:25%"></td>
-              <td style="display:none"></td>
-              <td style="display:none"></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+            <!-- core function start -->
+            <template v-for="(row, r) in rows" :key="r">
+              <tr v-if="row.rowspan == 0 && row.si_only == false" :class="row.mfo_only ? '_bg-primary-50' : ''">
+                <!-- <td v-if="!row.mfo_only" class="text-center">
+                  <template v-if="row.pms_pcr_core_function_data">
+                    <span v-if="row.pms_pcr_core_function_data.percent
+                      ">{{ row.pms_pcr_core_function_data.percent }}%
+                    </span>
+                  </template>
+                </td> -->
+                <!-- if  mfo has no success indicator (title) conditioned colspan if has multiple success indicator -->
+                <td :colspan="row.mfo_only ? 11 : 1">
+                  <div :style="indent(row.level)">
+                    <span>
+                      <strong class="mr-2">{{ row.code }}</strong>
+                      {{ row.title }}
+                    </span>
+                  </div>
+                </td>
+                <!-- if mfo with only one success indicator -->
+                <template v-if="!row.mfo_only">
+                  <td>{{ row.success_indicator }}</td>
+                  <template v-if="row.pms_pcr_core_function_data">
+                    <template v-if="!row.pms_pcr_core_function_data
+                      .not_applicable
+                      ">
+                      <td>
+                        {{
+                          row.pms_pcr_core_function_data.actual
+                        }}
+                      </td>
+                      <td class="text-center">
+                        {{
+                          row.pms_pcr_core_function_data.quality
+                        }}
+                      </td>
+                      <td class="text-center">
+                        {{
+                          row.pms_pcr_core_function_data
+                            .efficiency
+                        }}
+                      </td>
+                      <td class="text-center">
+                        {{
+                          row.pms_pcr_core_function_data
+                            .timeliness
+                        }}
+                      </td>
+                      <td class="text-center _text-yellow-700">
+                        {{
+                          row.pms_pcr_core_function_data.average
+                        }}
+                      </td>
+                      <td class="text-center">
+                        {{
+                          row.pms_pcr_core_function_data.remarks
+                        }}
+                      </td>
+                    </template>
+                    <template v-else>
+                      <td colspan="6" class="text-center text-blue-700">
+                        {{
+                          row.pms_pcr_core_function_data.actual
+                        }}
+                      </td>
+                    </template>
+                    <!-- <td></td>
+                    <td class="text-center">
+                      <Button v-if="!row.pms_pcr_core_function_data
+                            .not_applicable
+                          " label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
+                              @click="edit_accomplishment(row)" />
+                      <Button v-else label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
+                              @click="edit_not_applicable(row)" />
+                      <Button label="Clear" icon="bi bi-arrow-counterclockwise"
+                              class="p-button-sm p-button-text p-button-warning p-2 m-1"
+                              @click="confirm_accomplishment_reset(row)" />
+                    </td> -->
+                  </template>
+                  <template v-else>
+                    <td colspan="8" class="text-center">
+                      <!-- <Button label="Add Accomplishment" class="p-button-text p-button-small p-button-raised w-4 p-1"
+                              @click="add_accomplishment(row)"></Button>
+                      <Button label="Not Applicable"
+                              class="p-button-danger p-button-small p-button-raised w-4 mt-2 ml-3 p-1"
+                              @click="not_applicable(row)"></Button> -->
+                    </td>
+                  </template>
+                </template>
+              </tr>
+              <!-- sub mfo with initial success indicator  -->
+              <tr v-else-if="row.rowspan > 0 && row.si_only == false">
+                <!-- <td class="text-center text-center">
+                  <template v-if="row.pms_pcr_core_function_data">
+                    <span v-if="row.pms_pcr_core_function_data.percent
+                      ">{{
+    row.pms_pcr_core_function_data.percent
+  }}%</span>
+                  </template>
+                </td> -->
+                <td :rowspan="row.rowspan">
+                  <div :style="indent(row.level)">
+                    <span>
+                      <strong class="mr-2">{{ row.code }}</strong>
+                      {{ row.title }}
+                    </span>
+                  </div>
+                </td>
+                <td>{{ row.success_indicator }}</td>
+                <!-- accomplish interface start -->
+                <template v-if="row.pms_pcr_core_function_data">
+                  <template v-if="!row.pms_pcr_core_function_data
+                    .not_applicable
+                    ">
+                    <td>
+                      {{ row.pms_pcr_core_function_data.actual }}
+                    </td>
+                    <td class="text-center">
+                      {{ row.pms_pcr_core_function_data.quality }}
+                    </td>
+                    <td class="text-center">
+                      {{
+                        row.pms_pcr_core_function_data.efficiency
+                      }}
+                    </td>
+                    <td class="text-center">
+                      {{
+                        row.pms_pcr_core_function_data.timeliness
+                      }}
+                    </td>
+                    <td class="text-center _text-yellow-700">
+                      {{ row.pms_pcr_core_function_data.average }}
+                    </td>
+                    <td class="text-center">
+                      {{ row.pms_pcr_core_function_data.remarks }}
+                    </td>
+                  </template>
+                  <template v-else>
+                    <td colspan="6" class="text-center text-blue-700">
+                      {{ row.pms_pcr_core_function_data.actual }}
+                    </td>
+                  </template>
+                  <!-- <td></td>
+                  <td class="text-center">
+                    <Button v-if="!row.pms_pcr_core_function_data
+                      .not_applicable
+                      " label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
+                            @click="edit_accomplishment(row)" />
+                    <Button v-else label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
+                            @click="edit_not_applicable(row)" />
+                    <Button label="Clear" icon="bi bi-arrow-counterclockwise"
+                            class="p-button-sm p-button-text p-button-warning p-2 m-1"
+                            @click="confirm_accomplishment_reset(row)" />
+                  </td> -->
+                </template>
+                <template v-else>
+                  <td colspan="8" class="text-center">
+                    <!-- <Button label="Add Accomplishment" class="p-button-text p-button-small p-button-raised w-4 p-1"
+                            @click="add_accomplishment(row)"></Button>
+                    <Button label="Not Applicable"
+                            class="p-button-danger p-button-small p-button-raised w-4 mt-2 ml-3 p-1"
+                            @click="not_applicable(row)"></Button> -->
+                  </td>
+                </template>
+                <!-- accomplish interface end -->
+              </tr>
+              <!-- succeding success indicator from above -->
+              <tr v-else>
+                <!-- <td class="text-center">
+                  <template v-if="row.pms_pcr_core_function_data">
+                    <span v-if="row.pms_pcr_core_function_data.percent
+                      ">{{
+    row.pms_pcr_core_function_data.percent
+  }}%</span>
+                  </template>
+                </td> -->
+                <td>{{ row.success_indicator }}</td>
+                <template v-if="row.pms_pcr_core_function_data">
+                  <template v-if="!row.pms_pcr_core_function_data
+                    .not_applicable
+                    ">
+                    <td>
+                      {{ row.pms_pcr_core_function_data.actual }}
+                    </td>
+                    <td class="text-center">
+                      {{ row.pms_pcr_core_function_data.quality }}
+                    </td>
+                    <td class="text-center">
+                      {{
+                        row.pms_pcr_core_function_data.efficiency
+                      }}
+                    </td>
+                    <td class="text-center">
+                      {{
+                        row.pms_pcr_core_function_data.timeliness
+                      }}
+                    </td>
+                    <td class="text-center _text-yellow-700">
+                      {{ row.pms_pcr_core_function_data.average }}
+                    </td>
+                    <td class="text-center">
+                      {{ row.pms_pcr_core_function_data.remarks }}
+                    </td>
+                  </template>
+                  <template v-else>
+                    <td colspan="6" class="text-center text-blue-700">
+                      {{ row.pms_pcr_core_function_data.actual }}
+                    </td>
+                  </template>
+                  <!-- <td></td>
+                  <td class="text-center">
+                    <Button v-if="!row.pms_pcr_core_function_data
+                      .not_applicable
+                      " label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
+                            @click="edit_accomplishment(row)" />
+                    <Button v-else label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
+                            @click="edit_not_applicable(row)" />
+                    <Button label="Clear" icon="bi bi-arrow-counterclockwise"
+                            class="p-button-sm p-button-text p-button-warning p-2 m-1"
+                            @click="confirm_accomplishment_reset(row)" />
+                  </td> -->
+                </template>
+                <template v-else>
+                  <td colspan="8" class="text-center">
+                    <!-- <Button label="Add Accomplishment" class="p-button-text p-button-small p-button-raised w-4 p-1"
+                            @click="add_accomplishment(row)"></Button>
+                    <Button label="Not Applicable"
+                            class="p-button-danger p-button-small p-button-raised w-4 mt-2 ml-3 p-1"
+                            @click="not_applicable(row)"></Button> -->
+                  </td>
+                </template>
+              </tr>
+            </template>
+            <tr v-if="rows.length < 1">
+              <td class="p-5 bg-gray-300" colspan="11" style="text-align: center">
+                No records found!
+              </td>
             </tr>
-            <tr>
-              <td style="padding-left:20;width:25%">04. HRIS Development</td>
-              <td style="width:25%"></td>
-              <td style="display:none"></td>
-              <td style="display:none"></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr style="width:25%;">
-              <td>
-                <div class="segment">
+            <!-- core function end -->
 
-                  <p style="padding-left:35;">
-                    <a class="ui black label">
-                      <span style="">15 %</span>
-                    </a>
-                    a. Maintenance of Office Computers
-                  </p>
-                </div>
-              </td>
-              <td style="width:25%">100% of computer software and hardware maintained every month.<br>
-                <br>
-                <br>
-              </td>
-              <td style="display:none"></td>
-              <td style="display:none"> </td>
-              <td style="width:25%;"> 95% (19/20) of computer software and hardware maintained every month.<br>
-                <br>
-              </td>
-              <td style=""></td>
-              <td style="">4</td>
-              <td style="">5</td>
-              <td>0.67</td>
-              <td></td>
-            </tr>
-            <tr style="width:25%;">
-              <td>
-                <div class="segment">
 
-                  <p style="padding-left:35;">
-                    <a class="ui black label">
-                      <span style="">20 %</span>
-                    </a>
-                    b. Database Management
-                  </p>
-                </div>
-              </td>
-              <td style="width:25%">Database accurately updated everyday.<br>
-              </td>
-              <td style="display:none"></td>
-              <td style="display:none"> </td>
-              <td style="width:25%;"> Database accurately updated and backed-up everyday.</td>
-              <td style="">5</td>
-              <td style=""></td>
-              <td style="">5</td>
-              <td>1</td>
-              <td></td>
-            </tr>
-            <tr style="width:25%;">
-              <td>
-                <div class="segment">
 
-                  <p style="padding-left:35;">
-                    <a class="ui black label">
-                      <span style="">15 %</span>
-                    </a>
-                    c. IHRIS Development
-                  </p>
-                </div>
-              </td>
-              <td style="width:25%">IHRIS accurately developed.</td>
-              <td style="display:none"></td>
-              <td style="display:none"> </td>
-              <td style="width:25%;"> IHRIS accurately developed.<br>
-                <br>
-              </td>
-              <td style="">5</td>
-              <td style=""></td>
-              <td style=""></td>
-              <td>0.75</td>
-              <td></td>
-            </tr>
-            <tr style="width:25%; page-break-after: always !important;">
-              <td>
-                <div class="segment">
 
-                  <p style="padding-left:35;">
-                    <a class="ui black label">
-                      <span style="">10 %</span>
-                    </a>
-                    d. Modules Developed and Deployed
-                  </p>
-                </div>
-              </td>
-              <td style="width:25%">100% of modules accurately developed every month.<br>
-              </td>
-              <td style="display:none"></td>
-              <td style="display:none"> </td>
-              <td style="width:25%;"> 25% (1/4) of modules accurately developed every month.</td>
-              <td style="">5</td>
-              <td style="">1</td>
-              <td style="">5</td>
-              <td>0.36</td>
-              <td></td>
-            </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <tr style="background:#f7f70026;">
               <td colspan="8"><b>Support Function</b></td>
 
@@ -379,13 +527,13 @@ td {
               <td>Strategic Objectives</td>
               <td>Total Weight Allocation:20%</td>
               <td>
-                <center><b>0.93</b></center>
+                <b>0.93</b>
               </td>
               <td colspan="3" rowspan="3">
-                <center><b> 4.51</b></center>
+                <b> 4.51</b>
               </td>
               <td colspan="2" rowspan="3">
-                <center><b>OUTSTANDING</b></center>
+                <b>OUTSTANDING</b>
               </td>
 
             </tr>
@@ -393,7 +541,7 @@ td {
               <td>Core Functions</td>
               <td>Total Weight Allocation:60%</td>
               <td>
-                <center><b>2.78</b></center>
+                <b>2.78</b>
               </td>
 
             </tr>
@@ -401,7 +549,7 @@ td {
               <td>Support Functions</td>
               <td>Total Weight Allocation:20%</td>
               <td>
-                <center><b>0.8</b></center>
+                <b>0.8</b>
               </td>
 
             </tr>
@@ -482,8 +630,9 @@ td {
 <script>
 export default {
   props: {
-    data: null,
     form_status: null,
+    strategic_function: null,
+    rows: null
   },
   components: {
     // AuthLayout,
@@ -501,6 +650,13 @@ export default {
 
   },
   methods: {
+    indent(level) {
+      var margin = "";
+      if (level > 0) {
+        margin = "margin-left:" + level * 20 + "px;";
+      }
+      return margin;
+    },
     go_back() {
       window.history.back();
     },
