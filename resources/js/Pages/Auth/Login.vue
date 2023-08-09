@@ -10,7 +10,7 @@
         <div class="text-center mb-5">
           <!-- img src="/favicon.ico" alt="Icon" class="mr-2" width="50" /> -->
           <img src="/favicon.ico" alt="Image" height="50" class="mb-3">
-          <div class="text-900 text-3xl font-medium mb-3">Welcome Back</div>
+          <div class="text-900 text-3xl font-medium mb-3">IHRIS LOGIN</div>
         </div>
         <div>
           <label for="username" class="block text-900 font-medium mb-2">Username</label>
