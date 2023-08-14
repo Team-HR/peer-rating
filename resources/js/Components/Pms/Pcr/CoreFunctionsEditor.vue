@@ -33,12 +33,13 @@ td {
       </tr>
     </thead>
 
-    <template v-for="(row, r) in rows" :key="r">
+    <!-- <template v-for="(row, r) in rows" :key="r">
       <tr>
-        <td colspan="11">{{ row.pms_pcr_core_function_data.corrections }}</td>
+        <td colspan="11">{{ row.pms_pcr_core_function_data ? row.pms_pcr_core_function_data.corrections : '' }}
+        </td>
       </tr>
-    </template>
-    <template v-for="(row, r) in []" :key="r">
+    </template> -->
+    <template v-for="(row, r) in rows" :key="r">
       <tr v-if="row.rowspan == 0 && row.si_only == false" :class="row.mfo_only ? 'bg-primary-50' : ''">
         <td v-if="!row.mfo_only" class="text-center">
           <template v-if="row.pms_pcr_core_function_data">
@@ -46,6 +47,7 @@ td {
           </template>
         </td>
         <!-- if  mfo has no success indicator (title) conditioned colspan if has multiple success indicator -->
+
         <td :colspan="row.mfo_only ? 11 : 1">
           <div :style="indent(row.level)">
             <span>
@@ -58,10 +60,9 @@ td {
         <template v-if="!row.mfo_only">
           <td>{{ row.success_indicator }}</td>
           <template v-if="row.pms_pcr_core_function_data">
-            <template v-if="
-              !row.pms_pcr_core_function_data
-                .not_applicable
-            ">
+            <template v-if="!row.pms_pcr_core_function_data
+              .not_applicable
+              ">
               <td>
                 {{
                   row.pms_pcr_core_function_data.actual
@@ -104,10 +105,9 @@ td {
             </template>
             <td></td>
             <td class="text-center">
-              <Button v-if="
-                !row.pms_pcr_core_function_data
-                  .not_applicable
-              " label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
+              <Button v-if="!row.pms_pcr_core_function_data
+                    .not_applicable
+                  " label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
                       @click="edit_accomplishment(row)" />
               <Button v-else label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
                       @click="edit_not_applicable(row)" />
@@ -130,11 +130,10 @@ td {
       <tr v-else-if="row.rowspan > 0 && row.si_only == false">
         <td class="text-center text-center">
           <template v-if="row.pms_pcr_core_function_data">
-            <span v-if="
-              row.pms_pcr_core_function_data.percent
-            ">{{
-  row.pms_pcr_core_function_data.percent
-}}%</span>
+            <span v-if="row.pms_pcr_core_function_data.percent
+              ">{{
+    row.pms_pcr_core_function_data.percent
+  }}%</span>
           </template>
         </td>
         <td :rowspan="row.rowspan">
@@ -148,10 +147,9 @@ td {
         <td>{{ row.success_indicator }}</td>
         <!-- accomplish interface start -->
         <template v-if="row.pms_pcr_core_function_data">
-          <template v-if="
-            !row.pms_pcr_core_function_data
-              .not_applicable
-          ">
+          <template v-if="!row.pms_pcr_core_function_data
+            .not_applicable
+            ">
             <td>
               {{ row.pms_pcr_core_function_data.actual }}
             </td>
@@ -182,10 +180,9 @@ td {
           </template>
           <td></td>
           <td class="text-center">
-            <Button v-if="
-              !row.pms_pcr_core_function_data
-                .not_applicable
-            " label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
+            <Button v-if="!row.pms_pcr_core_function_data
+              .not_applicable
+              " label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
                     @click="edit_accomplishment(row)" />
             <Button v-else label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
                     @click="edit_not_applicable(row)" />
@@ -208,17 +205,15 @@ td {
       <tr v-else>
         <td class="text-center">
           <template v-if="row.pms_pcr_core_function_data">
-            <span v-if="
-              row.pms_pcr_core_function_data.percent
-            ">{{ row.pms_pcr_core_function_data.percent }}%</span>
+            <span v-if="row.pms_pcr_core_function_data.percent
+              ">{{ row.pms_pcr_core_function_data.percent }}%</span>
           </template>
         </td>
         <td>{{ row.success_indicator }}</td>
         <template v-if="row.pms_pcr_core_function_data">
-          <template v-if="
-            !row.pms_pcr_core_function_data
-              .not_applicable
-          ">
+          <template v-if="!row.pms_pcr_core_function_data
+            .not_applicable
+            ">
             <td>
               {{ row.pms_pcr_core_function_data.actual }}
             </td>
@@ -249,10 +244,9 @@ td {
           </template>
           <td></td>
           <td class="text-center">
-            <Button v-if="
-              !row.pms_pcr_core_function_data
-                .not_applicable
-            " label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
+            <Button v-if="!row.pms_pcr_core_function_data
+              .not_applicable
+              " label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
                     @click="edit_accomplishment(row)" />
             <Button v-else label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
                     @click="edit_not_applicable(row)" />
@@ -345,8 +339,8 @@ td {
       <Button label="Cancel" icon="pi pi-times" @click="cancel_accomplishment()" class="p-button-text" />
       <Button label="Save" icon="pi pi-check" autofocus type="submit" form="accomplishment_form" />
     </template>
-</Dialog>
-<!-- add accomplishment modal end -->
+  </Dialog>
+  <!-- add accomplishment modal end -->
 
   <!-- not applicable modal start -->
   <Dialog header="Not Applicable" v-model:visible="not_applicable_modal"
@@ -584,7 +578,7 @@ export default {
         pms_period_id: this.pms_pcr_status.pms_period_id,
         sys_employee_id: this.pms_pcr_status.sys_employee_id
       }).then(({ data }) => {
-        // console.log(data);
+        // console.log("Core function table data:", data);
         this.rows = data.rows
         this.total_percentage_weight = data.total_percentage_weight
         this.total_average_rating = data.total_average_rating
@@ -597,8 +591,6 @@ export default {
   },
   mounted() {
     // Inertia.reload({ only: ["rows"] });
-
-
   },
 };
 </script>

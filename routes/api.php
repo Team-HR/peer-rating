@@ -72,9 +72,11 @@ use App\Models\Pms\Pcr\PmsPcrStrategicFunctionData;
 
 # get pcr form data
 Route::post('/pms/pcr_data', function (Request $request) {
-    $pms_pcr_status_id = $request->pms_pcr_status_id;
-    $pms_period_id = $request->pms_period_id;
-    $sys_employee_id = $request->sys_employee_id;
+
+    $pms_pcr_status_id = $request->pms_pcr_status['id'];
+    $pms_period_id = $request->pms_pcr_status['pms_period_id'];
+    $sys_employee_id = $request->pms_pcr_status['sys_employee_id'];
+    
     $core_functions = (new CoreFunctionController)->get_row_data($pms_period_id, $pms_pcr_status_id, $sys_employee_id);
 
     $data = $core_functions;
@@ -106,3 +108,5 @@ Route::post('/pms/get_core_functions_editor_data', function (Request $request) {
     // $data["rows_support"] = $rows;
     return $data;
 });
+
+require __DIR__ . '/api/PMS/strategic_function.php';

@@ -12,6 +12,7 @@ td {
 
 <template>
   <div>
+
     <div class="border-0 border-round border-indigo-300 p-3">
       <div class="text-2xl text-center font-bold text-indigo-900 mb-5">{{ formTypes[pms_pcr_status.form_type] }}</div>
       <p>
@@ -47,57 +48,7 @@ td {
 
 
     <!-- table strategic function start -->
-    <table class="mt-3 w-full">
-      <thead>
-        <tr>
-          <th colspan="6" class="text-left uppercase bg-indigo-500 text-white">Strategic Function</th>
-        </tr>
-        <tr class="bg-indigo-100">
-          <th style="width: 37.5px;">20%</th>
-          <th>Strategic Function</th>
-          <th>Success Indicator</th>
-          <th>Actual Accomplishment</th>
-          <th>Final Numerical Rating</th>
-          <th>Options</th>
-        </tr>
-      </thead>
-      <template v-if="rows_strat && rows_strat.length > 0">
-        <tr v-for="row, s in rows_strat" :key="s">
-          <td colspan="2">
-            {{ row.function_title }}
-          </td>
-          <td>
-            {{ row.success_indicator }}
-          </td>
-          <td>
-            {{ row.actual_accomplishment }}
-          </td>
-          <td class="text-center">
-            {{ row.final_numerical_rating }}
-          </td>
-          <td class="text-center">
-            <Button label="Edit" icon="bi bi-pencil" class="p-button-sm p-button-text p-2 m-1"
-                    @click="add_edit_accomplishment(row)" />
-            <Button label="Clear" icon="bi bi-arrow-counterclockwise"
-                    class="p-button-sm p-button-text p-button-warning p-2 m-1"
-                  @click="confirm_accomplishment_reset(row)" />
-        </td>
-      </tr>
-    </template>
-      <template v-else>
-        <tr>
-          <!-- <td colspan="5" class="text-center text-gray-500">No records found!</td> -->
-          <td colspan="6" class="text-center">
-            <Button class="p-button-sm mr-3" label="Add Accomplishment" @click="add_edit_accomplishment()" />
-            <!-- <Button
-                                  class="p-button-sm p-button-danger"
-                                  label="Not Applicable"
-                                  @click="not_applicable()"
-                                /> -->
-          </td>
-        </tr>
-      </template>
-    </table>
+    <StrategicFunctionEditor :pms_pcr_status="pms_pcr_status"/>
     <!-- table strategic function end -->
 
 
@@ -162,6 +113,8 @@ td {
       </tbody>
     </table>
     <!-- table support function end -->
+    <div>Current Count: {{ counter.count }}</div>
+    <Button label="Test Pinia" class="mt-5" @click="increment()"></Button>
   </div>
 </template>
 
@@ -170,16 +123,22 @@ td {
 
 
 import axios from 'axios';
+import StrategicFunctionEditor from '@/Components/Pms/Pcr/StrategicFunctionEditor.vue';
 import CodeFunctionsEditor from '@/Components/Pms/Pcr/CoreFunctionsEditor.vue';
+import { useCounterStore } from '@/Stores/counter';
+
+// const counter = useCounterStore()
 
 export default {
   props: ["pms_pcr_status"],
   components: {
+    StrategicFunctionEditor,
     CodeFunctionsEditor
   },
   // emits: ["update:modelValue"],
   data() {
     return {
+      counter: useCounterStore(),
       formTypes: {
         ipcr: "INDIVIDUAL PERFORMANCE COMMITMENT AND REVIEW (IPCR)",
         spcr: "SECTION PERFORMANCE COMMITMENT AND REVIEW (SPCR)",
@@ -198,6 +157,10 @@ export default {
     // changeInput(event) {
     //   this.$emit("update:modelValue", event.target.value); // previously was `this.$emit('input', title)`
     // },
+    increment() {
+      this.counter.increment();
+    },
+
     indent(level) {
       var margin = "";
       if (level > 0) {
@@ -210,18 +173,15 @@ export default {
   created() {
 
     axios.post("/api/pms/pcr_data", {
-      pms_pcr_status_id: this.pms_pcr_status.id,
-      pms_period_id: this.pms_pcr_status.pms_period_id,
-      sys_employee_id: this.pms_pcr_status.sys_employee_id
+      pms_pcr_status: this.pms_pcr_status,
     }).then(({ data }) => {
       // console.log(data);
-      this.core_functions = data
-      this.rows = data.rows
-      this.rows_strat = data.rows_strat
-      this.support_functions = data.rows_support
-      this.rows_support = data.rows_support.data
+      // this.core_functions = data
+      // this.rows = data.rows
+      // this.rows_strat = data.rows_strat
+      // this.support_functions = data.rows_support
+      // this.rows_support = data.rows_support.data
     })
-
     // console.log(this.pms_pcr_status);
   },
 

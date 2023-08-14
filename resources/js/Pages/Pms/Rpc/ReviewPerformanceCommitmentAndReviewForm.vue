@@ -34,7 +34,7 @@ td {
 </template>
 <script>
 import AuthLayout from "@/Layouts/Authenticated";
-import PcrForm from "@/Components/Pms/PcrForm.vue";
+import PcrForm from "@/Components/Pms/Pcr/Form.vue";
 
 export default {
   props: {

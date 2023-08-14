@@ -149,11 +149,17 @@ class PcrController extends Controller
         $strategic_function = PmsPcrStrategicFunctionData::where('pms_period_id', $period_id)->where('sys_employee_id', $form_status->sys_employee_id)->first();
         $core_functions = new CoreFunctionController;
         $core_functions = $core_functions->get_row_data($period_id, $form_status_id, $form_status->sys_employee_id);
-        $core_functions = $core_functions['rows'];
+        $core_functions = $core_functions;
+        $support_function = new SupportFunctionController();
+        $support_functions = $support_function->get_support_function_rows($form_status->sys_employee_id, $period_id);
+        $support_functions = $support_functions;
+        // return $support_function;
+
         return Inertia::render("Pms/Pcr/Print", [
             "form_status" => $form_status,
             "strategic_function" =>  $strategic_function,
-            "rows" => $core_functions
+            "core_functions" => $core_functions,
+            "support_functions" => $support_functions
         ]);
     }
 }
