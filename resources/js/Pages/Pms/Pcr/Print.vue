@@ -122,7 +122,7 @@ td {
               <td colspan="8"><b>Core Function</b> (<b style="color:blue">60%</b>)</td>
             </tr>
             <!-- core function start -->
-            <template v-for="(row, r) in rows" :key="r">
+            <template v-for="(row, r) in core_functions.rows" :key="r">
               <tr v-if="row.rowspan == 0 && row.si_only == false" :class="row.mfo_only ? '_bg-primary-50' : ''">
                 <!-- <td v-if="!row.mfo_only" class="text-center">
                   <template v-if="row.pms_pcr_core_function_data">
@@ -132,8 +132,12 @@ td {
                   </template>
                 </td> -->
                 <!-- if  mfo has no success indicator (title) conditioned colspan if has multiple success indicator -->
-                <td :colspan="row.mfo_only ? 11 : 1">
+                <td :colspan="row.mfo_only ? 8 : 1">
                   <div :style="indent(row.level)">
+                    <template v-if="row.pms_pcr_core_function_data">
+                      <span class="m-2 px-1" v-if="row.pms_pcr_core_function_data.percent
+                        ">{{ row.pms_pcr_core_function_data.percent }}%</span>
+                    </template>
                     <span>
                       <strong class="mr-2">{{ row.code }}</strong>
                       {{ row.title }}
@@ -223,6 +227,10 @@ td {
                 </td> -->
                 <td :rowspan="row.rowspan">
                   <div :style="indent(row.level)">
+                    <template v-if="row.pms_pcr_core_function_data">
+                      <span class="m-2 px-1" v-if="row.pms_pcr_core_function_data.percent
+                        ">{{ row.pms_pcr_core_function_data.percent }}%</span>
+                    </template>
                     <span>
                       <strong class="mr-2">{{ row.code }}</strong>
                       {{ row.title }}
@@ -354,7 +362,7 @@ td {
                 </template>
               </tr>
             </template>
-            <tr v-if="rows.length < 1">
+            <tr v-if="core_functions.length < 1">
               <td class="p-5 bg-gray-300" colspan="11" style="text-align: center">
                 No records found!
               </td>
@@ -394,110 +402,28 @@ td {
               <td style="display:none"></td>
               <td style="display:none"></td>
             </tr>
-            <tr>
-              <td style="width:25%">Attendance to LGU Activities = 2 %</td>
-              <td style="width:25%">80% of LGU Activities attended </td>
-              <td style="display:none"></td>
-              <td style="display:none"></td>
-              <td style="">100% (3/3) LGU Activities attended.</td>
-              <td style=""></td>
-              <td style="">5</td>
-              <td style=""></td>
-              <td>0.1</td>
-              <td></td>
-            </tr>
-
-            <tr>
-              <td style="width:25%">Attendance during Monday Morning Program = 2 %</td>
-              <td style="width:25%">80% of Monday Morning Program attended</td>
-              <td style="display:none"></td>
-              <td style="display:none"></td>
-              <td style="">100% (20/20) of Monday Morning Program attended</td>
-              <td style=""></td>
-              <td style="">5</td>
-              <td style=""></td>
-              <td>0.1</td>
-              <td></td>
-            </tr>
-
-            <tr>
-              <td style="width:25%">Attendance to Regular Staff Meeting = 2 %</td>
-              <td style="width:25%">80% of regular staff meeting attended</td>
-              <td style="display:none"></td>
-              <td style="display:none"></td>
-              <td style="">100% (3/3) of regular staff meeting attended</td>
-              <td style=""></td>
-              <td style="">5</td>
-              <td style=""></td>
-              <td>0.1</td>
-              <td></td>
-            </tr>
-
-            <tr>
-              <td style="width:25%">Submission of IPCR = 1 %</td>
-              <td style="width:25%">Submitted on or before the date required</td>
-              <td style="display:none"></td>
-              <td style="display:none"></td>
-              <td style="">Submitted on or before July 14, 2023</td>
-              <td style=""></td>
-              <td style=""></td>
-              <td style="">5</td>
-              <td>0.05</td>
-              <td></td>
-            </tr>
-
-            <tr>
-              <td style="width:25%">Submission of DTR = 1 %</td>
-              <td style="width:25%">Submitted on or before the 5th day of the succeeding month</td>
-              <td style="display:none"></td>
-              <td style="display:none"></td>
-              <td style="">Submitted on or before the 5th day of the succeeding month</td>
-              <td style=""></td>
-              <td style=""></td>
-              <td style="">5</td>
-              <td>0.05</td>
-              <td></td>
-            </tr>
-
-            <tr>
-              <td style="width:25%">Wearing of prescribed Uniform or ID = 2 %</td>
-              <td style="width:25%">100% compliant</td>
-              <td style="display:none"></td>
-              <td style="display:none"></td>
-              <td style="">100% compliant to wearing of proper uniform.</td>
-              <td style=""></td>
-              <td style="">5</td>
-              <td style=""></td>
-              <td>0.1</td>
-              <td></td>
-            </tr>
-
-            <tr>
-              <td style="width:25%">Rating on Attendance = 5 %</td>
-              <td style="width:25%">Based on CSC Standards </td>
-              <td style="display:none"></td>
-              <td style="display:none"></td>
-              <td style="">10 applied leaves during then semester.</td>
-              <td style=""></td>
-              <td style="">3</td>
-              <td style=""></td>
-              <td>0.15</td>
-              <td></td>
-            </tr>
-
-            <tr>
-              <td style="width:25%">Rating on Punctuality = 5 %</td>
-              <td style="width:25%">Based on CSC Standards</td>
-              <td style="display:none"></td>
-              <td style="display:none"></td>
-              <td style="">4-6 times of tardiness per month.</td>
-              <td style=""></td>
-              <td style="">3</td>
-              <td style=""></td>
-              <td>0.15</td>
-              <td></td>
-            </tr>
-
+            <template v-for="(row, i) in support_functions.data">
+              <tr>
+                <td style="white-space:nowrap; width:25%">{{ row.support_function }} = {{ row.percent }}%</td>
+                <td style="width:25%">{{ row.success_indicator }} </td>
+                <td style="display:none"></td>
+                <td style="display:none"></td>
+                <td style="">{{ row.accomplishment }}</td>
+                <td class="text-center">
+                  {{ row.quality }}
+                </td>
+                <td class="text-center">
+                  {{ row.efficiency }}
+                </td>
+                <td class="text-center">
+                  {{ row.timeliness }}
+                </td>
+                <td class="text-center">
+                  {{ row.average }}
+                </td>
+                <td></td>
+              </tr>
+            </template>
           </tbody>
         </table>
         <!-- strat and core function end -->
@@ -525,31 +451,32 @@ td {
             </tr>
             <tr>
               <td>Strategic Objectives</td>
-              <td>Total Weight Allocation:20%</td>
-              <td>
-                <b>0.93</b>
+              <td>Total Weight Allocation:{{ core_functions.strat_total_percentage_weight }}%</td>
+              <td class="text-center">
+                <b>{{ core_functions.strat_total_average_rating }}</b>
               </td>
-              <td colspan="3" rowspan="3">
-                <b> 4.51</b>
+              <td colspan="3" rowspan="3" class="text-center">
+                <b> {{ form_status.overall_numerical_rating }} </b>
+                <!-- final numerical rating -->
               </td>
-              <td colspan="2" rowspan="3">
-                <b>OUTSTANDING</b>
+              <td colspan="2" rowspan="3" class="text-center">
+                <b>{{ form_status.overall_adjectival_rating }}</b>
               </td>
 
             </tr>
             <tr>
               <td>Core Functions</td>
-              <td>Total Weight Allocation:60%</td>
-              <td>
-                <b>2.78</b>
+              <td>Total Weight Allocation:{{ core_functions.total_percentage_weight }}%</td>
+              <td class="text-center">
+                <b>{{ core_functions.total_average_rating }}</b>
               </td>
 
             </tr>
             <tr>
               <td>Support Functions</td>
-              <td>Total Weight Allocation:20%</td>
-              <td>
-                <b>0.8</b>
+              <td>Total Weight Allocation:{{ support_functions.total_percentage_weight }}%</td>
+              <td class="text-center">
+                <b>{{ support_functions.total_numerical_rating }}</b>
               </td>
 
             </tr>
@@ -586,19 +513,21 @@ td {
             </tr>
             <tr>
               <td style="text-align:center;width:16%; vertical-align:bottom;">
-                <span style="font-size:11px"><b>FRANZ JOSHUA ALCAZAR VALENCIA </b></span>
+                <span style="font-size:11px" class="uppercase"><b>{{ form_status.sys_employee.full_name_fmle }}</b></span>
               </td>
               <td style="text-align:center;width:16%">
-                <p style="font-size:9px; margin-bottom: 25px;"> I certified that I discussed my assessment of the
-                  performance with the employee:</p>
+                <div class="mb-3" style="font-size:9px;"> I certified that I discussed my assessment of the
+                  performance with the employee:</div>
 
-                <p style="font-size:11px"><b>VERONICA GRACE P. MIRAFLOR</b></p>
+                <span style="font-size:11px"
+                      class="uppercase"><b>{{ form_status.signatories_inputs.immediate_supervisor.full_name_fmle }}</b></span>
               </td>
               <td style="text-align:center;width:16%">
-                <p style="font-size:9px; margin-bottom: 25px;">I certified that I discussed with the employee how they are
-                  rated:</p>
+                <div class="mb-3" style="font-size:9px;">I certified that I discussed with the employee how they are
+                  rated:</div>
 
-                <p style="font-size:11px;"><b>VERONICA GRACE P. MIRAFLOR</b></p>
+                <span style="font-size:11px;"
+                      class="uppercase"><b>{{ form_status.signatories_inputs.department_head.full_name_fmle }}</b></span>
               </td>
               <td style="text-align:center;width:16%;vertical-align:bottom;">
                 <span style="font-size:9px;">
@@ -606,18 +535,18 @@ td {
                 </span>
               </td>
               <td style="text-align:center;width:16%;vertical-align:bottom;">
-                <span style="font-size:11px"><b>JOHN T. RAYMOND, JR.</b></span>
+                <span style="font-size:11px"><b>{{ form_status.signatories_inputs.head_of_agency }}</b></span>
               </td>
               <td style="text-align:center;width:9.2%">
               </td>
             </tr>
-            <tr style="font-size:9px">
-              <td style="text-align:center;width:16%">Ratee</td>
-              <td style="text-align:center;width:16%">Supervisor</td>
-              <td style="text-align:center;width:16%">Department Head</td>
-              <td style="text-align:center;width:16%"></td>
-              <td style="text-align:center;width:16%">Head of Agency</td>
-              <td style="text-align:center;width:9.2%"></td>
+            <tr>
+              <td style="font-size: 9px; text-align:center; width:16%">Ratee</td>
+              <td style="font-size: 9px; text-align:center; width:16%">Supervisor</td>
+              <td style="font-size: 9px; text-align:center; width:16%">Department Head</td>
+              <td style="font-size: 9px; text-align:center; width:16%"></td>
+              <td style="font-size: 9px; text-align:center; width:16%">Head of Agency</td>
+              <td style="font-size: 9px; text-align:center; width:9.2%"></td>
             </tr>
           </thead>
         </table>
@@ -632,7 +561,8 @@ export default {
   props: {
     form_status: null,
     strategic_function: null,
-    rows: null
+    core_functions: null,
+    support_functions: null
   },
   components: {
     // AuthLayout,
@@ -663,7 +593,9 @@ export default {
   },
 
   mounted() {
-
+    console.log(this.form_status);
+    console.log(this.core_functions);
+    console.log(this.support_functions);
   },
 };
 </script>
