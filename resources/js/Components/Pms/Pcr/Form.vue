@@ -13,42 +13,16 @@ td {
 <template>
   <div>
 
-    <div class="border-0 border-round border-indigo-300 p-3">
-      <div class="text-2xl text-center font-bold text-indigo-900 mb-5">{{ formTypes[pms_pcr_status.form_type] }}</div>
-      <p>
-        I, <span class="font-bold">{{ pms_pcr_status.sys_employee.full_name_fmle }}</span> , {{
-          pms_pcr_status.position.position_title
-        }}
-        of the
-        <span class="font-bold">{{ pms_pcr_status.sys_department.full_name }}</span> commit to deliver and agree to be
-        rated on the attainment of the following
-        targets in accordance with the
-        indicated measures for the period {{ pms_pcr_status.period.period }}, {{ pms_pcr_status.period.year }}.
-      </p>
+    <!-- formtype setup start -->
+    <FormTypeEditor />
+    <!-- formtype setup end -->
 
-      <div class="grid text-center">
-        <div class="col">
-          <b>{{ pms_pcr_status.signatories_inputs.immediate_supervisor.full_name }}</b> <br>
-          Immediate Supervisor
-        </div>
-        <div class="col">
-          <b>{{ pms_pcr_status.signatories_inputs.department_head.full_name }}</b> <br>
-          Department Head
-        </div>
-        <div class="col">
-          <b>{{ pms_pcr_status.signatories_inputs.head_of_agency }}</b> <br>
-          Head of Agency
-        </div>
-        <div class="col">
-          <b>{{ pms_pcr_status.date_accomplished }}</b> <br>
-          Date Accomplished
-        </div>
-      </div>
-    </div>
-
+    <!-- signatories setup start -->
+    <SignatoriesEditor :pms_pcr_status="pms_pcr_status" />
+    <!-- signatories setup end -->
 
     <!-- table strategic function start -->
-    <StrategicFunctionEditor :pms_pcr_status="pms_pcr_status"/>
+    <StrategicFunctionEditor :pms_pcr_status="pms_pcr_status" />
     <!-- table strategic function end -->
 
 
@@ -113,38 +87,29 @@ td {
       </tbody>
     </table>
     <!-- table support function end -->
-    <div>Current Count: {{ counter.count }}</div>
-    <Button label="Test Pinia" class="mt-5" @click="increment()"></Button>
   </div>
 </template>
-
 <script>
 
 
-
 import axios from 'axios';
+import FormTypeEditor from '@/Components/Pms/Pcr/FormTypeEditor.vue';
+import SignatoriesEditor from '@/Components/Pms/Pcr/SignatoriesEditor.vue';
 import StrategicFunctionEditor from '@/Components/Pms/Pcr/StrategicFunctionEditor.vue';
 import CodeFunctionsEditor from '@/Components/Pms/Pcr/CoreFunctionsEditor.vue';
-import { useCounterStore } from '@/Stores/counter';
-
-// const counter = useCounterStore()
 
 export default {
   props: ["pms_pcr_status"],
   components: {
+    FormTypeEditor,
+    SignatoriesEditor,
     StrategicFunctionEditor,
     CodeFunctionsEditor
   },
   // emits: ["update:modelValue"],
   data() {
     return {
-      counter: useCounterStore(),
-      formTypes: {
-        ipcr: "INDIVIDUAL PERFORMANCE COMMITMENT AND REVIEW (IPCR)",
-        spcr: "SECTION PERFORMANCE COMMITMENT AND REVIEW (SPCR)",
-        dspcr: "DIVISION PERFORMANCE COMMITMENT AND REVIEW (DSPCR)",
-        dpcr: "DEPARTMENT PERFORMANCE COMMITMENT AND REVIEW (DSPCR)",
-      },
+
       core_functions: {},
       support_functions: {},
       rows: [],
@@ -157,9 +122,6 @@ export default {
     // changeInput(event) {
     //   this.$emit("update:modelValue", event.target.value); // previously was `this.$emit('input', title)`
     // },
-    increment() {
-      this.counter.increment();
-    },
 
     indent(level) {
       var margin = "";

@@ -19,6 +19,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+use App\Models\SysEmployee;
+
+Route::get('/list/employees', function () {
+    return SysEmployee::orderBy('last_name')->get()->toArray();
+});
+
 use App\Models\PmsPeriod;
 
 Route::get('/pms/periods', function () {
@@ -76,7 +82,7 @@ Route::post('/pms/pcr_data', function (Request $request) {
     $pms_pcr_status_id = $request->pms_pcr_status['id'];
     $pms_period_id = $request->pms_pcr_status['pms_period_id'];
     $sys_employee_id = $request->pms_pcr_status['sys_employee_id'];
-    
+
     $core_functions = (new CoreFunctionController)->get_row_data($pms_period_id, $pms_pcr_status_id, $sys_employee_id);
 
     $data = $core_functions;

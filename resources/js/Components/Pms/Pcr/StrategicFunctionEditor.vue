@@ -55,8 +55,7 @@ td {
           <!-- <td colspan="5" class="text-center text-gray-500">No records found!</td> -->
           <td colspan="6" class="text-center">
             <Button class="p-button-sm mr-3" label="Add Accomplishment" @click="add_edit_accomplishment()" />
-            <!-- <Button
-                                  class="p-button-sm p-button-danger"
+            <!-- <Button class="p-button-sm p-button-danger"
                                   label="Not Applicable"
                                   @click="not_applicable()"
                                 /> -->
