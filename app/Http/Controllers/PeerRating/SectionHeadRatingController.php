@@ -106,6 +106,7 @@ class SectionHeadRatingController extends Controller
         $office = PeerRatingOffice::find($section->office_id);
         $ratees = PeerRatingSectionPeer::where('section_id', $section->id)->orderBy('index')->get();
         foreach ($ratees as $index => $ratee) {
+            $ratees[$index]["total"] = $ratee["criteria_0"]+$ratee["criteria_1"]+$ratee["criteria_2"]+$ratee["criteria_3"];
             foreach ($employees as $i => $employee) {
                 if ($ratee['employee_id'] == $employee['id']) {
                     array_splice($employees, $i, 1);

@@ -64,6 +64,7 @@ td {
             >
               {{ `Criteria ${i}` }}
             </th>
+            <th>Total</th>
           </tr>
           <tr>
             <!-- <th></th> -->
@@ -124,6 +125,11 @@ td {
                 </div>
               </td>
             </template>
+            <td>
+                
+                  {{ratee.criteria_0+ratee.criteria_1+ratee.criteria_2+ratee.criteria_3}}
+                
+            </td>
           </tr>
         </table>
         <!-- #####################################    TABLE END   ############################################ -->
