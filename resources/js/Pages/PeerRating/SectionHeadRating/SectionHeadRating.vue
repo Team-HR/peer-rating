@@ -19,6 +19,7 @@ td {
 .check:hover {
   background-color: rgb(197, 227, 247);
 }
+
 </style>
 
 
@@ -55,7 +56,8 @@ td {
           <tr>
             <th rowspan="2">#</th>
             <td rowspan="2"></td>
-            <th class="table-divider" rowspan="2">Name</th>
+            <th class="" rowspan="2">Name</th>
+            <th class="table-divider"></th>
             <th
               class="table-divider"
               colspan="5"
@@ -64,10 +66,9 @@ td {
             >
               {{ `Criteria ${i}` }}
             </th>
-            <th>Total</th>
           </tr>
           <tr>
-            <!-- <th></th> -->
+            <th class="table-divider">Total</th>
             <!-- <th></th> -->
             <!-- <th class="table-divider"></th> -->
             <template v-for="(num, i) in 4" :key="i">
@@ -92,8 +93,11 @@ td {
             <td>
               <a href="#" @click.prevent="remove_peer(ratee.id)">delete</a>
             </td>
-            <td class="table-divider">
+            <td>
               {{ ratee.full_name }}
+            </td>
+            <td class="table-divider text-center">
+               {{ratee.criteria_0+ratee.criteria_1+ratee.criteria_2+ratee.criteria_3}}
             </td>
             <template v-for="(no, i) in 4" :key="i">
               <td
@@ -125,11 +129,6 @@ td {
                 </div>
               </td>
             </template>
-            <td>
-                
-                  {{ratee.criteria_0+ratee.criteria_1+ratee.criteria_2+ratee.criteria_3}}
-                
-            </td>
           </tr>
         </table>
         <!-- #####################################    TABLE END   ############################################ -->
